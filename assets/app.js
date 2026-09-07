@@ -789,14 +789,42 @@ function screenHome(){
     if(!list.length) return;
     var h=el("h2","sec-head");
     h.appendChild(document.createTextNode(regName(reg)));
+    /* טווח המספרים הוא סדר המסלול, לא עיטור */
+    var lo=String(list[0].seq).padStart(2,"0"), hi=String(list[list.length-1].seq).padStart(2,"0");
+    h.appendChild(el("span","range",lo===hi?lo:lo+"–"+hi));
     h.appendChild(el("span","cnt",list.length+" "+t("stations")+" · "+
       list.reduce(function(a,s){return a+total(s);},0)+" "+t("places")));
     main.appendChild(h);
     var grid=el("div","station-grid");
-    list.forEach(function(st){grid.appendChild(stationCard(st));});
+    list.forEach(function(st,i){
+      var card=stationCard(st);
+      if(i===0) card.classList.add("is-lead");   /* הראשונה בכל אזור נפתחת רחב */
+      grid.appendChild(card);
+    });
     main.appendChild(grid);
   });
+  revealPlates();
   say(STATIONS.length+" "+t("stations"));
+}
+
+/* רגע התנועה היחיד בדף: חשיפה מדורגת של הלוחות בכניסה למסך.
+   בלי IntersectionObserver או כשהמשתמש ביקש פחות תנועה, הכיתה
+   js-reveal לא נוספת כלל ולכן אין ממה להתאושש. */
+var wantsMotion=!window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+function revealPlates(){
+  var plates=main.querySelectorAll(".scard");
+  if(!plates.length||!wantsMotion||!("IntersectionObserver" in window)) return;
+  main.classList.add("js-reveal");
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var i=Array.prototype.indexOf.call(e.target.parentNode.children,e.target);
+      e.target.style.setProperty("--d",Math.min(i,5)*70+"ms");
+      e.target.classList.add("is-in");
+      io.unobserve(e.target);
+    });
+  },{rootMargin:"0px 0px -8% 0px",threshold:0.08});
+  Array.prototype.forEach.call(plates,function(p){io.observe(p);});
 }
 
 function stationCard(st){
@@ -804,11 +832,10 @@ function stationCard(st){
   a.href="#s/"+st.id;
   a.style.setProperty("--stationcolor",stColor(st));
   var img=el("img","scene");
-  /* בכרטיס שם התחנה כתוב מיד מתחת, אז התצלום דקורטיבי ולא חוזר עליו */
-  img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,300,118);
-  img.alt=""; img.width=300; img.height=118; img.loading="lazy";
+  /* שם התחנה מוטבע על התצלום, אז התצלום עצמו דקורטיבי ולא חוזר עליו */
+  img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,640,400);
+  img.alt=""; img.loading="lazy"; img.decoding="async";
   a.appendChild(img);
-  a.appendChild(el("div","strip"));
   a.appendChild(el("span","seqbadge",String(st.seq).padStart(2,"0")));
 
   var bd=el("div","scard-body");
@@ -816,14 +843,17 @@ function stationCard(st){
   if(isHe()) bd.appendChild(en2(el("div","scard-sub",st.name)));
   else bd.appendChild(el("div","scard-sub",REGIONS.filter(function(r){return r.id===st.region;}).map(regName)[0]||""));
 
+  /* על הלוח מוצגות רק שלוש הקטגוריות הגדולות. השאר בעמוד התחנה —
+     ארבע עשרה שורות של תגיות על תצלום הן רעש, לא מידע. */
+  var top=CATS.map(function(c){return {c:c,n:(st.poi[c.id]||[]).length};})
+              .filter(function(x){return x.n;})
+              .sort(function(x,y){return y.n-x.n;}).slice(0,3);
   var pr=el("div","pillrow");
-  CATS.forEach(function(c){
-    var n=(st.poi[c.id]||[]).length;
-    if(!n) return;
+  top.forEach(function(x){
     var p=el("span","pill");
-    p.appendChild(icon(c.ic));
-    p.appendChild(document.createTextNode(catName(c)+" "));
-    p.appendChild(el("b",null,String(n)));
+    p.appendChild(icon(x.c.ic));
+    p.appendChild(document.createTextNode(catName(x.c)+" "));
+    p.appendChild(el("b",null,String(x.n)));
     pr.appendChild(p);
   });
   if(total(st)<=5) pr.appendChild(el("span","pill thin",t("thin")));
@@ -846,7 +876,7 @@ function screenStation(st){
   /* ב-hero התצלום הוא התוכן ולא קישוט — הוא מתאר את המקום */
   img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,1140,224);
   img.alt=hasPhoto(st)?photoAlt(st):"";
-  img.style.height="clamp(140px,24vw,224px)";
+  img.style.height="clamp(200px,34vw,380px)";
   hero.appendChild(img);
   var ht=el("div","hero-txt");
   var h1=el("h1","hero-name",stName(st));
