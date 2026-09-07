@@ -8,7 +8,9 @@
  * כאן ההיפך: HTML תמיד מהרשת, והקאש הוא רק רשת ביטחון לניתוק.
  * הנכסים כן נשמרים, אבל הם מגורסאים דרך VERSION, אז דיפלוי חדש מנקה אותם.
  */
-const VERSION = "g1";
+// build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
+// גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
+const VERSION = "dd654681c973";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
@@ -57,16 +59,21 @@ async function networkFirst(request) {
   }
 }
 
-/* נכסים: קאש קודם, והרשת ממלאת. הגרסה בשם הקאש היא מנגנון הביטול. */
-async function cacheFirst(request, cacheName) {
-  const cached = await caches.match(request);
-  if (cached) return cached;
-  const response = await fetch(request);
-  if (response && (response.ok || response.type === "opaque")) {
-    const cache = await caches.open(cacheName);
-    cache.put(request, response.clone());
-  }
-  return response;
+/* נכסים: מגישים מהקאש מיד, ומרעננים ברקע לטעינה הבאה.
+ * חגורה ושלייקס מול חתימת הגרסה: גם אם החתימה לא התחלפה משום מה,
+ * נכס ששונה בשרת ייתפס בטעינה הבאה במקום להיתקע לנצח. */
+async function staleWhileRevalidate(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request);
+  const network = fetch(request)
+    .then((response) => {
+      if (response && (response.ok || response.type === "opaque")) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
+    .catch(() => null);
+  return cached || (await network);
 }
 
 self.addEventListener("fetch", (event) => {
@@ -82,7 +89,7 @@ self.addEventListener("fetch", (event) => {
   // רק המקור שלנו. תחזית מזג האוויר ושערי המטבע חייבים להגיע חיים,
   // ולכן כל בקשה חוצת-מקור עוברת ישר לרשת בלי קאש.
   if (url.origin === self.location.origin) {
-    event.respondWith(cacheFirst(request, ASSETS));
+    event.respondWith(staleWhileRevalidate(request, ASSETS));
   }
 });
 

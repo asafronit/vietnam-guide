@@ -96,6 +96,22 @@ $body = $rest.Substring($bodyIdx)
 $doc = $head + $titleLine + $nl + $headRest + $nl + '</head>' + $nl + '<body>' + $nl + $body + $nl + $tail
 [IO.File]::WriteAllText("$Dest\index.html", $doc, $utf8)
 
+# --- חתימת גרסה ל-service worker ---
+# נגזרת מתוכן הנכסים, לא ממספר שמישהו זוכר להעלות. sw.js נשמר עם
+# תבנית __ASSET_HASH__ בגיט, והבנייה מחליפה אותה — כך שכל שינוי תוכן
+# מבטל את הקאש בלי מגע יד.
+$swSrc = Join-Path $PSScriptRoot 'sw.js'
+if (-not (Test-Path $swSrc)) { $swSrc = "$Dest\sw.js" }
+$sw = Get-Content $swSrc -Raw -Encoding UTF8
+$sw = $sw -replace 'const VERSION = "[^"]*";', 'const VERSION = "__ASSET_HASH__";'
+$fingerprint = (Get-ChildItem "$Dest\assets" -Recurse -File | Sort-Object FullName |
+  ForEach-Object { (Get-FileHash $_.FullName -Algorithm SHA256).Hash }) -join ''
+$fingerprint += (Get-FileHash "$Dest\index.html" -Algorithm SHA256).Hash
+$stream = [IO.MemoryStream]::new([Text.Encoding]::UTF8.GetBytes($fingerprint))
+$hash = (Get-FileHash -InputStream $stream -Algorithm SHA256).Hash.Substring(0, 12).ToLower()
+[IO.File]::WriteAllText("$Dest\sw.js", $sw.Replace('__ASSET_HASH__', $hash), $utf8)
+Write-Host "sw VERSION: $hash"
+
 $kb = [int]((Get-Item "$Dest\index.html").Length / 1KB)
 Write-Host "index.html: $kb KB"
 Get-ChildItem "$Dest\assets" -File | ForEach-Object { Write-Host ("  assets/{0}  {1} KB" -f $_.Name, [int]($_.Length/1KB)) }
