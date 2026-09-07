@@ -1,0 +1,7 @@
+# GitHub Pages מתעלם מהקובץ הזה; הוא כאן למקרה של מעבר ל-Cloudflare Pages.
+# ה-HTML חייב תמיד לעבור אימות מחדש, אחרת דיפלוי חדש לא מגיע למכשיר.
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/*
+  Cache-Control: public, max-age=604800

@@ -1,0 +1,6189 @@
+const POI_DATA = {
+  "hanoi": {
+    "id": "hanoi",
+    "name": "Hanoi",
+    "region": "north",
+    "seq": 1,
+    "lat": 21.0285,
+    "lng": 105.8522,
+    "color": "#e6194b",
+    "counts": {
+      "hotels": 6,
+      "must_see": 3,
+      "attractions": 2,
+      "food": 0,
+      "street_food": 6,
+      "restaurants": 4,
+      "markets": 2,
+      "nightlife": 2,
+      "spa": 2,
+      "logistics": 1
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Peridot Grand Luxury Boutique",
+          "area": "Hoan Kiem, Old Quarter",
+          "what": "A 5-star boutique hotel a few minutes' walk from Hoan Kiem Lake, with a rooftop pool and bar looking over the Old Quarter roofline.",
+          "why": "Best rating-to-location ratio of any hotel in the four agent proposals",
+          "lat": 21.0330476,
+          "lng": 105.8462971,
+          "approx": false,
+          "sources": [
+            "https://www.booking.com/hotel/vn/peridot-grand-amp-spa-by-aira-hoan-kiem1.html",
+            "https://guide.michelin.com/en/hotels-stays/hanoi"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 80,
+          "priceHigh": 137,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "GM Premium Hotel",
+          "area": "Hoan Kiem, Old Quarter",
+          "what": "A small Indochine-style hotel a short walk from Hoan Kiem Lake, with a rooftop pool and bar and a lobby styled like a private residence rather than a chain hotel.",
+          "why": "Markets itself as 5-star and is priced and reviewed like one, but the rating is self-declared rather than issued by a tourism authority",
+          "lat": 21.0307612,
+          "lng": 105.8481999,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293924-d24001394-Reviews-GM_Premium_Hotel-Hanoi.html",
+            "https://www.agoda.com/gm-premium-hotel_2/hotel/hanoi-vn.html",
+            "https://guide.michelin.com/en/hotels-stays/hoan-kiem/gm-premium-hotel-15158"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 58,
+          "priceHigh": 162,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Aurora Premium - A Lifestyle Hotel",
+          "area": "Hoan Kiem, Old Quarter",
+          "what": "A 4-star hotel on Hang Be street a hundred metres from the Thang Long Water Puppet Theatre, with a spa, sauna and rooftop terrace. Previously traded as Delicacy Central Hotel & Spa.",
+          "why": "Officially rated 4-star with consistently strong reviews and a central Old Quarter address",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.hotel.com.au/hanoi/aurora-premium-a-lifestyle-hotel.htm",
+            "https://www.tripadvisor.com/Hotel_Review-g293924-d657673-Reviews-Aurora_Premium_A_Lifestyle_Hotel-Hanoi.html",
+            "https://www.priceline.com/hotel-deals/en-us/P5000042691/H89582603/aurora-premium-a-lifestyle-hotel.ssp"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 49,
+          "priceHigh": 90,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "La Sinfonia del Rey Hotel & Spa",
+          "area": "Hoan Kiem, opposite Hoan Kiem Lake",
+          "what": "A neoclassical-styled hotel directly across from Hoan Kiem Lake, with a sky bar and a lake-view restaurant on the upper floors.",
+          "why": "Unbeatable lake-front position; guest reviews and marketing describe it as 5-star but third-party listings place it at 4-star, so treat the rating as self-promoted",
+          "lat": 21.0311556,
+          "lng": 105.8541135,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293924-d17627438-Reviews-La_Sinfonia_del_Rey_Hotel_Spa-Hanoi.html",
+            "https://www.booking.com/hotel/vn/la-sinfonia-del-rey-amp-spa.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 55,
+          "priceHigh": 130,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Hanoi Amorita Boutique Hotel & Travel",
+          "area": "Old Quarter, 2 minutes from Hoan Kiem Lake",
+          "what": "A small 25-room hotel two minutes' walk from Hoan Kiem Lake, with hardwood-furnished rooms and balconies overlooking the Old Quarter streets.",
+          "why": "Officially rated 3-star with an unusually high review score (9.3+) for its price bracket",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.booking.com/hotel/vn/hanoi-royal-view.html",
+            "https://www.tripadvisor.com/Hotel_Review-g293924-d12404290-Reviews-Amorita_Boutique_Hotel-Hanoi.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 30,
+          "priceHigh": 55,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Hanoi La Storia Hotel",
+          "area": "Old Quarter, near Hang Ma Street and Dong Xuan Market",
+          "what": "An 18-room hotel on a quiet Old Quarter street four minutes' walk from Dong Xuan Market, with soundproofed rooms and an in-room computer in some categories.",
+          "why": "Officially rated 3.0-star with a genuine budget price point and strong, if imperfect, reviews",
+          "lat": 21.0357127,
+          "lng": 105.847721,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293924-d12154091-Reviews-Hanoi_La_Storia_Hotel-Hanoi.html",
+            "https://www.traveloka.com/en-en/hotel/vietnam/hanoi-la-storia-hotel--4000000389115"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 25,
+          "priceHigh": 50,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Hoan Kiem Lake",
+          "area": "Hoan Kiem",
+          "what": "The lake at the centre of old Hanoi, with a small red bridge to a temple island. Locals walk and exercise around it at first light.",
+          "why": "The city organises itself around this lake, and walking it is free",
+          "lat": 21.0288313,
+          "lng": 105.8525357,
+          "approx": false,
+          "sources": [
+            "https://en.wikipedia.org/wiki/Ho%C3%A0n_Ki%E1%BA%BFm_Lake"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Temple of Literature",
+          "area": "Dong Da, Van Mieu street",
+          "what": "A walled 2.5-hectare Confucian temple complex founded in 1070, with five courtyards, stone stelae on turtle bases recording centuries of exam graduates, and a wooden hall dedicated to Confucius.",
+          "why": "Vietnam's first national university and one of Hanoi's oldest intact historical sites",
+          "lat": 21.0287903,
+          "lng": 105.8359533,
+          "approx": true,
+          "sources": [
+            "https://en.wikipedia.org/wiki/Temple_of_Literature,_Hanoi"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Hoa Lo Prison Museum",
+          "area": "Hoan Kiem, Hoa Lo street",
+          "what": "A preserved wing of a French colonial-era prison built in 1896, nicknamed the \"Hanoi Hilton\" by American POWs held there in the 1960s-70s. Exhibits include a guillotine and the cell blocks used to hold Vietnamese independence activists.",
+          "why": "A blunt, unfiltered look at both the colonial and American-war periods of Vietnamese history, in the middle of the modern city",
+          "lat": 21.0254222,
+          "lng": 105.8465093,
+          "approx": false,
+          "sources": [
+            "https://www.lonelyplanet.com/vietnam/hanoi/attractions/hoa-lo-prison-museum/a/poi-sig/1141862/357880"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Vietnam Museum of Ethnology",
+          "area": "Cau Giay, about 8km from the Old Quarter",
+          "what": "An open-air and indoor museum on the 54 officially recognised ethnic groups of Vietnam, with full-size reconstructed stilt houses and tombs in the garden and 15,000+ artifacts inside.",
+          "why": "The single best introduction to the hill-tribe cultures the trip later passes through in Sapa and Ha Giang",
+          "lat": 21.0400774,
+          "lng": 105.7988403,
+          "approx": false,
+          "sources": [
+            "https://en.wikipedia.org/wiki/Vietnam_Museum_of_Ethnology"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Hanoi Train Street coffee shops",
+          "area": "Old Quarter, Phung Hung / Le Duan",
+          "what": "A row of narrow-gauge cafes squeezed along an active railway corridor; twice a day a train passes within arm's reach of the tables and everyone pulls their chairs back against the walls.",
+          "why": "A genuinely strange, camera-ready five minutes, though access has tightened to a store-led system after past crowd-safety closures",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://shippedaway.com/hanoi-train-street/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [],
+      "street_food": [
+        {
+          "name": "Bun Cha Huong Lien",
+          "area": "Hai Ba Trung",
+          "what": "A plain three-storey shop that has grilled pork patties over charcoal since the 1990s, served in a bowl of broth with noodles and herbs.",
+          "why": "Michelin Bib Gourmand, and the dish Hanoi is best known for",
+          "lat": 21.0180504,
+          "lng": 105.8538843,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/vn/en/ha-noi-municipality/hanoi/restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Pho Gia Truyen (Bat Dan)",
+          "area": "49 Bat Dan Street, Cua Dong Ward, Hoan Kiem",
+          "what": "A bare-bones pho shop where you queue at the counter, pay first and carry your own bowl to a shared table. Beef only, in three cuts - flank, round steak and brisket.",
+          "why": "The Old Quarter's benchmark beef pho and a Bib Gourmand; the queue at 07:00 is the review",
+          "lat": 21.0336377,
+          "lng": 105.8463792,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/en/vn/ha-noi/ha-noi_2974158/restaurants/bib-gourmand",
+            "https://e.vnexpress.net/photo/food-recipes/hanois-best-pho-michelin-guide-picks-4931684.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Pho Ga Nguyet",
+          "area": "5B Phu Doan Street, Hang Trong Ward, Hoan Kiem",
+          "what": "A chicken-pho counter that lets you pick the cut - thigh, breast, or the whole lot with egg - in a clear broth. Open late, past midnight.",
+          "why": "The one pho address on this list that is still serving at 23:00, which matters on an arrival night",
+          "lat": 21.0302913,
+          "lng": 105.8476483,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/vn/en/ha-noi/ha-noi_2974158/restaurant/pho-ga-nguyet",
+            "https://guide.michelin.com/en/vn/ha-noi/ha-noi_2974158/restaurants/bib-gourmand"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Tuyet Bun Cha 34",
+          "area": "34 Hang Than Street, Nguyen Trung Truc Ward, Ba Dinh",
+          "what": "A small bun cha stall where the pork is chargrilled to order rather than held warm, served with a bowl of dipping broth and a plate of herbs.",
+          "why": "Michelin inspectors singled it out for grilling to order - the difference between good bun cha and reheated bun cha",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/en/vn/ha-noi/ha-noi_2974158/restaurants/bib-gourmand",
+            "https://guide.michelin.com/vn/en/article/dining-out/michelin-guide-inspectors-reveal-their-favourite-street-food-in-hanoi"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Banh Cuon Gia Truyen Thanh Van (Hang Ga)",
+          "area": "Hang Ga Street, Hoan Kiem",
+          "what": "Rice batter steamed into paper-thin sheets to order over a cloth-covered pot, rolled around minced pork and wood-ear mushroom, eaten with fish sauce and fried shallot.",
+          "why": "A breakfast dish you have to watch being made, and the Old Quarter's Bib Gourmand address for it",
+          "lat": 21.0360528,
+          "lng": 105.8471707,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/en/vn/ha-noi/ha-noi_2974158/restaurants/bib-gourmand",
+            "https://guide.michelin.com/en/ha-noi/ha-noi_2974158/restaurant/banh-cuon-gia-truyen-thanh-van-hang-ga-street"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Pho Khoi Hoi",
+          "area": "Hoan Kiem",
+          "what": "A pho shop of more than three decades, named after the owner's bald head, that joined the Bib Gourmand list in the most recent selection.",
+          "why": "A locals' pho that the guide reached only recently, so it has not yet been reshaped by tourist traffic",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/en/vn/ha-noi/ha-noi_2974158/restaurants/bib-gourmand",
+            "https://vietnamnet.vn/en/michelin-honors-hanoi-s-pho-khoi-hoi-on-bib-gourmand-list-2300221.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "restaurants": [
+        {
+          "name": "Cha Ca Thang Long",
+          "area": "Old Quarter, Duong Thanh street",
+          "what": "A no-frills shop where turmeric-marinated fish is grilled tableside on a charcoal brazier, then finished in a pan with dill and spring onion and served over rice noodles.",
+          "why": "Michelin Bib Gourmand and the most consistently recommended cha ca address left in the Old Quarter",
+          "lat": 21.033293,
+          "lng": 105.8459895,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/us/en/ha-noi/ha-noi_2974158/restaurant/cha-ca-thang-long"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Gia",
+          "area": "Tay Ho (West Lake)",
+          "what": "A small tasting-menu restaurant built around a chef's-table kitchen, serving a set multi-course menu that reworks Vietnamese ingredients in a modern fine-dining format.",
+          "why": "One of Vietnam's first Michelin-starred restaurants (awarded 2025, retained 2026), and Hanoi's clearest high-end tasting-menu option",
+          "lat": 21.0205027,
+          "lng": 105.7639271,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/us/en/article/michelin-guide-ceremony/michelin-guide-vietnam-2026"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "international",
+          "signal": "michelin_star",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Luk Lak",
+          "area": "Hai Ba Trung",
+          "what": "A sit-down Vietnamese restaurant in a colonial-era villa, run by a chef who cooked for the diplomatic corps, serving regional dishes as a full menu rather than a single speciality.",
+          "why": "The one address here that works as a proper dinner with a table and a wine list while still being Bib Gourmand priced",
+          "lat": 21.0225054,
+          "lng": 105.8575276,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/en/vn/ha-noi/ha-noi_2974158/restaurants/bib-gourmand",
+            "https://en.vietnamplus.vn/michelin-guide-unveils-2024-bib-gourmand-selection-for-hanoi-hcm-city-post289000.vnp"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Uu Dam Chay",
+          "area": "Hoan Kiem",
+          "what": "A multi-floor vegetarian kitchen that rebuilds Vietnamese classics without meat or fish sauce, presented as a full plated menu.",
+          "why": "The only Bib Gourmand vegetarian address in Hanoi, and the fallback when a meat-heavy week has run its course",
+          "lat": 21.0187719,
+          "lng": 105.84814,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/en/vn/ha-noi/ha-noi_2974158/restaurants/bib-gourmand",
+            "https://happyvietnamtours.com/blogs/news/michelin-guide-vietnam-2024-michelin-star-bib-gourmand"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "markets": [
+        {
+          "name": "Dong Xuan Market",
+          "area": "Old Quarter, 600m north of Hoan Kiem Lake",
+          "what": "Hanoi's largest covered market, three floors and five linked pavilion halls over 6,500 square metres, selling everything from textiles and household goods to a ground-floor food and produce section.",
+          "why": "The working market Hanoians actually shop at, not a tourist-only stall row",
+          "lat": 21.0382556,
+          "lng": 105.849671,
+          "approx": false,
+          "sources": [
+            "https://en.wikipedia.org/wiki/%C4%90%E1%BB%93ng_Xu%C3%A2n_Market"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Hanoi Weekend Night Market",
+          "area": "Old Quarter, Hang Dao / Hang Ngang / Hang Luoc streets",
+          "what": "A near-3km stretch of Old Quarter streets closed to traffic on Friday, Saturday and Sunday evenings and filled with clothing and souvenir stalls, street food carts, and impromptu street performances.",
+          "why": "Only runs three nights a week, so it is worth timing the Hanoi stay around if the dates line up",
+          "lat": 21.0335078,
+          "lng": 105.8509571,
+          "approx": false,
+          "sources": [
+            "https://vinpearl.com/en/hanoi-weekend-night-market"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [
+        {
+          "name": "The Haflington",
+          "area": "Off Hang Ma Street, Old Quarter, Hoan Kiem",
+          "what": "A hidden cocktail bar reached down a narrow corridor and up through the floors of a French colonial building, with a whisky reserve of roughly 200 labels and a signature oyster-and-whisky pairing.",
+          "why": "The first bar in Vietnam ever to enter Asia's 50 Best Bars, and the one place here that is a destination rather than a drink",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.asia-bars.com/2026/05/top-12-hanoi-cocktail-bars-visit-2026/",
+            "https://www.tripadvisor.com/Attractions-g293924-Activities-c20-t99-Hanoi.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Ta Hien Beer Street (Bia Hoi Junction)",
+          "area": "Ta Hien and Luong Ngoc Quyen, Old Quarter",
+          "what": "A pedestrianised corner where plastic stools spill across the road each evening and fresh unpasteurised draught beer is poured from the keg for about 15,000 VND a glass.",
+          "why": "Not a bar but the city's open-air living room, and the cheapest beer you will ever drink sitting down",
+          "lat": 21.0341902,
+          "lng": 105.852079,
+          "approx": false,
+          "sources": [
+            "https://www.hanoitourism.org/hanoi-bia-hoi-guide/",
+            "https://www.tripadvisor.com/Attractions-g293924-Activities-c20-t99-Hanoi.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "spa": [
+        {
+          "name": "Orient Spa Hanoi",
+          "area": "Old Quarter, Hoan Kiem (four branches)",
+          "what": "A spa group running four branches inside the Old Quarter, offering foot and body massage, deep tissue work, and packages that combine massage with a hair wash.",
+          "why": "The most consistently reviewed chain in the Old Quarter, and having four branches means one is always within walking distance of wherever the day ended",
+          "lat": 21.0289459,
+          "lng": 105.8487425,
+          "approx": false,
+          "sources": [
+            "https://www.orientspahanoi.com/",
+            "https://www.tripadvisor.com.sg/Attraction_Review-g293924-d24090474-Reviews-Hanoi_Old_Quarter_Spa-Hanoi.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Nap Spa",
+          "area": "Old Quarter, Hoan Kiem",
+          "what": "A small Old Quarter spa whose foot massage and Vietnamese \"nourishing shampoo\" head-and-scalp treatment draw the strongest traveller reviews in the district.",
+          "why": "The head-wash treatment is a Vietnamese ritual with no real equivalent at home, and it costs less than a coffee does in Tel Aviv",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/ShowUserReviews-g293924-d26685192-r945284663-Nap_Spa_Nourishing_Shampoo-Hanoi.html",
+            "https://asiamystika.com/blog/hanoi-massage"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "logistics": [
+        {
+          "name": "Noi Bai Airport to Old Quarter transfer",
+          "area": "Noi Bai International Airport to Hoan Kiem",
+          "what": "The airport sits about 27-30km north of the Old Quarter; a metered taxi or pre-booked private transfer takes 30-40 minutes off-peak (up to 90 in traffic) and costs roughly 300,000-350,000 VND, while a Grab typically comes in cheaper at around 240,000-250,000 VND plus tolls.",
+          "why": "The first and last transfer of the whole trip, and the one most worth pre-booking to skip the arrivals-hall taxi touts",
+          "lat": 21.2188925,
+          "lng": 105.8044596,
+          "approx": false,
+          "sources": [
+            "https://eternalarrival.com/grab-at-hanoi-airport-noi-bai/",
+            "https://unchartedlens.com/routes/vietnam/hanoi-airport-to-city-transport-comparison/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "ha-giang": {
+    "id": "ha-giang",
+    "name": "Ha Giang",
+    "region": "north",
+    "seq": 2,
+    "lat": 22.8278,
+    "lng": 104.9839,
+    "color": "#f58231",
+    "counts": {
+      "hotels": 5,
+      "must_see": 3,
+      "attractions": 3,
+      "food": 2,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 2,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 1
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Four Points by Sheraton Ha Giang",
+          "area": "Ha Giang City centre",
+          "what": "A 151-room international-brand hotel opened as Ha Giang's first Marriott property, with an indoor four-season pool, spa, gym and a rooftop bar overlooking the city and surrounding mountains.",
+          "why": "The only hotel in Ha Giang province officially awarded 5-star status by the Vietnam National Authority of Tourism, and the natural start/end point for the loop",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vietnamnews.vn/brandinfo/1719536/first-hotel-in-ha-giang-earns-5-star-rating-expected-to-drive-regional-tourism-growth.html",
+            "https://www.booking.com/hotel/vn/four-points-by-sheraton-ha-giang.html",
+            "https://www.marriott.com/en-us/hotels/hanhp-four-points-ha-giang/overview/"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 64,
+          "priceHigh": 120,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Yen Bien Luxury Hotel",
+          "area": "Ha Giang City, on the Lo river",
+          "what": "A 125-room hotel with large windows facing the city or mountains, an outdoor seasonal pool and a fitness centre, popular as a pre- or post-loop base.",
+          "why": "Officially rated 4-star, with an unusually high review score for a provincial-capital hotel",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://en.planetofhotels.com/vietnam/ha-giang/yen-bien-luxury-hotel",
+            "https://www.tripadvisor.com/Hotel_Review-g1544599-d23300625-Reviews-Yen_Bien_Luxury_Hotel_Wedding-Ha_Giang_Ha_Giang_Province.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 33,
+          "priceHigh": 65,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "De La Mont Hotel Ha Giang",
+          "area": "Ha Giang City, near the Km 0 milestone",
+          "what": "A newly built 50-room hotel a short walk from the Ha Giang Km 0 milestone where most loop tours start, with private-balcony rooms, a rooftop sky bar and an outdoor pool.",
+          "why": "Officially rated 4-star and priced well under the luxury-tier hotels, with consistently strong early reviews",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g1544599-d34062803-Reviews-De_La_Mont_Hotel_Ha_Giang-Ha_Giang_Ha_Giang_Province.html",
+            "https://www.traveloka.com/en-en/hotel/vietnam/de-la-mont-hotel-ha-giang-9000007871420"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 29,
+          "priceHigh": 39,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Silk River Hotel Ha Giang",
+          "area": "Ha Giang City, Nguyen Trai street",
+          "what": "A garden hotel on the main street through Ha Giang City, with air-conditioned rooms, a restaurant and bar, popular with loop riders needing a bike-adjacent place to leave gear.",
+          "why": "Officially rated 3-star, genuinely cheap, and consistently well reviewed by loop riders specifically",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g1544599-d23617781-Reviews-Silk_River_Hotel_Ha_Giang-Ha_Giang_Ha_Giang_Province.html",
+            "https://www.booking.com/hotel/vn/silk-river-ha-giang-ha-giang.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 30,
+          "priceHigh": 42,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Phuc Lam Hotel",
+          "area": "Ha Giang City",
+          "what": "A new, plainly built hotel in Ha Giang City with unusually large rooms for the price, a garden terrace and bar.",
+          "why": "Officially rated 3-star and the cheapest of the credibly-sourced Ha Giang hotels, with strong recent review scores",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g1544599-d26027206-Reviews-Phuc_Lam_Hotel-Ha_Giang_Ha_Giang_Province.html",
+            "https://www.booking.com/hotel/vn/phuc-lam-thanh-pho-ha-giang.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 22,
+          "priceHigh": 40,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Ma Pi Leng Pass",
+          "area": "National Road 4C, between Dong Van and Meo Vac",
+          "what": "A 20km stretch of road called the \"Happiness Road\", carved into a sheer limestone cliff face at over 2,000m, hugging the mountainside with a straight drop of hundreds of metres to the turquoise Nho Que River below.",
+          "why": "One of Vietnam's \"Four Great Passes\" and the single most photographed stretch of the entire Ha Giang loop",
+          "lat": 23.2419571,
+          "lng": 105.3979217,
+          "approx": true,
+          "sources": [
+            "https://en.wikipedia.org/wiki/M%C3%A3_P%C3%AD_L%C3%A8ng_Pass"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Lung Cu Flag Tower",
+          "area": "Lung Cu commune, Dong Van district",
+          "what": "A 34.85m octagonal tower on a peak near Vietnam's northernmost point, flying a red flag with a yellow star that covers 54 square metres, one for each recognised ethnic group. Reached by roughly 280-800 stone steps depending on where you park.",
+          "why": "The symbolic \"top of Vietnam\" and a standard end-goal of the loop's northern leg",
+          "lat": 23.3634614,
+          "lng": 105.3163342,
+          "approx": true,
+          "sources": [
+            "https://en.wikipedia.org/wiki/Lung_Cu_Flag_Tower"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Dong Van Old Quarter",
+          "area": "Dong Van town",
+          "what": "A cluster of around 40 century-old houses with yellow clay walls, wooden frames and tiled roofs, built as a French colonial-era trading post at 1,000-1,600m in the middle of the karst plateau.",
+          "why": "The loop's most atmospheric overnight town, and the base for the Sunday market and Lung Cu day trip",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://en.wikivoyage.org/wiki/Dong_Van"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Ha Giang Loop (self-drive or easy-rider motorbike route)",
+          "area": "Circuit from Ha Giang City through Quan Ba, Yen Minh, Dong Van, Meo Vac",
+          "what": "A roughly 350-400km loop of mountain roads through the Dong Van Karst Plateau Geopark, ridden over 3-4 days either as the driver (own or rented manual motorbike) or as a passenger behind a local \"easy rider\" guide.",
+          "why": "The reason this region is on the route at all — hairpin passes, terraced valleys and H'mong villages are only reachable this way",
+          "lat": 22.8372564,
+          "lng": 105.01257,
+          "approx": true,
+          "sources": [
+            "https://vietnammotorcycletours.com/ha-giang-loop-vietnams-ultimate-motorbike-adventure"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Nho Que River boat trip, Tu San Canyon",
+          "area": "Xin Cai / Ta Lang wharf, below Ma Pi Leng Pass",
+          "what": "A roughly 30-minute boat ride on the emerald-green Nho Que River, gliding beneath the towering rock walls of Tu San Canyon, reached by a side road 5-7km past the Ma Pi Leng viewpoint.",
+          "why": "A sit-down, water-level view of the same canyon the road looks down into from above, and a break from riding",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/nho-que-river/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Du Gia village and waterfall",
+          "area": "Du Gia commune, about 70km from Ha Giang City",
+          "what": "A Tay ethnic village of wooden stilt houses in a rice-field valley, with a swimmable turquoise-pooled waterfall a short walk away; usually reached only by motorbike or car since there is no direct bus.",
+          "why": "The loop's quiet counterpoint to Dong Van/Meo Vac — a slower, greener detour with a place to swim",
+          "lat": 22.9329158,
+          "lng": 105.2233287,
+          "approx": true,
+          "sources": [
+            "https://www.vietnamcoracle.com/to-day-du-gia-village-independent-review/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Ha Giang-style banh cuon (in broth)",
+          "area": "Ha Giang City, Ly Tu Trong street, and Dong Van market stalls",
+          "what": "Steamed rice-flour rolls filled with minced pork and wood-ear mushroom, served not with the usual dipping fish sauce but floating in a hot pork-bone broth.",
+          "why": "A distinct regional variant of a dish found nationwide, and one of the cheapest hot meals on the loop",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.handspan.com/en/foods-in-ha-giang.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Thang co",
+          "area": "Dong Van, Meo Vac and Lung Cu markets",
+          "what": "A H'mong stew of horse, beef or goat meat and offal, simmered for hours with a spice mix of around a dozen ingredients into a dark, strongly-flavoured broth, traditionally ladled from a communal pot at market.",
+          "why": "The signature dish of the loop's Sunday markets, and about as far from lowland Vietnamese cooking as the food on this trip gets",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vietnam.travel/things-to-do/local-unpacked-one-kind-cuisine-ha-giang-karst-plateau"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Dong Van Sunday Market",
+          "area": "Dong Van Old Quarter",
+          "what": "A weekly Sunday-morning market where H'mong, Tay, Dao, Nung and Lo Lo traders from the surrounding mountains sell produce, livestock, textiles and handicrafts in the streets around the old quarter.",
+          "why": "The most accessible of the region's ethnic markets, held right where most loop itineraries already overnight",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://seniworld.com/dong-van-market/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Meo Vac Sunday Market",
+          "area": "Meo Vac town centre",
+          "what": "A weekly market from roughly 4am to 4pm where 17 ethnic minority groups trade produce and livestock; the cattle-and-buffalo trading area is the market's best-known section.",
+          "why": "Larger and more livestock-focused than Dong Van's market, and sits at the loop's most dramatic overnight stop below Ma Pi Leng",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.colorfuljourneys.com/articles/visit-meo-vac-market-ha-giang"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Border Area Entry Permit for the Ha Giang loop",
+          "area": "Quan Ba, Yen Minh, Dong Van and Meo Vac districts",
+          "what": "A permit required for foreign travellers entering these border districts, costing roughly 200,000-250,000 VND (about $10) and checked at checkpoints and hotel registration; most easy-rider and tour operators arrange it as part of the booking, or it can be obtained at the Ha Giang City immigration office.",
+          "why": "Not optional and increasingly enforced from mid-2026 — worth confirming with whichever operator books the loop before departure",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://bongbackpackerhostel.com/blog/ha-giang-loop/border-permit-for-the-ha-giang-loop-in-2026-the-new-rule-every-traveler-needs-to-know",
+            "https://www.timeout.com/asia/news/ha-giang-loop-permits-what-travellers-need-to-know-before-riding-vietnams-famous-mountain-route-061426"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "sapa": {
+    "id": "sapa",
+    "name": "Sapa",
+    "region": "north",
+    "seq": 3,
+    "lat": 22.3364,
+    "lng": 103.844,
+    "color": "#ffe119",
+    "counts": {
+      "hotels": 6,
+      "must_see": 3,
+      "attractions": 1,
+      "food": 1,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 1,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 1
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Silk Path Grand Sapa Resort & Spa",
+          "area": "Sapa town, above Sun Plaza",
+          "what": "A 152-room hillside resort with an indoor pool, full-service spa and two restaurants, one of the largest true luxury properties in Sapa town.",
+          "why": "Officially 5-star and the highest-rated large luxury property in Sapa; priced far below Hanoi/HCMC 5-stars",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g311304-d12843531-Reviews-Silk_Path_Grand_Sapa_Resort_Spa-Sapa_Lao_Cai_Province.html",
+            "https://www.orbitz.com/Sa-Pa-Hotels-Silk-Path-Grand-Resort-Spa-Sapa.h19674739.Hotel-Information"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 76,
+          "priceHigh": 200,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Pao's Sapa Leisure Hotel",
+          "area": "Sapa town hillside, Muong Hoa Valley view",
+          "what": "A 223-room resort built into the hillside with terrace views over the Muong Hoa rice-terrace valley and Fansipan, run by CTX Holdings.",
+          "why": "Ranked #3 of 180+ Sapa hotels on Tripadvisor and independently confirmed as officially 5-star; note that several reviewers say the room quality feels closer to a solid 3-star by Western standards, so treat the rating as location- and facility-driven rather than a guarantee of finish quality",
+          "lat": 22.3270114,
+          "lng": 103.8466396,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g311304-d12786956-Reviews-Pao_s_Sapa_Leisure_Hotel-Sapa_Lao_Cai_Province.html",
+            "https://www.trip.com/hotels/sapa-hotel-detail-10540093/pao-s-sapa-leisure-hotel/"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 90,
+          "priceHigh": 180,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Pistachio Hotel Sapa",
+          "area": "Sapa town, near Fansipan Legend cable car station",
+          "what": "A 4-star hotel with Sapa's highest rooftop infinity pool (seasonal) next to the Fansi Sky Bar, looking out over Fansipan and the Muong Hoa Valley.",
+          "why": "The best-reviewed straightforward 4-star in town, and the master-spec upgrade pick over the mould-flagged Bamboo Sapa",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g311304-d15246389-Reviews-Pistachio_Hotel_Sapa-Sapa_Lao_Cai_Province.html",
+            "https://www.readytotrip.com/hotels/Vietnam/Lao%20Cai/Sa%20Pa/pistachio-hotel-sapa/"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 104,
+          "priceHigh": 180,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Aliana Boutique Sapa Hotel & Spa",
+          "area": "Sapa town",
+          "what": "A boutique hotel with a heated pool, spa and mountain-view rooms, previously traded as Aira Boutique Sapa Hotel & Spa.",
+          "why": "Ranked #9 of 188 Sapa hotels with a very high review volume; some platforms round its self-described \"4.5-star\" positioning up to 5, so treat the star figure as boutique marketing rather than an official grade",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g311304-d12158095-Reviews-ALIANA_Boutique_Sapa_Hotel_Spa-Sapa_Lao_Cai_Province.html",
+            "https://asiamystika.com/blog/aliana-boutique-sapa-hotel-and-spa"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 60,
+          "priceHigh": 120,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Sapa Centre Hotel",
+          "area": "Sapa town, 20m from Sun Plaza",
+          "what": "A small central hotel a few steps from Sun Plaza, the town's main square, with clean simple rooms and an on-site restaurant and bar.",
+          "why": "Officially 3-star with an unusually high review score (9.4-9.5) for its price point and the most central location on this list",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.booking.com/hotel/vn/sapa-centre.html",
+            "https://www.hotelscombined.com/Hotel/Sapa_Centre_Hotel.htm"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 32,
+          "priceHigh": 55,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Ladybird Boutique Hotel Sapa",
+          "area": "Sapa town, near Ham Rong Flower Garden and Sapa railway station",
+          "what": "A small hotel near the Ham Rong Flower Garden with a lounge bar and sundeck, and rooms looking toward Sapa station and Fansipan.",
+          "why": "Officially 3-star with strong, consistent reviews (8.9-9.5) across multiple booking platforms",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g311304-d13006727-Reviews-Ladybird_Sapa_Hotel-Sapa_Lao_Cai_Province.html",
+            "https://www.hotelscombined.com/Hotel/Ladybird_Sapa_Hotel.htm"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 38,
+          "priceHigh": 55,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Fansipan cable car and Muong Hoa mountain train",
+          "area": "Sun Plaza, Sapa town, to Fansipan summit",
+          "what": "A combined mountain train (Sun Plaza to Muong Hoa station) and a 6.3km cable car climbing to near the summit of Fansipan, at 3,143m the highest peak in Indochina, with a pagoda complex at the top station.",
+          "why": "The easiest way to stand on the \"Roof of Indochina\" without a multi-day trek, and the combo ticket includes both legs",
+          "lat": 22.3218699,
+          "lng": 103.7995338,
+          "approx": true,
+          "sources": [
+            "https://junglebosstours.com/explorer/tourism-blog/fansipan-mountain-sapa"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Cat Cat Village",
+          "area": "San Sa Ho commune, about 3km from Sapa town",
+          "what": "A Black H'mong village at the entrance to the Muong Hoa Valley, founded in the mid-19th century, with three streams meeting at Cat Cat waterfall and two chain footbridges crossing it.",
+          "why": "The most accessible ethnic-minority village from Sapa town, walkable in an afternoon",
+          "lat": 22.3309642,
+          "lng": 103.8340516,
+          "approx": false,
+          "sources": [
+            "https://vinpearl.com/en/cat-cat-village-sapa"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Sapa Stone Church and Sun Plaza",
+          "area": "Central Sapa town",
+          "what": "A Roman-Gothic stone church built in 1926-1935 at the foot of Ham Rong mountain, facing the paved square (Sun Plaza) that functions as the town's social centre and the starting point for the mountain train.",
+          "why": "The literal centre of Sapa town and the anchor point for the Saturday night market",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://en.wikipedia.org/wiki/Sa_Pa"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Black H'mong village trek, Muong Hoa Valley",
+          "area": "Muong Hoa Valley, villages south of Sapa town (Lao Chai, Ta Van)",
+          "what": "A half- or full-day guided walk on dirt paths through terraced rice fields and H'mong/Dao villages in the valley below Sapa, usually led by a local Hmong or Dao woman guide.",
+          "why": "The most substantive way to see the terrace landscape and meet local families rather than just photograph the valley from a viewpoint",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.ethosspirit.com/sapa-trekking-ethical-tours"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Thang Co A Quynh",
+          "area": "15 Thach Son Street, Sapa town",
+          "what": "A long-running local restaurant serving thang co, the H'mong horse-meat and offal stew simmered with highland herbs, alongside other mountain specialities.",
+          "why": "The most consistently recommended address in Sapa for this specific regional dish, with an established following on Tripadvisor and local guides alike",
+          "lat": 22.3360931,
+          "lng": 103.8445752,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g311304-d12951605-Reviews-Thang_Co_A_Quynh_Restaurant-Sapa_Lao_Cai_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Sapa Love Market",
+          "area": "Central square, in front of Sapa Stone Church",
+          "what": "A Saturday-evening gathering in the town square where ethnic-minority performers sing and dance; historically a courtship custom where young people from different villages met, now largely a staged tourism performance rather than the original tradition.",
+          "why": "Worth seeing for what it is honestly — a living piece of local culture that has been reshaped into a weekly show, not the folk custom the name still advertises",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.ethosspirit.com/sapa-love-market"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Hanoi to Sapa transfer options",
+          "area": "Hanoi to Sapa town",
+          "what": "Two practical ways to cover the roughly 300km/6 hours - an overnight sleeper train from Hanoi to Lao Cai followed by a 45-60 minute shuttle up to Sapa, or a direct day or overnight limousine van/sleeper bus (5.5-6 hours, roughly 300,000-660,000 VND depending on seat class).",
+          "why": "The overnight train turns a dead travel day into a night's sleep, but only the van/bus goes door-to-door into Sapa town itself",
+          "lat": 22.3399787,
+          "lng": 103.8485698,
+          "approx": false,
+          "sources": [
+            "https://a21tours.com/sapa-sleeper-bus-vs-limousine-van",
+            "https://visit-sapa.com/en/blog/hanoi-sapa-bus-limousine"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "ha-long": {
+    "id": "ha-long",
+    "name": "Ha Long and Cat Ba",
+    "region": "north",
+    "seq": 4,
+    "lat": 20.9099,
+    "lng": 107.1839,
+    "color": "#3cb44b",
+    "counts": {
+      "hotels": 6,
+      "must_see": 2,
+      "attractions": 2,
+      "food": 1,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 0,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 1
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Aqua Luxury Cruise",
+          "area": "Ha Long Bay / Lan Ha Bay overnight cruise, departing Tuan Chau",
+          "what": "A newly launched (November 2025) 5-deck cruise ship with 32 cabins, balconies, sea views and an elevator, sailing an overnight route through the bay's limestone karsts.",
+          "why": "The route's chosen overnight-cruise pick — newest fleet in the bay, and the most detailed itinerary (kayaking, sunset cooking class, Trung Trang cave stop) of the options compared",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.halongbaycruises.com.vn/tours/aqua-luxury-cruise.html",
+            "https://www.booking.com/hotel/vn/aqua-luxury-cruise.html",
+            "https://www.tripadvisor.com/Attraction_Review-g14776299-d33264304-Reviews-Aqua_Luxury_Cruise-Ha_Long_City_H_Long_Bay_Quang_Ninh_Province.html"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 170,
+          "priceHigh": 400,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Dora Cruise",
+          "area": "Ha Long / Lan Ha Bay overnight cruise",
+          "what": "An overnight cruise ship marketed under the product name \"Dora Cruise Luxury 5 Star\", with spacious cabins, sea-view balconies and a set multi-course dinner menu.",
+          "why": "The alternative overnight cruise pick, and the standing upgrade offer from an earlier, lower-rated boat in this same operator family",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/AttractionProductReview-g3737857-d19915585-Dora_Cruise_Luxury_5_Star_in_Halong_Lan_Ha_Bay_2_Days_1_Night-Tuan_Chau_Island_H_.html",
+            "https://www.torntackies.com/dora-cruise-review/"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 157,
+          "priceHigh": 265,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Mon Cheri Cruise",
+          "area": "Lan Ha Bay overnight cruise",
+          "what": "A 42-cabin cruise line with two ships, every cabin with a private balcony, sailing Lan Ha and Ha Long Bay with kayaking, night squid fishing and an outdoor jacuzzi.",
+          "why": "Consistently well reviewed on Lan Ha Bay routes and priced below the two 5-star options for a similar cabin standard",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.halongbaycruises.com.vn/tours/mon-cheri-cruise-2-days-1-nights.html",
+            "https://www.bestpricetravel.com/halong-bay-cruises/mon-cheri-cruise.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 175,
+          "priceHigh": 230,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "La Pandora Cruise",
+          "area": "Ha Long Bay overnight cruise",
+          "what": "A 52-metre cruise ship with balcony cabins sailing a standard Ha Long Bay overnight route with cave and viewpoint stops.",
+          "why": "Rated a standard, dependable 4-star by independent cross-checking rather than the inflated star-marketing common on this route",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Attraction_Review-g293923-d24105240-Reviews-La_Pandora_cruise-H_Long_Bay_Quang_Ninh_Province.html",
+            "https://www.agoda.com/la-pandora-cruise/hotel/halong-vn.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 116,
+          "priceHigh": 200,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Hoang Giang Hotel",
+          "area": "Cat Ba town",
+          "what": "A land-based budget hotel in Cat Ba town, useful as a base for a Cat Ba National Park / Lan Ha Bay extension outside the cruise nights.",
+          "why": "Officially rated 3-star and consistently listed among Cat Ba's cheapest reliable options",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://en.planetofhotels.com/vietnam/cat-ba/hoang-giang-hotel-6647131",
+            "https://catba.tours/accommodation/hoang-giang-cat-ba-hotel/"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 13,
+          "priceHigh": 67,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Quang Tung Hotel",
+          "area": "Cat Ba town centre",
+          "what": "An 83-room hotel in the centre of Cat Ba town with air conditioning, free WiFi throughout, and balcony rooms in some categories.",
+          "why": "Self-classified and independently listed as 3-star, with a strong track record of arranging onward transfers for guests continuing overland",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g737051-d15089839-Reviews-Quang_Tung_Hotel_Restaurant-Cat_Ba_Hai_Phong.html",
+            "https://www.expedia.com/Hai-Phong-Hotels-QUANG-TUNG-HOTEL.h30099570.Hotel-Information"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 35,
+          "priceHigh": 100,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Ha Long Bay limestone karsts",
+          "area": "Ha Long Bay, Quang Ninh province",
+          "what": "Roughly 1,600 limestone islands and karst pillars rising from emerald-green water, many topped with vegetation and containing caves; a UNESCO World Heritage Site since 1994.",
+          "why": "The reason this leg of the trip exists — best seen slowly, from the deck of an overnight boat",
+          "lat": 20.9084384,
+          "lng": 107.0682782,
+          "approx": false,
+          "sources": [
+            "https://whc.unesco.org/en/list/672/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Cat Ba National Park",
+          "area": "Central Cat Ba Island",
+          "what": "A national park covering most of Cat Ba Island's interior, protecting tropical limestone forest, wetlands and mangroves; part of the joint Ha Long Bay-Cat Ba Archipelago UNESCO World Heritage Site and a UNESCO Biosphere Reserve since 2004.",
+          "why": "The forested, trekkable counterpart to the bay's boat-only islands, and home to the critically endangered Cat Ba langur",
+          "lat": 20.8063272,
+          "lng": 107.0383362,
+          "approx": true,
+          "sources": [
+            "https://en.wikipedia.org/wiki/C%C3%A1t_B%C3%A0_National_Park"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Deep water soloing, Lan Ha Bay",
+          "area": "Lan Ha Bay, off Cat Ba Island",
+          "what": "Free climbing (no ropes or harness) up short limestone cliff routes directly from a boat, falling into the sea when you lose your grip; typically a half-day trip combined with kayaking into hidden lagoons.",
+          "why": "The single most distinctive adventure activity on this leg of the trip, and specific to this limestone coastline",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://catbaclimbing.com/half-day-deep-water-solo",
+            "https://www.catbaventures.com/cat-ba-tours/a-half-day-deep-water-soloing-in-lan-ha-bay-cat-ba-4-hours.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Trung Trang Cave",
+          "area": "Cat Ba National Park, about 20-30 minutes from the port",
+          "what": "A 300-metre natural cave carved through a mountain in the middle of Cat Ba's largest valley, with stalactites and stalagmites reachable on a short easy walk.",
+          "why": "A quick, low-effort cave stop that fits into a cruise itinerary alongside kayaking, without needing a dedicated caving day",
+          "lat": 20.7887703,
+          "lng": 106.9974369,
+          "approx": true,
+          "sources": [
+            "https://www.bestpricetravel.com/travel-guide/trung-trang-cave.html",
+            "https://www.halongbaycruises.com/travel-guide/explore-cat-ba-island-with-halong-bay-cruises-trung-trang-cave.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Vien Duong Restaurant",
+          "area": "12-19 Nui Ngoc, Cat Ba town",
+          "what": "A seafood restaurant where the catch is chosen live from tanks at the door and cooked to order, typically 200,000-500,000 VND per person.",
+          "why": "The most consistently named seafood address in current Cat Ba dining guides",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://catbagreentrail.com/cat-ba-review/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Hanoi to Tuan Chau Harbour transfer",
+          "area": "Hanoi Old Quarter to Tuan Chau Harbour, Ha Long",
+          "what": "The standard route to the cruise departure point is a 2.5-3 hour limousine bus or private car, usually picked up from the hotel in the Old Quarter around 8-9am; the cheaper local/public bus takes 3-4 hours with more stops.",
+          "why": "Almost every overnight cruise bundles this transfer into the booking, but it's worth confirming the pickup time and point in writing beforehand",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://bhayacruises.com/blog/get-from-hanoi-to-halong-bay/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "ninh-binh": {
+    "id": "ninh-binh",
+    "name": "Ninh Binh",
+    "region": "north",
+    "seq": 5,
+    "lat": 20.2505,
+    "lng": 105.9745,
+    "color": "#42d4f4",
+    "counts": {
+      "hotels": 6,
+      "must_see": 3,
+      "attractions": 2,
+      "food": 2,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 2,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Wyndham Grand Vedana Ninh Binh Resort",
+          "area": "Nho Quan District, on the Hoang Long River near Cuc Phuong National Park",
+          "what": "A 195-room lakeside resort on a bend of the Hoang Long River, with a hot-mineral infinity pool, spa, kids' club and free kayaking, about 30-40 minutes from Trang An.",
+          "why": "The only international-chain (Wyndham Grand) resort in the province, though local listings disagree on whether it rates a true 5-star or 4.5-star",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303945-d24980381-Reviews-Wyndham_Grand_Vedana_Ninh_Binh-Ninh_Binh_Ninh_Binh_Province.html",
+            "https://www.priceline.com/hotel-deals/en-us/P5000000445/H195883603/wyndham-grand-vedana-ninh-binh.ssp",
+            "https://www.wyndhamhotels.com/wyndham-grand/ninh-binh-vietnam/wyndham-grand-vedana-ninh-binh/overview"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 70,
+          "priceHigh": 250,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Ninh Binh Legend Hotel",
+          "area": "City center",
+          "what": "A 260-room hotel in the middle of Ninh Binh city with three swimming pools, an indoor pool, outdoor tennis courts, sauna and gym.",
+          "why": "The city-center 5-star option, for a stay closer to restaurants and the train station rather than out among the karsts",
+          "lat": 20.2744939,
+          "lng": 105.9587265,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303945-d1761735-Reviews-Ninh_Binh_Legend_Hotel-Ninh_Binh_Ninh_Binh_Province.html",
+            "https://www.kayak.com/Ninh-Binh-Hotels-Ninh-Binh-Legend-Hotel.376440.ksp"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 58,
+          "priceHigh": 120,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Emeralda Resort Ninh Binh",
+          "area": "Gia Vien District, on a lake in the Van Long Nature Reserve",
+          "what": "A lakeside 4-star resort built around a private lake inside the Van Long Nature Reserve, with an indoor pool, sauna, Jacuzzi and spa, about a 15-minute drive from Trang An.",
+          "why": "Ranked among the top handful of hotels in the whole province, and one of the few with an officially assessed 4-star rating rather than a self-declared one",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303945-d2243645-Reviews-Emeralda_Resort_Ninh_Binh-Ninh_Binh_Ninh_Binh_Province.html",
+            "https://www.kayak.com/Ninh-Binh-Hotels-Emeralda-Resort-Ninh-Binh.659496.ksp"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 61,
+          "priceHigh": 183,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Ninh Binh Hidden Charm Hotel & Resort",
+          "area": "Tam Coc - Bich Dong area, Hoa Lu District",
+          "what": "A modern hotel with two restaurants, a full-service spa and an outdoor pool, set among rice fields close to the Tam Coc boat pier.",
+          "why": "Officially 4-star and the highest-ranked hotel of its size in Ninh Binh (#3 of over 120 on Tripadvisor), not just a self-rated boutique",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303945-d9770834-Reviews-Ninh_Binh_Hidden_Charm_Hotel_Resort-Ninh_Binh_Ninh_Binh_Province.html",
+            "https://luxurylifestyleawards.com/winners/boutique-hotel/ninh-binh-hidden-charm-hotel-resort-4-star-gem"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 66,
+          "priceHigh": 95,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Lalita Tam Coc Resort & Spa",
+          "area": "Ninh Hai, near Bich Dong Pagoda and the Tam Coc boat pier",
+          "what": "A resort with an infinity pool, spa, sauna, garden and free bicycles, within walking distance of Bich Dong Pagoda but away from the busiest tourist strip.",
+          "why": "The master-spec's top pick for Ninh Binh (Agoda 9.2 from 866 reviews) and the best-located resort for reaching Tam Coc on foot",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g12866457-d25224812-Reviews-Lalita_Tam_Coc_Resort_Spa-Ninh_Hai_Hoa_Lu_District_Ninh_Binh_Province.html",
+            "https://lalitatamcocspa.luxury-hotels.com/"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 99,
+          "priceHigh": 180,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "An's Eco Garden Resort",
+          "area": "Thung Chuoi, inside the Trang An Scenic Landscape Complex",
+          "what": "A rustic eco-resort inside the Trang An landscape complex, with rooms in bamboo huts on stilts and converted buses, an infinity pool and free bicycles.",
+          "why": "Rated 9.0+ on both Tripadvisor and Booking.com from over 800 reviews, and the only lodging actually inside the Trang An reserve rather than on its edge",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303945-d12190248-Reviews-An_s_Eco_Garden-Ninh_Binh_Ninh_Binh_Province.html",
+            "https://www.booking.com/hotel/vn/buffalo-eco-garden.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 32,
+          "priceHigh": 154,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Trang An Scenic Landscape Complex",
+          "area": "Ninh Hai Commune, Hoa Lu District, ~7km from Ninh Binh city",
+          "what": "A UNESCO World Heritage limestone karst landscape toured by rowed sampan along a 3-hour river route that threads through nine natural cave tunnels beneath the cliffs.",
+          "why": "The UNESCO-listed core of the whole 'Ha Long Bay on land' comparison, and the reason Ninh Binh is on the itinerary at all",
+          "lat": 20.2537827,
+          "lng": 105.9005014,
+          "approx": false,
+          "sources": [
+            "https://wherearethosemorgans.com/trang-an-boat-tour/",
+            "https://www.getyourguide.com/trang-an-l36900/"
+          ],
+          "tier": null,
+          "nameHe": "מתחם הנוף טראנג אן",
+          "areaHe": "מחוז הואה לו, כ-7 ק\"מ מהעיר נין בין",
+          "whatHe": "נוף קארסט המוכר כאתר מורשת עולמית של אונסק\"ו, שמסיירים בו בסירת משוטים לאורך מסלול נהר של כשלוש שעות שחוצה תשע מנהרות מערה טבעיות מתחת לצוקים.",
+          "whyHe": "הליבה המוכרזת של ההשוואה ל\"מפרץ הא לונג ביבשה\", והסיבה שנין בין נמצאת במסלול מלכתחילה",
+          "priceUnit": "per_person",
+          "priceLow": 11.5,
+          "priceHigh": null,
+          "priceChecked": "2026-05",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Tam Coc boat ride",
+          "area": "Van Lam Village, Ninh Hai Commune",
+          "what": "A shorter 2-hour sampan ride, often rowed by foot, along the Ngo Dong River between rice paddies and through three limestone tunnels (Hang Ca, Hang Hai, Hang Ba) that give Tam Coc its name.",
+          "why": "The classic, more compact counterpart to Trang An - green rice-paddy scenery in the dry season, flooded gold fields at harvest",
+          "lat": 20.2163426,
+          "lng": 105.937457,
+          "approx": true,
+          "sources": [
+            "https://happytovisit.com/ninh-binh-hoa-lu-mua-cave-and-trang-an-tour-and-boat-ride/",
+            "https://junglebosstours.com/explorer/tourism-blog/trang-an-boat-tour"
+          ],
+          "tier": null,
+          "nameHe": "שיט טאם קוק",
+          "areaHe": "כפר ואן לאם, מחוז נין האי",
+          "whatHe": "שיט קצר יותר, כשעתיים, לעיתים בחתירה ברגליים, לאורך נהר נגו דונג בין שדות אורז ודרך שלוש מנהרות אבן גיר שמהן בא השם טאם קוק.",
+          "whyHe": "המקבילה הקלאסית והדחוסה יותר לטראנג אן — שדות אורז ירוקים בעונה היבשה, ושדות זהב מוצפים בקציר",
+          "priceUnit": "per_person",
+          "priceLow": 9.6,
+          "priceHigh": null,
+          "priceChecked": "2026-05",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Mua Cave viewpoint (Hang Mua)",
+          "area": "Khe Ha Village, ~10km from Ninh Binh city",
+          "what": "A roughly 500-step stone staircase up Mua Mountain to a dragon statue and a 360-degree viewpoint over the Tam Coc rice fields and limestone peaks below; the climb itself takes 15-45 minutes.",
+          "why": "Ninh Binh's signature adventure/physical challenge and its single best photo viewpoint, reached under your own steam rather than by boat",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/mua-cave-ninh-binh/",
+            "https://junglebosstours.com/explorer/tourism-blog/mua-caves-vietnam-travel-guide"
+          ],
+          "tier": null,
+          "nameHe": "תצפית מערת מואה",
+          "areaHe": "כפר קה הא, כ-10 ק\"מ מהעיר נין בין",
+          "whatHe": "גרם מדרגות אבן של כ-500 שלבים במעלה הר מואה אל פסל דרקון ותצפית של 360 מעלות מעל שדות האורז של טאם קוק והפסגות שסביבם. הטיפוס נמשך רבע שעה עד שלושת רבעי שעה.",
+          "whyHe": "האתגר הפיזי המזוהה ביותר עם נין בין ונקודת התצפית הטובה בה, ואליה מגיעים ברגליים ולא בסירה",
+          "priceUnit": "per_person",
+          "priceLow": 5.8,
+          "priceHigh": null,
+          "priceChecked": "2026-05",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Hoa Lu Ancient Capital",
+          "area": "Truong Yen Commune, ~10km from Ninh Binh city",
+          "what": "The restored temples of Dinh Tien Hoang and Le Dai Hanh, marking the site of Vietnam's 10th-century capital, set inside a ring of limestone mountains.",
+          "why": "The historical anchor of the region, and usually combined with Trang An or Mua Cave into one day's route",
+          "lat": 20.283483,
+          "lng": 105.8995986,
+          "approx": false,
+          "sources": [
+            "https://happytovisit.com/ninh-binh-hoa-lu-bai-dinh-trang-an-and-mua-cave-tour/"
+          ],
+          "tier": null,
+          "nameHe": "הבירה העתיקה הואה לו",
+          "areaHe": "מחוז טרואונג יין, כ-10 ק\"מ מהעיר נין בין",
+          "whatHe": "המקדשים המשוחזרים של דין טיין הואנג ולה דאי האן, המסמנים את מקום בירתה של וייטנאם במאה העשירית, בתוך טבעת של הרי אבן גיר.",
+          "whyHe": "העוגן ההיסטורי של האזור, ובדרך כלל משלבים אותו עם טראנג אן או עם מערת מואה ליום אחד",
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Bai Dinh Pagoda",
+          "area": "Gia Sinh Commune, ~15km from Ninh Binh city",
+          "what": "The largest Buddhist temple complex in Vietnam, spread across a hillside with a giant bronze Buddha, hundreds of Arhat statues along covered corridors, and a bell tower housing one of Asia's largest bronze bells.",
+          "why": "A different register from the boat-and-karst circuit - scale and religious architecture rather than nature",
+          "lat": 20.2752292,
+          "lng": 105.8654697,
+          "approx": true,
+          "sources": [
+            "https://happytovisit.com/ninh-binh-hoa-lu-bai-dinh-trang-an-and-mua-cave-tour/"
+          ],
+          "tier": null,
+          "nameHe": "פגודת באי דין",
+          "areaHe": "מחוז גיה סין, כ-15 ק\"מ מהעיר נין בין",
+          "whatHe": "מתחם המקדשים הבודהיסטי הגדול בווייטנאם, פרוש על מדרון גבעה, ובו פסל בודהה ענק מברונזה, מאות פסלי ארהאט לאורך מסדרונות מקורים, ומגדל פעמונים ובו אחד מפעמוני הברונזה הגדולים באסיה.",
+          "whyHe": "מפתח אחר לגמרי מהמסלול של סירות וקארסט — קנה מידה ואדריכלות דתית ולא טבע",
+          "priceUnit": "per_person",
+          "priceLow": 2.3,
+          "priceHigh": 8.1,
+          "priceChecked": "2026-05",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Duc De Restaurant",
+          "area": "City center, Ninh Binh",
+          "what": "A long-running goat-meat restaurant on a main street in Ninh Binh city, serving the mountain goat (de nui) dishes the region is known for - steamed, grilled and in hotpot.",
+          "why": "Consistently the most-reviewed goat-meat specialist in the city center, with a reputation built over years rather than a recent tourist spike",
+          "lat": 20.2340333,
+          "lng": 105.9682771,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g303945-d8853028-Reviews-Duc_De_Restaurant-Ninh_Binh_Ninh_Binh_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Trung Tuyet",
+          "area": "City center, Ninh Binh",
+          "what": "A local eatery specializing in com chay - sun-dried rice pressed into crisp sheets, deep-fried and served with a savory meat-and-mushroom sauce - alongside egg soup and pho.",
+          "why": "Ranked among the most reliable all-rounders in Ninh Binh on both Tripadvisor and Lonely Planet for the region's signature souvenir dish",
+          "lat": 20.2516139,
+          "lng": 105.97874,
+          "approx": false,
+          "sources": [
+            "https://pioneersailtravel.com/ninh-binh-restaurants/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Cho Rong (Rong Market)",
+          "area": "71 Van Giang Street, Thanh Binh Ward",
+          "what": "Ninh Binh city's main traditional market, spread across a three-story building and open-air stalls, selling household goods, textiles and a fresh-produce section with rice, fish, mountain goat meat and Kim Son rice wine.",
+          "why": "The everyday market locals actually shop at, as opposed to the tourist-facing night market",
+          "lat": 20.2561711,
+          "lng": 105.9776166,
+          "approx": true,
+          "sources": [
+            "https://hanoiexploretravel.com/things-to-do-ninh-binh/rong-market"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Ninh Binh Night Market",
+          "area": "Around Dinh Tien Hoang Street and Ky Lan Lake, city center",
+          "what": "Streets around the city-center lake fill from 6pm to 11pm with food stalls and vendors selling embroidered scarves, clothing and souvenirs from nearby craft villages like Van Lam.",
+          "why": "The evening counterpart to the daytime boat trips, and the easiest place to try street food after a day on the water",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vietnamdiscovery.com/ninh-binh/ninh-binh-night-market/",
+            "https://sinhcafe.com/ninh-binh-night-market"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Ninh Binh to Hanoi (train and road)",
+          "area": "Regional transfer",
+          "what": "Ninh Binh's train station sits centrally in the city; five daily trains run to Hanoi's main station on Le Duan Street in about 2 hours, or a private car takes roughly the same time by road.",
+          "why": "Fixes the practical transfer time between Ninh Binh and the trip's Hanoi anchor",
+          "lat": 20.2421142,
+          "lng": 105.9746207,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/hanoi-to-ninh-binh-best-transport-options/",
+            "https://a21tours.com/ninh-binh-city-to-hanoi-transfer"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Lotus Train - Ninh Binh to Dong Hoi (night train)",
+          "area": "Ninh Binh Railway Station, departure point",
+          "what": "A privately refurbished overnight sleeper carriage (2-berth or 4-berth cabins, Vietnam Railways track) departing Ninh Binh around 22:00 and arriving Dong Hoi around 06:00, with onboard wifi, snacks and breakfast.",
+          "why": "Turns the long road transfer south toward Phong Nha into a night's sleep instead of a lost travel day",
+          "lat": 20.2421142,
+          "lng": 105.9746207,
+          "approx": false,
+          "sources": [
+            "https://lotustrain.vn/ninh-binh-to-dong-hoi-lotus-express",
+            "https://violetexpresstrain.com/ninh-binh-dong-hoi-on-lotus-train-se19.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "phong-nha": {
+    "id": "phong-nha",
+    "name": "Phong Nha",
+    "region": "central",
+    "seq": 6,
+    "lat": 17.5934,
+    "lng": 106.2865,
+    "color": "#4363d8",
+    "counts": {
+      "hotels": 3,
+      "must_see": 2,
+      "attractions": 7,
+      "food": 4,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 1,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 3
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Karst Villas Phong Nha",
+          "area": "Hung Trach, ~2km from Phong Nha riverside town",
+          "what": "A small hillside villa property set among paddy fields with an outdoor pool and views of the karst limestone mountains, a short ride from the national park visitor centre.",
+          "why": "The clearest 4-star classification found within the 30km radius of Phong Nha; TripAdvisor's own blurb calls it \"3-star\" while Trip.com and Hotel.info both list it as 4-star, so treat the tier as self-declared.",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.trip.com/hotels/hung-trach-hotel-detail-47422235/karst-villas-phong-nhakarst-villas-phong-nha/",
+            "https://www.hotel.info/en/hotel/1175964",
+            "https://www.tripadvisor.com/Hotel_Review-g15296817-d18178823-Reviews-Karst_Villas_Phong_Nha-Hung_Trach_Quang_Binh_Province.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 35,
+          "priceHigh": 51,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Phong Nha Lake House Resort",
+          "area": "Hung Trach, on Dong Suon Lake",
+          "what": "A family-run resort of villas, apartments and lakeside bungalows built into a hillside above a small freshwater lake, with a pool, kayaks and a restaurant looking over the water.",
+          "why": "The top pick in the project's own vetted research (two independent agent proposals converged on it, Agoda 9.7); Kayak lists it as 3-star.",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.kayak.com/Dong-Hoi-Hotels-Phong-Nha-Lake-House-Resort.2003152.ksp",
+            "https://phongnhalakehouse.com/",
+            "https://www.tripadvisor.com/Hotel_Review-g15296817-d4354810-Reviews-Phong_Nha_Lake_House_Resort-Hung_Trach_Quang_Binh_Province.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 42,
+          "priceHigh": 62,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Phong Nha Farmstay",
+          "area": "Cu Nam, ~10km from Phong Nha town",
+          "what": "The original farmstay of the area — simple rooms and a pool set among rice fields and grazing buffalo, run by an Australian-Vietnamese family with a restaurant and tour desk on site.",
+          "why": "TripAdvisor's #1-ranked property in the national park (1,500+ reviews) and one of the two hotels the project's own agents agreed on.",
+          "lat": 17.5818037,
+          "lng": 106.3087403,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g4014591-d1930272-Reviews-Phong_Nha_Farmstay-Phong_Nha_Ke_Bang_National_Park_Quang_Binh_Province.html",
+            "https://www.booking.com/hotel/vn/phong-nha-farmstay.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 14,
+          "priceHigh": 34,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Phong Nha Cave boat trip",
+          "area": "Phong Nha tourism centre, Son River",
+          "what": "A 30-minute wooden boat ride up the Son River into a lit, 1.5km-long show cave with an underground river running through it — the cave the whole town is named for.",
+          "why": "The single most accessible cave experience in the park, and the reason Phong Nha exists as a destination at all",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-cave-vietnam-tour-guide",
+            "https://www.lonelyplanet.com/vietnam/north-central-vietnam/phong-nha-cave/attractions/phong-nha-cave-boat-trip/a/poi-sig/1390925/357910"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Paradise Cave",
+          "area": "Phong Nha-Ke Bang National Park",
+          "what": "A dry cave reached by a steep staircase and jungle path, then a kilometre of wooden walkway through a cavern hung with stalactites lit to look like an underground cathedral.",
+          "why": "Regularly named one of the most beautiful caves in Vietnam, and doable without a guide or booking ahead",
+          "lat": 17.5192008,
+          "lng": 106.223045,
+          "approx": true,
+          "sources": [
+            "https://www.vietnamtourism.com/en/phong-nha-ke-bang-national-park-tickets-complete-2026-price-guide-and-cave-selection-2",
+            "https://oxalisadventure.com/paradise-cave-in-phong-nha/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Son Doong Cave Expedition",
+          "area": "Deep in Phong Nha-Ke Bang National Park, multi-day trek from Km37",
+          "what": "A 4-day, 3-night expedition into the world's largest cave passage — big enough to hold a Manhattan block, with its own jungle and weather inside two collapsed dolines. Porters carry gear; nights are spent camping on the cave floor.",
+          "why": "The reason Phong Nha is on the caving world's map at all; the single hardest and most expensive booking in the area, so it needs to be flagged early if it's wanted",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/tour/son-doong-cave-expedition-4d3n/",
+            "https://sondoongcave.info/exploration/how-to-get-to-son-doong-cave/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Hang En Cave trek",
+          "area": "Phong Nha-Ke Bang National Park, Tu Lan area",
+          "what": "A 2-day, 1-night trek to the world's third-largest cave, camping on a sand bank inside the cave beside an underground river, with one of three giant skylights overhead.",
+          "why": "The serious-caving option that doesn't require Son Doong's budget or year-ahead booking; a genuine wilderness camp inside a cave",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/tour/hang-en-adventure-cave-camp/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Tu Lan cave system",
+          "area": "Tan Hoa commune, ~65km from Phong Nha town",
+          "what": "A network of wet caves and jungle valleys explored by wading and swimming through cave lakes between limestone chambers, run as tours from one day up to a 4-5 day expedition.",
+          "why": "The widest range of difficulty of any Phong Nha cave product — a single day of swimming through caves, or several days of genuine jungle expedition, from the same operator",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/tour/tu-lan-expedition/",
+            "https://oxalisadventure.com/tour/tu-lan-1-day-experience/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Hang Tien cave day trek",
+          "area": "Phong Nha-Ke Bang National Park, Tu Lan area",
+          "what": "A one-day trek through jungle and a river-cut cave system, wading and swimming sections included, without the multi-day commitment of Tu Lan or Hang En.",
+          "why": "The middle option between a boardwalk cave and a multi-day expedition; flagged in the project's own vetted research for anyone who wants a proper trek without the extra nights",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/tour/hang-tien-1-day-discovery/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Dark Cave zipline and mud bath",
+          "area": "Chay River, Phong Nha-Ke Bang National Park",
+          "what": "A short zipline across the Chay River into a pitch-black cave, followed by a swim to a natural mud pool deep inside, then kayaking back down the river.",
+          "why": "The easiest adrenaline activity in Phong Nha — half a day, no fitness test, and the one every family and backpacker group does",
+          "lat": 17.5742556,
+          "lng": 106.2527864,
+          "approx": true,
+          "sources": [
+            "https://www.getyourguide.com/phong-nha-l176859/phong-nha-cave-exploration-and-zipline-dark-cave-tour-t511831/",
+            "https://junglebosstours.com/explorer/tourism-blog/dark-cave-phong-nha"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "The Duck Stop",
+          "area": "Bong Lai Valley, ~10km from Phong Nha town",
+          "what": "A small working duck farm where visitors feed and walk a flock of ducks along the paddy dikes, with a buffalo ride and a drink included.",
+          "why": "TripAdvisor's #1-ranked Phong Nha attraction and the easiest, lightest thing to do on a rest day between caves",
+          "lat": 17.6041976,
+          "lng": 106.3657674,
+          "approx": true,
+          "sources": [
+            "https://theduckstop.vn/",
+            "https://culturephamtravel.com/the-duck-stop/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Pub with Cold Beer",
+          "area": "Bong Lai Valley, near the Rao Con River",
+          "what": "A rustic family farm-bar down a country lane where you pick a live chicken from the garden and it's grilled to order, eaten in hammocks by the river.",
+          "why": "The best-known stop on the Bong Lai Valley motorbike loop and a genuinely local, unstaged meal",
+          "lat": 17.5982371,
+          "lng": 106.3635278,
+          "approx": true,
+          "sources": [
+            "https://culturephamtravel.com/the-duck-stop/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "The Rice House Phong Nha",
+          "area": "Phong Nha town centre",
+          "what": "A bamboo-built restaurant with low lighting serving refined regional dishes such as bo la lot (beef wrapped in betel leaf) and braised eggplant.",
+          "why": "The strongest reviewed sit-down Vietnamese dinner in town (Google 4.9/1,358, TripAdvisor 5.0/91) and a step up from the backpacker-strip kitchens",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g13163545-d27122855-Reviews-The_Rice_House-Phong_Nha_Quang_Binh_Province.html",
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Ha Chinh Grilled Chicken",
+          "area": "Rice paddies outside Phong Nha town",
+          "what": "An unmarked rice-paddy grilled-chicken stall — crispy-skinned chicken grilled whole, served with a chilli-and-\"cheo\" salt dip, stir-fried vermicelli and sticky rice.",
+          "why": "A rustic, locals-only alternative to the tourist-strip restaurants, with a perfect Google rating from over a hundred reviews",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Ganesh Indian Restaurant",
+          "area": "Phong Nha town centre",
+          "what": "A small Indian restaurant with tandoori and curry dishes cooked to order, set inside a dining room decorated in Indian style.",
+          "why": "Properly spiced Indian food in a rural Vietnamese caving town is genuinely unusual, and it is consistently the top-rated non-Vietnamese kitchen in town",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "international",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "The Villas Restaurant",
+          "area": "Phong Nha riverside, attached to Victory Road Villas",
+          "what": "An open-sided riverside restaurant with karst-mountain views serving imported steaks and pasta on a full Western menu.",
+          "why": "The closest thing Phong Nha has to a proper fine-dining Western dinner, for the night you don't want another bowl of pho",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "international",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Son Trach Market",
+          "area": "Son Trach (Phong Nha town centre), by the Phong Nha-Ke Bang tourist centre",
+          "what": "A small daily produce market where farmers and traders sell fresh vegetables, fruit and river fish from the surrounding villages, busiest in the very early morning.",
+          "why": "The only real local market in a town otherwise built for tourism, and the clearest window into everyday Phong Nha life",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://pickbestplaces.com/vietnam/phong-nha/local-markets"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Dong Hoi Airport transfer",
+          "area": "Dong Hoi, ~45km / ~1 hour from Phong Nha",
+          "what": "Phong Nha's nearest airport, served by domestic flights to Hanoi and Ho Chi Minh City; there is no airport bus, only pre-booked private transfer or metered taxi for the hour-long drive into Phong Nha.",
+          "why": "The fastest way in or out of Phong Nha, and the one where arriving without a pre-booked transfer means an expensive on-the-spot taxi",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.pelago.com/en/activity/pbxax24sn-dong-hoi-airport-to-phong-nha-or-versa-way-dong-hoi/",
+            "https://www.vietnamtourism.com/en/dong-hoi-to-phong-nha-the-complete-transport-guide-for-2026-2"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Dong Hoi railway station",
+          "area": "Dong Hoi, ~44km from Phong Nha",
+          "what": "The nearest train station to Phong Nha on the North-South line, connected onward to Phong Nha by local bus (B4, ~90 minutes), taxi or private car.",
+          "why": "How the overnight \"Lotus\" sleeper train from Ninh Binh actually arrives at Phong Nha — there is no station in Phong Nha town itself",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-train-station-guide"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Private car to Hoi An via Vinh Moc Tunnels and Hai Van Pass",
+          "area": "Route south from Phong Nha to Hoi An/Da Nang",
+          "what": "A full-day private car transfer south that stops at the Vinh Moc tunnels (a real wartime underground village) and crosses the Hai Van Pass, arriving in Hoi An by evening.",
+          "why": "Turns an otherwise dead transfer day into two more stops, and is the route the project's own vetted research settled on over the train",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.getyourguide.com/en-gb/da-nang-l939/hoi-an-private-car-to-phong-nha-with-sightseeing-stops-t892548/",
+            "https://www.tripadvisor.com/AttractionProductReview-g298082-d20307049-Hoi_An_to_Phong_Nha_by_Private_Car_via_Vinh_Moc_Tunnels-Hoi_An_Quang_Nam_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "hue": {
+    "id": "hue",
+    "name": "Hue",
+    "region": "central",
+    "seq": 7,
+    "lat": 16.4637,
+    "lng": 107.5909,
+    "color": "#911eb4",
+    "counts": {
+      "hotels": 6,
+      "must_see": 3,
+      "attractions": 2,
+      "food": 3,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 1,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Azerai La Residence Hue",
+          "area": "On the Perfume River, close to the Imperial City",
+          "what": "A 122-room art deco resort built around a 1930s French colonial mansion (the former residence of the French Resident Superieure), with 200 metres of frontage on the Perfume River and its own spa.",
+          "why": "Hue's best-reviewed genuine 5-star (9.5/10 from 487 reviews), and a heritage building rather than a new tower",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293926-d585172-Reviews-Azerai_La_Residence_Hue-Hue_Thua_Thien_Hue_Province.html",
+            "https://azerai.com/azerai-la-residence-hue/",
+            "https://www.fivestaralliance.com/luxury-hotels/hue/azerai-la-residence-hue"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 154,
+          "priceHigh": 692,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Meliá Vinpearl Hue",
+          "area": "City center, near the Perfume River and Truong Tien Bridge",
+          "what": "A high-rise 5-star hotel in the middle of Hue with a full-service spa, indoor pool, gym and sauna, a 10-minute walk from the Perfume River and Truong Tien Bridge.",
+          "why": "The master-spec's own pick for a restored Hue visit, and the highest-reviewed international-chain 5-star in the city (9.4/10 from over 3,000 reviews)",
+          "lat": 16.463231,
+          "lng": 107.5941414,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293926-d15113220-Reviews-Melia_Vinpearl_Hue-Hue_Thua_Thien_Hue_Province.html",
+            "https://www.melia.com/en/hotels/vietnam/hue-city/melia-vinpearl-hue"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 54,
+          "priceHigh": 200,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Eldora Hotel",
+          "area": "City center",
+          "what": "An 81-room boutique hotel with bright, wood-floored rooms in a renaissance-style building in central Hue.",
+          "why": "One of the few hotels in Hue with an unambiguous official 4-star classification rather than a self-declared one, and consistently praised for cleanliness",
+          "lat": 16.4648595,
+          "lng": 107.5945502,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293926-d6416461-Reviews-Eldora_Hotel-Hue_Thua_Thien_Hue_Province.html",
+            "https://www.kayak.com/Hue-Hotels-Eldora-Hotel.2076224.ksp"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 35,
+          "priceHigh": 90,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Pilgrimage Village Boutique Resort & Spa",
+          "area": "Outside the city, on a forested hillside en route to the tombs",
+          "what": "A resort built like a Vietnamese hamlet across landscaped, forested grounds south of the city, with multiple pools, an extensive spa and its own restaurants.",
+          "why": "Sources disagree on whether this is a 4-star or 5-star property, but it is master-spec's noted alternative to Meliá Vinpearl for a quieter, greener stay",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293926-d582872-Reviews-Pilgrimage_Village_Boutique_Resort_Spa-Hue_Thua_Thien_Hue_Province.html",
+            "https://www.momondo.com/hotels/hue/Pilgrimage-Village-Boutique-Resort-Spa.mhd120660.ksp"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 47,
+          "priceHigh": 250,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Jade Scene Hotel",
+          "area": "30/42 Nguyen Cong Tru Street, near the pub street and Perfume River embankment",
+          "what": "A new hotel a short walk from Hue's pub street and the river embankment, with a small rooftop pool overlooking the city and a spa.",
+          "why": "One of the highest-rated hotels of any tier in Hue (9.2/10 from over 3,000 reviews) and an officially assessed 3-star, not a self-rated boutique",
+          "lat": 16.4695305,
+          "lng": 107.5968967,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293926-d25179951-Reviews-Jade_Scene_Hotel-Hue_Thua_Thien_Hue_Province.html",
+            "https://www.booking.com/hotel/vn/jade-scene.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 33,
+          "priceHigh": 100,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Thanh Lich Hue Hotel",
+          "area": "City center",
+          "what": "A 40-room hotel with air-conditioned rooms, minibars and an indoor pool and sauna, with a rooftop breakfast serving both Asian and Western options.",
+          "why": "A dependable budget-friendly city-center option (9.0/10 from over 900 reviews), though its 'plus' star billing is self-declared",
+          "lat": 16.4703117,
+          "lng": 107.5959428,
+          "approx": false,
+          "sources": [
+            "https://www.momondo.com/hotels/hue/Thanh-Lich-Hue-Hotel.mhd2207716.ksp",
+            "https://www.kayak.com/Hue-Hotels-Thanh-Lich-2-Hotel.2207716.ksp"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 25,
+          "priceHigh": 54,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Hue Imperial City (The Citadel)",
+          "area": "North bank of the Perfume River, city center",
+          "what": "The walled seat of the Nguyen Dynasty from 1802 to 1945, entered through the Ngo Mon Gate past the Nine Holy Cannons and the Nine Dynastic Urns, with the To Mieu royal family temple inside.",
+          "why": "The reason Hue is Vietnam's imperial capital rather than just another river city, and the largest single historical site in the country",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Attraction_Review-g293926-d317599-Reviews-Hue_Imperial_City_The_Citadel-Hue_Thua_Thien_Hue_Province.html",
+            "https://culturephamtravel.com/hue-entrance-fee/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Khai Dinh Tomb",
+          "area": "Chau Chu Village, ~10km from Hue city",
+          "what": "The last and most ornate of the Nguyen royal tombs, its concrete exterior built in a Gothic-tinged European style but its interior sarcophagus chamber an explosion of colorful ceramic-mosaic murals, reached by 127 stone steps.",
+          "why": "The most visually striking of the seven royal tombs and unlike any other Nguyen monument in Hue",
+          "lat": 16.3989537,
+          "lng": 107.5902801,
+          "approx": false,
+          "sources": [
+            "https://vinwonders.com/en/wonderpedia/news/khai-dinh-tomb-things-to-know-about-the-last-imperial-tomb-built-in-hue/",
+            "https://www.lonelyplanet.com/vietnam/central-vietnam/hue/attractions/tomb-of-khai-dinh/a/poi-sig/1158037/357875"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Thien Mu Pagoda",
+          "area": "Ha Khe Hill, north bank of the Perfume River, ~5km from the city",
+          "what": "Hue's oldest religious building, founded in 1601, centred on the seven-storey octagonal Phuoc Duyen tower that is the unofficial symbol of the city, with a 2.5-metre bronze bell inside the main sanctuary.",
+          "why": "The single most-photographed landmark on the Perfume River, and over four centuries old",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vinpearl.com/en/thien-mu-pagoda-hue",
+            "https://vietnamdiscovery.com/hue/attractions/thien-mu-pagoda/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Tu Duc Tomb",
+          "area": "Thuy Xuan Village, ~7km from Hue city",
+          "what": "A landscaped royal retreat built around a lake in a pine-forested valley, where Emperor Tu Duc lived, wrote poetry and boated for years before his death, dotted with pavilions and temples rather than a single mausoleum building.",
+          "why": "The gentlest and most park-like of the tombs - built as a living retreat, not just a burial site - and a contrast to Khai Dinh's grandeur",
+          "lat": 16.433089,
+          "lng": 107.5647017,
+          "approx": false,
+          "sources": [
+            "https://centralvietnamguide.com/tu-duc-tomb/",
+            "https://vinpearl.com/en/tu-duc-tomb-one-of-the-most-appealing-attractions-in-hue-to-visit"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Perfume River dragon boat cruise",
+          "area": "Departs from piers along the Perfume River, city center",
+          "what": "An evening cruise on a wooden dragon-prowed boat past Truong Tien and Phu Xuan bridges, typically with a live Ca Hue folk-music performance on board and the option to release a lotus lantern onto the water.",
+          "why": "The classic way to see Hue's bridges and riverbanks lit up at night, and to hear Ca Hue court music in something like its original setting",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.getyourguide.com/hue-vietnam-l833/sunset-boat-tour-along-perfume-river-t394246/",
+            "https://culturephamtravel.com/hue-dragon-boat-trip/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Bun Bo Hue Ba Gai",
+          "area": "11A Ha Noi Street, Vinh Ninh",
+          "what": "A 24-hour noodle shop serving bun bo Hue, the city's own spicy lemongrass-and-beef broth noodle soup, in a plain no-frills dining room popular with locals at all hours.",
+          "why": "One of the most consistently recommended bun bo Hue spots in the city that actually invented the dish, open around the clock",
+          "lat": 16.4639321,
+          "lng": 107.5863388,
+          "approx": true,
+          "sources": [
+            "https://www.willflyforfood.net/hue-food-guide/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Lac Thien (Banh Khoai Lac Thien)",
+          "area": "6 Dinh Tien Hoang Street",
+          "what": "A family-run restaurant grilling banh khoai to order - Hue's crisp turmeric rice-flour pancake, folded over pork, shrimp and bean sprouts and eaten wrapped in rice paper with a thick peanut-sesame dipping sauce.",
+          "why": "Widely cited as Hue's best banh khoai, and the crunchiest version of the dish in the city",
+          "lat": 16.4720712,
+          "lng": 107.5846611,
+          "approx": true,
+          "sources": [
+            "https://beebeetravel.com/banh-khoai-lac-thien-hue-local-food/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Com Hen Ba Den",
+          "area": "Local, off the main tourist strip",
+          "what": "A local spot serving com hen - cold rice topped with tiny stir-fried river clams, herbs, peanuts and chilli oil - and its noodle-soup cousin bun hen, closing by 11:30am once the day's clams run out.",
+          "why": "Draws a steady stream of locals and Grab drivers rather than tour groups, the usual sign of the real thing in Hue",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://wanderlog.com/place/details/6178201/c%C6%A1m-h%E1%BA%BFn-b%C3%A0-%C4%91en",
+            "https://www.thetravellingsquid.com/2018/04/03/ba-hoa-for-authentic-vietnamese-food-in-hue/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Dong Ba Market",
+          "area": "North bank of the Perfume River, city center",
+          "what": "Hue's biggest market, a three-floor bell-shaped building where the ground floor sells dried seafood and local sauces, the second floor sells crafts like forged knives and ceramics, and the third is devoted to ao dai tailoring.",
+          "why": "Central Vietnam's largest and oldest market, and as much a symbol of Hue's identity as the Citadel",
+          "lat": 16.4724474,
+          "lng": 107.5886452,
+          "approx": false,
+          "sources": [
+            "https://vinwonders.com/en/wonderpedia/news/dong-ba-market-take-a-tour-to-one-of-the-busiest-markets-in-hue/",
+            "https://vietnamdiscovery.com/hue/shopping/dong-ba-market/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Phu Bai Airport to Hue city center",
+          "area": "Airport transfer",
+          "what": "Phu Bai International Airport sits about 15km south of Hue; a taxi or private car to the city center takes 20-30 minutes and costs roughly 250,000-300,000 VND ($10-12).",
+          "why": "Fixes the transfer time for flying in or out of Hue directly, rather than via Da Nang",
+          "lat": 16.399655,
+          "lng": 107.7054596,
+          "approx": false,
+          "sources": [
+            "https://www.geckoroutes.com/vietnam/hue-airport/",
+            "https://danangtransfer.vn/en/4-ways-to-get-from-hue-airport-to-city-center-price-time-tips/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Hai Van Pass - Hue to Da Nang / Hoi An",
+          "area": "Route south out of Hue",
+          "what": "A 21km mountain pass reaching 500m above sea level on the Thua Thien Hue / Da Nang provincial border, driven by private car, motorbike or hired 'easy rider'; the pass itself takes about 45 minutes, with Da Nang city roughly 30 minutes beyond it and Hoi An about 90 minutes from the summit.",
+          "why": "The scenic overland alternative to flying or the flat coastal train, and how the master-spec's cheap Hue day-trip from Hoi An is physically done",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vietnamstory.in/hai-van-pass/",
+            "https://www.uncovervietnam.com/hai-van-pass-route/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "hoi-an": {
+    "id": "hoi-an",
+    "name": "Hoi An and Da Nang",
+    "region": "central",
+    "seq": 8,
+    "lat": 15.8801,
+    "lng": 108.338,
+    "color": "#f032e6",
+    "counts": {
+      "hotels": 6,
+      "must_see": 2,
+      "attractions": 4,
+      "food": 0,
+      "street_food": 6,
+      "restaurants": 5,
+      "markets": 2,
+      "nightlife": 3,
+      "spa": 2,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "La Siesta Hoi An Resort & Spa",
+          "area": "Cam Chau, on the edge of the rice fields, ~10 min walk from Old Town",
+          "what": "A resort built around an infinity pool overlooking rice paddies, with an award-winning spa doing stone massages with a paddy view and free bicycles into town.",
+          "why": "The master-spec's top pick for Hoi An - #2 of over 460 hotels in town and rated 5/5 on Tripadvisor from thousands of reviews",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g298082-d4339781-Reviews-La_Siesta_Hoi_An_Resort_Spa-Hoi_An_Quang_Nam_Province.html",
+            "https://www.hotelscombined.com/Hotel/La_Siesta_Hoi_An_Resort_Spa.htm"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 64,
+          "priceHigh": 150,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Almanity Hoi An Resort & Spa",
+          "area": "Old Town, on Hai Ba Trung Street",
+          "what": "A 139-room wellness resort inside the Old Town itself, built around a Japanese garden with a koi pond and My Chi Spa, the largest resort spa in Hoi An.",
+          "why": "One of the highest-rated hotels of any tier in Hoi An (9.2/10 from over 2,400 reviews), though some reviewers rate the actual guest experience closer to a strong 4-star than a true 5-star",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g298082-d7094399-Reviews-Almanity_Hoi_An_Resort_Spa-Hoi_An_Quang_Nam_Province.html",
+            "https://www.oyster.com/vietnam/hotels/almanity-hoi-an/"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 70,
+          "priceHigh": 163,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Silkotel Hoi An",
+          "area": "Cam Pho Ward, close to Old Town",
+          "what": "A mid-size hotel with an outdoor pool, spa, gym and restaurant a short walk from the Old Town's riverside streets.",
+          "why": "The master-spec's 'best value' pick for Hoi An, rated 9.1/10 from 1,700 reviews at roughly two-thirds the price of the resort-style 5-stars",
+          "lat": 15.8794893,
+          "lng": 108.3223668,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g298082-d10259528-Reviews-Silkotel_Hoi_An-Hoi_An_Quang_Nam_Province.html",
+            "https://www.hotelscombined.com/Hotel/Silkotel_Hoi_An.htm"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 41,
+          "priceHigh": 91,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Lasenta Boutique Hotel Hoian",
+          "area": "Edge of town, among rice fields",
+          "what": "A boutique hotel on the edge of Hoi An with an infinity pool and 4th-floor bar looking out over open rice paddies, plus a free shuttle to both Old Town and the beach.",
+          "why": "Master-spec's alternative pick for the rice-field-view infinity pool at a lower price point than La Siesta",
+          "lat": 15.8819958,
+          "lng": 108.3403954,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g298082-d10149768-Reviews-Lasenta_Boutique_Hotel_Hoian-Hoi_An_Quang_Nam_Province.html",
+            "https://www.vietnamcoracle.com/lasenta-boutique-hotel-hoi-an/"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 52,
+          "priceHigh": 120,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Hoian Central Hotel",
+          "area": "In the heart of Hoi An, steps from the riverside",
+          "what": "A small hotel right in the town center with an outdoor pool and free bicycle rental, close enough to the Old Town's riverside streets to walk everywhere.",
+          "why": "One of the best-located officially-rated 3-star hotels in town, with ratings above many pricier properties",
+          "lat": 15.8797503,
+          "lng": 108.319306,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g298082-d13737482-Reviews-Hoian_Central_Hotel-Hoi_An_Quang_Nam_Province.html",
+            "https://www.klook.com/hotels/detail/113919-hoian-central-hotel/"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 30,
+          "priceHigh": 69,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Little Town Villa",
+          "area": "Near Hoi An Market, 5 minutes' walk from the Japanese Covered Bridge",
+          "what": "A small villa-style property near the town market with a spa, outdoor pool and restaurant, five minutes' walk from the Japanese Covered Bridge.",
+          "why": "Rated 5/5 on Tripadvisor from hundreds of reviews despite its official 3-star classification - well above its price bracket",
+          "lat": 15.8826344,
+          "lng": 108.3244197,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g298082-d12192622-Reviews-Little_Town_Villas-Hoi_An_Quang_Nam_Province.html",
+            "https://www.booking.com/hotel/vn/little-town-villa.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 25,
+          "priceHigh": 130,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Hoi An Ancient Town and Japanese Covered Bridge",
+          "area": "Old Town, along the Thu Bon River",
+          "what": "A UNESCO-listed trading-port town of yellow-walled shophouses, Chinese assembly halls and merchant homes dating to the 16th-18th centuries, centred on the 18-metre wooden Japanese Covered Bridge that doubles as a small temple.",
+          "why": "The reason Hoi An exists on any itinerary - one of Southeast Asia's best-preserved trading ports, UNESCO-listed since 1999",
+          "lat": 15.8779509,
+          "lng": 108.3239898,
+          "approx": false,
+          "sources": [
+            "https://vinpearl.com/en/japanese-bridge-hoi-an-a-cultural-symbol-of-the-ancient-town",
+            "https://grooviet.com/destination/japanese-covered-bridge/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Ba Na Hills and Golden Bridge",
+          "area": "Ba Na Mountain, ~45 minutes west of Da Nang",
+          "what": "A hilltop resort reached by a record-length cable car, built around a recreated French hill-station village and the Golden Bridge - a walkway held up by two giant stone hands emerging from the hillside.",
+          "why": "The consensus pick over My Son among the trip's competing proposals (route decision R6), and Central Vietnam's most photographed modern landmark",
+          "lat": 16.0258471,
+          "lng": 108.0362621,
+          "approx": true,
+          "sources": [
+            "https://hoiandaytrip.com/ba-na-hills-tickets/",
+            "https://happytovisit.com/golden-bridge-ba-na-hills-marble-mountain-monkey-mountain/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Marble Mountains (Ngu Hanh Son)",
+          "area": "Between Da Nang and Hoi An, on the coast road",
+          "what": "Five limestone-and-marble hills, each named for one of the five elements, honeycombed with caves and grottoes containing Buddhist shrines; an elevator and stairs lead up to viewpoints and the Huyen Khong cave, once used as a wartime field hospital.",
+          "why": "A genuinely different landscape from Hoi An's flat riverside town, and an easy stop on the way to or from Da Nang",
+          "lat": 16.00402,
+          "lng": 108.2627745,
+          "approx": false,
+          "sources": [
+            "https://happytovisit.com/golden-bridge-ba-na-hills-marble-mountain-monkey-mountain/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "An Bang Beach surf lesson",
+          "area": "An Bang Beach, ~3km east of Old Town",
+          "what": "A stretch of sandy beach with gentle, beginner-friendly waves, where expat-run surf schools rent boards and run lessons; the surf season runs roughly September to March.",
+          "why": "Hoi An's real board-sport option, and a 20-minute bike ride from the Old Town through rice paddies",
+          "lat": 15.9141779,
+          "lng": 108.3396551,
+          "approx": false,
+          "sources": [
+            "https://thesurfatlas.com/vietnam-surf/hoi-an-surf/",
+            "https://thedeckhousevietnam.com/water-sports/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Cham Island snorkeling / diving day trip",
+          "area": "Cu Lao Cham, ~15-20 minutes by speedboat from Cua Dai",
+          "what": "A cluster of eight granite islands and a UNESCO Biosphere Reserve offshore from Hoi An, with coral reefs reachable by snorkeling from the surface or diving to around 6 metres or more.",
+          "why": "The area's clearest water and only real reef diving/snorkeling, a short speedboat hop from the mainland",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.yourvietnamtravel.com/cham-island-snorkeling",
+            "https://divehoian.com/hoi-an-diving-and-snorkelling-trips/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Cam Thanh coconut forest basket boat ride",
+          "area": "Bay Mau coconut forest, Cam Thanh village, ~5km from Old Town",
+          "what": "A round bamboo 'basket boat' (thung chai) paddled through the water canals of a palm forest that locals call Hoi An's green lung, usually including a spinning-boat performance and a net-fishing demonstration.",
+          "why": "A lighter, closer-to-town alternative to the Mekong Delta basket-boat experience, and popular with families",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/coconut-boat-ride-hoi-an/",
+            "https://www.tripadvisor.com/Attraction_Review-g298082-d15709027-Reviews-Hoi_An_Basket_Boat_Tours-Hoi_An_Quang_Nam_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [],
+      "street_food": [
+        {
+          "name": "Banh Mi Phuong",
+          "area": "2B Phan Chu Trinh Street, Old Town",
+          "what": "A perpetually busy banh mi stand grilling and assembling its own pork, pate and pickled vegetables into a crusty baguette sandwich to order.",
+          "why": "The banh mi Anthony Bourdain called possibly the best in Vietnam - still packed with a line out the door years later",
+          "lat": 15.8784841,
+          "lng": 108.3320081,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g298082-d2365673-Reviews-Banh_My_Phu_ng-Hoi_An_Quang_Nam_Province.html",
+            "https://hiddenhoian.com/eat/banh-mi-phuong-hoi-ans-best-banh-mi/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Cao Lau Ba Le",
+          "area": "Old Town",
+          "what": "A local restaurant specializing in cao lau - thick rice noodles unique to Hoi An (traditionally made with water from a specific local well), tossed with slices of pork, croutons and greens in a light broth.",
+          "why": "Widely cited as serving the best version of Hoi An's own noodle dish, which by local lore can't be authentically replicated anywhere else",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g298082-d15016299-Reviews-Cao_Lau_Ba_Le_Restaurant-Hoi_An_Quang_Nam_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Phu Hong (Bun Thit Nuong Phu Hong)",
+          "area": "19 Yen Bai Street, Hai Chau District, Da Nang",
+          "what": "A street-food stall serving bun thit nuong - grilled pork over rice vermicelli with fresh herbs - alongside grilled pork and minced-pork skewers wrapped in rice paper, no reservations, cash only.",
+          "why": "Holds a Michelin Bib Gourmand for good quality, good value cooking - the everyday-food end of Da Nang's Michelin coverage, distinct from La Maison 1888's fine dining",
+          "lat": 16.0695853,
+          "lng": 108.2229138,
+          "approx": true,
+          "sources": [
+            "https://liveyounglivewell.com/quan-phu-hong-da-nang-review/",
+            "https://guide.michelin.com/en/da-nang-region/da-nang_2984390/restaurant/phu-hong"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "My Quang Sua Hong Van",
+          "area": "Da Nang",
+          "what": "A stall serving my quang - central Vietnam's wide turmeric-yellow noodles in a shallow pool of broth rather than a soup - in the local jellyfish version, with peanuts and a sheet of grilled rice cracker.",
+          "why": "My quang is the dish of this province specifically, and the jellyfish version barely exists outside Da Nang",
+          "lat": 16.0661233,
+          "lng": 108.229693,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/us/en/da-nang-region/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g298085-Da_Nang.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Banh Beo - Banh Dap",
+          "area": "Da Nang",
+          "what": "A stall built on two central-coast snacks - small steamed rice cakes topped with dried shrimp, and a grilled rice cracker sandwiched with a soft wet sheet that you smash by hand before dipping.",
+          "why": "Banh dap is eaten by breaking it with your palm, which makes it the most fun dish on this list and one you will not find at home",
+          "lat": 15.8844674,
+          "lng": 108.3303903,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/us/en/da-nang-region/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g298085-Da_Nang.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Co Chu Nho",
+          "area": "Da Nang",
+          "what": "A small Da Nang street-food shop that entered the Bib Gourmand list in the most recent selection.",
+          "why": "One of only three new Da Nang entries in the 2026 guide, so it has not yet been found by the tour groups",
+          "lat": 16.0461704,
+          "lng": 108.2454747,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/vn/en/da-nang-region/da-nang_2984390/restaurant/co-chu-nho",
+            "https://guide.michelin.com/us/en/da-nang-region/restaurants/bib-gourmand"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "restaurants": [
+        {
+          "name": "White Rose Restaurant",
+          "area": "533 Hai Ba Trung Street",
+          "what": "The restaurant most associated with white rose dumplings (banh bao vac) - translucent rice-dough parcels of spiced minced shrimp, steamed and shaped to resemble a folded rose, then topped with crispy fried shallots.",
+          "why": "The dish comes from one family recipe distributed to eateries around town, and this restaurant is the most famous outlet for it",
+          "lat": 15.8829593,
+          "lng": 108.3250054,
+          "approx": false,
+          "sources": [
+            "https://culturephamtravel.com/white-rose-dumplings-hoi-an/",
+            "https://cavinteo.blogspot.com/2024/10/white-rose-restaurant-dumplings-hoi-an-vietnam.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "La Maison 1888",
+          "area": "InterContinental Danang Sun Peninsula Resort, Son Tra",
+          "what": "A fine-dining French restaurant inside a recreated Indochinese colonial mansion overlooking the sea, serving a five- or eight-course set menu built on Vietnamese, French and Japanese ingredients.",
+          "why": "The only Michelin-starred restaurant in Central Vietnam, held by chef Christian Le Squer, who carried three Michelin stars in France for 23 years",
+          "lat": 15.9040037,
+          "lng": 108.3326237,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/us/en/da-nang-region/da-nang_2984390/restaurant/la-maison-1888",
+            "https://www.danang.intercontinental.com/a-michelin-star-for-la-maison-1888/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "international",
+          "signal": "michelin_star",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Thia Go",
+          "area": "Da Nang",
+          "what": "A sit-down Vietnamese kitchen working with central-coast produce and seafood, plated as a full menu rather than a single-dish counter.",
+          "why": "Bib Gourmand, and the option for a proper dinner in Da Nang that is neither a resort restaurant nor a plastic stool",
+          "lat": 16.0532123,
+          "lng": 108.24153,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/us/en/da-nang-region/da-nang_2984390/restaurant/thia-go%C2%A0",
+            "https://guide.michelin.com/us/en/da-nang-region/restaurants/bib-gourmand"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Be Ni 2",
+          "area": "Da Nang",
+          "what": "A Da Nang seafood house where the catch is picked from tanks at the front and cooked to order - grilled, steamed with lemongrass, or fried with tamarind.",
+          "why": "The only seafood address on the guide's Da Nang list, in a city whose whole economy faces the sea",
+          "lat": 16.0667909,
+          "lng": 108.2449525,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/us/en/da-nang-region/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g298085-Da_Nang.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Ngoc Chi",
+          "area": "Da Nang",
+          "what": "A vegetarian kitchen rebuilding central-Vietnamese dishes without meat or fish sauce, from noodle bowls to rice plates.",
+          "why": "Bib Gourmand vegetarian, and the fallback in a region whose cooking leans hard on fish sauce and pork",
+          "lat": 16.0650511,
+          "lng": 108.2227097,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/us/en/da-nang-region/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g298085-Da_Nang.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "markets": [
+        {
+          "name": "Hoi An Central Market",
+          "area": "Tran Phu Street, along the Thu Bon riverbank",
+          "what": "The daytime market where locals actually shop, selling fresh produce, herbs, meat, fish, fabric and household goods across covered stalls a block from the river.",
+          "why": "The working counterpart to the tourist-facing lantern streets, and a good source of cheap street food for lunch",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.klook.com/blog/hoi-an-markets-guide/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Hoi An Night Market (Nguyen Hoang)",
+          "area": "Nguyen Hoang Street, opposite the Japanese Covered Bridge",
+          "what": "A roughly 300-metre stretch of Nguyen Hoang Street that fills after dark with silk-and-bamboo lantern stalls, street food carts and souvenir vendors on both sides of the road.",
+          "why": "The largest and most popular night market in Hoi An, and the source of the lantern glow the town is known for after sunset",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vinpearl.com/en/hoi-an-night-market-explore-vibrant-nightlife-inside-an-ancient-town",
+            "https://culturephamtravel.com/hoi-an-lantern-market/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [
+        {
+          "name": "Hoi An Old Town after dark",
+          "area": "Tran Phu, Nguyen Thai Hoc and Bach Dang, along the Hoai River",
+          "what": "At dusk the electric lights in the old town are switched off and the silk lanterns come on. The riverside lanes close to traffic and fill with people walking, eating and floating paper candles on the water.",
+          "why": "The town itself is the nightlife here - there is no single venue to book, and after 22:00 it quietly empties",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://hoianit.com/hoi-an-lantern-street-the-most-magical-night/",
+            "https://www.getyourguide.com/old-town-hoi-an-l228645/nightlife-bars-tc109/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Nguyen Hoang Night Market",
+          "area": "An Hoi islet, across the bridge from the Old Town",
+          "what": "Around fifty stalls selling handmade silk lanterns, souvenirs and grilled street snacks, running the length of An Hoi islet each evening.",
+          "why": "The lantern stalls are where the photographs everyone takes of Hoi An actually happen, and it is the cheapest place in town to buy one to take home",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://hoianit.com/hoi-an-lantern-street-the-most-magical-night/",
+            "https://www.getyourguide.com/hoi-an-l831/nightlife-bars-tc109/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "An Bang Beach bars",
+          "area": "An Bang Beach, 3 km from the Old Town",
+          "what": "A line of beachfront bars and seafood shacks with live music, sand underfoot and a very different crowd from the lantern-lit old town.",
+          "why": "Where Hoi An goes when the old town closes at 22:00, and the only late option in this station",
+          "lat": 15.9141779,
+          "lng": 108.3396551,
+          "approx": false,
+          "sources": [
+            "https://vietadvisor.travel/hoi-an/hoi-an-nightlife",
+            "https://hoianmemoriesresort.com/en/best-bars-in-hoi-an-top-nightlife-spots-for-tourists-and-young-travelers.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "spa": [
+        {
+          "name": "Herbal Spa Hoi An",
+          "area": "Hoi An, several branches",
+          "what": "A spa built around a Vietnamese herbal treatment - lemongrass, ginger, cinnamon and mugwort steamed and applied warm - alongside standard body and foot massage.",
+          "why": "4.8 out of 5 from more than two thousand Klook reviews and top-ranked on TripAdvisor since 2019, which is a far deeper review base than any spa in Hanoi",
+          "lat": 15.8784079,
+          "lng": 108.3240194,
+          "approx": false,
+          "sources": [
+            "https://herbalspa.vn/en/hoi-an",
+            "https://www.tripadvisor.com/Attractions-g298082-Activities-c40-Hoi_An_Quang_Nam_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Ocean Spa Hoi An",
+          "area": "Near An Bang Beach",
+          "what": "A spa near An Bang beach offering body, foot and herbal treatments away from the old-town crowds.",
+          "why": "4.9 out of 5 across more than 1,300 reviews, and close enough to the beach to combine with a swim",
+          "lat": 15.9129019,
+          "lng": 108.3402428,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Attractions-g298082-Activities-c40-Hoi_An_Quang_Nam_Province.html",
+            "https://www.klook.com/destination/c75-hoi-an/1011-spa/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "logistics": [
+        {
+          "name": "Da Nang Airport to Hoi An",
+          "area": "Airport transfer",
+          "what": "Da Nang International Airport (DAD) sits about 30km from Hoi An; a Grab car or taxi takes 30-40 minutes in normal traffic (up to an hour at peak times) and costs roughly 250,000-400,000 VND.",
+          "why": "Fixes the practical transfer time for the flight in and out of the Hoi An/Da Nang leg of the trip",
+          "lat": 16.0425792,
+          "lng": 108.1971613,
+          "approx": false,
+          "sources": [
+            "https://unmappedasia.com/da-nang-airport-to-hoi-an/",
+            "https://www.welcomepickups.com/da-nang/airport-to-hoi-an/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Hoi An Old Town vehicle restrictions",
+          "area": "Old Town core",
+          "what": "Cars and, at scheduled hours, motorbikes are barred from the Old Town's core streets, which are walking- and cyclo-only; a paid Old Town ticket covers entry to several assembly halls, temples and heritage houses.",
+          "why": "Affects how you actually move around and reach hotels/restaurants once inside the historic core",
+          "lat": 15.8779509,
+          "lng": 108.3239898,
+          "approx": false,
+          "sources": [
+            "https://grooviet.com/destination/japanese-covered-bridge/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "buon-ma-thuot": {
+    "id": "buon-ma-thuot",
+    "name": "Buon Ma Thuot",
+    "region": "highlands",
+    "seq": 9,
+    "lat": 12.6797,
+    "lng": 108.0378,
+    "color": "#9a6324",
+    "counts": {
+      "hotels": 3,
+      "must_see": 4,
+      "attractions": 1,
+      "food": 2,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 1,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Muong Thanh Luxury Buon Ma Thuot Hotel",
+          "area": "City center, near Victory Monument",
+          "what": "A modern high-rise hotel tower in the middle of Buon Ma Thuot with a rooftop bar, outdoor pool and its own Draysap restaurant, the tallest hotel building in the city.",
+          "why": "Ranked #1 of Buon Ma Thuot's hotels with the most consistent guest reviews of any property in town",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g670918-d12130390-Reviews-Muong_Thanh_Luxury_Buon_Ma_Thuot_Hotel-Buon_Ma_Thuot_Dak_Lak_Province.html",
+            "https://www.kayak.com/Buon-Ma-Thuot-Hotels-Muong-Thanh-Luxury-Buon-Ma-Thuot.2774500.ksp"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 34,
+          "priceHigh": 68,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Saigon Ban Me Hotel",
+          "area": "City center, two minutes' walk from the central market",
+          "what": "A mid-rise business hotel with 131 rooms, an outdoor pool and a karaoke lounge, two minutes' walk from Buon Ma Thuot's central market.",
+          "why": "Closest well-reviewed hotel to the market and the coffee-shopping streets around it",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g670918-d3251736-Reviews-Saigon_Ban_Me_Hotel-Buon_Ma_Thuot_Dak_Lak_Province.html",
+            "https://www.makemytrip.com/hotels-international/en-us/vietnam/buon_ma_thuot-hotels/saigon_ban_me_hotel-details.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 30,
+          "priceHigh": 57,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Dakruco Hotel",
+          "area": "City center",
+          "what": "A long-running business hotel in central Buon Ma Thuot, run by the state-owned Dak Lak Rubber company, with an outdoor pool, restaurant and bar.",
+          "why": "The cheapest hotel in the centre with a genuinely high review score rather than an inflated one",
+          "lat": 12.6933774,
+          "lng": 108.0660931,
+          "approx": true,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g670918-d1772273-Reviews-Dakruco_Hotel-Buon_Ma_Thuot_Dak_Lak_Province.html",
+            "https://www.momondo.com/hotels/buon-ma-thuot/Dakruco-Hotel.mhd373818.ksp"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 28,
+          "priceHigh": 38,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "The World Coffee Museum",
+          "area": "Tan Loi Ward, inside Trung Nguyen Coffee Village, ~4km from center",
+          "what": "A museum built in the style of Central Highlands longhouses, holding over 10,000 coffee-related artefacts from around the world, with hands-on tasting rooms rather than glass display cases.",
+          "why": "The signature sight of Vietnam's coffee capital, and the reason most visitors come to Buon Ma Thuot at all",
+          "lat": 12.6908584,
+          "lng": 108.0445203,
+          "approx": false,
+          "sources": [
+            "https://en.wikipedia.org/wiki/The_World_Coffee_Museum",
+            "https://vietnamtourism.gov.vn/en/post/20640"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Ako Dhong Village",
+          "area": "Tan Loi Ward, inside the city",
+          "what": "A working Ede ethnic-minority neighbourhood inside the city itself, with more than 30 traditional wooden longhouses built on stilts in the shape of boats.",
+          "why": "The only place to see genuine Ede stilt-house architecture without leaving town",
+          "lat": 12.696465,
+          "lng": 108.0491334,
+          "approx": false,
+          "sources": [
+            "https://en.nhandan.vn/ako-dhong-village-a-door-to-explore-ede-ethnic-culture-in-the-heart-of-buon-ma-thuot-city-post146489.html",
+            "https://sayhellovietnam.com/ako-dhong-village-an-attractive-village-in-the-city-in-buon-ma-thuot/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Dray Nur Waterfall",
+          "area": "Krong Ana district, ~27km southwest of center",
+          "what": "A 250-metre-wide waterfall dropping more than 30 metres where the Krong Ana and Krong No rivers meet to form the Serepok River, crossed by a suspension bridge over the gorge.",
+          "why": "The most powerful waterfall in the Central Highlands, and a straightforward half-day trip from the city",
+          "lat": 12.5405291,
+          "lng": 107.8904044,
+          "approx": true,
+          "sources": [
+            "https://vinpearl.com/en/dray-nur-waterfall-dak-lak-things-to-do-here",
+            "https://www.tripadvisor.com/Attraction_Review-g670918-d4766576-Reviews-Dray_Nur_Waterfall-Buon_Ma_Thuot_Dak_Lak_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Yok Don National Park",
+          "area": "Buon Don district, ~40km from center",
+          "what": "Vietnam's second-largest national park, a stretch of dry dipterocarp forest along the Serepok River where former riding elephants now forage freely under the watch of their own mahouts.",
+          "why": "Vietnam's first ethical elephant-tourism site, which ended elephant riding here in 2018 in favour of observation",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vietnam.travel/things-to-do/vietnams-first-ethical-elephant-experience",
+            "https://www.legendtravelgroup.com/a/ethical-elephant-tour-guide-yok-don-national-park-buon-ma-thuot-dak-lak-eco-tours"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Trung Nguyen Coffee Village",
+          "area": "Ly Thai To Street, Tan An Ward, ~3km from center",
+          "what": "A 20,000 sqm compound of replica traditional houses, coffee-roasting displays and cafes built by Vietnam's best-known coffee brand, with the World Coffee Museum inside its grounds.",
+          "why": "A full afternoon of coffee culture in one walkable site, from growing to roasting to cup",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.originvietnam.com/destinations/trung-nguyen-coffee-village/",
+            "https://trungnguyenlegend.com/lang-ca-phe-trung-nguyen/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Soul Specialty Coffee - BMT",
+          "area": "City center",
+          "what": "A minimalist specialty-coffee bar roasting its own Buon Ma Thuot robusta and serving cold brew and pour-overs rather than the sweetened iced coffee sold on every corner.",
+          "why": "Placed in the top 5 of the 2025 Vietnam Amazing Cup for Fine Robusta, judged against the country's best roasters",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g670918-d26632037-Reviews-Soul_Specialty_Coffee_BMT-Buon_Ma_Thuot_Dak_Lak_Province.html",
+            "https://wanderlog.com/place/details/5809719/soul-fine-robusta-bmt"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "local_media",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Ga Nuong Com Lam (30/4)",
+          "area": "30/4 Pham Van Dong Street, Tan Hoa",
+          "what": "A family-run restaurant grilling marinated chicken over charcoal and serving it with com lam, sticky rice steamed inside a bamboo tube, the classic Central Highlands meal.",
+          "why": "One of the most consistently mentioned spots in the city for this specific highland dish",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://mindtrip.ai/restaurant/buon-ma-thuot-dak-lak/ga-nuong-com-lam/re-SIdAcKcx",
+            "https://accdaklak.vn/ga-nuong-com-lam-buon-ma-thuot/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Buon Ma Thuot Central Market",
+          "area": "City center, near Victory Monument",
+          "what": "The city's main covered market, stalls piled with roasted and green coffee beans, black pepper, cacao, macadamia nuts and honey harvested from the surrounding highland forests.",
+          "why": "The place to buy coffee straight from the source rather than at inflated airport prices",
+          "lat": 12.6805026,
+          "lng": 108.042465,
+          "approx": false,
+          "sources": [
+            "https://www.frommers.com/destinations/buon-ma-thuot/shopping/overview",
+            "https://vinpearl.com/en/buon-ma-thuot-vietnam-a-comprehensive-travel-guide"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Da Nang - Buon Ma Thuot flight (VN1911)",
+          "area": "Route into the highlands leg",
+          "what": "The only practical way into this leg of the route: a roughly 65-minute Vietnam Airlines flight from Da Nang, operated on selected days of the week rather than daily.",
+          "why": "The whole route depends on this flight existing on the chosen date; it must be checked against the calendar before booking, not assumed",
+          "lat": 12.6668723,
+          "lng": 108.1199878,
+          "approx": false,
+          "sources": [
+            "https://www.vietnamairlines.com/en-vn/flights-from-da-nang-to-buon-ma-thuot",
+            "https://www.flightaware.com/live/flight/HVN1911"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Buon Ma Thuot to Lak Lake road (National Highway 27)",
+          "area": "Route south out of the city",
+          "what": "A roughly 50km, 1.5-hour drive south from Buon Ma Thuot on National Highway 27, crossing Lac Thien Pass, the first leg of the Buon Ma Thuot - Lak - Da Lat easy-rider route.",
+          "why": "Confirms the length of the first riding day for the route already locked into the itinerary",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.aroundtheworld360.com/distance/buon-ma-thuot_vn/lak_vn/",
+            "https://www.travelfish.org/sight_profile/vietnam/central_highlands/dak_lak/buon_ma_thuot/672"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "lak-lake": {
+    "id": "lak-lake",
+    "name": "Lak Lake",
+    "region": "highlands",
+    "seq": 10,
+    "lat": 12.4076,
+    "lng": 108.1836,
+    "color": "#808000",
+    "counts": {
+      "hotels": 2,
+      "must_see": 2,
+      "attractions": 1,
+      "food": 1,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 0,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 1
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Lak Tented Camp",
+          "area": "Yang Tao, Lien Son, reached only by boat",
+          "what": "A small eco-lodge accessible only by boat crossing, with 15 safari-style tents, four lakeside bungalows and a wooden longhouse restaurant on the shore of Lak Lake.",
+          "why": "The consensus pick of two independently-researched agent proposals for this leg, and the only proper lodge actually on the lake",
+          "lat": 12.4279787,
+          "lng": 108.1812233,
+          "approx": true,
+          "sources": [
+            "https://www.booking.com/hotel/vn/lak-tented-camp.html",
+            "https://www.tripadvisor.com/Hotel_Review-g3389563-d11875783-Reviews-Lak_Tented_Camp-Lien_Son_Dak_Lak_Province.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 60,
+          "priceHigh": 160,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Bao Dai Villa (Lak Lake)",
+          "area": "Hill above Lak Lake, Lien Son town",
+          "what": "The 1951 hunting lodge Emperor Bao Dai built on a hill overlooking Lak Lake, now run as a simple guesthouse with the old dining room serving as a restaurant.",
+          "why": "The only accommodation directly on the hill above the lake, inside a genuine former royal building",
+          "lat": 12.4155999,
+          "lng": 108.1816523,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g670918-d3291911-Reviews-Bao_Dai_Villa-Buon_Ma_Thuot_Dak_Lak_Province.html",
+            "https://vnexpress.net/biet-dien-bao-dai-ben-ho-lak-4393734.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 20,
+          "priceHigh": 30,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Lak Lake",
+          "area": "Lien Son, Lak district",
+          "what": "The largest natural freshwater lake in the Central Highlands, ringed by rice paddies and forest, crossed by hand-carved dugout canoes rather than motorboats.",
+          "why": "The centrepiece of this leg of the route, and the reason the itinerary stops here overnight",
+          "lat": 12.4232112,
+          "lng": 108.1776243,
+          "approx": false,
+          "sources": [
+            "https://en.wikipedia.org/wiki/Lak_Lake",
+            "https://www.bestpricetravel.com/travel-guide/lak-lake.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Jun Village (Buon Jun)",
+          "area": "South shore of Lak Lake",
+          "what": "A M'nong ethnic-minority settlement of wood and rattan stilt houses on the lake's south shore, where villagers still weave brocade and fish from dugout canoes.",
+          "why": "The most accessible M'nong village on the lake, and the standard stop on the easy-rider route through here",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.dalattrip.com/fly/jun-village-in-central-highland-of-vietnam/",
+            "https://authentiktravel.com/lak-lake-a-treasure-of-m-nong-in-dak-lak"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Lak Lake dugout canoe crossing",
+          "area": "Boat launch near Jun village / Lak Tented Camp",
+          "what": "A traditional single-log dugout canoe, hand-paddled across Lak Lake at dawn or dusk, arranged through Jun village boatmen or through the tented camp.",
+          "why": "The way locals actually move across the lake, and a quieter alternative to the elephant rides sold nearby in the village",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.laktentedcamp.com/",
+            "https://www.tripadvisor.com/ShowUserReviews-g3389563-d11875783-r717309876-Lak_Tented_Camp-Lien_Son_Dak_Lak_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Com Lam Ga Nuong Ho Lak (Pai R'Lam)",
+          "area": "Buon Le, on the lake shore",
+          "what": "A stilt-house restaurant on Lak Lake serving the Central Highlands staple of chicken grilled over charcoal alongside rice steamed inside a bamboo tube.",
+          "why": "One of very few sit-down restaurants actually at the lake, rather than back in Buon Ma Thuot",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com.vn/Restaurant_Review-g670918-d25188323-Reviews-Com_Lam_Ga_Nu_ng_H_Lak-Buon_Ma_Thuot_Dak_Lak_Province.html",
+            "https://wanderlog.com/place/details/7813963/pai-rl%C4%83m-c%C6%A1m-lam-g%C3%A0-n%C6%B0%E1%BB%9Bng-h%E1%BB%93-l%C4%83k"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Getting to Lak Tented Camp",
+          "area": "Lien Son, on National Highway 27",
+          "what": "Lak Lake sits on National Highway 27 about 50km / 1.5 hours south of Buon Ma Thuot and roughly 160km / 4 hours north of Da Lat; the tented camp itself is reached by a short boat crossing from the village dock, not by driving to the door.",
+          "why": "The one non-obvious detail that shapes the overnight stop: the hotel is boat-access only",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.laktentedcamp.com/how-to-travel-to-lak/",
+            "https://www.aroundtheworld360.com/distance/buon-ma-thuot_vn/lak_vn/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "da-lat": {
+    "id": "da-lat",
+    "name": "Da Lat",
+    "region": "highlands",
+    "seq": 11,
+    "lat": 11.9404,
+    "lng": 108.4583,
+    "color": "#469990",
+    "counts": {
+      "hotels": 6,
+      "must_see": 3,
+      "attractions": 4,
+      "food": 2,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 2,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Dalat Palace Heritage Hotel",
+          "area": "Next to Xuan Huong Lake, city center",
+          "what": "A 1922 French colonial hotel overlooking Xuan Huong Lake, with wood floors, chandeliers, cast-iron bathtubs and a working fireplace in every room.",
+          "why": "Da Lat's original grand hotel and its only heritage-grade 5-star, not a newly self-rated property",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293922-d299557-Reviews-Dalat_Palace_Heritage_Hotel-Da_Lat_Lam_Dong_Province.html",
+            "https://www.momondo.com/hotels/da-lat/Dalat-Palace-Heritage-Hotel.mhd7081.ksp"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 92,
+          "priceHigh": 258,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "MerPerle Dalat Hotel",
+          "area": "Next to Da Lat golf course",
+          "what": "A large new hotel with an indoor pool, spa and its own attached winery, on the edge of downtown next to Da Lat's golf course.",
+          "why": "The highest-scoring self-declared 5-star in Da Lat, though several guests say it falls short of a true 5-star standard",
+          "lat": 11.9410283,
+          "lng": 108.4583231,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293922-d26305215-Reviews-MerPerle_Dalat_Hotel-Da_Lat_Lam_Dong_Province.html",
+            "https://www.kayak.com/Dalat-Hotels-Merperle-Dalat-Hotel.9967439.ksp"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 55,
+          "priceHigh": 91,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Colline Dalat",
+          "area": "Next to Da Lat night market",
+          "what": "A 150-room modern hotel built directly onto the steps down to Da Lat's night market, with a rooftop restaurant looking over the town.",
+          "why": "Officially 4-star and zero steps from the night market; the master-spec's top pick for Da Lat",
+          "lat": 11.94397,
+          "lng": 108.438126,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293922-d16731336-Reviews-Colline-Da_Lat_Lam_Dong_Province.html",
+            "https://us.trip.com/hotels/dalat-hotel-detail-29515862/colline-dalat/"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 63,
+          "priceHigh": 76,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Terracotta Hotel & Resort Dalat",
+          "area": "Lakeside, near Da Lat golf course",
+          "what": "A spa hotel on the shore of a small private lake, with two restaurants, bike rental and an adjoining golf course.",
+          "why": "A genuine lakeside 4-star property at close to 3-star prices",
+          "lat": 11.894725,
+          "lng": 108.4397193,
+          "approx": true,
+          "sources": [
+            "https://www.momondo.com/hotels/da-lat/Terracotta-Hotel-Resort-Dalat.mhd2272019.ksp",
+            "https://www.makemytrip.com/hotels-international/en-us/vietnam/dalat-hotels/terracotta_hotel_resort_dalat-details.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 44,
+          "priceHigh": 53,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "TTC Hotel - Da Lat",
+          "area": "Near Xuan Huong Lake, city center",
+          "what": "A straightforward business hotel nine minutes' walk from Xuan Huong Lake, with two restaurants and a small fitness room.",
+          "why": "A dependable branded 3-star in the centre, not a self-rated guesthouse",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293922-d451005-Reviews-TTC_Hotel_Dalat-Da_Lat_Lam_Dong_Province.html",
+            "https://www.trip.com/hotels/dalat-hotel-detail-713949/ttc-hotel-premium-da-lat/"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 37,
+          "priceHigh": 53,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Le House Dalat",
+          "area": "Near the city center",
+          "what": "A small new boutique hotel close to the centre, with large clean rooms and a breakfast menu that changes daily.",
+          "why": "The best-reviewed budget-boutique option in Da Lat, though it carries no official star rating",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293922-d27137692-Reviews-Le_House_Dalat-Da_Lat_Lam_Dong_Province.html",
+            "https://www.booking.com/hotel/vn/le-house-dalat-thanh-pho-da-lat.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 46,
+          "priceHigh": 65,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Crazy House (Hang Nga Guesthouse)",
+          "area": "Huynh Thuc Khang Street",
+          "what": "A surreal building shaped like a giant banyan tree, designed by architect Dang Viet Nga with tunnel staircases, mushroom-shaped rooms and almost no straight lines anywhere.",
+          "why": "Unlike anything else built in Vietnam, and walkable from the city centre",
+          "lat": 11.9345622,
+          "lng": 108.4305116,
+          "approx": true,
+          "sources": [
+            "https://www.cnn.com/travel/article/crazy-house-dalat-vietnam",
+            "https://vinwonders.com/en/wonderpedia/news/dalat-crazy-house/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Langbiang Mountain",
+          "area": "Lac Duong, ~12km north of the city",
+          "what": "A 2,167m twin-peaked mountain reached by a bumpy 4.5km jeep track from its base, with panoramic views over Da Lat's pine forests and valleys from the summit.",
+          "why": "The best viewpoint over the whole Da Lat plateau, and an easy half-day trip",
+          "lat": 12.0472573,
+          "lng": 108.4405826,
+          "approx": false,
+          "sources": [
+            "https://vinwonders.com/en/wonderpedia/news/lang-biang-mountain-dalat/",
+            "https://localvietnam.com/blog/langbiang-mountain/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Xuan Huong Lake",
+          "area": "City center",
+          "what": "A 40-hectare artificial lake built by French colonists in 1919 at the centre of Da Lat, ringed by a walking path, pine trees and the old golf course.",
+          "why": "Da Lat organises itself around this lake the way Hanoi organises itself around Hoan Kiem",
+          "lat": 11.9450803,
+          "lng": 108.4487222,
+          "approx": false,
+          "sources": [
+            "https://vinwonders.com/en/wonderpedia/news/xuan-huong-lake-dalat/",
+            "https://www.tripadvisor.com/Attraction_Review-g293922-d451022-Reviews-Xuan_Huong_Lake-Da_Lat_Lam_Dong_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Datanla Waterfall Canyoning",
+          "area": "7km south of the city",
+          "what": "A guided descent through the Datanla waterfall gorge from a base camp at the falls: rappelling down cliffs and a 30m waterfall, a zipline, a water slide and a narrow rock chute nicknamed the 'washing machine'.",
+          "why": "Da Lat's real adventure-sport claim, and one of the few canyoning operations anywhere in Vietnam",
+          "lat": 11.9011774,
+          "lng": 108.4488444,
+          "approx": false,
+          "sources": [
+            "https://tinggly.com/experience/canyoning-2400m-alpine-coaster-activity-in-dalat/141620P6",
+            "https://www.tripadvisor.com/AttractionProductReview-g293922-d27116487-Canyoning_2400m_Alpine_Coaster_Activity_in_Dalat-Da_Lat_Lam_Dong_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Datanla Alpine Coaster",
+          "area": "Datanla Waterfall, 7km south of the city",
+          "what": "A 2,400-metre gravity toboggan track through pine forest down toward the waterfall, with a handbrake so each rider controls their own speed.",
+          "why": "The longest alpine coaster in Asia, and a gentler adrenaline option than the canyoning next door",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Attraction_Review-g293922-d2448851-Reviews-Datanla_Waterfall-Da_Lat_Lam_Dong_Province.html",
+            "https://ummigoeswhere.com/datanla-alpine-coaster-dalat/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Tuyen Lam Lake SUP/Kayak and Clay Tunnel",
+          "area": "Tuyen Lam Lake, south of the city",
+          "what": "A paddle by kayak or stand-up paddleboard across Tuyen Lam Lake's pine-fringed water, usually combined with a stop at the Clay Tunnel, a walk-through open-air clay sculpture near the Truc Lam monastery.",
+          "why": "The quiet, uncrowded counterpart to the night market; nature and folk art in one outing",
+          "lat": 11.8907954,
+          "lng": 108.4250836,
+          "approx": false,
+          "sources": [
+            "https://powertraveller.com/da-lat-tuyen-lam-lake-kayak-or-sup-tour/",
+            "https://kayawanderlust.com/self-guided-tour-to-the-clay-tunnel-and-truc-lam-monastery/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Easy Rider day tour from Da Lat",
+          "area": "City-wide, starts downtown",
+          "what": "A full day riding pillion on a local guide's motorbike through Da Lat's flower farms, a silk factory, a weasel-coffee plantation and back-road viewpoints most tour buses never reach.",
+          "why": "The consensus recommendation of the two agent proposals that researched this leg, and the standard way to see rural Da Lat",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://dalat-easyriders.com/",
+            "https://www.easyridersvietnam.org/tour/dalat-to-bmt-2-days/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Banh Trang Nuong Da Lat Ngon Be Lun",
+          "area": "50 Pham Ngoc Thach, Ward 6",
+          "what": "A streetside grill stall cooking 'Da Lat pizza', rice paper toasted over charcoal and topped to order with egg, dried pork, scallion and chilli sauce.",
+          "why": "One of the most consistently reviewed banh trang nuong stalls in a city that treats the dish as a local specialty",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g293922-d19089769-Reviews-Banh_Trang_Nuong_Da_Lat_Ngon_Be_Lun-Da_Lat_Lam_Dong_Province.html",
+            "https://extensionembed.wanderlog.com/list/geoCategory/83008/street-food"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Artichoke tea (Tra Atiso) at Da Lat Market",
+          "area": "Da Lat Market, city center",
+          "what": "Dried artichoke flower heads, grown on the plateau around Da Lat, sold loose or bagged as a bitter herbal tea at stalls throughout Da Lat Market.",
+          "why": "Da Lat grows most of Vietnam's artichoke crop; the tea is the plateau's signature souvenir",
+          "lat": 11.9435196,
+          "lng": 108.4372097,
+          "approx": false,
+          "sources": [
+            "https://tamtrinhcoffee.com/da-lat-specialty-gifts/",
+            "https://www.expatolife.com/things-to-buy-shopping-da-lat-vietnam/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "local_media",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Da Lat Market (Cho Da Lat)",
+          "area": "City center, beside Xuan Huong Lake",
+          "what": "The city's main covered market building on a hillside above Xuan Huong Lake, selling fresh produce, dried flowers, hot street food and Da Lat's own coffee and wine.",
+          "why": "The daytime anchor of Da Lat's market district, a few steps from the lake",
+          "lat": 11.9435196,
+          "lng": 108.4372097,
+          "approx": false,
+          "sources": [
+            "https://en.wikipedia.org/wiki/Da_Lat_Market",
+            "https://vinwonders.com/en/wonderpedia/news/dalat-market/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Da Lat Night Market (Cho Am Phu)",
+          "area": "Steps below Da Lat Market, city center",
+          "what": "The streets and steps below the market building come alive after 5pm with food stalls, grilled rice paper, hot soy milk and fresh strawberries, plus clothing and souvenir stalls.",
+          "why": "Da Lat's evening centre of gravity, and where most of the specialty street food listed here is actually eaten",
+          "lat": 11.9414964,
+          "lng": 108.4372724,
+          "approx": true,
+          "sources": [
+            "https://vinpearl.com/en/da-lat-night-market",
+            "https://www.vietnamtourism.org.vn/travel-guide/destination-in-vietnam/da-lat%E2%80%99s-night-market.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Lien Khuong Airport (DLI) to city center",
+          "area": "Airport transfer",
+          "what": "Lien Khuong Airport sits about 30km south of Da Lat; a taxi or private transfer to the city centre takes roughly 40-50 minutes depending on traffic.",
+          "why": "Fixes the transfer time for the flight out of Da Lat at the end of this leg",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vinpearl.com/en/da-lat-airport",
+            "https://www.geckoroutes.com/vietnam/dalat-airport/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Lak Lake to Da Lat road (National Highway 27)",
+          "area": "Route into the city from the north",
+          "what": "The final leg of the easy-rider route: roughly 160km / 4 hours south from Lak Lake on National Highway 27 through the Ta Dung area into Da Lat.",
+          "why": "Confirms the length of the second riding day for the route already locked into the itinerary",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.bestpricetravel.com/travel-guide/lak-lake.html",
+            "https://www.rome2rio.com/s/Buon-Ma-Thuot-Dak-Lak/%C3%90%C3%A0-L%E1%BA%A1t"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "saigon": {
+    "id": "saigon",
+    "name": "Ho Chi Minh City",
+    "region": "south",
+    "seq": 12,
+    "lat": 10.7769,
+    "lng": 106.7009,
+    "color": "#000075",
+    "counts": {
+      "hotels": 6,
+      "must_see": 2,
+      "attractions": 2,
+      "food": 0,
+      "street_food": 6,
+      "restaurants": 5,
+      "markets": 2,
+      "nightlife": 3,
+      "spa": 0,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "La Siesta Premium Saigon",
+          "area": "District 1, near Ben Thanh Market",
+          "what": "A 5-star boutique tower a two-minute walk from Ben Thanh Market, with a rooftop pool and bar looking over the District 1 skyline.",
+          "why": "Best rated boutique 5-star in the four agent proposals, and closest to Ben Thanh",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.booking.com/hotel/vn/la-siesta-premium-sai-gon.html",
+            "https://www.tripadvisor.com/Hotel_Review-g293925-d25442757-Reviews-La_Siesta_Premium_Saigon-Ho_Chi_Minh_City.html"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 145,
+          "priceHigh": 251,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Hotel Des Arts Saigon - MGallery",
+          "area": "District 1, near Notre-Dame Cathedral",
+          "what": "A 5-star Art Deco-era building restored as an Accor MGallery hotel, with 168 rooms, a rooftop infinity pool and a French colonial facade a short walk from Notre-Dame Cathedral.",
+          "why": "Accor-chain 5-star with an officially assigned rating, mentioned as an alternative in the project's own vetted hotel research",
+          "lat": 10.7820238,
+          "lng": 106.6971407,
+          "approx": true,
+          "sources": [
+            "https://www.hoteldesartssaigon.com/",
+            "https://www.tripadvisor.com/Hotel_Review-g293925-d8142973-Reviews-Hotel_Des_Arts_Saigon_Mgallery-Ho_Chi_Minh_City.html"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 134,
+          "priceHigh": 396,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Liberty Central Saigon Riverside",
+          "area": "District 1, riverside near Ben Nghe Canal",
+          "what": "A modern 4-star tower a few blocks from the Saigon River, part of the established Liberty Central mid-scale chain, with a rooftop pool and gym.",
+          "why": "Reliable mid-scale chain rating at roughly half the price of the 5-star picks, with consistent 4-star classification across booking platforms",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293925-d4474103-Reviews-Liberty_Central_Saigon_Riverside_Hotel-Ho_Chi_Minh_City.html",
+            "https://www.agoda.com/en-ca/liberty-central-saigon-riverside-hotel/hotel/ho-chi-minh-city-vn.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 54,
+          "priceHigh": 93,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Sky Gem Hotel - Ben Thanh",
+          "area": "District 1, near Ben Thanh Market",
+          "what": "A small independent tower hotel a few minutes' walk from Ben Thanh Market, self-classified as 4-star, with smoke-free rooms and a rooftop terrace.",
+          "why": "Cited by an independent agent proposal as its 4-star pick, and the cheapest hotel in the pool with a genuine 4-star self-rating",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293925-d27532051-Reviews-Sky_Gem_Hotel_Ben_Thanh-Ho_Chi_Minh_City.html",
+            "https://www.trip.com/hotels/ho-chi-minh-city-hotel-detail-2192606/sky-gem-hotel-ben-thanh/"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 31,
+          "priceHigh": 45,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Silverland Central Hotel",
+          "area": "District 1, near Ben Thanh Market",
+          "what": "A 101-room officially-rated 3-star boutique hotel a short walk from Ben Thanh Market, part of the long-running Silverland hotel group, with a rooftop bar called OMG.",
+          "why": "Officially classified 3-star (not self-declared) with a decade of top-ten 3-star rankings in the city",
+          "lat": 10.7718774,
+          "lng": 106.6972524,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293925-d1178145-Reviews-Silverland_Central_Hotel-Ho_Chi_Minh_City.html",
+            "https://silverlandhotels.com/"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 177,
+          "priceHigh": 188,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Bong Sen Hotel Saigon",
+          "area": "District 1, Dong Khoi Street",
+          "what": "A 120-room 3-star hotel on Dong Khoi, the city's main shopping street, with three restaurants and a small fitness center.",
+          "why": "Officially rated 3-star on the same street as the 5-star picks, at a fraction of the price",
+          "lat": 10.7751171,
+          "lng": 106.7038852,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g293925-d1748426-Reviews-Bong_Sen_Hotel_Saigon-Ho_Chi_Minh_City.html",
+            "https://www.booking.com/hotel/vn/bong-sen-saigon.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 48,
+          "priceHigh": 94,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Reunification Palace",
+          "area": "District 1",
+          "what": "A 1960s modernist government building where a North Vietnamese tank crashed through the gates on 30 April 1975. The war rooms, radio room and presidential quarters are preserved as they were that day.",
+          "why": "The single physical location where the Vietnam War's ending is preserved in place, not just described",
+          "lat": 10.7770348,
+          "lng": 106.695488,
+          "approx": false,
+          "sources": [
+            "https://www.getyourguide.com/explorer/ho-chi-minh-ttd272/landmarks-in-ho-chi-minh-city/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Notre-Dame Cathedral Basilica of Saigon",
+          "area": "District 1",
+          "what": "A twin-towered red-brick cathedral built by French colonists in the 1880s from bricks imported from Marseille. It has been under scaffolded restoration since the late 2010s, with completion pushed to 2027, but the front square remains open and Mass is still held.",
+          "why": "The city's best-known colonial landmark, worth seeing even mid-restoration for the square and the surrounding post office",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://saigoneer.com/saigon-news/25698-saigon-extends-notre-dame-cathedral-renovation-by-4-years-to-2027"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Cu Chi Tunnels",
+          "area": "Cu Chi District, about 1.5 hours from central Saigon",
+          "what": "A preserved section of the more than 120 km of hand-dug underground tunnel network used by Viet Cong fighters, with widened crawl-through sections, hidden trapdoor entrances and reconstructed underground rooms.",
+          "why": "The signature half-day trip from Saigon, and one of the few places in Vietnam you physically enter the war rather than just read about it",
+          "lat": 11.0630436,
+          "lng": 106.5291244,
+          "approx": false,
+          "sources": [
+            "https://www.holidify.com/places/ho-chi-minh-city/sightseeing-and-things-to-do.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "War Remnants Museum",
+          "area": "District 3",
+          "what": "A three-storey museum housing over 20,000 artifacts, photographs and military hardware across nine permanent exhibitions on the Vietnam War and its aftermath, including an outdoor yard of captured US tanks and aircraft.",
+          "why": "The most direct, unfiltered account of the war from the Vietnamese side, consistently rated the city's top museum",
+          "lat": 10.7793647,
+          "lng": 106.6922806,
+          "approx": false,
+          "sources": [
+            "https://ahoyvietnam.com/war-remnants-museum/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [],
+      "street_food": [
+        {
+          "name": "Banh Canh Cua Ba Ba",
+          "area": "Cho Quan Ward, District 5",
+          "what": "A tiny shop down an alley serving a single dish, a vivid orange crab and rice-noodle soup, from indoor and outdoor plastic-stool seating.",
+          "why": "Michelin Bib Gourmand, and the kind of one-dish alley shop Saigon street food is built on",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/at/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/banh-canh-cua-ba-ba"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Bun Rieu Yen",
+          "area": "Tan Son Hoa Ward",
+          "what": "A family-run corner eatery, indoor and outdoor seating, serving the only Bib Gourmand-listed version of bun rieu in the city.",
+          "why": "Michelin Bib Gourmand, the sole representative of this dish on the guide's Saigon list",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/sg/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/bun-rieu-yen"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Banh Mi Huynh Hoa",
+          "area": "District 1",
+          "what": "A takeaway counter open since 1989 with a permanent line out front, packing a baguette with five cold cuts, pate, butter and pickles.",
+          "why": "Widely cited as the single most-loaded, most-recommended banh mi in the city, voted Travelers' Top Pick at the 2024 Flavors Awards",
+          "lat": 10.7713922,
+          "lng": 106.6927189,
+          "approx": true,
+          "sources": [
+            "https://vietcetera.com/en/banh-mi-huynh-hoa-how-100k-and-35-years-built-a-saigon-icon",
+            "https://www.tripadvisor.com/Restaurant_Review-g293925-d5484355-Reviews-Banh_Mi_Huynh_Hoa-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Com Tam Ba Ghien",
+          "area": "Phu Nhuan District",
+          "what": "A broken-rice shop whose pork chop overhangs the plate, grilled over charcoal and served with the shredded pork skin, steamed egg loaf and fish sauce that make up a proper com tam.",
+          "why": "Com tam is Saigon's own dish rather than a Hanoi import, and this is the Bib Gourmand address for it",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/us/en/ho-chi-minh/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g293925-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Pho Phuong",
+          "area": "District 3",
+          "what": "A southern pho counter, sweeter and more herb-heavy than the Hanoi version, served with the plate of bean sprouts, basil and lime that the north leaves off.",
+          "why": "Eating this after Hanoi's pho is the fastest way to taste how far apart the two halves of the country actually are",
+          "lat": 10.7747697,
+          "lng": 106.7007331,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/us/en/ho-chi-minh/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g293925-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Bun Bo Hue 14B",
+          "area": "District 1",
+          "what": "A shop serving the central-Vietnamese lemongrass-and-chilli beef noodle soup, thicker round noodles and a far hotter broth than pho.",
+          "why": "A chance to eat Hue's signature dish properly even if the weather in Hue itself does not cooperate",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/us/en/ho-chi-minh/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g293925-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "restaurants": [
+        {
+          "name": "Anan Saigon",
+          "area": "District 1, Cho Cu (Old Market)",
+          "what": "A restaurant built inside a former wet-market stall on Ton That Dam Street, where chef Peter Cuong Franklin runs street-food recipes through French fine-dining technique.",
+          "why": "One Michelin Star, held since 2023, and the clearest example of Saigon's fine-dining scene built on its own street food",
+          "lat": 10.7718032,
+          "lng": 106.7029748,
+          "approx": false,
+          "sources": [
+            "https://guide.michelin.com/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/anan-saigon",
+            "https://anansaigon.com/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_star",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "La Villa French Restaurant by Thierry Mounon",
+          "area": "Thao Dien, Thu Duc City",
+          "what": "An 11-table colonial-villa dining room run by French chef Thierry Mounon and his wife, serving haute cuisine from southwestern France with starched linen, a cheese trolley and a full wine cellar.",
+          "why": "Michelin Selected, and Saigon's clearest example of its serious international fine-dining scene beyond Vietnamese food",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://lavilla-restaurant.com.vn/",
+            "https://thedotmagazine.com/the-best-french-restaurants-in-ho-chi-minh-city/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "international",
+          "signal": "michelin_selected",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Cuc Gach Quan",
+          "area": "District 1",
+          "what": "An architect-converted old house serving the kind of everyday Vietnamese home cooking - braises, clay pots, simple greens - that restaurants usually skip, across several small rooms and a courtyard.",
+          "why": "Bib Gourmand, and the answer to a week of noodle counters when what you want is a table, a fan and a long dinner",
+          "lat": 10.7929997,
+          "lng": 106.6889296,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/us/en/ho-chi-minh/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g293925-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Hum Garden",
+          "area": "District 1",
+          "what": "A garden restaurant serving plated vegetarian Vietnamese food - lotus, tofu, mushroom and herb dishes - in a quiet courtyard away from the traffic.",
+          "why": "Saigon's Bib Gourmand vegetarian address, and one of the few genuinely calm dining rooms in District 1",
+          "lat": 10.804141,
+          "lng": 106.7441455,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/us/en/ho-chi-minh/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g293925-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Banh Xeo 46A",
+          "area": "District 1",
+          "what": "A long-running shop turning out large turmeric-yellow rice crepes filled with pork, prawn and bean sprouts, wrapped at the table in mustard leaf and herbs.",
+          "why": "Bib Gourmand, and the southern dish that is most fun to eat with your hands",
+          "lat": 10.7896047,
+          "lng": 106.6912995,
+          "approx": true,
+          "sources": [
+            "https://guide.michelin.com/us/en/ho-chi-minh/restaurants/bib-gourmand",
+            "https://www.tripadvisor.com/Restaurants-g293925-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "michelin_bib",
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "markets": [
+        {
+          "name": "Ben Thanh Market",
+          "area": "District 1",
+          "what": "A covered market of nearly 1,450 stalls under a French-built 1914 clock-tower facade, selling everything from produce and dried goods to clothing, souvenirs and a food court, spilling into a street-food night market outside after dark.",
+          "why": "The city's oldest and largest market, and the default orientation point for District 1",
+          "lat": 10.7725301,
+          "lng": 106.6980365,
+          "approx": false,
+          "sources": [
+            "https://oxalisadventure.com/ben-thanh-market-ho-chi-minh-city/",
+            "https://vinwonders.com/en/wonderpedia/news/ben-thanh-market-a-prominent-landmark-of-the-bustling-ho-chi-minh-city/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Hai Thuong Lan Ong herbal medicine street",
+          "area": "District 5, Cho Lon",
+          "what": "The city's oldest traditional-medicine quarter - sixty to eighty shops along one street, sacks and jars of dried roots, bark and herbs, named after the founder of Vietnamese traditional medicine.",
+          "why": "A working trade street rather than a tourist market, and the strongest smell you will meet in Vietnam",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://itourvn.com/blog/a-quick-look-at-traditional-vietnamese-medicine/",
+            "https://travelsense.asia/vietnamese-traditional-medicine-a-quick-note-for-wellness-travellers/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [
+        {
+          "name": "The Enigma Mansion",
+          "area": "District 1",
+          "what": "A cocktail bar staged as a mansion of connected rooms, each with its own character, where the drinks list is built as a narrative rather than a menu.",
+          "why": "Number 55 on Asia's 50 Best Bars 2026 and the biggest climber on the whole list, up 38 places in a year",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.theworlds50best.com/stories/News/asias-50-best-bars-2026-the-51-100-list-revealed.html",
+            "https://www.asia-bars.com/2026/03/top-12-highly-rated-cocktail-bars-hcmc-vietnam-2026/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Layla",
+          "area": "Dong Du Street, District 1",
+          "what": "A bar spread across the upper floors of a colonial-era apartment block, with an eleven-metre bar in the main room and neighbouring flats converted into a pool room, lounges and a smoking terrace.",
+          "why": "The clearest example of Saigon's converted-apartment-block bar culture, which exists nowhere else in the country",
+          "lat": 10.775022,
+          "lng": 106.7031275,
+          "approx": true,
+          "sources": [
+            "https://www.asia-bars.com/2026/03/top-12-highly-rated-cocktail-bars-hcmc-vietnam-2026/",
+            "https://www.tripadvisor.com/Attractions-g293925-Activities-c20-t99-Ho_Chi_Minh_City.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Stir",
+          "area": "Overlooking Ben Thanh Market, District 1",
+          "what": "A hidden first-floor apartment bar looking down on Ben Thanh Market, serving modern cocktails in a deliberately nostalgic Vietnamese room.",
+          "why": "Number 85 on Asia's 50 Best Bars 2026, and the view over the market at night is the reason to pick it over the others",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.theworlds50best.com/stories/News/asias-50-best-bars-2026-the-51-100-list-revealed.html",
+            "https://www.asia-bars.com/2026/03/top-12-highly-rated-cocktail-bars-hcmc-vietnam-2026/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Grab from Tan Son Nhat Airport",
+          "area": "Tan Son Nhat International Airport (SGN)",
+          "what": "Ride-hailing pickup for Grab cars is outside the arrivals hall, past the metered-taxi rank; a ride to District 1 takes 25-50 minutes depending on traffic and costs roughly 110,000-250,000 VND.",
+          "why": "Cheaper and more predictable than the taxi rank, with a fixed upfront fare shown before booking",
+          "lat": 10.8179793,
+          "lng": 106.6562645,
+          "approx": false,
+          "sources": [
+            "https://blog.gettransfer.com/from-ho-chi-minh-city-airport-to-the-city-center-taxi-grab-more/",
+            "https://www.grab.com/global/airport-rides/tan-son-nhat-international-airport/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "No airport metro link yet",
+          "area": "Tan Son Nhat International Airport (SGN)",
+          "what": "Saigon's first metro line (Line 1, Ben Thanh-Suoi Tien) opened in December 2024, but no metro or rail line reaches the airport; a dedicated airport link is not expected until around 2030.",
+          "why": "Rules out the metro as an airport option, which travelers researching the new 2024 line sometimes assume is already connected",
+          "lat": 10.8179793,
+          "lng": 106.6562645,
+          "approx": false,
+          "sources": [
+            "https://aifly.one/2026/03/ho-chi-minh-city-tan-son-nhat-airport-guide/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "mekong": {
+    "id": "mekong",
+    "name": "Mekong and Can Tho",
+    "region": "south",
+    "seq": 13,
+    "lat": 10.0452,
+    "lng": 105.7469,
+    "color": "#800000",
+    "counts": {
+      "hotels": 6,
+      "must_see": 1,
+      "attractions": 2,
+      "food": 2,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 1,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Sheraton Can Tho",
+          "area": "Ninh Kieu, riverside",
+          "what": "The tallest international hotel in the Mekong Delta, on the Can Tho riverfront near Ninh Kieu Pier and the night market, formerly branded as Vinpearl Hotel Can Tho before its rebrand under Marriott.",
+          "why": "The only internationally-chained 5-star in the Mekong Delta, confirmed by multiple independent sources as officially rated",
+          "lat": 10.0242294,
+          "lng": 105.7744816,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303942-d11743875-Reviews-Sheraton_Can_Tho-Can_Tho_Mekong_Delta.html",
+            "https://www.marriott.com/en-us/hotels/vcasi-sheraton-can-tho/overview/"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 61,
+          "priceHigh": 200,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Muong Thanh Luxury Can Tho Hotel",
+          "area": "Ninh Kieu",
+          "what": "A tower hotel branded \"5-star luxury\" by the domestic Muong Thanh chain, with a rooftop bar, pool and gym overlooking the Can Tho river.",
+          "why": "Cheapest 5-star-branded option in the delta, though guest reviews note the rooms feel dated relative to the star claim",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Feature-g303942-d8119592-zft1-Muong_Thanh_Luxury_Can_Tho_Hotel.html",
+            "https://www.booking.com/hotel/vn/muong-thanh-can-tho.html"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 39,
+          "priceHigh": 168,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Victoria Can Tho Resort",
+          "area": "Riverside, Cai Khe islet",
+          "what": "A colonial-style riverside resort from the established Victoria hotels chain, with a pool overlooking the Can Tho River and its own daily Mekong boat tours for guests.",
+          "why": "The delta's best-regarded conventional resort chain, officially rated and consistently praised over the larger conference hotels in town",
+          "lat": 10.0393054,
+          "lng": 105.7930514,
+          "approx": false,
+          "sources": [
+            "https://www.travelfish.org/accommodation_profile/vietnam/mekong_delta/can_tho/can_tho/all/8497",
+            "https://www.tripadvisor.com/Hotel_Review-g303942-d306941-Reviews-Victoria_Can_Tho_Resort-Can_Tho_Mekong_Delta.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 71,
+          "priceHigh": 95,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Can Tho Ecolodge",
+          "area": "Cai Rang, Ba Lang River",
+          "what": "A thatched-house eco-resort on the Ba Lang River outside town, with a pool, garden and bar, built around responsibly showcasing the surrounding delta rather than a conventional hotel tower.",
+          "why": "The most resort-like eco-lodge option in the area, ranked third of Can Tho's specialty lodging with consistently strong reviews",
+          "lat": 9.9878302,
+          "lng": 105.7414525,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303942-d17528812-Reviews-Can_Tho_Ecolodge-Can_Tho_Mekong_Delta.html",
+            "https://www.booking.com/hotel/vn/can-tho-ecolodge.en-gb.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 56,
+          "priceHigh": 82,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Bamboo Eco Village",
+          "area": "Can Tho outskirts",
+          "what": "A small officially 3-star eco-hotel with a garden, pool and bicycles for guests, built around orchard and canal surroundings rather than a town-centre location.",
+          "why": "Officially rated 3-star with unusually strong reviews for the tier, praised repeatedly for the garden and pool",
+          "lat": 10.0074606,
+          "lng": 105.7054798,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g303942-d19602577-Reviews-Bamboo_Eco_Village-Can_Tho_Mekong_Delta.html",
+            "https://en.planetofhotels.com/vietnam/can-tho/bamboo-eco-village"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 33,
+          "priceHigh": 56,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Mekong Silt Ecolodge",
+          "area": "My Khanh, about 30 minutes from central Can Tho",
+          "what": "A homestay-style ecolodge in a quiet rural area outside the city, with garden cottages, a pool and staff-led tours to off-the-beaten-track parts of the delta.",
+          "why": "Consistently praised for genuinely local, off-tourist-track tours rather than the standard packaged canal-boat circuit",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/ShowUserReviews-g19431221-d23778217-r901808652-Mekong_Silt_Ecolodge-My_Khanh_Mekong_Delta.html",
+            "https://www.booking.com/hotel/vn/mekong-silt-ecolodge.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 62,
+          "priceHigh": 62,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Cai Rang Floating Market",
+          "area": "Cai Rang, about 6 km southwest of central Can Tho",
+          "what": "A river market of roughly 200-300 local trading boats and produce barges, each hanging a sample of its goods from a tall pole so buyers can spot it from the water. It runs from before sunrise and is essentially over as a wholesale market by mid-morning.",
+          "why": "The largest and most authentic floating market left in the delta, but only if timed for its real dawn trading hours, not a mid-morning visit",
+          "lat": 10.0023957,
+          "lng": 105.7443925,
+          "approx": false,
+          "sources": [
+            "https://vemekong.com/guide-to-can-tho-floating-markets/",
+            "https://www.travelfish.org/sight_profile/vietnam/mekong_delta/can_tho/can_tho/2496"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "My Tho and Ben Tre coconut candy village",
+          "area": "My Tho and Ben Tre provinces, upper Mekong Delta",
+          "what": "A river-island circuit reached by motorboat and narrow-canal sampan (a small wooden boat rowed by a boatman in a conical hat), stopping at a small workshop where coconut milk is hand-cooked and cut into candy while still warm.",
+          "why": "The classic, gentler alternative to Can Tho for a single-day Mekong visit, and the standard way to see hand-made coconut candy production",
+          "lat": 10.0163692,
+          "lng": 105.7379094,
+          "approx": true,
+          "sources": [
+            "https://viet-go.com/en/attractions/my-tho-ben-tre-mekong-delta-guide"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Vinh Trang Pagoda",
+          "area": "My Tho",
+          "what": "A 19th-century Buddhist pagoda recognised as a national historical relic, blending Vietnamese, Khmer and French architectural styles with a large reclining Buddha statue in its grounds.",
+          "why": "The most architecturally distinct temple in the delta, mixing three building traditions in one compound",
+          "lat": 10.3628375,
+          "lng": 106.3735689,
+          "approx": false,
+          "sources": [
+            "https://www.viator.com/Mekong-Delta-attractions/Vinh-Trang-Pagoda/d23962-a19069"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Lua Nep",
+          "area": "Ninh Kieu riverside, Can Tho",
+          "what": "A riverside restaurant serving the delta's signature elephant ear fish, fried whole and served upright so the flesh is rolled into rice paper with herbs and pickles at the table.",
+          "why": "Repeatedly singled out by recent travelers for this specific dish, the Mekong Delta's most iconic",
+          "lat": 10.0450175,
+          "lng": 105.7947956,
+          "approx": false,
+          "sources": [
+            "https://hanoivoyage.com/en/blog/restaurant/top-7-restaurants-in-the-mekong-delta"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Sao Hom Restaurant",
+          "area": "Ninh Kieu riverside, Can Tho, inside the old Nha Long market building",
+          "what": "A restaurant set inside a restored early-1900s riverside market hall, with open river views and a menu of southern Vietnamese home cooking.",
+          "why": "A local guide recommendation for a proper sit-down dinner, in one of Can Tho's most distinctive dining buildings",
+          "lat": 10.0313789,
+          "lng": 105.7882653,
+          "approx": false,
+          "sources": [
+            "https://vinwonders.com/en/wonderpedia/news/can-tho-restaurants/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Ninh Kieu Night Market",
+          "area": "Ninh Kieu, Phan Boi Chau and Phan Chau Trinh streets",
+          "what": "A two-street night market a short walk from Ninh Kieu Wharf, split between a food court selling grilled skewers, sweet soups and sugarcane juice, and a shopping side of cheap clothing and printed T-shirts.",
+          "why": "The natural evening follow-on to a riverside stroll, busiest and coolest from around 7:30-9:30pm",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://vinpearl.com/en/can-tho-night-markets",
+            "https://www.originvietnam.com/destinations/ninh-kieu-night-market/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Bus from Ho Chi Minh City to Can Tho",
+          "area": "Ho Chi Minh City to Can Tho, roughly 170 km",
+          "what": "A sleeper coach (commonly the Futa/Phuong Trang line) covers the route in about 3 hours of driving, though the door-to-door trip including rest stops and pickup/drop-off typically runs closer to 5 hours; a taxi from the Can Tho bus station to Ninh Kieu Wharf adds about 15 minutes.",
+          "why": "The standard overland option between the two, and the reason a Mekong stop is usually built around an overnight rather than a rushed day trip",
+          "lat": 10.0243445,
+          "lng": 105.7615442,
+          "approx": false,
+          "sources": [
+            "https://vemekong.com/guide-to-can-tho-floating-markets/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Speedboat from the Mekong Delta to Phu Quoc",
+          "area": "Ha Tien, Kien Giang province",
+          "what": "Fast boats from Ha Tien to Phu Quoc's Bai Vong pier run 3-5 times daily between roughly 6am and 2pm, taking about 1.5 hours; car ferries from the same pier take about 3 hours and cost slightly less.",
+          "why": "Lets a Mekong-to-Phu Quoc leg skip a backtrack to Ho Chi Minh City for a flight",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.vietnamcoracle.com/phu-quoc-island-ferry-times/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  },
+  "phu-quoc": {
+    "id": "phu-quoc",
+    "name": "Phu Quoc",
+    "region": "south",
+    "seq": 14,
+    "lat": 10.2899,
+    "lng": 103.984,
+    "color": "#a9a9a9",
+    "counts": {
+      "hotels": 6,
+      "must_see": 1,
+      "attractions": 3,
+      "food": 2,
+      "street_food": 0,
+      "restaurants": 0,
+      "markets": 1,
+      "nightlife": 0,
+      "spa": 0,
+      "logistics": 2
+    },
+    "poi": {
+      "hotels": [
+        {
+          "name": "Sheraton Phu Quoc Long Beach Resort",
+          "area": "Long Beach, Ganh Dau",
+          "what": "A large Marriott-chain beachfront resort on Long Beach with multiple pools, several restaurants and direct sand access.",
+          "why": "Officially rated 5-star with an international chain standard, and its entry-level rooms stay under the trip's price cap despite the brand",
+          "lat": 10.3375473,
+          "lng": 103.8498843,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g12666019-d8774806-Reviews-Sheraton_Phu_Quoc_Long_Beach_Resort-Ganh_Dau_Phu_Quoc_Island_Kien_Giang_Province.html",
+            "https://www.momondo.com/hotels/phu-quoc/Sheraton-Phu-Quoc-Long-Beach-Resort.mhd2449378.ksp"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 97,
+          "priceHigh": 200,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Dusit Princess Moonrise Beach Resort",
+          "area": "Cua Lap, near Long Beach",
+          "what": "A Dusit-brand beach resort three minutes' walk from Long Beach, with a pool, kids' club and free shuttle, ranked the top-rated hotel in its ward by traveler reviews.",
+          "why": "Marketed and reviewed as 5-star by the resort and by independent travel-agent research, though one booking aggregator describes it as built to 4-star standard - flagged here as self-declared",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g12596009-d14077912-Reviews-Dusit_Princess_Moonrise_Beach_Resort-Cua_Lap_Duong_To_Phu_Quoc_Island_Kien_Giang_Pr.html",
+            "https://us.trip.com/hotels/phu-quoc-island-hotel-detail-19573631/dusit-princess-moonrise-beach-resort/"
+          ],
+          "tier": 5,
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 102,
+          "priceHigh": 180,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "L'Azure Resort and Spa",
+          "area": "Duong Dong",
+          "what": "A small rustic-eco resort with a private sand beach, pool and spa, officially rated 4-star, built around a low-rise, garden-heavy design rather than a tower.",
+          "why": "Officially rated 4-star with a 9.4-9.5 guest score, and the most consistently well-reviewed 4-star in the pool",
+          "lat": 10.2080717,
+          "lng": 103.9616615,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g1184679-d640629-Reviews-L_Azure_Resort_and_Spa-Duong_Dong_Phu_Quoc_Island_Kien_Giang_Province.html",
+            "https://www.makemytrip.com/hotels-international/vietnam/phu_quoc-hotels/l_azure_resort_and_spa-details.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 63,
+          "priceHigh": 115,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "AVS Hotel Phu Quoc",
+          "area": "Duong Dong, 100m from the beach",
+          "what": "A modern mid-size hotel a hundred metres from the beach, officially rated 4-star, with a pool, spa and airport transfers.",
+          "why": "Officially rated 4-star, ranked in the top 20 hotels on the island by guest reviews despite its budget-adjacent price",
+          "lat": 10.2007569,
+          "lng": 103.9638791,
+          "approx": false,
+          "sources": [
+            "https://en.planetofhotels.com/vietnam/phu-quoc/avs-hotel-phu-quoc",
+            "https://www.tripadvisor.com/Hotel_Review-g1184679-d20200026-Reviews-AVS_Hotel_Phu_Quoc-Duong_Dong_Phu_Quoc_Island_Kien_Giang_Province.html"
+          ],
+          "tier": 4,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 46,
+          "priceHigh": 156,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Hung Vuong Resort",
+          "area": "Duong Dong, near Sung Hung Pagoda",
+          "what": "A small officially 3-star resort with a pool and garden rooms, well outside the resort-strip price bracket.",
+          "why": "Officially rated 3-star yet reviewed at guest scores more typical of a much higher tier",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g469418-d12703873-Reviews-Hung_Vuong_Resort-Phu_Quoc_Island_Kien_Giang_Province.html",
+            "https://en.planetofhotels.com/vietnam/phu-quoc/hung-vuong-resort"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 17,
+          "priceHigh": 20,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        },
+        {
+          "name": "Dao Ngoc Hotel",
+          "area": "Duong Dong, near Dinh Cau night market",
+          "what": "A 75-room officially 3-star hotel in central Duong Dong, a short walk from the night market and Dinh Cau beach.",
+          "why": "Officially rated 3-star with the most central location of the budget options, walkable to the night market",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Hotel_Review-g1184679-d12452460-Reviews-Dao_Ngoc_Hotel-Duong_Dong_Phu_Quoc_Island_Kien_Giang_Province.html",
+            "https://www.booking.com/hotel/vn/dao-ngoc-phu-quoc1.html"
+          ],
+          "tier": 3,
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 35,
+          "priceHigh": 35,
+          "priceChecked": "2026-08-16",
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "low"
+        }
+      ],
+      "must_see": [
+        {
+          "name": "Hon Thom Cable Car",
+          "area": "An Thoi, southern Phu Quoc",
+          "what": "A three-cable gondola line running almost 8 km from the An Thoi coast over open sea to Hon Thom island, in 30-passenger cabins over a 15-minute ride, passing above two smaller islands en route.",
+          "why": "Guinness World Record holder for the longest three-wire sea-crossing cable car, and the way most visitors reach Hon Thom's Sun World park",
+          "lat": 9.9920077,
+          "lng": 104.0124425,
+          "approx": false,
+          "sources": [
+            "https://blog.premierresidencesphuquoc.com/hon-thom-cable-car/",
+            "https://www.vietjetair.com/en/news/travel-guides-1665635013747/hon-thom-phu-quoc-cable-car-review-the-worlds-longest-sea-crossing-cable-car-1768878737803"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "attractions": [
+        {
+          "name": "Rainbow Divers fun dive, An Thoi archipelago",
+          "area": "An Thoi, southern Phu Quoc",
+          "what": "A twin-deck dive boat trip from Vietnam's longest-established PADI dive centre to reef sites in the An Thoi islands, groups capped at 4 divers per guide, with a full lunch served on board after the southern route.",
+          "why": "The certified-diver option for the trip's PADI Open Water diver - Vietnam's oldest PADI operation, running since 1996, at $65-85 per dive, cheaper than equivalent sites in Thailand or Indonesia",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.divevietnam.com/dive-centres/phu-quoc-island/",
+            "https://www.tripadvisor.com/Attraction_Review-g1184679-d1818391-Reviews-Rainbow_Divers-Duong_Dong_Phu_Quoc_Island_Kien_Giang_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Discover Scuba Diving for beginners",
+          "area": "An Thoi archipelago, southern Phu Quoc",
+          "what": "A no-certification-required introduction to scuba, run one-on-one with an instructor who controls depth, direction and equipment; divers go no deeper than 6 metres across two roughly 20-minute dives after a shallow-water briefing and skills practice.",
+          "why": "The option for the non-certified traveler to dive alongside the certified diver on the same trip, rather than being left snorkeling",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://divephuquoc.com/discover-scuba-diving",
+            "https://www.pelago.com/en-US/activity/puc6f7qxy-padi-discover-scuba-diving-for-beginners-phu-quoc/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        },
+        {
+          "name": "Vinpearl Safari Phu Quoc",
+          "area": "Bai Dai, northwest Phu Quoc",
+          "what": "Vietnam's largest wildlife conservation park, home to roughly 4,500 animals across 200 species including Bengal tigers, African lions, giraffes and white rhinos, viewable from a safari-style drive-through zone and walking areas.",
+          "why": "The largest wildlife park in the country, and a full-day option that doesn't require a beach or a boat",
+          "lat": 10.3393964,
+          "lng": 103.8950113,
+          "approx": true,
+          "sources": [
+            "https://vinwonders.com/en/wonderpedia/news/review-of-vinpearl-safari-phu-quoc/",
+            "https://www.tripadvisor.com/Attraction_Review-g469418-d9748314-Reviews-Vinpearl_Safari_Phu_Quoc-Phu_Quoc_Island_Kien_Giang_Province.html"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "high"
+        }
+      ],
+      "food": [
+        {
+          "name": "Xin Chao Seafood Restaurant",
+          "area": "Duong Dong, 30 Thang 4 Street",
+          "what": "An open-air seafood restaurant with tank-to-table dining overlooking the sea, popular for sunset and evening meals.",
+          "why": "One of the most consistently traveler-recommended seafood restaurants on the island for its combination of view and quality",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://kampatour.com/phu-quoc-restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Ra Khoi Seafood Restaurant",
+          "area": "Duong Dong",
+          "what": "A no-frills local seafood restaurant sourcing its catch directly from fishermen rather than a supplier, with tanks out front for picking your own fish, crab or squid.",
+          "why": "Cited repeatedly by travelers for genuine, unmarked-up seafood prices compared to the tourist-strip restaurants nearby",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://kampatour.com/phu-quoc-restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "street_food": [],
+      "restaurants": [],
+      "markets": [
+        {
+          "name": "Phu Quoc Night Market (Dinh Cau)",
+          "area": "Duong Dong, Bach Dang street",
+          "what": "A single-street night market where diners pick live fish, crab or squid from tanks to be grilled or steamed to order, alongside stalls selling herring salad, banh xeo pancakes and grilled scallops.",
+          "why": "The island's main after-dark food destination since its 2016 merger with the old Dinh Cau market, and the best single stop for trying local seafood specialties in one place",
+          "lat": 10.3242259,
+          "lng": 103.8581673,
+          "approx": true,
+          "sources": [
+            "https://www.baconismagic.ca/vietnam/phu-quoc-night-market/",
+            "https://vinwonders.com/en/wonderpedia/news/phu-quoc-night-market/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "nightlife": [],
+      "spa": [],
+      "logistics": [
+        {
+          "name": "Grab and taxi from Phu Quoc International Airport",
+          "area": "Phu Quoc International Airport (PQC), about 10 km south of Duong Dong",
+          "what": "Grab and metered taxis both operate from the terminal; a ride to the Long Beach hotel strip takes about 10-15 minutes and costs roughly 100,000-200,000 VND, with Grab typically 10-20% cheaper than the metered taxi rate.",
+          "why": "The airport sits close enough to the main hotel strip that a transfer is short and cheap regardless of which resort is booked",
+          "lat": 10.1727084,
+          "lng": 103.9921557,
+          "approx": false,
+          "sources": [
+            "https://www.airporttransferportal.com/airport-guides/pqc/cost-to-city",
+            "https://www.grab.com/global/airport-rides/phu-quoc-international-airport/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        },
+        {
+          "name": "Speedboat from the Mekong Delta (Ha Tien)",
+          "area": "Ha Tien to Bai Vong pier, Phu Quoc",
+          "what": "Fast boats from Ha Tien on the Mekong Delta coast to Phu Quoc's Bai Vong pier run 3-5 times daily between about 6am and 2pm, taking roughly 1.5 hours; slower car ferries take about 3 hours on the same route.",
+          "why": "Connects a Mekong Delta stop directly to Phu Quoc without backtracking through Ho Chi Minh City for a flight",
+          "lat": 10.1457488,
+          "lng": 104.038743,
+          "approx": false,
+          "sources": [
+            "https://www.vietnamcoracle.com/phu-quoc-island-ferry-times/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": null,
+          "signal": null,
+          "video": null,
+          "weather": "medium"
+        }
+      ]
+    }
+  }
+};
