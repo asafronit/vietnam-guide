@@ -195,56 +195,8 @@ main:focus,main:focus-visible{outline:none}
 .sec-head .range{font-family:var(--f-ui);font-size:.92rem;font-weight:500;
   color:var(--ink-3);letter-spacing:.02em;font-variant-numeric:tabular-nums}
 
-/* ---------- לוח תחנה ---------- */
-/* התצלום הוא הכרטיס, לא תמונה קטנה מעל גוף לבן. */
-/* align-items:start חיוני. בלעדיו כרטיס צר נמתח לגובה הכרטיס הרחב
-   שלצידו, התצלום לא נמתח איתו, ונפער שטח ריק מתחתיו. */
-.station-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;align-items:start}
-.scard{
-  grid-column:span 4;
-  display:block;position:relative;overflow:hidden;border-radius:var(--r);
-  background:var(--surface-2);box-shadow:var(--shadow);
-  transition:box-shadow .3s cubic-bezier(.2,.7,.3,1),transform .3s cubic-bezier(.2,.7,.3,1);
-}
-/* התחנה הראשונה בכל אזור נפתחת רחב — היררכיה במקום ארבעה עשר כרטיסים זהים */
-.scard.is-lead{grid-column:span 8}
-@media (max-width:900px){ .scard,.scard.is-lead{grid-column:span 6} }
-@media (max-width:600px){ .scard,.scard.is-lead{grid-column:span 12} }
-.scard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-.scene{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;
-  background:var(--surface-2);transition:transform .5s cubic-bezier(.2,.7,.3,1)}
-.scard.is-lead .scene{aspect-ratio:16/8}
-.scard:hover .scene{transform:scale(1.03)}
-.scard-body{
-  position:absolute;inset-block-end:0;inset-inline:0;padding:48px 18px 16px;color:#fff;
-  background:linear-gradient(to top,rgba(8,11,15,.92),rgba(8,11,15,.58) 46%,transparent);
-}
-.seqbadge{
-  position:absolute;top:12px;inset-inline-start:12px;
-  font-family:var(--f-ui);font-weight:500;font-size:.72rem;color:#fff;
-  background:var(--stationcolor);border-radius:4px;padding:2px 8px;
-  letter-spacing:.04em;font-variant-numeric:tabular-nums;
-  box-shadow:0 1px 6px rgba(0,0,0,.4);
-}
-.scard-name{
-  font-family:var(--f-display);font-weight:700;
-  font-size:clamp(1.2rem,2.3vw,1.65rem);line-height:1.08;letter-spacing:-.015em;margin:0;
-  text-shadow:0 1px 16px rgba(0,0,0,.55);
-}
-.scard.is-lead .scard-name{font-size:clamp(1.45rem,3.2vw,2.2rem)}
-.scard-sub{font-family:var(--f-ui);font-size:.83rem;opacity:.88;margin:2px 0 10px}
-.pillrow{display:flex;flex-wrap:wrap;gap:4px}
-/* התגיות יושבות על תצלום כהה, לא על משטח בהיר */
-.pill{
-  font-family:var(--f-ui);font-size:.75rem;font-weight:500;color:rgba(255,255,255,.94);
-  border:1px solid rgba(255,255,255,.26);background:rgba(255,255,255,.13);
-  border-radius:var(--r-xs);padding:3px 9px;
-  display:inline-flex;gap:5px;align-items:center;backdrop-filter:blur(6px);
-}
-.pill svg{width:13px;height:13px;color:rgba(255,255,255,.8)}
-.pill b{font-weight:600;color:#fff;font-variant-numeric:tabular-nums}
-.pill.thin{background:none;border-style:dashed;color:rgba(255,255,255,.78)}
-
+/* בלוקי לוח-התחנה, המדף האופקי והחשיפה המדורגת הוסרו יחד עם
+   הפונקציות שייצרו אותם. הראוטר מנתב הכל ל-screenSplit. */
 /* ---------- עמוד תחנה ---------- */
 .hero{position:relative;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:4px}
 .hero-txt{position:absolute;inset-block-end:0;inset-inline:0;padding:72px 24px 22px;color:#fff;
@@ -421,15 +373,6 @@ main:focus,main:focus-visible{outline:none}
 .qbtn:hover{border-color:var(--brand)}
 .qbtn.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
 
-/* ---------- מדף אופקי ---------- */
-.shelf{margin-top:26px}
-.shelf-head{display:flex;align-items:center;gap:9px;margin-bottom:10px}
-.shelf-title{font-family:var(--f-ui);font-weight:600;font-size:.98rem;margin:0;display:flex;align-items:center;gap:8px}
-.shelf-title svg{color:var(--ink-3)}
-.shelf-count{font-size:.82rem;color:var(--ink-3);font-family:var(--f-ui)}
-/* שם המחלקה הזה התנגש עם הסרגל הצדדי והדליף אליו overflow-x
-   ו-scroll-snap. המדף האופקי לא בשימוש יותר, ולכן הכללים נמחקו. */
-
 /* ---------- כרטיס מקום ---------- */
 /* ברירת המחדל LTR כי רוב התוכן עדיין אנגלי. כרטיס שיש לו תאום עברי
    מקבל .is-he ומתהפך כולו — טקסט עברי בכרטיס LTR שובר את הפיסוק. */
@@ -562,16 +505,6 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 }
 .empty{padding:52px 16px;text-align:center;color:var(--ink-2)}
 .empty svg{width:30px;height:30px;color:var(--ink-3);margin-bottom:8px}
-/* ---------- רגע התנועה היחיד ----------
-   חשיפה מדורגת של לוחות התחנה כשהם נכנסים למסך. שום דבר אחר בדף
-   לא נכנס באנימציה — אחרת זה מפסיק להיות רגע ונהיה רעש. */
-.scard{opacity:1}
-.js-reveal .scard{opacity:0;transform:translateY(14px)}
-.js-reveal .scard.is-in{
-  opacity:1;transform:none;
-  transition:opacity .55s cubic-bezier(.16,.84,.34,1) var(--d,0ms),
-             transform .55s cubic-bezier(.16,.84,.34,1) var(--d,0ms);
-}
 
 /* ---------- משטחי הדפדפן ----------
    בחירת טקסט, סמן, פס גלילה וקו תחתון מגיעים עם ברירות מחדל שלא שייכות
@@ -588,7 +521,6 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
 
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
-  .js-reveal .scard{opacity:1;transform:none}
 }
 </style>
 
@@ -1711,151 +1643,10 @@ function syncRail(sel){
   });
 }
 
-function screenHome(){
-  main.textContent="";
-  var h1=screenTitle(t("navStations"),"sr");
-  main.appendChild(h1);
-  setDocTitle(null);
-  REGIONS.forEach(function(reg){
-    var list=STATIONS.filter(function(s){return s.region===reg.id;});
-    if(!list.length) return;
-    var h=el("h2","sec-head");
-    h.appendChild(document.createTextNode(regName(reg)));
-    /* טווח המספרים הוא סדר המסלול, לא עיטור */
-    var lo=String(list[0].seq).padStart(2,"0"), hi=String(list[list.length-1].seq).padStart(2,"0");
-    h.appendChild(el("span","range",lo===hi?lo:lo+"–"+hi));
-    h.appendChild(el("span","cnt",list.length+" "+t("stations")+" · "+
-      list.reduce(function(a,s){return a+total(s);},0)+" "+t("places")));
-    main.appendChild(h);
-    var grid=el("div","station-grid");
-    list.forEach(function(st,i){
-      var card=stationCard(st);
-      if(i===0) card.classList.add("is-lead");   /* הראשונה בכל אזור נפתחת רחב */
-      grid.appendChild(card);
-    });
-    main.appendChild(grid);
-  });
-  revealPlates();
-  say(STATIONS.length+" "+t("stations"));
-}
-
-/* רגע התנועה היחיד בדף: חשיפה מדורגת של הלוחות בכניסה למסך.
-   בלי IntersectionObserver או כשהמשתמש ביקש פחות תנועה, הכיתה
-   js-reveal לא נוספת כלל ולכן אין ממה להתאושש. */
-var wantsMotion=!window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-function revealPlates(){
-  var plates=main.querySelectorAll(".scard");
-  if(!plates.length||!wantsMotion||!("IntersectionObserver" in window)) return;
-  main.classList.add("js-reveal");
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(!e.isIntersecting) return;
-      var i=Array.prototype.indexOf.call(e.target.parentNode.children,e.target);
-      e.target.style.setProperty("--d",Math.min(i,5)*70+"ms");
-      e.target.classList.add("is-in");
-      io.unobserve(e.target);
-    });
-  },{rootMargin:"0px 0px -8% 0px",threshold:0.08});
-  Array.prototype.forEach.call(plates,function(p){io.observe(p);});
-}
-
-function stationCard(st){
-  var a=el("a","scard");
-  a.href="#s/"+st.id;
-  a.style.setProperty("--stationcolor",stColor(st));
-  var img=el("img","scene");
-  /* שם התחנה מוטבע על התצלום, אז התצלום עצמו דקורטיבי ולא חוזר עליו */
-  img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,640,400);
-  img.alt=""; img.loading="lazy"; img.decoding="async";
-  a.appendChild(img);
-  a.appendChild(el("span","seqbadge",String(st.seq).padStart(2,"0")));
-
-  var bd=el("div","scard-body");
-  bd.appendChild(el("h3","scard-name",stName(st)));
-  if(isHe()) bd.appendChild(en2(el("div","scard-sub",st.name)));
-  else bd.appendChild(el("div","scard-sub",REGIONS.filter(function(r){return r.id===st.region;}).map(regName)[0]||""));
-
-  /* על הלוח מוצגות רק שלוש הקטגוריות הגדולות. השאר בעמוד התחנה —
-     ארבע עשרה שורות של תגיות על תצלום הן רעש, לא מידע. */
-  var top=CATS.map(function(c){return {c:c,n:(st.poi[c.id]||[]).length};})
-              .filter(function(x){return x.n;})
-              .sort(function(x,y){return y.n-x.n;}).slice(0,3);
-  var pr=el("div","pillrow");
-  top.forEach(function(x){
-    var p=el("span","pill");
-    p.appendChild(icon(x.c.ic));
-    p.appendChild(document.createTextNode(catName(x.c)+" "));
-    p.appendChild(el("b",null,String(x.n)));
-    pr.appendChild(p);
-  });
-  if(total(st)<=5) pr.appendChild(el("span","pill thin",t("thin")));
-  bd.appendChild(pr);
-  a.appendChild(bd);
-  a.setAttribute("aria-label",stName(st)+", "+total(st)+" "+t("places"));
-  return a;
-}
-
-function screenStation(st){
-  main.textContent="";
-  var back=el("a","backbtn"); back.href="#";
-  back.appendChild(icon("chev"));
-  back.appendChild(document.createTextNode(t("back")));
-  main.appendChild(back);
-
-  var hero=el("div","hero");
-  hero.style.setProperty("--stationcolor",stColor(st));
-  var img=el("img","scene");
-  /* ב-hero התצלום הוא התוכן ולא קישוט — הוא מתאר את המקום */
-  img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,1140,224);
-  img.alt=hasPhoto(st)?photoAlt(st):"";
-  img.style.height="clamp(200px,34vw,380px)";
-  hero.appendChild(img);
-  var ht=el("div","hero-txt");
-  var h1=el("h1","hero-name",stName(st));
-  h1.id="screenHeading"; h1.tabIndex=-1;
-  ht.appendChild(h1);
-  setDocTitle(stName(st));
-  ht.appendChild(en2(el("div","hero-sub",st.name+" · "+total(st)+" places")));
-  hero.appendChild(ht);
-  main.appendChild(hero);
-
-  main.appendChild(weatherStrip(st));
-
-  var qb=el("div","quickbar");
-  qb.appendChild(qbtn("act-map is-primary","pin",t("areaMap"),"https://www.google.com/maps/search/?api=1&query="+st.lat+","+st.lng));
-  qb.appendChild(qbtn("act-ride","car",t("ride"),"https://www.google.com/maps/dir/?api=1&destination="+st.lat+","+st.lng+"&travelmode=driving"));
-  qb.appendChild(qbtn("act-video","play",t("videos"),"https://www.youtube.com/results?search_query="+encodeURIComponent(st.name+" Vietnam travel")));
-  main.appendChild(qb);
-
-  CATS.forEach(function(c){
-    var recs=(st.poi[c.id]||[]);
-    if(!recs.length) return;
-    var sec=el("section","shelf");
-    var hd=el("div","shelf-head");
-    var ti=el("h3","shelf-title");
-    ti.appendChild(icon(c.ic));
-    ti.appendChild(document.createTextNode(catName(c)));
-    hd.appendChild(ti);
-    hd.appendChild(el("span","shelf-count",String(recs.length)));
-    sec.appendChild(hd);
-    var rail=el("div","rail");
-    rail.setAttribute("role","group");
-    rail.setAttribute("aria-label",catName(c));
-    recs.forEach(function(r){
-      rail.appendChild(poiCard({rec:r,cat:c.id,station:st,key:st.id+"|"+c.id+"|"+r.name}));
-    });
-    sec.appendChild(rail);
-    main.appendChild(sec);
-  });
-
-  if(total(st)<=6){
-    var g=el("div","notecard");
-    g.appendChild(el("b",null,t("thinTitle")));
-    g.appendChild(document.createTextNode(t("thinBody",{"%n":total(st)})));
-    main.appendChild(g);
-  }
-  say(stName(st)+", "+total(st)+" "+t("places"));
-}
+/* screenHome, revealPlates, stationCard ו-screenStation הוסרו:
+   הראוטר מנתב גם home וגם station ל-screenSplit, ולכן ארבעתן לא נקראו.
+   הן גם הסתירו באגים — ה-aria-label הנכון לפריט תחנה ישב בפונקציה
+   שלא רצה, וכלל .rail שלהן דלף לסרגל הצדדי החי. */
 function weatherStrip(st){
   var wx=weatherFor(st);
   var box=el("section","wx");
