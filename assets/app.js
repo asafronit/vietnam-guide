@@ -23,6 +23,7 @@ var ICONS={
   passport:'<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="9.8" r="3"/><path d="M9.3 17h5.4"/>',
   doc:'<path d="M13.8 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.2z"/><path d="M13.8 3v5.2H19"/><path d="M8.6 13h6.8M8.6 16.4h4.8"/>',
   info:'<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.2"/><path d="M12 7.9v.1"/>',
+  chat:'<path d="M20.5 11.6a8 8 0 0 1-11.7 7.1L4 20l1.4-4.6A8 8 0 1 1 20.5 11.6z"/>',
   chev:'<path d="M14.5 5.8L8.3 12l6.2 6.2"/>',
   grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>'
 };
@@ -57,6 +58,11 @@ var T={
   ride:{he:"הזמנת נסיעה",en:"Directions"},
   videos:{he:"סרטונים",en:"Videos"},
   whyHere:{he:"למה זה נכנס למאגר",en:"Why it made the list"},
+  whatsapp:{he:"וואטסאפ",en:"WhatsApp"},
+  pickStation:{he:"בחרו תחנה מהרשימה",en:"Pick a station from the list"},
+  pickHint:{he:"או חפשו מקום מסוים בשדה החיפוש למעלה.",en:"Or search for a specific place above."},
+  allStations:{he:"כל התחנות",en:"All stations"},
+  backToList:{he:"לרשימה",en:"Back to list"},
   openMap:{he:"פתח במפה",en:"Open in Maps"},
   video:{he:"וידאו",en:"Video"},
   sources:{he:"מקורות:",en:"Sources:"},
@@ -587,6 +593,8 @@ function rideUrl(r,st){
     :"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(r.name+", "+st.name)+"&travelmode=driving";
 }
 function vidUrl(r,st){return r.video||"https://www.youtube.com/results?search_query="+encodeURIComponent(r.name+" "+st.name);}
+/* wa.me רוצה ספרות בלבד, בלי פלוס, מקפים או רווחים */
+function waUrl(num){return "https://wa.me/"+String(num).replace(/[^\d]/g,"");}
 function brandOf(u){
   try{var p=new URL(u).hostname.split(".");if(p.length>1)p.pop();
       if(p.length>1&&(p[p.length-1]==="co"||p[p.length-1]==="com"))p.pop();
@@ -676,9 +684,11 @@ function openDetail(item){
   if(facts.childNodes.length) bd.appendChild(facts);
 
   var lr=el("div","linkrow");
-  lr.appendChild(lbtn("go","pin",t("openMap"),mapsUrl(r,st),r.name));
-  lr.appendChild(lbtn("","car",t("ride"),rideUrl(r,st),r.name));
-  lr.appendChild(lbtn("","play",t("video"),vidUrl(r,st),r.name));
+  /* כחול=מפות, ירוק=נסיעה, אדום=יוטיוב, סגול=וואטסאפ */
+  lr.appendChild(lbtn("act-map is-primary","pin",t("openMap"),mapsUrl(r,st),r.name));
+  lr.appendChild(lbtn("act-ride","car",t("ride"),rideUrl(r,st),r.name));
+  lr.appendChild(lbtn("act-video","play",t("video"),vidUrl(r,st),r.name));
+  if(r.whatsapp) lr.appendChild(lbtn("act-chat","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
   bd.appendChild(lr);
 
   if((r.sources||[]).length){
@@ -777,6 +787,83 @@ function screenTitle(text,cls){
 }
 function setDocTitle(screen){
   document.title=(screen?screen+" — ":"")+t("docTitle");
+}
+
+/* ============ תצוגה מפוצלת ============
+   מסך אחד: רשימה קבועה בצד, פרטים לצידה. מעבר בין תחנות מחליף
+   את חלונית הפרטים בלבד — הרשימה לא נבנית מחדש ולא מאבדת גלילה. */
+function screenSplit(sel){
+  var wrap=main.querySelector(".split");
+  if(!wrap){
+    main.textContent="";
+    main.appendChild(screenTitle(t("navStations"),"sr"));
+    wrap=el("div","split");
+    wrap.appendChild(buildRail());
+    var d=el("div","detail"); d.id="detailPane";
+    wrap.appendChild(d);
+    main.appendChild(wrap);
+  }
+  wrap.classList.toggle("has-detail",!!sel);
+  syncRail(sel);
+  var pane=document.getElementById("detailPane");
+  pane.textContent="";
+  if(sel){ renderStationDetail(sel,pane); setDocTitle(stName(sel)); }
+  else { pane.appendChild(detailEmpty()); setDocTitle(null); }
+}
+
+function detailEmpty(){
+  var d=el("div","detail-empty");
+  d.appendChild(icon("compass","ic-lg"));
+  d.appendChild(el("b",null,t("pickStation")));
+  d.appendChild(el("span",null,t("pickHint")));
+  return d;
+}
+
+function buildRail(){
+  /* בלי טאבים כאן. הסרגל העליון כבר מנווט בין המסכים, ושתי מערכות
+     ניווט שעושות אותו דבר הן בלבול. הרשימה נשארת רשימה. */
+  var rail=el("div","rail");
+  var hd=el("div","rail-head");
+  hd.appendChild(el("span",null,t("allStations")));
+  hd.appendChild(el("span","rail-n",String(STATIONS.length)));
+  rail.appendChild(hd);
+
+  var list=el("div","rail-list"); list.id="railList";
+  list.setAttribute("role","list");
+  REGIONS.forEach(function(reg){
+    var inReg=STATIONS.filter(function(s){return s.region===reg.id;});
+    if(!inReg.length) return;
+    list.appendChild(el("div","rail-group",regName(reg)));
+    inReg.forEach(function(st){list.appendChild(railItem(st));});
+  });
+  rail.appendChild(list);
+  return rail;
+}
+
+function railItem(st){
+  var a=el("a","rail-item");
+  a.href="#s/"+st.id;
+  a.setAttribute("data-station",st.id);
+  a.style.setProperty("--stationcolor",stColor(st));
+  if(hasPhoto(st)){
+    var img=el("img","rail-thumb");
+    img.src=STATION_PHOTO[st.id]; img.alt=""; img.loading="lazy";
+    a.appendChild(img);
+  }
+  var txt=el("div","rail-txt");
+  txt.appendChild(el("div","rail-name",stName(st)));
+  txt.appendChild(el("div","rail-sub",String(st.seq).padStart(2,"0")+" · "+regName(
+    REGIONS.filter(function(r){return r.id===st.region;})[0])));
+  a.appendChild(txt);
+  a.appendChild(el("span","rail-n",String(total(st))));
+  return a;
+}
+
+function syncRail(sel){
+  Array.prototype.forEach.call(document.querySelectorAll("[data-station]"),function(n){
+    if(sel && n.getAttribute("data-station")===sel.id) n.setAttribute("aria-current","true");
+    else n.removeAttribute("aria-current");
+  });
 }
 
 function screenHome(){
@@ -890,9 +977,9 @@ function screenStation(st){
   main.appendChild(weatherStrip(st));
 
   var qb=el("div","quickbar");
-  qb.appendChild(qbtn("primary","pin",t("areaMap"),"https://www.google.com/maps/search/?api=1&query="+st.lat+","+st.lng));
-  qb.appendChild(qbtn("","car",t("ride"),"https://www.google.com/maps/dir/?api=1&destination="+st.lat+","+st.lng+"&travelmode=driving"));
-  qb.appendChild(qbtn("","play",t("videos"),"https://www.youtube.com/results?search_query="+encodeURIComponent(st.name+" Vietnam travel")));
+  qb.appendChild(qbtn("act-map is-primary","pin",t("areaMap"),"https://www.google.com/maps/search/?api=1&query="+st.lat+","+st.lng));
+  qb.appendChild(qbtn("act-ride","car",t("ride"),"https://www.google.com/maps/dir/?api=1&destination="+st.lat+","+st.lng+"&travelmode=driving"));
+  qb.appendChild(qbtn("act-video","play",t("videos"),"https://www.youtube.com/results?search_query="+encodeURIComponent(st.name+" Vietnam travel")));
   main.appendChild(qb);
 
   CATS.forEach(function(c){
@@ -974,6 +1061,96 @@ function wxStat(v,l){
   d.appendChild(el("span",null,l));
   return d;
 }
+/* פרטי התחנה בתוך החלונית. הקטגוריות הן טאבים ולא מדפים —
+   בחלונית צרה יותר, מדף אופקי לכל קטגוריה הופך לשבעה פסי גלילה. */
+function renderStationDetail(st,pane){
+  var back=el("a","backbtn"); back.href="#";
+  back.appendChild(icon("chev"));
+  back.appendChild(document.createTextNode(t("backToList")));
+  pane.appendChild(back);
+
+  var hero=el("div","hero");
+  hero.style.setProperty("--stationcolor",stColor(st));
+  var img=el("img","scene");
+  img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,1140,380);
+  img.alt=hasPhoto(st)?photoAlt(st):"";
+  img.style.height="clamp(180px,28vw,320px)";
+  hero.appendChild(img);
+  var ht=el("div","hero-txt");
+  var h1=el("h1","hero-name",stName(st));
+  h1.id="screenHeading"; h1.tabIndex=-1;
+  ht.appendChild(h1);
+  ht.appendChild(en2(el("div","hero-sub",st.name+" · "+total(st)+" places")));
+  hero.appendChild(ht);
+  pane.appendChild(hero);
+
+  pane.appendChild(weatherStrip(st));
+
+  var qb=el("div","quickbar");
+  qb.appendChild(qbtn("act-map is-primary","pin",t("areaMap"),"https://www.google.com/maps/search/?api=1&query="+st.lat+","+st.lng));
+  qb.appendChild(qbtn("act-ride","car",t("ride"),"https://www.google.com/maps/dir/?api=1&destination="+st.lat+","+st.lng+"&travelmode=driving"));
+  qb.appendChild(qbtn("act-video","play",t("videos"),"https://www.youtube.com/results?search_query="+encodeURIComponent(st.name+" Vietnam travel")));
+  pane.appendChild(qb);
+
+  var filled=CATS.filter(function(c){return (st.poi[c.id]||[]).length;});
+  if(!filled.length){
+    var e=el("div","empty");
+    e.appendChild(icon("compass","ic-lg"));
+    e.appendChild(document.createTextNode(t("thinTitle")));
+    pane.appendChild(e);
+    return;
+  }
+
+  var tabs=el("div","cat-tabs");
+  tabs.setAttribute("role","tablist");
+  tabs.setAttribute("aria-label",t("navTopics"));
+  var panel=el("div","cat-panel");
+  panel.id="catPanel";
+  panel.setAttribute("role","tabpanel");
+
+  function show(cat){
+    panel.textContent="";
+    (st.poi[cat]||[]).forEach(function(r){
+      panel.appendChild(poiCard({rec:r,cat:cat,station:st,key:st.id+"|"+cat+"|"+r.name},"rcard"));
+    });
+    Array.prototype.forEach.call(tabs.children,function(b){
+      b.setAttribute("aria-selected",b.getAttribute("data-cat")===cat?"true":"false");
+      b.tabIndex=b.getAttribute("data-cat")===cat?0:-1;
+    });
+    panel.setAttribute("aria-label",catName(CAT_BY[cat])+" · "+stName(st));
+  }
+
+  filled.forEach(function(c){
+    var b=el("button","cat-tab"); b.type="button";
+    b.setAttribute("role","tab"); b.setAttribute("data-cat",c.id);
+    b.appendChild(icon(c.ic));
+    b.appendChild(document.createTextNode(catName(c)));
+    b.appendChild(el("span","n",String((st.poi[c.id]||[]).length)));
+    b.addEventListener("click",function(){show(c.id);});
+    /* חצים מזיזים בין טאבים, כמו שתבנית tablist מצפה */
+    b.addEventListener("keydown",function(e){
+      var d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;
+      if(!d) return;
+      e.preventDefault();
+      var kids=Array.prototype.slice.call(tabs.children);
+      var i=kids.indexOf(b), nx=kids[(i+d+kids.length)%kids.length];
+      nx.focus(); nx.click();
+    });
+    tabs.appendChild(b);
+  });
+  pane.appendChild(tabs);
+  pane.appendChild(panel);
+  show(filled[0].id);
+
+  if(total(st)<=6){
+    var g=el("div","notecard");
+    g.appendChild(el("b",null,t("thinTitle")));
+    g.appendChild(document.createTextNode(t("thinBody",{"%n":total(st)})));
+    pane.appendChild(g);
+  }
+  say(stName(st)+", "+total(st)+" "+t("places"));
+}
+
 function qbtn(cls,ic,label,href){
   var a=el("a","qbtn "+cls);
   a.href=href; a.target="_blank"; a.rel="noopener noreferrer";
@@ -1147,13 +1324,14 @@ function routeName(){
 function render(){
   var hz=decodeURIComponent(location.hash.replace(/^#/,""));
   var r=routeName();
+  /* בית ותחנה חולקים מסך אחד — רק חלונית הפרטים מתחלפת ביניהם */
   if(r==="search")        screenSearch();
-  else if(r==="station"){ var st=POI_DATA[hz.slice(2)]; if(st) screenStation(st); else screenHome(); }
+  else if(r==="station")  screenSplit(POI_DATA[hz.slice(2)]||null);
   else if(r==="category") screenCategory(hz.slice(2));
   else if(r==="topics")   screenTopics();
   else if(r==="saved")    screenSaved();
   else if(r==="info")     screenInfo();
-  else                    screenHome();
+  else                    screenSplit(null);
   markNav(r);
 }
 var NAV=[

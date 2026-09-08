@@ -40,6 +40,10 @@ try{
   --brand-soft:#e6efec;
   --gold:#8a6412;
   --rose:#a13924;
+  --c-map:#1257a8;   --c-map-soft:rgba(18,87,168,.10);
+  --c-ride:#106b45;  --c-ride-soft:rgba(16,107,69,.10);
+  --c-chat:#6b2e8f;  --c-chat-soft:rgba(107,46,143,.10);
+  --c-video:#b32218; --c-video-soft:rgba(179,34,24,.10);
   --shadow:0 1px 2px rgba(22,25,29,.05);
   --shadow-lg:0 10px 34px rgba(22,25,29,.14);
   --r:12px;
@@ -60,6 +64,10 @@ try{
     --line:rgba(233,236,239,.16);--line-soft:rgba(233,236,239,.08);--line-ctl:rgba(233,236,239,.46);
     --brand:#4dbc9d;--brand-ink:#0a221c;--brand-soft:#17302a;
     --gold:#cfa64f;--rose:#e0806c;
+    --c-map:#7fb2ee;   --c-map-soft:rgba(127,178,238,.14);
+    --c-ride:#5cc696;  --c-ride-soft:rgba(92,198,150,.14);
+    --c-chat:#c69ae4;  --c-chat-soft:rgba(198,154,228,.14);
+    --c-video:#f0847a; --c-video-soft:rgba(240,132,122,.14);
     --shadow:0 1px 2px rgba(0,0,0,.4);
     --shadow-lg:0 12px 40px rgba(0,0,0,.55);
   }
@@ -70,6 +78,10 @@ try{
   --line:rgba(233,236,239,.16);--line-soft:rgba(233,236,239,.08);
   --brand:#4dbc9d;--brand-ink:#0a221c;--brand-soft:#17302a;
   --gold:#cfa64f;--rose:#e0806c;
+    --c-map:#7fb2ee;   --c-map-soft:rgba(127,178,238,.14);
+    --c-ride:#5cc696;  --c-ride-soft:rgba(92,198,150,.14);
+    --c-chat:#c69ae4;  --c-chat-soft:rgba(198,154,228,.14);
+    --c-video:#f0847a; --c-video-soft:rgba(240,132,122,.14);
   --shadow:0 1px 2px rgba(0,0,0,.4);
   --shadow-lg:0 12px 40px rgba(0,0,0,.55);
 }
@@ -253,6 +265,75 @@ main:focus,main:focus-visible{outline:none}
 .backbtn svg{transform:scaleX(1)}
 :root[dir="rtl"] .backbtn svg,html[dir="rtl"] .backbtn svg{transform:scaleX(-1)}
 
+/* ---------- תצוגה מפוצלת ----------
+   הרשימה קבועה בצד, הפרטים מתחלפים לצידה. לא עוזבים את הדף:
+   מעבר בין תחנות הוא החלפת התוכן בחלונית אחת, לא ניווט לעמוד חדש. */
+.split{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:start}
+.rail{position:sticky;top:calc(var(--sticky-top) + 8px);max-height:calc(100vh - var(--sticky-top) - 24px);
+  display:flex;flex-direction:column;gap:10px;min-height:0}
+.rail-head{display:flex;align-items:baseline;gap:8px;padding:2px 10px 6px;
+  font-family:var(--f-ui);font-weight:600;font-size:.92rem;border-bottom:1px solid var(--line)}
+.rail-tab{
+  flex:1;font-family:var(--f-ui);font-size:.82rem;font-weight:500;color:var(--ink-2);
+  padding:8px 6px;border-radius:var(--r-xs);display:flex;align-items:center;justify-content:center;gap:6px;
+  transition:background .13s,color .13s;
+}
+.rail-tab:hover{color:var(--ink)}
+.rail-tab[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+.rail-list{overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:2px;padding-inline-end:2px;min-height:0}
+.rail-group{font-family:var(--f-ui);font-size:.74rem;font-weight:600;color:var(--ink-3);
+  padding:12px 10px 5px;letter-spacing:.02em}
+.rail-item{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-xs);
+  text-align:start;width:100%;transition:background .12s;position:relative;
+}
+.rail-item:hover{background:var(--surface-2)}
+.rail-item[aria-current="true"]{background:var(--surface);box-shadow:var(--shadow)}
+.rail-item[aria-current="true"]::before{
+  content:"";position:absolute;inset-block:9px;inset-inline-start:0;width:3px;
+  border-radius:2px;background:var(--stationcolor);
+}
+.rail-thumb{width:44px;height:34px;border-radius:5px;object-fit:cover;flex:none;background:var(--surface-2)}
+.rail-txt{min-width:0;flex:1}
+.rail-name{font-family:var(--f-ui);font-weight:500;font-size:.9rem;line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rail-item[aria-current="true"] .rail-name{font-weight:600}
+.rail-sub{font-size:.75rem;color:var(--ink-3)}
+.rail-n{font-family:var(--f-ui);font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums;flex:none}
+
+.detail{min-width:0}
+.detail-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  min-height:52vh;text-align:center;color:var(--ink-2);
+  border:1px dashed var(--line-ctl);border-radius:var(--r);padding:32px;
+}
+.detail-empty svg{width:30px;height:30px;color:var(--ink-3)}
+.detail-empty b{font-family:var(--f-ui);font-weight:600;font-size:1.05rem;color:var(--ink)}
+
+/* טאבי קטגוריה בתוך חלונית הפרטים */
+.cat-tabs{
+  display:flex;gap:4px;overflow-x:auto;padding:4px 0 10px;margin-top:18px;
+  border-bottom:1px solid var(--line);scrollbar-width:none;
+}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{
+  font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
+  padding:8px 13px;border-radius:var(--r-xs);white-space:nowrap;
+  display:inline-flex;align-items:center;gap:7px;transition:background .13s,color .13s;
+}
+.cat-tab:hover{background:var(--surface-2);color:var(--ink)}
+.cat-tab[aria-selected="true"]{background:var(--ink);color:var(--bg);font-weight:600}
+.cat-tab .n{font-size:.76rem;opacity:.72;font-variant-numeric:tabular-nums}
+.cat-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
+
+@media (max-width:900px){
+  /* בנייד אין מקום לשתי חלוניות. הרשימה היא הדף, והפרטים נכנסים מעליה. */
+  .split{grid-template-columns:1fr}
+  .rail{position:static;max-height:none}
+  .rail-list{overflow:visible;max-height:none}
+  .split.has-detail .rail{display:none}
+  .split:not(.has-detail) .detail{display:none}
+}
 /* ---------- מזג אוויר והיתכנות ---------- */
 .wx{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px 14px;margin-top:14px}
 .wx-hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
@@ -394,12 +475,23 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .whybox b{display:block;font-family:var(--f-ui);font-size:.77rem;font-weight:600;color:var(--brand);margin-bottom:2px}
 .factrow{display:flex;flex-wrap:wrap;gap:9px;font-family:var(--f-ui);font-size:.85rem;color:var(--ink-2);align-items:center}
 .linkrow{display:flex;flex-wrap:wrap;gap:8px}
+/* ---------- תקן צבעי הקישורים ----------
+   מתועד ב-PROJECT.md וב-build.py: הצבע מקודד את הפעולה, לא את הקטגוריה.
+   כחול=מפות · ירוק=נסיעה/גראב · סגול=וואטסאפ · אדום=יוטיוב.
+   הצבע לעולם לא לבד — לכל כפתור יש גם אייקון וגם מילה. */
 .lbtn{
   display:inline-flex;align-items:center;gap:7px;font-family:var(--f-ui);font-weight:500;font-size:.85rem;
-  border-radius:var(--r-xs);padding:9px 14px;border:1px solid var(--line-ctl);transition:border-color .13s;
+  border-radius:var(--r-xs);padding:9px 14px;border:1px solid currentColor;
+  color:var(--ink-2);transition:background .13s;
 }
-.lbtn:hover{border-color:var(--brand)}
-.lbtn.go{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.lbtn:hover{background:var(--tint,var(--surface-2))}
+.act-map  {color:var(--c-map);  --tint:var(--c-map-soft)}
+.act-ride {color:var(--c-ride); --tint:var(--c-ride-soft)}
+.act-video{color:var(--c-video);--tint:var(--c-video-soft)}
+.act-chat {color:var(--c-chat); --tint:var(--c-chat-soft)}
+.act-src  {color:var(--ink-3)}
+.lbtn.is-primary{background:var(--c-map);color:#fff;border-color:var(--c-map)}
+.lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}
 .srcline{font-size:.8rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 .srcline a{text-decoration:underline;text-underline-offset:3px}
 
