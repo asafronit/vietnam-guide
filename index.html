@@ -35,6 +35,10 @@ try{
   --ink-2:#565c66;
   --ink-3:#666c75;
   --line:rgba(22,25,29,.13);
+  /* גבול פקדים. חייב להיות מוגדר בכל שלושת מצבי הצבע: משתנה חסר הופך
+     את border:1px solid var(--x) ללא-חוקי, והקיצור כולו נופל ל-border-style:none.
+     .48 עובר 3:1 גם מול --surface וגם מול --bg. */
+  --line-ctl:rgba(22,25,29,.48);
   --line-soft:rgba(22,25,29,.07);
   --brand:#0f6b57;
   --brand-ink:#ffffff;
@@ -57,6 +61,7 @@ try{
   --f-body:"Assistant","Segoe UI",sans-serif;
   --gutter:clamp(15px,4vw,28px);
   --navh:0px;
+  --sticky-top:0px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
@@ -76,7 +81,7 @@ try{
 :root[data-theme="dark"]{
   --bg:#111417;--surface:#181c21;--surface-2:#222831;
   --ink:#e9ecef;--ink-2:#aab1ba;--ink-3:#949ba4;
-  --line:rgba(233,236,239,.16);--line-soft:rgba(233,236,239,.08);
+  --line:rgba(233,236,239,.16);--line-soft:rgba(233,236,239,.08);--line-ctl:rgba(233,236,239,.46);
   --brand:#4dbc9d;--brand-ink:#0a221c;--brand-soft:#17302a;
   --gold:#cfa64f;--rose:#e0806c;
     --c-map:#7fb2ee;   --c-map-soft:rgba(127,178,238,.14);
@@ -282,6 +287,8 @@ main:focus,main:focus-visible{outline:none}
 .rail-tab:hover{color:var(--ink)}
 .rail-tab[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
 .rail-list{overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:2px;padding-inline-end:2px;min-height:0}
+.rail-sect{display:flex;flex-direction:column}
+.rail-ul{display:flex;flex-direction:column;gap:2px}
 .rail-group{font-family:var(--f-ui);font-size:.74rem;font-weight:600;color:var(--ink-3);
   padding:12px 10px 5px;letter-spacing:.02em}
 .rail-item{
@@ -289,8 +296,8 @@ main:focus,main:focus-visible{outline:none}
   text-align:start;width:100%;transition:background .12s;position:relative;
 }
 .rail-item:hover{background:var(--surface-2)}
-.rail-item[aria-current="true"]{background:var(--surface);box-shadow:var(--shadow)}
-.rail-item[aria-current="true"]::before{
+.rail-item[aria-current="page"]{background:var(--surface);box-shadow:var(--shadow)}
+.rail-item[aria-current="page"]::before{
   content:"";position:absolute;inset-block:9px;inset-inline-start:0;width:3px;
   border-radius:2px;background:var(--stationcolor);
 }
@@ -298,7 +305,7 @@ main:focus,main:focus-visible{outline:none}
 .rail-txt{min-width:0;flex:1}
 .rail-name{font-family:var(--f-ui);font-weight:500;font-size:.9rem;line-height:1.25;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rail-item[aria-current="true"] .rail-name{font-weight:600}
+.rail-item[aria-current="page"] .rail-name{font-weight:600}
 .rail-sub{font-size:.75rem;color:var(--ink-3)}
 .rail-n{font-family:var(--f-ui);font-size:.78rem;color:var(--ink-3);font-variant-numeric:tabular-nums;flex:none}
 
@@ -324,7 +331,7 @@ main:focus,main:focus-visible{outline:none}
 }
 .cat-tab:hover{background:var(--surface-2);color:var(--ink)}
 .cat-tab[aria-selected="true"]{background:var(--ink);color:var(--bg);font-weight:600}
-.cat-tab .n{font-size:.76rem;opacity:.72;font-variant-numeric:tabular-nums}
+.cat-tab .n{font-size:.76rem;font-variant-numeric:tabular-nums}
 .cat-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
 
 @media (max-width:900px){
@@ -429,9 +436,8 @@ main:focus,main:focus-visible{outline:none}
 .shelf-title{font-family:var(--f-ui);font-weight:600;font-size:.98rem;margin:0;display:flex;align-items:center;gap:8px}
 .shelf-title svg{color:var(--ink-3)}
 .shelf-count{font-size:.82rem;color:var(--ink-3);font-family:var(--f-ui)}
-.rail{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 12px;scroll-snap-type:x mandatory;scrollbar-width:thin}
-.rail::-webkit-scrollbar{height:6px}
-.rail::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+/* שם המחלקה הזה התנגש עם הסרגל הצדדי והדליף אליו overflow-x
+   ו-scroll-snap. המדף האופקי לא בשימוש יותר, ולכן הכללים נמחקו. */
 
 /* ---------- כרטיס מקום ---------- */
 /* ברירת המחדל LTR כי רוב התוכן עדיין אנגלי. כרטיס שיש לו תאום עברי

@@ -345,9 +345,19 @@ function fetchForecast(st){
         mm:Math.round(sum(d.precipitation_sum)),
         source:"forecast", days:d.time.length, from:d.time[0], to:d.time[d.time.length-1]
       }};
-      render();                          /* התחזית השתנתה — המסך מצייר את עצמו מחדש */
+      refreshWeatherStrip(st);
     }).catch(function(){});
   }catch(e){}
+}
+/* מחליף את רצועת מזג האוויר בלבד.
+   קריאה ל-render() מכאן הייתה בונה מחדש את כל חלונית הפרטים כמה מאות
+   מילישניות אחרי פתיחת תחנה: הפוקוס נזרק, והטאב שהמשתמש בחר חזר לראשון.
+   ההערה הישנה טענה שזה נחסם ב-CSP — נכון ב-Artifact, לא נכון באתר החי. */
+function refreshWeatherStrip(st){
+  var box=document.querySelector(".wx");
+  if(!box||!box.parentNode) return;
+  if(currentStation() && currentStation().id!==st.id) return;   /* התחנה כבר הוחלפה */
+  box.parentNode.replaceChild(weatherStrip(st),box);
 }
 function avg(a){a=(a||[]).filter(function(v){return v!=null;});return a.length?a.reduce(function(x,y){return x+y;},0)/a.length:0;}
 function sum(a){a=(a||[]).filter(function(v){return v!=null;});return a.reduce(function(x,y){return x+y;},0);}
@@ -639,7 +649,9 @@ function openDetail(item){
   var sh=el("div","sheet");
 
   var hd=el("div","sheet-hd"), box=el("div");
-  var ttl=en2(el("h2","sheet-ttl",r.name)); ttl.id="dlgTitle";
+  var ttl=el("h2","sheet-ttl",recName(r));
+  if(!cardIsHe(r)||!r.nameHe) en2(ttl);
+  ttl.id="dlgTitle";
   box.appendChild(ttl);
   var wh=el("div","sheet-where");
   var d=el("span","dotc"); d.style.setProperty("--stationcolor",stColor(st));
@@ -920,7 +932,9 @@ function screenSplit(sel){
   var wrap=main.querySelector(".split");
   if(!wrap){
     main.textContent="";
-    main.appendChild(screenTitle(t("navStations"),"sr"));
+    /* בלי כותרת סמויה כאן. היא נשאה screenHeading, ישבה ראשונה ב-DOM,
+       ולכן getElementById החזיר אותה במקום שם התחנה — כל מעבר תחנה
+       הכריז "תחנות" והפוקוס נעלם לתוך אלמנט בגודל פיקסל. */
     wrap=el("div","split");
     wrap.appendChild(buildRail());
     var d=el("div","detail"); d.id="detailPane";
@@ -1000,13 +1014,28 @@ function buildRail(){
   hd.appendChild(el("span","rail-n",String(STATIONS.length)));
   rail.appendChild(hd);
 
+  /* display:flex מבטל את סמנטיקת הרשימה, ולכן מחזירים אותה ידנית —
+     אבל role="list" בלי אף listitem גרוע מכלום: קורא מסך מכריז
+     "רשימה, 0 פריטים" ואז קורא 14 קישורים תלושים. */
   var list=el("div","rail-list"); list.id="railList";
-  list.setAttribute("role","list");
   REGIONS.forEach(function(reg){
     var inReg=STATIONS.filter(function(s){return s.region===reg.id;});
     if(!inReg.length) return;
-    list.appendChild(el("div","rail-group",regName(reg)));
-    inReg.forEach(function(st){list.appendChild(railItem(st));});
+    var g=el("div","rail-sect");
+    g.setAttribute("role","group");
+    g.setAttribute("aria-label",regName(reg));
+    var gh=el("div","rail-group",regName(reg));
+    gh.setAttribute("aria-hidden","true");   /* השם כבר על ה-group */
+    g.appendChild(gh);
+    var ul=el("div","rail-ul");
+    ul.setAttribute("role","list");
+    inReg.forEach(function(st){
+      var li=el("div"); li.setAttribute("role","listitem");
+      li.appendChild(railItem(st));
+      ul.appendChild(li);
+    });
+    g.appendChild(ul);
+    list.appendChild(g);
   });
   rail.appendChild(list);
   return rail;
@@ -1028,12 +1057,16 @@ function railItem(st){
     REGIONS.filter(function(r){return r.id===st.region;})[0])));
   a.appendChild(txt);
   a.appendChild(el("span","rail-n",String(total(st))));
+  /* בלי זה השם המחושב נגמר ב-"42" בלי מילה שמסבירה מה זה */
+  a.setAttribute("aria-label",stName(st)+", "+String(st.seq).padStart(2,"0")+", "+
+    regName(REGIONS.filter(function(r){return r.id===st.region;})[0])+", "+
+    total(st)+" "+t("places"));
   return a;
 }
 
 function syncRail(sel){
   Array.prototype.forEach.call(document.querySelectorAll("[data-station]"),function(n){
-    if(sel && n.getAttribute("data-station")===sel.id) n.setAttribute("aria-current","true");
+    if(sel && n.getAttribute("data-station")===sel.id) n.setAttribute("aria-current","page");
     else n.removeAttribute("aria-current");
   });
 }
@@ -1220,7 +1253,7 @@ function weatherStrip(st){
     row.appendChild(bar);
     row.appendChild(el("div","wx-pct "+feasBand(p),p+"%"));
     row.setAttribute("role","img");
-    row.setAttribute("aria-label",r[1]+": "+p+"% "+t("wxFeasible"));
+    row.setAttribute("aria-label",r[1]+" ("+r[2]+"): "+p+"% "+t("wxFeasible"));
     rows.appendChild(row);
   });
   box.appendChild(rows);
@@ -1289,24 +1322,31 @@ function renderStationDetail(st,pane){
       b.setAttribute("aria-selected",b.getAttribute("data-cat")===cat?"true":"false");
       b.tabIndex=b.getAttribute("data-cat")===cat?0:-1;
     });
-    panel.setAttribute("aria-label",catName(CAT_BY[cat])+" · "+stName(st));
+    panel.removeAttribute("aria-label");
+    panel.setAttribute("aria-labelledby","catTab-"+cat);
   }
 
   filled.forEach(function(c){
     var b=el("button","cat-tab"); b.type="button";
+    b.id="catTab-"+c.id;
     b.setAttribute("role","tab"); b.setAttribute("data-cat",c.id);
+    b.setAttribute("aria-controls","catPanel");
     b.appendChild(icon(c.ic));
     b.appendChild(document.createTextNode(catName(c)));
     b.appendChild(el("span","n",String((st.poi[c.id]||[]).length)));
     b.addEventListener("click",function(){show(c.id);});
     /* חצים מזיזים בין טאבים, כמו שתבנית tablist מצפה */
+    /* ב-RTL אינדקס 0 יושב מימין, ולכן ArrowRight חייב להקטין את
+       האינדקס. בלי זה החץ מזיז לכיוון ההפוך ממה שהעין רואה. */
     b.addEventListener("keydown",function(e){
-      var d=e.key==="ArrowRight"?1:e.key==="ArrowLeft"?-1:0;
-      if(!d) return;
-      e.preventDefault();
-      var kids=Array.prototype.slice.call(tabs.children);
-      var i=kids.indexOf(b), nx=kids[(i+d+kids.length)%kids.length];
-      nx.focus(); nx.click();
+      var kids=Array.prototype.slice.call(tabs.children), i=kids.indexOf(b), nx;
+      var rtl=getComputedStyle(tabs).direction==="rtl";
+      var d=e.key==="ArrowRight"?(rtl?-1:1):e.key==="ArrowLeft"?(rtl?1:-1):0;
+      if(e.key==="Home") nx=kids[0];
+      else if(e.key==="End") nx=kids[kids.length-1];
+      else if(d) nx=kids[(i+d+kids.length)%kids.length];
+      else return;
+      e.preventDefault(); nx.focus(); nx.click();
     });
     tabs.appendChild(b);
   });
@@ -1718,6 +1758,20 @@ var topbar=document.getElementById("topbar");
 window.addEventListener("scroll",function(){
   topbar.classList.toggle("is-stuck",window.scrollY>4);
 },{passive:true});
+
+/* --sticky-top נצרך ע"י .rail אבל מעולם לא הוגדר, ולכן top:calc(...) היה
+   לא-חוקי, נפל ל-auto, ו-position:sticky לא עשה כלום — הרשימה שאמורה
+   להישאר בצד פשוט נגללה החוצה. נמדד ולא מנוחש, כי גובה הכרום משתנה
+   עם עטיפת שורות וגם בין נייד לדסקטופ. */
+function syncStickyTop(){
+  var h=Math.round(topbar.getBoundingClientRect().height);
+  var root=document.documentElement.style;
+  root.setProperty("--sticky-top",h+"px");
+  root.setProperty("scroll-padding-top",(h+16)+"px");
+}
+window.addEventListener("resize",syncStickyTop);
+window.addEventListener("load",syncStickyTop);
+syncStickyTop();
 
 renderChrome();
 render();
