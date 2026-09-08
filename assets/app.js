@@ -62,6 +62,8 @@ var T={
   pickStation:{he:"בחרו תחנה מהרשימה",en:"Pick a station from the list"},
   pickHint:{he:"או חפשו מקום מסוים בשדה החיפוש למעלה.",en:"Or search for a specific place above."},
   allStations:{he:"כל התחנות",en:"All stations"},
+  sheetGrip:{he:"גרירה לשינוי גובה החלונית. חצים מעלה ומטה, או Enter להחלפה.",
+             en:"Drag to resize the panel. Arrow up and down, or Enter to toggle."},
   backToList:{he:"לרשימה",en:"Back to list"},
   openMap:{he:"פתח במפה",en:"Open in Maps"},
   video:{he:"וידאו",en:"Video"},
@@ -789,10 +791,132 @@ function setDocTitle(screen){
   document.title=(screen?screen+" — ":"")+t("docTitle");
 }
 
+/* ================= מפה + גיליון נגרר =================
+   נייד בלבד. הדסקטופ נשאר מפוצל, ולכן Leaflet נטען רק כשצריך אותו
+   ולא נכפה על מי שגולש במחשב. */
+var MOBILE_Q=window.matchMedia("(max-width:900px)");
+var lmap=null, lmarkers={}, sheetY=null;
+var SNAP=[0.08,0.55,0.86];   /* חלקי גובה החלון: מלא, חצי, ידית */
+
+function isMobileMap(){return MOBILE_Q.matches;}
+/* המפה והגיליון חיים רק במסך התחנות. כל מסך אחר מפרק אותם, אחרת
+   הגיליון מרחף מעל תוכן שהוא לא שייך לו. */
+function exitMapMode(){
+  var sh=document.getElementById("mobSheet"); if(sh) sh.remove();
+  var mp=document.getElementById("mapPane");
+  if(mp){ mp.remove(); if(lmap){lmap.remove();} lmap=null; lmarkers={}; }
+  document.body.classList.remove("mob-map");
+}
+
+function ensureLeaflet(cb){
+  if(window.L) return cb();
+  var s=document.createElement("script");
+  s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+  /* onload מעביר Event כארגומנט ראשון. להעביר את cb ישירות פירושו
+     שהקריאה נראית כמו cb(event), והקוד שבודק err חושב שנכשלנו. */
+  s.onload=function(){cb();};
+  s.onerror=function(){cb(new Error("leaflet failed"));};
+  document.head.appendChild(s);
+}
+
+function buildMap(){
+  var pane=document.getElementById("mapPane");
+  if(!pane){
+    pane=el("div",null); pane.id="mapPane";
+    document.querySelector(".wrap").appendChild(pane);
+  }
+  /* הגיליון מתחיל מתחת לסרגל העליון, אז המפה חייבת לדעת את גובהו */
+  var tb=document.querySelector(".topbar");
+  document.documentElement.style.setProperty("--map-top",(tb?tb.offsetHeight:0)+"px");
+  if(lmap){ lmap.invalidateSize(); return; }
+
+  lmap=L.map(pane,{zoomControl:false,attributionControl:true})
+        .setView([16.3,107.2],5);
+  L.control.zoom({position:"topleft"}).addTo(lmap);
+  /* אריחי OSM הרשמיים: חינמיים, בלי מפתח וללא חותמת.
+     CartoDB עברו לדרוש API key וצובעים את האריחים ב-"API KEY REQUIRED",
+     ולכן הם לא שמישים כאן. הייחוס חובה לפי תנאי השימוש. */
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(lmap);
+
+  STATIONS.forEach(function(st){
+    var html='<span class="map-pin" style="background:'+stColor(st)+'">'+
+             String(st.seq).padStart(2,"0")+'</span>';
+    var m=L.marker([st.lat,st.lng],{
+      icon:L.divIcon({html:html,className:"",iconSize:[26,26],iconAnchor:[13,13]}),
+      keyboard:true,
+      title:stName(st)+", "+total(st)+" "+t("places")
+    }).addTo(lmap);
+    m.on("click",function(){ location.hash="#s/"+st.id; });
+    lmarkers[st.id]=m;
+  });
+}
+
+function markMapPin(sel){
+  Object.keys(lmarkers).forEach(function(id){
+    var e=lmarkers[id].getElement();
+    if(!e) return;
+    var pin=e.querySelector(".map-pin");
+    if(pin) pin.classList.toggle("is-on",!!sel && id===sel.id);
+  });
+  if(sel && lmap) lmap.flyTo([sel.lat,sel.lng],9,{duration:.6});
+}
+
+/* ---- הגיליון ---- */
+function setSheet(frac,animate){
+  var sh=document.getElementById("mobSheet");
+  if(!sh) return;
+  sheetY=frac;
+  sh.classList.toggle("is-dragging",!animate);
+  sh.style.setProperty("--sheet-y",(frac*100)+"vh");
+  sh.setAttribute("aria-expanded",frac<0.4?"true":"false");
+  if(!animate) requestAnimationFrame(function(){sh.classList.remove("is-dragging");});
+}
+function nearestSnap(frac){
+  return SNAP.reduce(function(a,b){return Math.abs(b-frac)<Math.abs(a-frac)?b:a;});
+}
+function wireSheetDrag(sh,grip){
+  var startY=0,startFrac=0,dragging=false;
+  function down(e){
+    dragging=true; startY=(e.touches?e.touches[0].clientY:e.clientY);
+    startFrac=sheetY==null?SNAP[1]:sheetY;
+    sh.classList.add("is-dragging");
+    window.addEventListener("pointermove",move);
+    window.addEventListener("pointerup",up,{once:true});
+  }
+  function move(e){
+    if(!dragging) return;
+    var y=e.clientY, d=(y-startY)/window.innerHeight;
+    var f=Math.min(SNAP[2],Math.max(SNAP[0],startFrac+d));
+    sh.style.setProperty("--sheet-y",(f*100)+"vh");
+    sheetY=f;
+  }
+  function up(){
+    dragging=false;
+    window.removeEventListener("pointermove",move);
+    sh.classList.remove("is-dragging");
+    setSheet(nearestSnap(sheetY),true);
+  }
+  grip.addEventListener("pointerdown",down);
+  /* מקלדת: הגיליון חייב להיות נגיש גם בלי גרירה */
+  grip.tabIndex=0;
+  grip.setAttribute("role","button");
+  grip.addEventListener("keydown",function(e){
+    var i=SNAP.indexOf(nearestSnap(sheetY==null?SNAP[1]:sheetY));
+    if(e.key==="ArrowUp"||e.key==="ArrowRight"){e.preventDefault();setSheet(SNAP[Math.max(0,i-1)],true);}
+    if(e.key==="ArrowDown"||e.key==="ArrowLeft"){e.preventDefault();setSheet(SNAP[Math.min(2,i+1)],true);}
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();setSheet(SNAP[i===1?0:1],true);}
+  });
+}
+
 /* ============ תצוגה מפוצלת ============
    מסך אחד: רשימה קבועה בצד, פרטים לצידה. מעבר בין תחנות מחליף
    את חלונית הפרטים בלבד — הרשימה לא נבנית מחדש ולא מאבדת גלילה. */
 function screenSplit(sel){
+  if(isMobileMap()) return screenMobileMap(sel);
+  document.body.classList.remove("mob-map");
   var wrap=main.querySelector(".split");
   if(!wrap){
     main.textContent="";
@@ -810,6 +934,54 @@ function screenSplit(sel){
   if(sel){ renderStationDetail(sel,pane); setDocTitle(stName(sel)); }
   else { pane.appendChild(detailEmpty()); setDocTitle(null); }
 }
+
+/* מפה מלאת-מסך עם גיליון נגרר מעליה. הגיליון מחזיק את אותו תוכן
+   בדיוק של החלונית בדסקטופ — רשימה כשאין בחירה, פרטים כשיש. */
+function screenMobileMap(sel){
+  document.body.classList.add("mob-map");
+  var sh=document.getElementById("mobSheet");
+  if(!sh){
+    main.textContent="";
+    main.appendChild(screenTitle(t("navStations"),"sr"));
+    sh=el("div","mob-sheet"); sh.id="mobSheet";
+    sh.setAttribute("role","region");
+    sh.setAttribute("aria-label",t("allStations"));
+    var grip=el("div","sheet-grip");
+    grip.setAttribute("aria-label",t("sheetGrip"));
+    sh.appendChild(grip);
+    var body=el("div","sheet-body"); body.id="sheetBody";
+    sh.appendChild(body);
+    document.querySelector(".wrap").appendChild(sh);
+    wireSheetDrag(sh,grip);
+    setSheet(SNAP[1],false);
+    ensureLeaflet(function(err){ if(!err) buildMap(); });
+  }
+  var body=document.getElementById("sheetBody");
+  body.textContent="";
+  if(sel){
+    renderStationDetail(sel,body);
+    setDocTitle(stName(sel));
+    setSheet(SNAP[0],true);          /* תחנה נבחרה — פותחים מלא */
+  }else{
+    body.appendChild(buildRail());
+    setDocTitle(null);
+    setSheet(SNAP[1],true);          /* חזרה לרשימה — חצי מסך, המפה נראית */
+  }
+  syncRail(sel);
+  if(window.L && lmap) markMapPin(sel);
+  else ensureLeaflet(function(err){ if(!err){ buildMap(); markMapPin(sel);} });
+}
+
+/* מעבר בין דסקטופ לנייד מחייב בנייה מחדש — שני המבנים לא חולקים DOM */
+MOBILE_Q.addEventListener("change",function(){
+  var sh=document.getElementById("mobSheet");
+  if(sh) sh.remove();
+  var mp=document.getElementById("mapPane");
+  if(mp){ mp.remove(); lmap=null; lmarkers={}; }
+  document.body.classList.remove("mob-map");
+  main.textContent="";
+  render();
+});
 
 function detailEmpty(){
   var d=el("div","detail-empty");
@@ -1161,6 +1333,7 @@ function qbtn(cls,ic,label,href){
 }
 
 function screenTopics(){
+  exitMapMode();
   main.textContent="";
   main.appendChild(screenTitle(t("whatNow")));
   setDocTitle(t("navTopics"));
@@ -1180,6 +1353,7 @@ function screenTopics(){
 }
 
 function screenCategory(cat){
+  exitMapMode();
   main.textContent="";
   var back=el("a","backbtn"); back.href="#topics";
   back.appendChild(icon("chev"));
@@ -1215,6 +1389,7 @@ function cardsByStation(items){
 }
 
 function screenSaved(){
+  exitMapMode();
   main.textContent="";
   main.appendChild(screenTitle(t("savedTitle")));
   setDocTitle(t("navSaved"));
@@ -1230,9 +1405,15 @@ function screenSaved(){
 }
 
 function screenInfo(){
+  exitMapMode();
   main.textContent="";
   main.appendChild(screenTitle(t("tripInfo")));
   setDocTitle(t("navInfo"));
+  /* בנייד השורות האלה מוסתרות מהכרום, אז כאן הן חייבות להופיע */
+  var of=el("div","info-official");
+  of.appendChild(oflink("passport",t("evisa"),"https://evisa.gov.vn"));
+  of.appendChild(oflink("doc",t("prearrival"),"https://prearrival.immigration.gov.vn"));
+  main.appendChild(of);
   var grid=el("div","facts");
   grid.appendChild(fact(t("departTLV"),"26 Oct","Etihad EY600 · TLV–AUH–HAN",true));
   grid.appendChild(fact(t("returnTLV"),"24 Nov","Etihad EY431 · HAN 20:00 · AUH–TLV",true));
@@ -1292,6 +1473,7 @@ function fact(label,value,sub,latin){
 }
 
 function screenSearch(){
+  exitMapMode();
   main.textContent="";
   var hits=INDEX.filter(function(x){return x.hay.indexOf(query)>=0;});
   var h=screenTitle("","results-head");

@@ -19,6 +19,7 @@ try{
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Rubik:wght@400;500;600&family=Assistant:wght@400;600&display=swap">
 <style>
 /* ==========================================================
@@ -327,12 +328,60 @@ main:focus,main:focus-visible{outline:none}
 .cat-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
 
 @media (max-width:900px){
-  /* בנייד אין מקום לשתי חלוניות. הרשימה היא הדף, והפרטים נכנסים מעליה. */
+  /* 268 פיקסלים של כרום מתוך 844 הם 32% מהמסך לפני שרואים תחנה אחת.
+     מסגרת הטיול והקישורים הרשמיים אינם החלטות שמקבלים כל שנייה —
+     מקומם במסך "מידע", לא קבועים מעל כל גלילה. */
+  .tripbar,.official{display:none}
   .split{grid-template-columns:1fr}
   .rail{position:static;max-height:none}
   .rail-list{overflow:visible;max-height:none}
   .split.has-detail .rail{display:none}
   .split:not(.has-detail) .detail{display:none}
+}
+/* ---------- מפה + גיליון נגרר (נייד בלבד) ----------
+   הדסקטופ נשאר מפוצל. כאן המפה ממלאת את המסך והרשימה יושבת בגיליון
+   שנגרר לשלושה גבהים, כי בטלפון האגודל מגיע לתחתית ולא לראש. */
+#mapPane{display:none}
+.sheet-scrim{display:none}
+@media (max-width:900px){
+  body.mob-map{overflow:hidden}
+  body.mob-map main{padding:0;max-width:none}
+  #mapPane{
+    display:block;position:fixed;inset-block-start:var(--map-top,0);inset-inline:0;
+    inset-block-end:0;z-index:1;background:var(--surface-2);
+  }
+  .leaflet-container{width:100%;height:100%;font-family:var(--f-body)}
+  .mob-sheet{
+    position:fixed;inset-inline:0;inset-block-end:0;z-index:30;
+    height:92vh;background:var(--surface);
+    border-start-start-radius:18px;border-start-end-radius:18px;
+    box-shadow:0 -6px 28px rgba(0,0,0,.22);
+    display:flex;flex-direction:column;
+    transform:translateY(var(--sheet-y,55vh));
+    transition:transform .32s cubic-bezier(.2,.8,.25,1);
+    touch-action:none;
+  }
+  .mob-sheet.is-dragging{transition:none}
+  .sheet-grip{
+    flex:none;padding:9px 0 6px;display:flex;justify-content:center;cursor:grab;
+    touch-action:none;
+  }
+  .sheet-grip::before{
+    content:"";width:38px;height:4px;border-radius:99px;background:var(--line-ctl);
+  }
+  .sheet-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+    padding:0 var(--gutter) calc(var(--navh) + 18px)}
+  /* בתוך הגיליון הרשימה כבר לא דביקה ולא מוגבלת בגובה */
+  body.mob-map .rail{position:static;max-height:none}
+  body.mob-map .rail-list{overflow:visible;max-height:none}
+  body.mob-map .topbar{position:relative;z-index:40;background:var(--bg)}
+  .map-pin{
+    display:grid;place-items:center;width:26px;height:26px;border-radius:50%;
+    color:#fff;font-family:var(--f-ui);font-weight:600;font-size:.68rem;
+    border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);
+    font-variant-numeric:tabular-nums;
+  }
+  .map-pin.is-on{outline:3px solid var(--brand);outline-offset:2px}
 }
 /* ---------- מזג אוויר והיתכנות ---------- */
 .wx{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px 14px;margin-top:14px}
