@@ -2,3 +2,6 @@
 Thumbs.db
 *.bak
 *.bak-*
+
+# PAUL project state — internal, never published
+.paul/

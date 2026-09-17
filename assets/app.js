@@ -3,6 +3,7 @@
 
 /* ============ אייקוני קו ============ */
 var ICONS={
+  gear:'<circle cx="12" cy="12" r="3.1"/><path d="M19.4 14.5a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5v.2a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1h.2a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>',
   star:'<path d="M12 3.6l2.6 5.3 5.8.9-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.9z"/>',
   hike:'<path d="M2.5 19l6-9.5 4 6 2.5-3.5L21.5 19z"/><circle cx="17.5" cy="6" r="2"/>',
   bowl:'<path d="M3.5 11h17a8.5 8.5 0 0 1-17 0z"/><path d="M9 7.8c0-1.4 1.4-1.4 1.4-2.8"/><path d="M13 7.8c0-1.4 1.4-1.4 1.4-2.8"/>',
@@ -12,6 +13,7 @@ var ICONS={
   card:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16.2c.6-1.5 1.7-2.2 3-2.2s2.4.7 3 2.2"/><path d="M14.8 10h4.2M14.8 13.5h4.2"/>',
   search:'<circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8l4.7 4.7"/>',
   close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15"/>',
   heart:'<path d="M12 20.3l-1.3-1.2C6 14.9 3 12.2 3 8.9 3 6.2 5.1 4 7.8 4c1.5 0 3 .7 4.2 2 1.2-1.3 2.7-2 4.2-2C18.9 4 21 6.2 21 8.9c0 3.3-3 6-7.7 10.2z"/>',
   pin:'<path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/>',
   car:'<path d="M4 16.5V13l2-4.5h12L20 13v3.5"/><path d="M4 16.5h16"/><circle cx="7.6" cy="17" r="1.7"/><circle cx="16.4" cy="17" r="1.7"/>',
@@ -45,6 +47,40 @@ var T={
   searchPh:{he:"מה מחפשים? מסעדה, שוק, פעילות, מלון…",en:"Restaurant, market, activity, hotel…"},
   clear:{he:"נקה חיפוש",en:"Clear search"},
   navStations:{he:"תחנות",en:"Stations"},
+  /* ---- מצב "לפי מרחק" ---- */
+  byRoute:{he:"לפי מסלול",en:"By route"},
+  byDist:{he:"לפי מרחק",en:"By distance"},
+  sortMode:{he:"סדר התצוגה",en:"Sort order"},
+  findNear:{he:"מצא מה קרוב אליי",en:"Find what's near me"},
+  retryNear:{he:"נסה שוב",en:"Try again"},
+  refreshLoc:{he:"רענן מיקום",en:"Refresh location"},
+  /* לפני הלחיצה — 3.3.2. וגם נכון עובדתית: אין כאן שרת בכלל. */
+  nearHint:{he:"הדפדפן יבקש את אישורך. המיקום נשאר במכשיר ולא נשלח לשום מקום.",
+            en:"Your browser will ask permission. Your location stays on the device and is never sent anywhere."},
+  locating:{he:"מאתר את המיקום שלך…",en:"Finding your location…"},
+  /* המחוון הוא הטקסט הזה. ספינר היה מוקפא ע"י כלל ה-reduced-motion. */
+  nearFound:{he:"נמצאו %n מקומות. הקרוב ביותר: %f.",en:"%n places found. Nearest: %f."},
+  nearNone:{he:"לא נמצאו מקומות עם מיקום ידוע.",en:"No places with a known location."},
+  /* שלושת קודי השגיאה — טקסט נפרד לכל אחד (3.3.1/3.3.3) */
+  errDenied:{he:"הגישה למיקום נחסמה. הדפדפן לא יציג שוב את בקשת ההרשאה מתוך הדף הזה.",
+             en:"Location access is blocked. The browser will not ask again from within this page."},
+  errDeniedHow:{he:"להחזרה: בספארי — כפתור אA בשורת הכתובת, ואז הגדרות אתר, ואז מיקום. במכשיר — הגדרות, פרטיות ואבטחה, שירותי מיקום, אתרי Safari. אם המדריך הותקן למסך הבית — הגדרות, שם האפליקציה, מיקום.",
+                en:"To restore: in Safari tap the aA button in the address bar, then Website Settings, then Location. On the device: Settings, Privacy & Security, Location Services, Safari Websites. If installed to the home screen: Settings, the app name, Location."},
+  errTimeout:{he:"לא הצלחנו לאתר את המיקום בזמן. זה קורה במקומות סגורים ובלי קליטה.",
+              en:"Locating timed out. This happens indoors and without signal."},
+  errUnavail:{he:"המיקום אינו זמין במכשיר הזה כרגע.",en:"Location is unavailable on this device right now."},
+  nearPick:{he:"אפשר לבחור תחנה ולראות מה קרוב אליה:",en:"You can pick a stop and see what's near it:"},
+  nearPickLbl:{he:"בחירת תחנה",en:"Choose a stop"},
+  /* far — מידע, לא שגיאה. עד היציאה זהו המצב הנפוץ ביותר. */
+  farAway:{he:"אתה כרגע כ-%d מהתחנה הקרובה (%s).",en:"You're about %d from the nearest stop (%s)."},
+  nearStation:{he:"מה קרוב ל%s",en:"Near %s"},
+  distM:{he:"%n מ׳",en:"%n m"},
+  distKm:{he:"%n ק״מ",en:"%n km"},
+  /* בשם המחושב — מילים מלאות. VoiceOver עברית קורא ק״מ אות-אות. */
+  distMSpoken:{he:"%n מטר",en:"%n meters"},
+  distKmSpoken:{he:"%n קילומטר",en:"%n kilometers"},
+  settings:{he:"הגדרות",en:"Settings"},
+  closeSettings:{he:"סגירת ההגדרות",en:"Close settings"},
   navTopics:{he:"נושאים",en:"Browse"},
   navSaved:{he:"שמורים",en:"Saved"},
   navInfo:{he:"מידע",en:"Trip info"},
@@ -62,6 +98,7 @@ var T={
   pickStation:{he:"בחרו תחנה מהרשימה",en:"Pick a station from the list"},
   pickHint:{he:"או חפשו מקום מסוים בשדה החיפוש למעלה.",en:"Or search for a specific place above."},
   allStations:{he:"כל התחנות",en:"All stations"},
+  sheetGripName:{he:"גובה החלונית",en:"Panel height"},
   sheetGrip:{he:"גרירה לשינוי גובה החלונית. חצים מעלה ומטה, או Enter להחלפה.",
              en:"Drag to resize the panel. Arrow up and down, or Enter to toggle."},
   backToList:{he:"לרשימה",en:"Back to list"},
@@ -70,6 +107,9 @@ var T={
   sources:{he:"מקורות:",en:"Sources:"},
   newTab:{he:" (נפתח בכרטיסייה חדשה)",en:" (opens in a new tab)"},
   close:{he:"סגור",en:"Close"},
+  copyName:{he:"העתק שם באנגלית",en:"Copy English name"},
+  copied:{he:"הועתק",en:"Copied"},
+  copyFailed:{he:"ההעתקה נכשלה",en:"Copy failed"},
   save:{he:"שמור",en:"Save"},
   unsave:{he:"הסר מהשמורים",en:"Remove from saved"},
   saved:{he:"נשמר",en:"Saved"},
@@ -209,6 +249,86 @@ STATIONS.forEach(function(st){
     });
   });
 });
+/* ============ מרחק ומיקום ============
+   חישוב מקומי בלבד. הנ"צ כבר בנתונים, ולכן המיון עובד **אופליין** —
+   בניגוד למפה, שדורשת אריחים מהרשת. זה מה שהופך את המצב הזה לשימושי
+   בדיוק במקום שבו המדריך נחוץ: בשטח, בלי קליטה. */
+var R_EARTH=6371;
+function haversine(lat1,lng1,lat2,lng2){
+  var toRad=Math.PI/180;
+  var dLat=(lat2-lat1)*toRad, dLng=(lng2-lng1)*toRad;
+  var a=Math.sin(dLat/2)*Math.sin(dLat/2) +
+        Math.cos(lat1*toRad)*Math.cos(lat2*toRad)*Math.sin(dLng/2)*Math.sin(dLng/2);
+  return R_EARTH*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+/* שתי צורות לכל מרחק: מוצגת ומדוברת.
+   "ק״מ" עם הגרשיים נקרא ב-VoiceOver עברית אות-אות, ולכן השם המחושב
+   מקבל מילה מלאה. */
+function fmtDist(km,spoken){
+  if(km<1){
+    var m=Math.round(km*1000/10)*10;
+    return t(spoken?"distMSpoken":"distM",{"%n":String(m)});
+  }
+  /* מעל 1000 ק"מ מעגלים לעשרות — "6,800" אומר את אותו דבר כמו
+     "6804" ונקרא הרבה יותר טוב, במיוחד בהקראה. */
+  var n=km<10?Number(km.toFixed(1)):(km<1000?Math.round(km):Math.round(km/10)*10);
+  var v=n.toLocaleString(isHe()?"he-IL":"en-GB");
+  return t(spoken?"distKmSpoken":"distKm",{"%n":v});
+}
+/* מעל זה המשתמש אינו בוויאטנם. עד היציאה ב-26/10 זהו המצב הנפוץ
+   ביותר של המסך, ולכן הוא מטופל כמידע ולא ככשל. */
+var IN_VIETNAM_KM=200;
+
+function nearestFrom(lat,lng,limit){
+  var out=[];
+  INDEX.forEach(function(it){
+    var r=it.rec;
+    if(r.lat==null||r.lng==null) return;
+    out.push({rec:r,cat:it.cat,station:it.station,key:it.key,
+      km:haversine(lat,lng,r.lat,r.lng)});
+  });
+  out.sort(function(a,b){return a.km-b.km;});
+  return limit?out.slice(0,limit):out;
+}
+function nearestStation(lat,lng){
+  var best=null;
+  STATIONS.forEach(function(st){
+    if(st.lat==null) return;
+    var km=haversine(lat,lng,st.lat,st.lng);
+    if(!best||km<best.km) best={st:st,km:km};
+  });
+  return best;
+}
+/* מצב יחיד לכל המסך. state הוא אחד מששת אלה, ואין מצב ביניים סמוי. */
+var geo={state:"idle",lat:null,lng:null,at:0,errCode:0,manual:null};
+function geoSupported(){
+  /* בהקשר לא-מאובטח (file://) האובייקט פשוט לא קיים. במקרה הזה
+     הכפתור לא מרונדר כלל — כפתור מת שלוחצים עליו ולא קורה כלום
+     גרוע יותר מהיעדרו. */
+  return typeof navigator!=="undefined" && !!navigator.geolocation;
+}
+function requestGeo(onChange){
+  railAnnounce=true;
+  if(!geoSupported()){ geo.state="unavailable"; onChange(); return; }
+  geo.state="locating"; onChange();
+  railAnnounce=true;
+  navigator.geolocation.getCurrentPosition(function(pos){
+    geo.lat=pos.coords.latitude; geo.lng=pos.coords.longitude; geo.at=Date.now();
+    var ns=nearestStation(geo.lat,geo.lng);
+    geo.state=(ns&&ns.km>IN_VIETNAM_KM)?"far":"ok";
+    geo.far=ns;
+    railAnnounce=true; onChange();
+  },function(err){
+    geo.errCode=err&&err.code;
+    geo.state=(geo.errCode===1)?"denied":(geo.errCode===3?"timeout":"unavailable");
+    railAnnounce=true; onChange();
+  },{
+    /* ברירת המחדל של timeout היא Infinity — במנהרה "מאתר…" היה נתקע
+       לנצח בלי שום מצב סיום ובלי הכרזה נוספת. */
+    enableHighAccuracy:false, timeout:10000, maximumAge:300000
+  });
+}
+
 var query="", favs=loadFavs();
 
 /* ============ מטבע ============
@@ -612,7 +732,24 @@ function brandOf(u){
       if(p.length>1&&(p[p.length-1]==="co"||p[p.length-1]==="com"))p.pop();
       return p[p.length-1];}catch(e){return u;}
 }
-function say(m){document.getElementById("live").textContent=m;}
+/* איפוס לפני הצבה. הצבת אותה מחרוזת פעמיים ברצף אינה משנה את ה-DOM
+   ולכן אינה מפיקה הכרזה שנייה — "נשמר" אחרי "נשמר" היה שקט מוחלט.
+   אותו דפוס כמו sayHere בתוך הדיאלוג. */
+/* מסלול הכרזה יחיד. שתי פונקציות שנבדלות רק בבדיקה אחת הזמינו טעות:
+   שלושה קוראים שרצים מתוך render() דיברו אל #live בזמן ש-showModal
+   הפך אותו ל-inert, וההכרזה נבלעה בשקט. הבחירה יורדת לכאן פנימה,
+   ואי אפשר לפספס אותה.
+   האיפוס לפני ההצבה הכרחי: הצבת אותה מחרוזת פעמיים ברצף אינה משנה
+   את ה-DOM ולכן אינה מפיקה הכרזה שנייה. */
+function say(m){
+  var sd=document.getElementById("setDlg");
+  var n=document.getElementById(sd&&sd.open?"setLive":"live");
+  if(!n) return;
+  n.textContent="";
+  setTimeout(function(){n.textContent=m;},60);
+}
+/* כינוי לשם קריאוּת באתרי הקריאה שנוגעים לכרום. אותה פונקציה בדיוק. */
+var announce=say;
 function currentDark(){
   var s=document.documentElement.getAttribute("data-theme");
   return s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -649,21 +786,61 @@ function openDetail(item){
   var sh=el("div","sheet");
 
   var hd=el("div","sheet-hd"), box=el("div");
-  var ttl=el("h2","sheet-ttl",recName(r));
-  if(!cardIsHe(r)||!r.nameHe) en2(ttl);
-  ttl.id="dlgTitle";
+
+  /* שני שמות בכותרת. הלטיני אינו קישוט: הוא מה שמראים לנהג מונית,
+     ולכן הוא חלק מזהות המקום ויושב בתוך ה-h2 שהוא גם השם הנגיש של
+     הדיאלוג. לא משרשרים אותם — מפריד טקסטואלי בין עברית ללטינית
+     הוא תו נייטרלי ויקפוץ צד. ההפרדה ויזואלית בלבד. */
+  var ttl=el("h2","sheet-ttl"); ttl.id="dlgTitle";
+  /* לא cardIsHe: היעדר whatHe אינו הופך שם עברי לאנגלי. recName
+     נסמך על isHe() בלבד, וזה התנאי שחייב להתאים לו — אחרת טקסט
+     עברי מסומן lang="en" ומוקרא בקול אנגלי. */
+  var heName=(isHe()&&r.nameHe)?r.nameHe:null;
+  if(heName){
+    var nHe=el("span","ttl-he",heName); nHe.lang="he";
+    ttl.appendChild(nHe);
+    ttl.appendChild(en2(el("span","ttl-en",r.name)));
+  }else{
+    en2(ttl); ttl.textContent=r.name;
+  }
   box.appendChild(ttl);
+
   var wh=el("div","sheet-where");
   var d=el("span","dotc"); d.style.setProperty("--stationcolor",stColor(st));
   wh.appendChild(d);
   wh.appendChild(document.createTextNode(stName(st)+" · "+catName(CAT_BY[item.cat])));
   box.appendChild(wh);
   hd.appendChild(box);
+
+  /* #live יושב מחוץ ל-dialog, ו-showModal הופך אותו ל-inert, כך
+     שהכרזות משם לא נשמעות כשהחלון פתוח. לכן live region משלו. */
+  var dlgLive=el("div","sr");
+  dlgLive.setAttribute("aria-live","polite");
+  dlgLive.setAttribute("aria-atomic","true");
+  function sayHere(m){ dlgLive.textContent=""; setTimeout(function(){dlgLive.textContent=m;},60); }
+
+  var acts=el("div","sheet-acts");
+  if(heName&&navigator.clipboard){
+    var cpb=el("button","ttl-copy"); cpb.type="button";
+    /* השם נכנס לתווית כדי שקורא מסך ידע מה הוא מעתיק. תג השפה אובד
+       בחישוב השם הנגיש — מגבלת מפרט; ההגייה הנכונה קורית ב-h2. */
+    cpb.setAttribute("aria-label",t("copyName")+": "+r.name);
+    cpb.appendChild(icon("copy"));
+    cpb.addEventListener("click",function(){
+      navigator.clipboard.writeText(r.name).then(
+        function(){ sayHere(t("copied")+": "+r.name); },
+        function(){ sayHere(t("copyFailed")); }
+      );
+    });
+    acts.appendChild(cpb);
+  }
   var cb=el("button","closebtn"); cb.type="button";
   cb.setAttribute("aria-label",t("close")); cb.appendChild(icon("close"));
   cb.addEventListener("click",function(){dlg.close();});
-  hd.appendChild(cb);
+  acts.appendChild(cb);
+  hd.appendChild(acts);
   sh.appendChild(hd);
+  sh.appendChild(dlgLive);
 
   var he=cardIsHe(r);
   var bd=el("div","sheet-bd");
@@ -730,7 +907,15 @@ function lbtn(cls,ic,label,href,name){
   return a;
 }
 dlg.addEventListener("close",function(){ if(lastFocus&&lastFocus.focus) lastFocus.focus(); });
-dlg.addEventListener("click",function(e){ if(e.target===dlg) dlg.close(); });
+/* click מגרירה מקבל כ-target את האב המשותף של down ו-up. גרירת
+   בחירת-טקסט שמתחילה בכותרת ומסתיימת מחוץ ל-sheet נתנה target===dlg
+   וסגרה את החלון באמצע העתקת השם — בדיוק ה-flow שהכותרת משרתת. */
+var downOnBackdrop=false;
+dlg.addEventListener("mousedown",function(e){ downOnBackdrop=(e.target===dlg); });
+dlg.addEventListener("click",function(e){
+  if(e.target===dlg&&downOnBackdrop) dlg.close();
+  downOnBackdrop=false;
+});
 
 /* ============ כרטיס מקום ============ */
 function poiCard(item,cls){
@@ -750,7 +935,8 @@ function poiCard(item,cls){
   var he=cardIsHe(r);
   if(he){ card.dir="rtl"; card.lang="he"; card.classList.add("is-he"); }
 
-  var h=el("h4","pcard-h");
+  /* h3 ולא h4: מתחת ל-h2 של התחנה, בלי לדלג על רמה. */
+  var h=el("h3","pcard-h");
   var open=el("button","pcard-open"); open.type="button";
   open.setAttribute("aria-haspopup","dialog");
   var nm=el("span","pcard-name");
@@ -794,9 +980,18 @@ var main=document.getElementById("main");
 
 /* לכל מסך כותרת h1 אחת, שהיא גם יעד הפוקוס אחרי ניווט.
    בלעדיה ניווט-לפי-כותרות לא מוצא נקודת התחלה, ומסך החיפוש התחיל ב-h3. */
+/* המזהה חייב להיות יחיד. הגיליון הנייד נבנה פעם אחת ומשאיר את כותרת
+   "תחנות" ב-main, ואז מסך התחנה הוסיף כותרת שנייה עם אותו id — כפילות
+   מזהה, ו-focus() תפס את הישנה. claimScreenHeading משחרר קודם. */
+function claimScreenHeading(node){
+  var prev=document.getElementById("screenHeading");
+  if(prev&&prev!==node) prev.removeAttribute("id");
+  node.id="screenHeading"; node.tabIndex=-1;
+  return node;
+}
 function screenTitle(text,cls){
   var h=el("h1",cls||"sec-head",text);
-  h.id="screenHeading"; h.tabIndex=-1;
+  claimScreenHeading(h);
   return h;
 }
 function setDocTitle(screen){
@@ -883,7 +1078,12 @@ function setSheet(frac,animate){
   sheetY=frac;
   sh.classList.toggle("is-dragging",!animate);
   sh.style.setProperty("--sheet-y",(frac*100)+"vh");
-  sh.setAttribute("aria-expanded",frac<0.4?"true":"false");
+  /* aria-expanded אינו מותר על role="region" ולכן פשוט לא נחשף.
+     המצב שייך לפקד שמרחיב — הידית — שעד כה הכריזה "כפתור" בלי
+     שום מצב. */
+  sh.removeAttribute("aria-expanded");
+  var gp=sh.querySelector(".sheet-grip");
+  if(gp) gp.setAttribute("aria-expanded",frac<0.4?"true":"false");
   if(!animate) requestAnimationFrame(function(){sh.classList.remove("is-dragging");});
 }
 function nearestSnap(frac){
@@ -961,8 +1161,14 @@ function screenMobileMap(sel){
     sh.setAttribute("role","region");
     sh.setAttribute("aria-label",t("allStations"));
     var grip=el("div","sheet-grip");
-    grip.setAttribute("aria-label",t("sheetGrip"));
+    /* שם נגיש מתאר מה הפקד הוא, לא איך משתמשים בו. ההוראות עוברות
+       ל-describedby, שם מקומן. */
+    grip.setAttribute("aria-label",t("sheetGripName"));
+    grip.setAttribute("aria-controls","sheetBody");
+    var gh=el("p","sr",t("sheetGrip")); gh.id="sheetGripHelp";
+    grip.setAttribute("aria-describedby","sheetGripHelp");
     sh.appendChild(grip);
+    sh.appendChild(gh);
     var body=el("div","sheet-body"); body.id="sheetBody";
     sh.appendChild(body);
     document.querySelector(".wrap").appendChild(sh);
@@ -1005,6 +1211,214 @@ function detailEmpty(){
   return d;
 }
 
+/* ============ מצב "לפי מרחק" ============ */
+/* מכוון לא נשמר בין טעינות. מצב "לפי מרחק" ששרד refresh היה נפתח
+   ב-geo.state="idle", ו-idle לא מציג רשימה — כלומר מסך התחנות היה
+   נפתח בלי אף תחנה. ההעדפה נשארת לאורך הסשן, שם היא מועילה. */
+var sortMode="route";
+/* ההכרזה שייכת להחלפה יזומה בלבד. בלי הדגל הזה כל רינדור של המסך
+   היה מכריז "כל התחנות, 14" מחדש. */
+var railAnnounce=false;
+function setSortMode(m){ sortMode=m; railAnnounce=true; }
+/* המתג. אותו דפוס .seg של הכרום — aria-pressed, לא role=tab:
+   אלה אינם לשוניות של אותו תוכן אלא שני סידורים של אותה רשימה. */
+function buildSortSeg(onSwitch){
+  var seg=el("div","seg seg-sort");
+  seg.setAttribute("role","group");
+  seg.setAttribute("aria-label",t("sortMode"));
+  [["route","byRoute"],["dist","byDist"]].forEach(function(pair){
+    var b=el("button",null,t(pair[1]));
+    b.type="button";
+    b.setAttribute("aria-pressed",sortMode===pair[0]?"true":"false");
+    b.addEventListener("click",function(){
+      if(sortMode===pair[0]) return;
+      setSortMode(pair[0]);
+      onSwitch(pair[0]);
+    });
+    seg.appendChild(b);
+  });
+  return seg;
+}
+/* המרחק כשלושה צמתים נפרדים ולא כמחרוזת אחת: הספרות LTR, היחידה
+   עברית, המפריד ניטרלי והשם לעיתים לטיני. מחרוזת אחת הייתה נפתרת
+   ע"י אלגוריתם ה-bidi אחרת ב-iOS מאשר בדסקטופ. */
+function nearRow(hit){
+  /* כפתור ולא קישור. השורה מכריזה מקום ספציפי, ולכן היא חייבת לפתוח
+     את המקום הזה — קישור ל-#s/<station> היה מכריז "בנה מי פואונג"
+     ונוחת ברשימה של 42 מקומות. אותו דפוס בדיוק כמו .pcard-open. */
+  var a=el("button","near-row"); a.type="button";
+  a.setAttribute("aria-haspopup","dialog");
+  a.addEventListener("click",function(){ openDetail(hit); });
+  var d=document.createElement("bdi");
+  d.className="near-dist"; d.textContent=fmtDist(hit.km,false);
+  a.appendChild(d);
+  var txt=el("div","near-txt");
+  var nm=document.createElement("bdi");
+  nm.className="near-name";
+  nm.textContent=(isHe()&&hit.rec.nameHe)?hit.rec.nameHe:hit.rec.name;
+  txt.appendChild(nm);
+  var c=CAT_BY[hit.cat];
+  txt.appendChild(el("div","near-sub",(c?(isHe()?c.he:c.en):"")+" · "+stName(hit.station)));
+  a.appendChild(txt);
+  /* בתצוגה המרחק ראשון; בשם המחושב השם ראשון. אחרת כל 40 הפריטים
+     מתחילים בספרה, ניווט לפי אות ראשונה מת, והשם משתנה בכל רענון
+     מיקום. אותו דפוס כמו railItem. */
+  a.setAttribute("aria-label",nm.textContent+", "+fmtDist(hit.km,true)+", "+
+    (c?(isHe()?c.he:c.en):"")+", "+stName(hit.station));
+  return a;
+}
+function nearStationPicker(onPick){
+  var box=el("div","near-pick");
+  box.appendChild(el("p","near-pick-t",t("nearPick")));
+  var lbl=el("label","sr",t("nearPickLbl")); lbl.setAttribute("for","nearSel");
+  box.appendChild(lbl);
+  var sel=document.createElement("select");
+  sel.className="near-sel"; sel.id="nearSel";
+  sel.setAttribute("data-refocus","pick");
+  var ph=document.createElement("option");
+  /* "—" מוקרא "מינוס" או מדולג. אופציית ברירת המחדל צריכה להיות מילים. */
+  ph.value=""; ph.textContent=t("nearPickLbl"); sel.appendChild(ph);
+  /* אותה הגנה כמו ב-nearestStation: תחנה בלי נ"צ הייתה מחזירה NaN,
+     והמסך היה מציג ומכריז "NaN ק״מ". */
+  STATIONS.filter(function(st){return st.lat!=null;}).forEach(function(st){
+    var o=document.createElement("option");
+    o.value=st.id; o.textContent=stName(st);
+    sel.appendChild(o);
+  });
+  if(geo.manual) sel.value=geo.manual;
+  sel.addEventListener("change",function(){ if(sel.value) onPick(sel.value); });
+  box.appendChild(sel);
+  return box;
+}
+function nearButton(label,onClick,refocus){
+  var b=el("button","btn-near",label);
+  b.type="button";
+  /* refreshRail מחליף את כל העץ, כולל הפקד שנלחץ. המזהה היציב הזה
+     הוא מה שמאפשר להחזיר אליו את הפוקוס אחרי הבנייה מחדש. */
+  if(refocus) b.setAttribute("data-refocus",refocus);
+  b.addEventListener("click",onClick);
+  return b;
+}
+/* בונה את גוף המצב. מחזיר גם את הטקסט שיוכרז, כדי שיהיה מקור אמת
+   אחד — אזור ה-live הוא אותו אלמנט גלוי, ולא #live הסמוי במקביל. */
+function buildNearBody(rerender){
+  var box=el("div","near-body"), spoken="";
+  function fallback(){
+    box.appendChild(nearStationPicker(function(id){
+      geo.manual=id; geo.state="manual"; railAnnounce=true; rerender();
+    }));
+  }
+  if(geo.state==="idle"){
+    if(geoSupported()){
+      box.appendChild(nearButton(t("findNear"),function(){ requestGeo(rerender); },"find"));
+      box.appendChild(el("p","near-hint",t("nearHint")));
+    }else{
+      /* אין geolocation בהקשר הזה — בלי כפתור מת */
+      box.appendChild(el("p","near-err",t("errUnavail")));
+    }
+    fallback();
+    return {node:box,say:""};
+  }
+  if(geo.state==="locating"){
+    box.appendChild(el("p","near-wait",t("locating")));
+    return {node:box,say:t("locating")};
+  }
+  if(geo.state==="denied"||geo.state==="timeout"||geo.state==="unavailable"){
+    var msg=geo.state==="denied"?t("errDenied"):(geo.state==="timeout"?t("errTimeout"):t("errUnavail"));
+    box.appendChild(el("p","near-err",msg));
+    if(geo.state==="denied") box.appendChild(el("p","near-how",t("errDeniedHow")));
+    /* הכפתור אינו נמחק — הוא הופך ל"נסה שוב" באותו מקום. פקד שנעלם
+       מה-DOM אחרי לחיצה גורר את הפוקוס ל-body. */
+    if(geo.state!=="denied"&&geoSupported())
+      box.appendChild(nearButton(t("retryNear"),function(){ requestGeo(rerender); },"retry"));
+    fallback();
+    return {node:box,say:msg};
+  }
+  var origin=null, head="";
+  if(geo.state==="far"){
+    /* מידע, לא שגיאה. עד היציאה זהו המצב הנפוץ ביותר. */
+    var f=geo.far;
+    box.appendChild(el("p","near-far",
+      t("farAway",{"%d":fmtDist(f.km,false),"%s":stName(f.st)})));
+    if(geoSupported())
+      box.appendChild(nearButton(t("refreshLoc"),function(){ requestGeo(rerender); },"refresh"));
+    fallback();
+    return {node:box,say:t("farAway",{"%d":fmtDist(f.km,true),"%s":stName(f.st)})};
+  }
+  if(geo.state==="manual"){
+    var st=POI_DATA[geo.manual];
+    if(!st){ geo.state="idle"; return buildNearBody(rerender); }
+    origin={lat:st.lat,lng:st.lng};
+    head=t("nearStation",{"%s":stName(st)});
+  }else{
+    origin={lat:geo.lat,lng:geo.lng};
+  }
+  var hits=nearestFrom(origin.lat,origin.lng,40);
+  if(!hits.length){
+    box.appendChild(el("p","near-err",t("nearNone")));
+    return {node:box,say:t("nearNone")};
+  }
+  /* היה <p> בקול התצוגה של כותרת — ניווט לפי כותרות דילג עליו. */
+  if(head) box.appendChild(el("h2","near-head",head));
+  var list=el("div","near-list");
+  list.setAttribute("role","list");
+  hits.forEach(function(h){
+    var w=el("div",null); w.setAttribute("role","listitem");
+    w.appendChild(nearRow(h));
+    list.appendChild(w);
+  });
+  box.appendChild(list);
+  /* גם במצב ידני — אחרת משתמש שנפל לבחירת תחנה לא יכול לחזור
+     למיקום אמיתי בלי לרענן את הדף. נמצא בבדיקה, לא בתכנון. */
+  if(geoSupported()){
+    box.appendChild(nearButton(geo.state==="ok"?t("refreshLoc"):t("findNear"),
+      function(){ requestGeo(rerender); },"refresh"));
+  }
+  /* M-4: במצב ידני הבורר נעלם ברגע שבחרו בו, והמשתמש שההרשאה שלו
+     נחסמה — בדיוק מי שהבורר קיים בשבילו — ננעל על בחירה אחת עד
+     לרענון הדף. */
+  if(geo.state==="manual") fallback();
+  var firstName=(isHe()&&hits[0].rec.nameHe)?hits[0].rec.nameHe:hits[0].rec.name;
+  return {node:box,say:t("nearFound",{"%n":String(hits.length),
+    "%f":firstName+", "+fmtDist(hits[0].km,true)})};
+}
+
+/* המתג והמצבים משנים את תוכן הרשימה בלבד, ולכן בונים מחדש רק אותה
+   ולא את כל המסך — render() היה מאפס גם את המפה ואת הגיליון. */
+function refreshRail(){
+  var old=document.querySelector(".rail");
+  if(!old) return;
+  /* הכפתור שהמשתמש בדיוק לחץ נהרס בבנייה מחדש, והפוקוס נופל ל-body —
+     משתמש מקלדת מאבד את מקומו וחוזר לראש המסמך. שומרים את המיקום
+     בקבוצה ומחזירים אליו, אותו דפוס כמו rebuildSeg בכרום. */
+  var act=document.activeElement;
+  var seg=old.querySelector(".seg-sort");
+  var idx=seg?Array.prototype.indexOf.call(seg.children,act):-1;
+  /* לא רק המתג: הכפתורים והבורר ב-.near-body נהרסים באותה החלפה.
+     "מצא מה קרוב אליי" ממתין עד 10 שניות, וללא זה הפוקוס נופל
+     ל-body בדיוק כשהתוצאה מגיעה. */
+  var tag=(idx<0&&act&&act.getAttribute)?act.getAttribute("data-refocus"):null;
+  var fresh=buildRail();
+  old.parentNode.replaceChild(fresh,old);
+  if(idx>=0){
+    var nseg=fresh.querySelector(".seg-sort");
+    if(nseg&&nseg.children[idx]) nseg.children[idx].focus();
+  }else if(tag){
+    var back=fresh.querySelector('[data-refocus="'+tag+'"]');
+    /* במצב locating אין כפתור להחזיר אליו — הכותרת של המצב היא
+       היעד ההגיוני, ומשם הפוקוס ממשיך אל התוצאות. */
+    /* הפקד שנלחץ לא תמיד קיים במצב הבא — "מצא מה קרוב אליי" נעלם
+       כשההרשאה נדחית. שורת המצב היא היעד היציב, והיא נושאת את
+       הטקסט שמסביר מה קרה. */
+    if(!back) back=fresh.querySelector('[data-refocus="status"]');
+    if(back) back.focus();
+  }
+  if(sortMode!=="dist") syncRail(currentSel());
+}
+function currentSel(){
+  var hz=decodeURIComponent(location.hash.replace(/^#/,""));
+  return hz.indexOf("s/")===0?(POI_DATA[hz.slice(2)]||null):null;
+}
 function buildRail(){
   /* בלי טאבים כאן. הסרגל העליון כבר מנווט בין המסכים, ושתי מערכות
      ניווט שעושות אותו דבר הן בלבול. הרשימה נשארת רשימה. */
@@ -1013,6 +1427,33 @@ function buildRail(){
   hd.appendChild(el("span",null,t("allStations")));
   hd.appendChild(el("span","rail-n",String(STATIONS.length)));
   rail.appendChild(hd);
+
+  /* מתג הסידור. "לפי מסלול" הוא צפון→דרום — סדר הנסיעה בפועל,
+     ולכן ברירת המחדל. "לפי מרחק" הוא מצב השטח. */
+  rail.appendChild(buildSortSeg(function(){ refreshRail(); }));
+
+  if(sortMode==="dist"){
+    /* הטקסט כאן גלוי בלבד — **בלי** role="status". אזור live חייב
+       להיות רשום אצל שכבת הנגישות לפני שתוכנו משתנה, ו-refreshRail
+       מחליף את כל העץ בכל רינדור; אזור שנוצר ומתמלא באותה נשימה
+       לרוב אינו מוכרז כלל. ההכרזה יוצאת דרך #live הסטטי. */
+    var st=el("p","near-status"); st.id="nearStatus";
+    /* גם הוא יעד פוקוס: בין locating לתוצאה יש שתי בניות מחדש, ובלי
+       מזהה יציב הפוקוס שהונח כאן נהרס בבנייה הבאה ונופל ל-body. */
+    st.setAttribute("data-refocus","status");
+    st.tabIndex=-1;
+    rail.appendChild(st);
+    var built=buildNearBody(function(){ refreshRail(); });
+    rail.appendChild(built.node);
+    if(built.say){
+      st.textContent=built.say;
+      if(railAnnounce){ say(built.say); railAnnounce=false; }
+    }
+    return rail;
+  }
+  /* M-1: גם החזרה ל"לפי מסלול" מחליפה את כל הרשימה — 40 מקומות
+     ממוינים הופכים ל-14 תחנות. בלי הכרזה זה קורה בשקט מוחלט. */
+  if(railAnnounce){ say(t("allStations")+", "+STATIONS.length); railAnnounce=false; }
 
   /* display:flex מבטל את סמנטיקת הרשימה, ולכן מחזירים אותה ידנית —
      אבל role="list" בלי אף listitem גרוע מכלום: קורא מסך מכריז
@@ -1141,8 +1582,10 @@ function renderStationDetail(st,pane){
   img.style.height="clamp(180px,28vw,320px)";
   hero.appendChild(img);
   var ht=el("div","hero-txt");
-  var h1=el("h1","hero-name",stName(st));
-  h1.id="screenHeading"; h1.tabIndex=-1;
+  /* h2 ולא h1: "תחנות" היא כותרת הדף, ושם התחנה תת-כותרת בתוכה.
+     המזהה נודד לכאן כי זה יעד הפוקוס אחרי הניווט. */
+  var h1=el("h2","hero-name",stName(st));
+  claimScreenHeading(h1);
   ht.appendChild(h1);
   ht.appendChild(en2(el("div","hero-sub",st.name+" · "+total(st)+" places")));
   hero.appendChild(ht);
@@ -1260,7 +1703,7 @@ function screenCategory(cat){
   main.appendChild(back);
   var c=CAT_BY[cat]; if(!c){screenTopics();return;}
   var items=INDEX.filter(function(x){return x.cat===cat;});
-  var h=el("h1","sec-head"); h.id="screenHeading"; h.tabIndex=-1;
+  var h=el("h1","sec-head"); claimScreenHeading(h);
   h.appendChild(icon(c.ic,"ic-lg"));
   h.appendChild(document.createTextNode(catName(c)));
   h.appendChild(el("span","cnt",items.length+" "+t("inWholeTrip")));
@@ -1476,7 +1919,7 @@ function renderChrome(){
     function(it){
       lang=it.v;
       try{localStorage.setItem("vn.lang",lang);}catch(e){}
-      renderChrome(); render(); say(t("langChanged"));
+      renderChrome(); render(); announce(t("langChanged"));
     });
 
   rebuildSeg("curSeg",t("curLabel"),
@@ -1485,8 +1928,23 @@ function renderChrome(){
     function(it){
       cur=it.v; try{localStorage.setItem("vn.cur",cur);}catch(e){}
       renderChrome(); render();
-      say(t("pricesIn",{"%s":T.curName[cur][lang]}));
+      announce(t("pricesIn",{"%s":T.curName[cur][lang]}));
     });
+
+  /* כפתור ההגדרות והדיאלוג — טקסטים בלבד; המבנה לא נבנה מחדש,
+     כך שההפניה שהדיאלוג שומר לפוקוס נשארת תקפה. */
+  var sb=document.getElementById("settingsBtn");
+  if(sb){
+    sb.textContent=""; sb.appendChild(icon("gear"));
+    sb.setAttribute("aria-label",t("settings"));
+  }
+  var sdt=document.getElementById("setDlgTitle");
+  if(sdt) sdt.textContent=t("settings");
+  var sc=document.getElementById("setClose");
+  if(sc){
+    sc.textContent=""; sc.appendChild(icon("close"));
+    sc.setAttribute("aria-label",t("closeSettings"));
+  }
 
   /* ערכת נושא */
   var tb=document.getElementById("themeBtn");
@@ -1521,6 +1979,9 @@ function renderChrome(){
     bot.appendChild(b);
   });
   markNav(routeName());
+  /* גובה הסרגל משתנה עם השפה (עטיפת שורות), ו-scroll-padding-top
+     נגזר ממנו. בלי זה עוגן שמוקפץ אליו נוחת מתחת לסרגל. */
+  if(typeof syncStickyTop==="function") syncStickyTop();
 }
 /* התאריכים נגזרים מהשעון החי, לא קבועים בקוד —
    הספירה לאחור נכונה בכל טעינה, גם בעוד חודש. */
@@ -1612,6 +2073,78 @@ if(mq.addEventListener){
     colorCache={}; sceneCache={}; renderChrome(); render();
   });
 }
+
+/* ============ דיאלוג ההגדרות ============
+   הפקדים עצמם עוברים פיזית לדיאלוג ובחזרה. עותק שני היה יוצר מזהים
+   כפולים, ו-rebuildSeg עובד לפי getElementById — כלומר הוא ימשיך
+   לעבוד בדיוק אותו דבר בשני המקומות. */
+(function(){
+  var setDlg=document.getElementById("setDlg");
+  var setBody=document.getElementById("setBody");
+  var tools=document.getElementById("tbTools");
+  var trigger=document.getElementById("settingsBtn");
+  if(!setDlg||!setBody||!tools||!trigger) return;
+
+  /* אידמפוטנטי, ונקרא משני המסלולים. התליית ההחזרה באירוע close בלבד
+     נכשלה בפועל: סגירה דרך הכפתור השאירה את הפקדים בתוך דיאלוג סגור,
+     כלומר בדסקטופ שפה, מטבע ונושא היו נעלמים מהמסך. */
+  function restoreTools(){
+    if(tools.parentNode===setBody){
+      var r1=document.querySelector(".tb-row.r1");
+      var btn=document.getElementById("settingsBtn");
+      if(r1&&btn&&btn.parentNode===r1) r1.insertBefore(tools,btn);
+      else if(r1) r1.appendChild(tools);
+    }
+  }
+  /* .set-row-lbl הוגדר ב-CSS ולא היה בשימוש: התוויות תוכננו ולא
+     חוברו. בדיאלוג יש מקום בשפע, ואייקון ירח בודד ברוחב מלא הוא
+     עומס קוגניטיבי מיותר. */
+  function labelRows(){
+    if(setBody.querySelector(".set-row-lbl")) return;
+    var lbl=function(target,key){
+      var n=document.getElementById(target);
+      if(!n||!n.parentNode) return;
+      var p=el("p","set-row-lbl",t(key));
+      n.parentNode.insertBefore(p,n);
+    };
+    lbl("langSeg","langLabel"); lbl("curSeg","curLabel"); lbl("themeBtn","dark");
+  }
+  function openSet(){
+    setBody.appendChild(tools);
+    labelRows();
+    setDlg.showModal();
+  }
+  function closeSet(){ restoreTools(); setDlg.close(); }
+
+  trigger.addEventListener("click",openSet);
+  document.getElementById("setClose").addEventListener("click",closeSet);
+
+  /* Esc מטופל במפורש: אירוע close נמצא לא-אמין כאן בבדיקה, ולכן
+     ההחזרה לא נתלית בו לבדה. cancel נורה לפני הסגירה ותמיד. */
+  setDlg.addEventListener("cancel",function(){ restoreTools(); });
+  /* רשת ביטחון לכל מסלול סגירה אחר. */
+  setDlg.addEventListener("close",function(){
+    restoreTools();
+    /* לאחזר מחדש ולא להסתמך על ההפניה: renderChrome עשוי היה לרוץ
+       בזמן שהדיאלוג היה פתוח (החלפת שפה), ו-<dialog> מחזיר פוקוס
+       לצומת ששמר — שאולי כבר אינו ב-DOM. */
+    var b=document.getElementById("settingsBtn");
+    /* offsetParent הוא null כשהכפתור display:none — קורה אם ה-viewport
+       חצה את 880px בזמן שהדיאלוג היה פתוח. פוקוס על אלמנט מוסתר
+       נופל ל-body. */
+    if(b&&b.offsetParent) b.focus();
+    else document.getElementById("main").focus();
+  });
+
+  /* לחיצה על הרקע סוגרת — אותו דפוס בדיוק כמו ב-#dlg, כולל השמירה
+     שלא לסגור כשהגרירה התחילה בתוך החלון והסתיימה על הרקע. */
+  var downOnBackdrop=false;
+  setDlg.addEventListener("mousedown",function(e){ downOnBackdrop=(e.target===setDlg); });
+  setDlg.addEventListener("click",function(e){
+    if(e.target===setDlg&&downOnBackdrop) closeSet();
+    downOnBackdrop=false;
+  });
+})();
 
 var topbar=document.getElementById("topbar");
 window.addEventListener("scroll",function(){

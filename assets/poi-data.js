@@ -41,6 +41,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -66,6 +67,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -91,6 +93,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -115,6 +118,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -139,6 +143,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -163,6 +168,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -186,6 +192,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -207,6 +214,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -228,6 +236,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -251,6 +260,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -272,6 +282,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -296,6 +307,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -318,6 +330,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -340,6 +353,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -362,6 +376,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -384,6 +399,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -406,6 +422,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -429,6 +446,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -450,6 +468,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "international",
+          "isDish": false,
           "signal": "michelin_star",
           "video": null,
           "weather": "low"
@@ -472,6 +491,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -494,6 +514,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -517,6 +538,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -538,6 +560,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -562,6 +585,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -584,6 +608,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -608,6 +633,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -630,6 +656,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -654,6 +681,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -673,8 +701,8 @@ const POI_DATA = {
       "hotels": 5,
       "must_see": 3,
       "attractions": 3,
-      "food": 2,
-      "street_food": 0,
+      "food": 0,
+      "street_food": 2,
       "restaurants": 0,
       "markets": 2,
       "nightlife": 0,
@@ -704,6 +732,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -728,6 +757,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -752,6 +782,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -776,6 +807,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -800,6 +832,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -823,6 +856,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -844,6 +878,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -865,6 +900,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -888,6 +924,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -909,6 +946,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -930,12 +968,14 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [
         {
           "name": "Ha Giang-style banh cuon (in broth)",
           "area": "Ha Giang City, Ly Tu Trong street, and Dong Van market stalls",
@@ -953,6 +993,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": true,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
@@ -974,12 +1015,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": true,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
         }
       ],
-      "street_food": [],
       "restaurants": [],
       "markets": [
         {
@@ -999,6 +1040,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1020,6 +1062,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1046,6 +1089,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1065,9 +1109,9 @@ const POI_DATA = {
       "hotels": 6,
       "must_see": 3,
       "attractions": 1,
-      "food": 1,
+      "food": 0,
       "street_food": 0,
-      "restaurants": 0,
+      "restaurants": 1,
       "markets": 1,
       "nightlife": 0,
       "spa": 0,
@@ -1095,6 +1139,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1119,6 +1164,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1143,6 +1189,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1167,6 +1214,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1191,6 +1239,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1215,6 +1264,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1238,6 +1288,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1259,6 +1310,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1280,6 +1332,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1303,12 +1356,15 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [],
+      "restaurants": [
         {
           "name": "Thang Co A Quynh",
           "area": "15 Thach Son Street, Sapa town",
@@ -1326,13 +1382,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
       "markets": [
         {
           "name": "Sapa Love Market",
@@ -1351,6 +1406,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1377,6 +1433,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1396,9 +1453,9 @@ const POI_DATA = {
       "hotels": 6,
       "must_see": 2,
       "attractions": 2,
-      "food": 1,
+      "food": 0,
       "street_food": 0,
-      "restaurants": 0,
+      "restaurants": 1,
       "markets": 0,
       "nightlife": 0,
       "spa": 0,
@@ -1427,6 +1484,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1451,6 +1509,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1475,6 +1534,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1499,6 +1559,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1523,6 +1584,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1547,6 +1609,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1570,6 +1633,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1591,6 +1655,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1615,6 +1680,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -1637,12 +1703,15 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [],
+      "restaurants": [
         {
           "name": "Vien Duong Restaurant",
           "area": "12-19 Nui Ngoc, Cat Ba town",
@@ -1660,13 +1729,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
       "markets": [],
       "nightlife": [],
       "spa": [],
@@ -1688,6 +1756,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1707,9 +1776,9 @@ const POI_DATA = {
       "hotels": 6,
       "must_see": 3,
       "attractions": 2,
-      "food": 2,
-      "street_food": 0,
-      "restaurants": 0,
+      "food": 0,
+      "street_food": 1,
+      "restaurants": 1,
       "markets": 2,
       "nightlife": 0,
       "spa": 0,
@@ -1731,6 +1800,10 @@ const POI_DATA = {
             "https://www.wyndhamhotels.com/wyndham-grand/ninh-binh-vietnam/wyndham-grand-vedana-ninh-binh/overview"
           ],
           "tier": 5,
+          "nameHe": "וינדהאם גרנד ודאנה נין בין",
+          "areaHe": "מחוז נו קוואן, על נהר הואנג לונג סמוך לפארק הלאומי קוק פואונג",
+          "whatHe": "ריזורט של 195 חדרים על עיקול נהר הואנג לונג, עם בריכת אינסוף של מים מינרליים חמים, ספא, מועדון ילדים וקיאקים ללא תשלום. כ-30 עד 40 דקות מטראנג אן.",
+          "whyHe": "הריזורט היחיד במחוז שמשתייך לרשת בינלאומית, אם כי האתרים המקומיים חלוקים אם מדובר ב-5 כוכבים מלאים או ב-4.5",
           "priceUnit": "per_night",
           "tierOfficial": false,
           "priceLow": 70,
@@ -1738,6 +1811,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1755,6 +1829,10 @@ const POI_DATA = {
             "https://www.kayak.com/Ninh-Binh-Hotels-Ninh-Binh-Legend-Hotel.376440.ksp"
           ],
           "tier": 5,
+          "nameHe": "נין בין לג'נד",
+          "areaHe": "מרכז העיר",
+          "whatHe": "מלון של 260 חדרים בלב העיר נין בין, עם שלוש בריכות שחייה, בריכה מקורה, מגרשי טניס, סאונה וחדר כושר.",
+          "whyHe": "אפשרות 5 הכוכבים של מרכז העיר, למי שמעדיף לישון קרוב למסעדות ולתחנת הרכבת ולא בין הקארסטים",
           "priceUnit": "per_night",
           "tierOfficial": true,
           "priceLow": 58,
@@ -1762,6 +1840,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1779,6 +1858,10 @@ const POI_DATA = {
             "https://www.kayak.com/Ninh-Binh-Hotels-Emeralda-Resort-Ninh-Binh.659496.ksp"
           ],
           "tier": 4,
+          "nameHe": "אמרלדה ריזורט נין בין",
+          "areaHe": "מחוז ז'יה וייןּ, על אגם בשמורת הטבע ואן לונג",
+          "whatHe": "ריזורט 4 כוכבים הבנוי סביב אגם פרטי בתוך שמורת הטבע ואן לונג, עם בריכה מקורה, סאונה, ג'קוזי וספא. כרבע שעה נסיעה מטראנג אן.",
+          "whyHe": "מדורג בין קומץ המלונות המובילים במחוז כולו, ואחד הבודדים עם דירוג 4 כוכבים שנבדק רשמית ולא הוכרז עצמאית",
           "priceUnit": "per_night",
           "tierOfficial": true,
           "priceLow": 61,
@@ -1786,6 +1869,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1803,6 +1887,10 @@ const POI_DATA = {
             "https://luxurylifestyleawards.com/winners/boutique-hotel/ninh-binh-hidden-charm-hotel-resort-4-star-gem"
           ],
           "tier": 4,
+          "nameHe": "נין בין הידן צ'ארם",
+          "areaHe": "אזור טאם קוק–ביק דונג, מחוז הואה לו",
+          "whatHe": "מלון מודרני עם שתי מסעדות, ספא מלא ובריכה חיצונית, בין שדות אורז וסמוך למזח הסירות של טאם קוק.",
+          "whyHe": "4 כוכבים רשמיים, והמדורג הגבוה ביותר מבין המלונות בגודלו בנין בין — מקום 3 מתוך יותר מ-120 בטריפאדוויזר, ולא בוטיק שדירג את עצמו",
           "priceUnit": "per_night",
           "tierOfficial": true,
           "priceLow": 66,
@@ -1810,6 +1898,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1827,6 +1916,10 @@ const POI_DATA = {
             "https://lalitatamcocspa.luxury-hotels.com/"
           ],
           "tier": 3,
+          "nameHe": "לליטה טאם קוק",
+          "areaHe": "נין האי, ליד פגודת ביק דונג ומזח הסירות של טאם קוק",
+          "whatHe": "ריזורט עם בריכת אינסוף, ספא, סאונה, גן ואופניים ללא תשלום, במרחק הליכה מפגודת ביק דונג אך מחוץ לרצועה התיירותית הסואנת.",
+          "whyHe": "הבחירה המובילה של מפרט-האב לנין בין (9.2 באגודה מתוך 866 ביקורות), והריזורט הממוקם ביותר להגעה רגלית לטאם קוק",
           "priceUnit": "per_night",
           "tierOfficial": false,
           "priceLow": 99,
@@ -1834,6 +1927,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1851,6 +1945,10 @@ const POI_DATA = {
             "https://www.booking.com/hotel/vn/buffalo-eco-garden.html"
           ],
           "tier": 3,
+          "nameHe": "אן'ס אקו גארדן",
+          "areaHe": "תונג צ'ואי, בתוך מתחם הנוף טראנג אן",
+          "whatHe": "ריזורט אקולוגי כפרי בתוך מתחם הנוף של טראנג אן, עם חדרים בבקתות במבוק על כלונסאות ובאוטובוסים משופצים, בריכת אינסוף ואופניים ללא תשלום.",
+          "whyHe": "מדורג 9.0 ומעלה גם בטריפאדוויזר וגם בבוקינג מתוך יותר מ-800 ביקורות, והלינה היחידה שנמצאת ממש בתוך שמורת טראנג אן ולא בשוליה",
           "priceUnit": "per_night",
           "tierOfficial": false,
           "priceLow": 32,
@@ -1858,6 +1956,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -1887,6 +1986,7 @@ const POI_DATA = {
           "priceChecked": "2026-05",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1914,6 +2014,7 @@ const POI_DATA = {
           "priceChecked": "2026-05",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -1941,6 +2042,7 @@ const POI_DATA = {
           "priceChecked": "2026-05",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -1968,6 +2070,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -1994,33 +2097,14 @@ const POI_DATA = {
           "priceChecked": "2026-05",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
-        {
-          "name": "Duc De Restaurant",
-          "area": "City center, Ninh Binh",
-          "what": "A long-running goat-meat restaurant on a main street in Ninh Binh city, serving the mountain goat (de nui) dishes the region is known for - steamed, grilled and in hotpot.",
-          "why": "Consistently the most-reviewed goat-meat specialist in the city center, with a reputation built over years rather than a recent tourist spike",
-          "lat": 20.2340333,
-          "lng": 105.9682771,
-          "approx": false,
-          "sources": [
-            "https://www.tripadvisor.com/Restaurant_Review-g303945-d8853028-Reviews-Duc_De_Restaurant-Ninh_Binh_Ninh_Binh_Province.html"
-          ],
-          "tier": null,
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
-          "avoid": false,
-          "kind": "vietnamese",
-          "signal": "traveler_recommended",
-          "video": null,
-          "weather": "medium"
-        },
+      "food": [],
+      "street_food": [
         {
           "name": "Trung Tuyet",
           "area": "City center, Ninh Binh",
@@ -2033,18 +2117,49 @@ const POI_DATA = {
             "https://pioneersailtravel.com/ninh-binh-restaurants/"
           ],
           "tier": null,
+          "nameHe": "טרונג טויט",
+          "areaHe": "מרכז העיר, נין בין",
+          "whatHe": "מסעדה מקומית המתמחה בקום צ'אי — אורז מיובש בשמש, נדחס לגיליונות פריכים, מטוגן עמוק ומוגש ברוטב בשר ופטריות — לצד מרק ביצים ופו.",
+          "whyHe": "מדורגת בין הכתובות הכי אמינות בנין בין גם בטריפאדוויזר וגם בלונלי פלאנט, למנה שהיא גם המזכרת המזוהה של האזור",
           "priceUnit": null,
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
+      "restaurants": [
+        {
+          "name": "Duc De Restaurant",
+          "area": "City center, Ninh Binh",
+          "what": "A long-running goat-meat restaurant on a main street in Ninh Binh city, serving the mountain goat (de nui) dishes the region is known for - steamed, grilled and in hotpot.",
+          "why": "Consistently the most-reviewed goat-meat specialist in the city center, with a reputation built over years rather than a recent tourist spike",
+          "lat": 20.2340333,
+          "lng": 105.9682771,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Restaurant_Review-g303945-d8853028-Reviews-Duc_De_Restaurant-Ninh_Binh_Ninh_Binh_Province.html"
+          ],
+          "tier": null,
+          "nameHe": "מסעדת דוק דה",
+          "areaHe": "מרכז העיר, נין בין",
+          "whatHe": "מסעדת בשר עיזים ותיקה ברחוב ראשי בעיר נין בין, שמגישה את מנות עז ההרים (דה נוי) שהאזור מזוהה איתן — מאודות, צלויות ובסיר חם.",
+          "whyHe": "המומחית לבשר עיזים עם הכי הרבה ביקורות במרכז העיר באופן עקבי, עם מוניטין שנבנה לאורך שנים ולא בקפיצה תיירותית אחת",
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "isDish": false,
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "low"
+        }
+      ],
       "markets": [
         {
           "name": "Cho Rong (Rong Market)",
@@ -2058,11 +2173,16 @@ const POI_DATA = {
             "https://hanoiexploretravel.com/things-to-do-ninh-binh/rong-market"
           ],
           "tier": null,
+          "nameHe": "שוק רונג",
+          "areaHe": "רחוב ואן ז'יאנג 71, שכונת תאן בין",
+          "whatHe": "השוק המסורתי המרכזי של העיר נין בין, פרוש על מבנה תלת-קומתי ודוכנים בחוץ, ובו מוצרי בית, טקסטיל ומדור תוצרת טרייה עם אורז, דגים, בשר עז הרים ויין אורז מקים סון.",
+          "whyHe": "השוק שהמקומיים באמת קונים בו ביומיום, בניגוד לשוק הלילה שפונה לתיירים",
           "priceUnit": null,
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2080,11 +2200,16 @@ const POI_DATA = {
             "https://sinhcafe.com/ninh-binh-night-market"
           ],
           "tier": null,
+          "nameHe": "שוק הלילה של נין בין",
+          "areaHe": "סביב רחוב דין טיין הואנג ואגם קי לאן, מרכז העיר",
+          "whatHe": "הרחובות סביב האגם שבמרכז העיר מתמלאים בין 18:00 ל-23:00 בדוכני אוכל ובמוכרי צעיפי רקמה, בגדים ומזכרות מכפרי המלאכה שבסביבה, כמו ואן לאם.",
+          "whyHe": "המקבילה הערבית לשיט של שעות היום, והמקום הנוח ביותר לטעום אוכל רחוב אחרי יום על המים",
           "priceUnit": null,
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2106,11 +2231,16 @@ const POI_DATA = {
             "https://a21tours.com/ninh-binh-city-to-hanoi-transfer"
           ],
           "tier": null,
+          "nameHe": "מנין בין אל האנוי — רכבת וכביש",
+          "areaHe": "מעבר אזורי",
+          "whatHe": "תחנת הרכבת של נין בין יושבת במרכז העיר; חמש רכבות ביום מגיעות לתחנה הראשית של האנוי ברחוב לה דואן בכשעתיים, ורכב פרטי לוקח בערך אותו זמן בכביש.",
+          "whyHe": "מקבע את זמן המעבר המעשי בין נין בין לבין עוגן האנוי של הטיול",
           "priceUnit": null,
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2128,11 +2258,16 @@ const POI_DATA = {
             "https://violetexpresstrain.com/ninh-binh-dong-hoi-on-lotus-train-se19.html"
           ],
           "tier": null,
+          "nameHe": "רכבת לוטוס — מנין בין אל דונג הוי",
+          "areaHe": "תחנת הרכבת נין בין, נקודת היציאה",
+          "whatHe": "קרון שינה לילי משופץ בבעלות פרטית (תאים לשניים או לארבעה, על מסילת רכבות וייטנאם) שיוצא מנין בין סביב 22:00 ומגיע לדונג הוי סביב 06:00, עם אינטרנט אלחוטי, חטיפים וארוחת בוקר.",
+          "whyHe": "הופך את המעבר הארוך בכביש דרומה לכיוון פונג ניה ללילה של שינה במקום ליום נסיעה אבוד",
           "priceUnit": null,
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2152,9 +2287,9 @@ const POI_DATA = {
       "hotels": 3,
       "must_see": 2,
       "attractions": 7,
-      "food": 4,
-      "street_food": 0,
-      "restaurants": 0,
+      "food": 0,
+      "street_food": 1,
+      "restaurants": 3,
       "markets": 1,
       "nightlife": 0,
       "spa": 0,
@@ -2183,6 +2318,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2208,6 +2344,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2232,6 +2369,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2256,6 +2394,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2278,6 +2417,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2302,6 +2442,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -2323,6 +2464,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -2345,6 +2487,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -2366,6 +2509,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -2388,6 +2532,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -2410,6 +2555,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -2431,12 +2577,38 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [
+        {
+          "name": "Ha Chinh Grilled Chicken",
+          "area": "Rice paddies outside Phong Nha town",
+          "what": "An unmarked rice-paddy grilled-chicken stall — crispy-skinned chicken grilled whole, served with a chilli-and-\"cheo\" salt dip, stir-fried vermicelli and sticky rice.",
+          "why": "A rustic, locals-only alternative to the tourist-strip restaurants, with a perfect Google rating from over a hundred reviews",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-restaurants"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "isDish": false,
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "medium"
+        }
+      ],
+      "restaurants": [
         {
           "name": "The Rice House Phong Nha",
           "area": "Phong Nha town centre",
@@ -2455,30 +2627,10 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
-        },
-        {
-          "name": "Ha Chinh Grilled Chicken",
-          "area": "Rice paddies outside Phong Nha town",
-          "what": "An unmarked rice-paddy grilled-chicken stall — crispy-skinned chicken grilled whole, served with a chilli-and-\"cheo\" salt dip, stir-fried vermicelli and sticky rice.",
-          "why": "A rustic, locals-only alternative to the tourist-strip restaurants, with a perfect Google rating from over a hundred reviews",
-          "lat": null,
-          "lng": null,
-          "approx": false,
-          "sources": [
-            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-restaurants"
-          ],
-          "tier": null,
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
-          "avoid": false,
-          "kind": "vietnamese",
-          "signal": "traveler_recommended",
-          "video": null,
-          "weather": "medium"
+          "weather": "low"
         },
         {
           "name": "Ganesh Indian Restaurant",
@@ -2497,9 +2649,10 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "international",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         },
         {
           "name": "The Villas Restaurant",
@@ -2518,13 +2671,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "international",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
       "markets": [
         {
           "name": "Son Trach Market",
@@ -2543,6 +2695,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2569,6 +2722,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2590,6 +2744,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2612,6 +2767,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2631,9 +2787,9 @@ const POI_DATA = {
       "hotels": 6,
       "must_see": 3,
       "attractions": 2,
-      "food": 3,
-      "street_food": 0,
-      "restaurants": 0,
+      "food": 0,
+      "street_food": 2,
+      "restaurants": 1,
       "markets": 1,
       "nightlife": 0,
       "spa": 0,
@@ -2662,6 +2818,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2686,6 +2843,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2710,6 +2868,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2734,6 +2893,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2758,6 +2918,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2782,6 +2943,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -2806,6 +2968,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2828,6 +2991,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2850,6 +3014,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -2874,6 +3039,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -2896,12 +3062,14 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [
         {
           "name": "Bun Bo Hue Ba Gai",
           "area": "11A Ha Noi Street, Vinh Ninh",
@@ -2919,27 +3087,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
-          "signal": "traveler_recommended",
-          "video": null,
-          "weather": "medium"
-        },
-        {
-          "name": "Lac Thien (Banh Khoai Lac Thien)",
-          "area": "6 Dinh Tien Hoang Street",
-          "what": "A family-run restaurant grilling banh khoai to order - Hue's crisp turmeric rice-flour pancake, folded over pork, shrimp and bean sprouts and eaten wrapped in rice paper with a thick peanut-sesame dipping sauce.",
-          "why": "Widely cited as Hue's best banh khoai, and the crunchiest version of the dish in the city",
-          "lat": 16.4720712,
-          "lng": 107.5846611,
-          "approx": true,
-          "sources": [
-            "https://beebeetravel.com/banh-khoai-lac-thien-hue-local-food/"
-          ],
-          "tier": null,
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
-          "avoid": false,
-          "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
@@ -2962,13 +3110,36 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
+      "restaurants": [
+        {
+          "name": "Lac Thien (Banh Khoai Lac Thien)",
+          "area": "6 Dinh Tien Hoang Street",
+          "what": "A family-run restaurant grilling banh khoai to order - Hue's crisp turmeric rice-flour pancake, folded over pork, shrimp and bean sprouts and eaten wrapped in rice paper with a thick peanut-sesame dipping sauce.",
+          "why": "Widely cited as Hue's best banh khoai, and the crunchiest version of the dish in the city",
+          "lat": 16.4720712,
+          "lng": 107.5846611,
+          "approx": true,
+          "sources": [
+            "https://beebeetravel.com/banh-khoai-lac-thien-hue-local-food/"
+          ],
+          "tier": null,
+          "priceUnit": null,
+          "priceLow": null,
+          "priceHigh": null,
+          "avoid": false,
+          "kind": "vietnamese",
+          "isDish": false,
+          "signal": "traveler_recommended",
+          "video": null,
+          "weather": "low"
+        }
+      ],
       "markets": [
         {
           "name": "Dong Ba Market",
@@ -2988,6 +3159,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3014,6 +3186,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3036,6 +3209,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3085,6 +3259,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3109,6 +3284,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3133,6 +3309,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3157,6 +3334,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3181,6 +3359,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3205,6 +3384,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3229,6 +3409,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3251,6 +3432,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3274,6 +3456,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -3296,6 +3479,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -3318,6 +3502,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -3340,6 +3525,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -3365,6 +3551,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
@@ -3386,6 +3573,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
@@ -3408,6 +3596,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -3430,6 +3619,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -3452,6 +3642,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -3474,6 +3665,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -3498,6 +3690,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "low"
@@ -3520,6 +3713,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "international",
+          "isDish": false,
           "signal": "michelin_star",
           "video": null,
           "weather": "low"
@@ -3542,6 +3736,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -3564,6 +3759,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -3586,6 +3782,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -3609,6 +3806,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3631,6 +3829,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3655,6 +3854,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -3677,6 +3877,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -3699,6 +3900,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -3723,6 +3925,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3745,6 +3948,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3769,6 +3973,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3790,6 +3995,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3809,9 +4015,9 @@ const POI_DATA = {
       "hotels": 3,
       "must_see": 4,
       "attractions": 1,
-      "food": 2,
+      "food": 0,
       "street_food": 0,
-      "restaurants": 0,
+      "restaurants": 2,
       "markets": 1,
       "nightlife": 0,
       "spa": 0,
@@ -3839,6 +4045,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3863,6 +4070,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3887,6 +4095,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -3911,6 +4120,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3933,6 +4143,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3955,6 +4166,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -3977,6 +4189,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4001,12 +4214,15 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [],
+      "restaurants": [
         {
           "name": "Soul Specialty Coffee - BMT",
           "area": "City center",
@@ -4025,9 +4241,10 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "local_media",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         },
         {
           "name": "Ga Nuong Com Lam (30/4)",
@@ -4047,13 +4264,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
       "markets": [
         {
           "name": "Buon Ma Thuot Central Market",
@@ -4073,6 +4289,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4099,6 +4316,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4121,6 +4339,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4140,9 +4359,9 @@ const POI_DATA = {
       "hotels": 2,
       "must_see": 2,
       "attractions": 1,
-      "food": 1,
+      "food": 0,
       "street_food": 0,
-      "restaurants": 0,
+      "restaurants": 1,
       "markets": 0,
       "nightlife": 0,
       "spa": 0,
@@ -4170,6 +4389,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4194,6 +4414,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4218,6 +4439,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4240,6 +4462,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4264,12 +4487,15 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [],
+      "restaurants": [
         {
           "name": "Com Lam Ga Nuong Ho Lak (Pai R'Lam)",
           "area": "Buon Le, on the lake shore",
@@ -4288,13 +4514,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
       "markets": [],
       "nightlife": [],
       "spa": [],
@@ -4317,6 +4542,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4336,8 +4562,8 @@ const POI_DATA = {
       "hotels": 6,
       "must_see": 3,
       "attractions": 4,
-      "food": 2,
-      "street_food": 0,
+      "food": 0,
+      "street_food": 2,
       "restaurants": 0,
       "markets": 2,
       "nightlife": 0,
@@ -4366,6 +4592,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4390,6 +4617,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4414,6 +4642,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4438,6 +4667,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4462,6 +4692,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4486,6 +4717,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4510,6 +4742,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4532,6 +4765,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4554,6 +4788,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4578,6 +4813,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -4600,6 +4836,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -4622,6 +4859,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -4644,12 +4882,14 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [
         {
           "name": "Banh Trang Nuong Da Lat Ngon Be Lun",
           "area": "50 Pham Ngoc Thach, Ward 6",
@@ -4668,6 +4908,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
@@ -4677,8 +4918,8 @@ const POI_DATA = {
           "area": "Da Lat Market, city center",
           "what": "Dried artichoke flower heads, grown on the plateau around Da Lat, sold loose or bagged as a bitter herbal tea at stalls throughout Da Lat Market.",
           "why": "Da Lat grows most of Vietnam's artichoke crop; the tea is the plateau's signature souvenir",
-          "lat": 11.9435196,
-          "lng": 108.4372097,
+          "lat": null,
+          "lng": null,
           "approx": false,
           "sources": [
             "https://tamtrinhcoffee.com/da-lat-specialty-gifts/",
@@ -4690,12 +4931,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": true,
           "signal": "local_media",
           "video": null,
           "weather": "medium"
         }
       ],
-      "street_food": [],
       "restaurants": [],
       "markets": [
         {
@@ -4716,6 +4957,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4738,6 +4980,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4764,6 +5007,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4786,6 +5030,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4835,6 +5080,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4859,6 +5105,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4883,6 +5130,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4907,6 +5155,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4931,6 +5180,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4955,6 +5205,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -4978,6 +5229,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -4999,6 +5251,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5022,6 +5275,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -5043,6 +5297,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -5067,6 +5322,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -5088,6 +5344,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -5110,6 +5367,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
           "weather": "medium"
@@ -5132,6 +5390,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -5154,6 +5413,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -5176,6 +5436,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "medium"
@@ -5200,6 +5461,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_star",
           "video": null,
           "weather": "low"
@@ -5222,6 +5484,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "international",
+          "isDish": false,
           "signal": "michelin_selected",
           "video": null,
           "weather": "low"
@@ -5244,6 +5507,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -5266,6 +5530,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -5288,6 +5553,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "michelin_bib",
           "video": null,
           "weather": "low"
@@ -5312,6 +5578,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5334,6 +5601,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5358,6 +5626,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5380,6 +5649,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5402,6 +5672,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5427,6 +5698,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5448,6 +5720,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5467,9 +5740,9 @@ const POI_DATA = {
       "hotels": 6,
       "must_see": 1,
       "attractions": 2,
-      "food": 2,
+      "food": 0,
       "street_food": 0,
-      "restaurants": 0,
+      "restaurants": 2,
       "markets": 1,
       "nightlife": 0,
       "spa": 0,
@@ -5497,6 +5770,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5521,6 +5795,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5545,6 +5820,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5569,6 +5845,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5593,6 +5870,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5617,6 +5895,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5641,6 +5920,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5664,6 +5944,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -5685,12 +5966,15 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [],
+      "restaurants": [
         {
           "name": "Lua Nep",
           "area": "Ninh Kieu riverside, Can Tho",
@@ -5708,9 +5992,10 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         },
         {
           "name": "Sao Hom Restaurant",
@@ -5729,13 +6014,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
       "markets": [
         {
           "name": "Ninh Kieu Night Market",
@@ -5755,6 +6039,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5780,6 +6065,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5801,6 +6087,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -5820,9 +6107,9 @@ const POI_DATA = {
       "hotels": 6,
       "must_see": 1,
       "attractions": 3,
-      "food": 2,
+      "food": 0,
       "street_food": 0,
-      "restaurants": 0,
+      "restaurants": 2,
       "markets": 1,
       "nightlife": 0,
       "spa": 0,
@@ -5850,6 +6137,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5874,6 +6162,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5898,6 +6187,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5922,6 +6212,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5946,6 +6237,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5970,6 +6262,7 @@ const POI_DATA = {
           "priceChecked": "2026-08-16",
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "low"
@@ -5994,6 +6287,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -6018,6 +6312,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -6040,6 +6335,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
@@ -6062,12 +6358,15 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "high"
         }
       ],
-      "food": [
+      "food": [],
+      "street_food": [],
+      "restaurants": [
         {
           "name": "Xin Chao Seafood Restaurant",
           "area": "Duong Dong, 30 Thang 4 Street",
@@ -6085,9 +6384,10 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         },
         {
           "name": "Ra Khoi Seafood Restaurant",
@@ -6106,13 +6406,12 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": "vietnamese",
+          "isDish": false,
           "signal": "traveler_recommended",
           "video": null,
-          "weather": "medium"
+          "weather": "low"
         }
       ],
-      "street_food": [],
-      "restaurants": [],
       "markets": [
         {
           "name": "Phu Quoc Night Market (Dinh Cau)",
@@ -6132,6 +6431,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -6158,6 +6458,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"
@@ -6179,6 +6480,7 @@ const POI_DATA = {
           "priceHigh": null,
           "avoid": false,
           "kind": null,
+          "isDish": false,
           "signal": null,
           "video": null,
           "weather": "medium"

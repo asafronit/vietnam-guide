@@ -2,8 +2,14 @@
 # ההבדל מגרסת ה-Artifact: שם הכל היה חייב להיות מוטמע בגלל CSP.
 # כאן הנתונים, התצלומים והאקלים יוצאים לקבצים נפרדים — נשמרים בקאש,
 # נטענים במקביל, ועריכת תוכן לא כותבת מחדש 900KB של HTML.
+# $Scratch היה תיקיית העבודה של הסשן שבו האתר נבנה לראשונה. הוא נמחק
+# מאז, והנתיב המקודד שכב כאן ושבר כל בנייה חוזרת. הריפו עצמו כבר מחזיק
+# את כל התוצרים (assets/climate.js, assets/photos/, assets/photos.js)
+# ואת התבנית, ולכן הבנייה נשענת עליו כברירת מחדל ומדלגת על שלבים
+# שמקורם אינו זמין — במקום ליפול. מעבירים $Scratch רק כשמייבאים מחדש
+# אקלים או תצלומים ממקורם.
 param(
-  [string]$Scratch = 'C:\Users\Asaf\AppData\Local\Temp\claude\g--CLAUDE\2230f5e0-88a2-4c46-8a26-b0d6e76f2788\scratchpad',
+  [string]$Scratch = '',
   [string]$Dest    = 'G:\CLAUDE\vietnam-guide',
   [string]$Poi     = 'G:\CLAUDE\VIETNAM\kml\out\poi-data.js'
 )
@@ -12,28 +18,40 @@ $utf8 = New-Object Text.UTF8Encoding($false)
 
 New-Item -ItemType Directory -Force -Path "$Dest\assets\photos" | Out-Null
 
-# --- נתונים ואקלים: העתקה ישירה ---
+# --- נתונים: תמיד מרעננים מהמקור ב-kml/out ---
 Copy-Item $Poi "$Dest\assets\poi-data.js" -Force
-Copy-Item "$Scratch\weather.js" "$Dest\assets\climate.js" -Force
 
-# --- תצלומים: מ-data URI לקבצים ---
-$man = Get-Content "$Scratch\photos\manifest.json" -Raw -Encoding UTF8 | ConvertFrom-Json
-$rows = @(); $credits = @()
-foreach ($m in ($man | Sort-Object id)) {
-  Copy-Item "$Scratch\photos\$($m.id).jpg" "$Dest\assets\photos\$($m.id).jpg" -Force
-  $rows += '  "{0}":"assets/photos/{0}.jpg"' -f $m.id
-  $t = ($m.title -replace '^File:','') -replace '"','\"'
-  $credits += '  "{0}":{{"t":"{1}","a":"{2}","l":"{3}","u":"{4}"}}' -f `
-    $m.id, $t, ($m.artist -replace '"','\"'), ($m.license -replace '"','\"'), $m.page
+# --- אקלים: רק אם סופק מקור; אחרת הקובץ שבריפו הוא האמת ---
+if ($Scratch -and (Test-Path "$Scratch\weather.js")) {
+  Copy-Item "$Scratch\weather.js" "$Dest\assets\climate.js" -Force
+} elseif (-not (Test-Path "$Dest\assets\climate.js")) {
+  throw 'assets/climate.js חסר ואין מקור ב-$Scratch'
 }
-$photosJs = "/* התצלומים כקבצים ולא כ-data URI: נטענים במקביל, נשמרים בקאש,`n" +
-            "   וה-HTML נשאר קטן. Wikimedia Commons, רישיון חופשי. */`n" +
-            "const STATION_PHOTO={`n" + ($rows -join ",`n") + "`n};`n" +
-            "const PHOTO_CREDIT={`n" + ($credits -join ",`n") + "`n};`n"
-[IO.File]::WriteAllText("$Dest\assets\photos.js", $photosJs, $utf8)
+
+# --- תצלומים: נגזרים מ-manifest, שקיים רק במקור. בלעדיו assets/photos.js נשאר ---
+if ($Scratch -and (Test-Path "$Scratch\photos\manifest.json")) {
+  $man = Get-Content "$Scratch\photos\manifest.json" -Raw -Encoding UTF8 | ConvertFrom-Json
+  $rows = @(); $credits = @()
+  foreach ($m in ($man | Sort-Object id)) {
+    Copy-Item "$Scratch\photos\$($m.id).jpg" "$Dest\assets\photos\$($m.id).jpg" -Force
+    $rows += '  "{0}":"assets/photos/{0}.jpg"' -f $m.id
+    $t = ($m.title -replace '^File:','') -replace '"','\"'
+    $credits += '  "{0}":{{"t":"{1}","a":"{2}","l":"{3}","u":"{4}"}}' -f `
+      $m.id, $t, ($m.artist -replace '"','\"'), ($m.license -replace '"','\"'), $m.page
+  }
+  $photosJs = "/* התצלומים כקבצים ולא כ-data URI: נטענים במקביל, נשמרים בקאש,`n" +
+              "   וה-HTML נשאר קטן. Wikimedia Commons, רישיון חופשי. */`n" +
+              "const STATION_PHOTO={`n" + ($rows -join ",`n") + "`n};`n" +
+              "const PHOTO_CREDIT={`n" + ($credits -join ",`n") + "`n};`n"
+  [IO.File]::WriteAllText("$Dest\assets\photos.js", $photosJs, $utf8)
+} elseif (-not (Test-Path "$Dest\assets\photos.js")) {
+  throw 'assets/photos.js חסר ואין manifest ב-$Scratch'
+}
 
 # --- ה-HTML: מחליפים את שלושת בלוקי ה-inline בהפניות חיצוניות ---
-$html = Get-Content "$Scratch\trip-template.html" -Raw -Encoding UTF8
+$tpl = if ($Scratch -and (Test-Path "$Scratch\trip-template.html")) { "$Scratch\trip-template.html" } else { "$Dest\trip-template.html" }
+Write-Host "template: $tpl"
+$html = Get-Content $tpl -Raw -Encoding UTF8
 $map = @{
   '/*__CLIMATE__*/'  = 'assets/climate.js'
   '/*__PHOTOS__*/'   = 'assets/photos.js'
@@ -64,7 +82,7 @@ $head = @'
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f6b57">
+<meta name="theme-color" content="#a8231f">
 <meta name="description" content="מאגר נקודות עניין לטיול בווייטנאם: אטרקציות, אוכל רחוב, מסעדות, שווקים, לינה, והתאמה למזג האוויר.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
@@ -84,8 +102,12 @@ if ("serviceWorker" in navigator) {
 '@
 # ה-<title> הוא השורה הראשונה בתבנית ושייך ל-head; כל השאר הוא body.
 $nl = "`n"
-$idx = $html.IndexOf('<link rel="preconnect"')
-if ($idx -lt 0) { throw 'preconnect anchor not found' }
+# העוגן היה <link rel="preconnect"> של Google Fonts. משהוטמעו הפונטים
+# מקומית הוא נעלם והבנייה נשברה. סוף ה-</title> יציב יותר: הוא אינו תלוי
+# במה שבא אחריו.
+$tEnd = $html.IndexOf('</title>')
+if ($tEnd -lt 0) { throw 'title anchor not found' }
+$idx = $tEnd + '</title>'.Length
 $titleLine = $html.Substring(0, $idx).TrimEnd()
 $rest = $html.Substring($idx)
 $bodyIdx = $rest.IndexOf('<div class="wrap">')

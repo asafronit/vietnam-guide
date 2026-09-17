@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f6b57">
+<meta name="theme-color" content="#a8231f">
 <meta name="description" content="מאגר נקודות עניין לטיול בווייטנאם: אטרקציות, אוכל רחוב, מסעדות, שווקים, לינה, והתאמה למזג האוויר.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><title>ויאטנם במבט אחד</title>
+
 <script>
 document.documentElement.setAttribute("dir","rtl");
 try{
@@ -17,10 +18,19 @@ try{
   var _t=localStorage.getItem("vn.theme"); if(_t)document.documentElement.setAttribute("data-theme",_t);
 }catch(e){document.documentElement.setAttribute("lang","he");}
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="assets/fonts/Assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/FrankRuhlLibre-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Rubik:wght@400;500;600&family=Assistant:wght@400;600&display=swap">
+<style>
+/* פונטים מוטמעים מקומית ולא מ-Google Fonts. עבודה אופליין היא דרישת ליבה
+   והסיבה שהריפו הופרד; פונט שנטען מהרשת היה נעלם בדיוק בהרים שבהם אין
+   קליטה. שני קבצים משתנים לכל משפחה (עברית ולטינית) — 90KB בסך הכול,
+   כי Google מגישה variable fonts וכל המשקלים יושבים באותו קובץ. */
+@font-face{font-family:"Frank Ruhl Libre";font-style:normal;font-weight:500 900;font-display:swap;src:url("assets/fonts/FrankRuhlLibre-hebrew.woff2") format("woff2");unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
+@font-face{font-family:"Frank Ruhl Libre";font-style:normal;font-weight:500 900;font-display:swap;src:url("assets/fonts/FrankRuhlLibre-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Assistant";font-style:normal;font-weight:400 700;font-display:swap;src:url("assets/fonts/Assistant-hebrew.woff2") format("woff2");unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
+@font-face{font-family:"Assistant";font-style:normal;font-weight:400 700;font-display:swap;src:url("assets/fonts/Assistant-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
 <style>
 /* ==========================================================
    ויאטנם 2026 — מאגר המסע
@@ -28,36 +38,49 @@ try{
    ========================================================== */
 :root{
   scroll-padding-top:150px;scroll-padding-bottom:calc(var(--navh) + 14px);
-  --bg:#f6f5f3;
+  /* כיוון D (פאזה 3): נייר אורז ואדום לכה. בהיר הוא ברירת המחדל ולא
+     מוסכמה — רקע כהה בשמש חזקה מאבד ניגודיות מול האור הסביבתי, וזה
+     תנאי השימוש המרכזי: אייפון ביד אחת בוויאטנם בנובמבר. */
+  --bg:#fbf7f0;
   --surface:#ffffff;
-  --surface-2:#eeece8;
-  --ink:#16191d;
-  --ink-2:#565c66;
-  --ink-3:#666c75;
-  --line:rgba(22,25,29,.13);
+  --surface-2:#f3ece0;
+  --ink:#191512;
+  --ink-2:#574d43;
+  --ink-3:#6f6558;   /* bg 5.35 · surface 5.71 · surface-2 4.86 */
+  --line:rgba(25,21,18,.14);
   /* גבול פקדים. חייב להיות מוגדר בכל שלושת מצבי הצבע: משתנה חסר הופך
      את border:1px solid var(--x) ללא-חוקי, והקיצור כולו נופל ל-border-style:none.
      .48 עובר 3:1 גם מול --surface וגם מול --bg. */
-  --line-ctl:rgba(22,25,29,.48);
-  --line-soft:rgba(22,25,29,.07);
-  --brand:#0f6b57;
+  --line-ctl:rgba(25,21,18,.52);   /* .48 נתן 3.03 מול --bg — מרווח 0.03 */
+  --line-soft:rgba(25,21,18,.07);
+  /* האדום הוא צבע ההטעמה: המרחק, המצב הפעיל, ההדגשה. ירוק המותג
+     הקודם נשאר כ---jade לתגיות מחיר, שם הוא נושא משמעות ולא זהות. */
+  --brand:#a8231f;
   --brand-ink:#ffffff;
-  --brand-soft:#e6efec;
+  --brand-soft:#f7e7e4;
+  --jade:#1f6b52;
   --gold:#8a6412;
   --rose:#a13924;
-  --c-map:#1257a8;   --c-map-soft:rgba(18,87,168,.10);
-  --c-ride:#106b45;  --c-ride-soft:rgba(16,107,69,.10);
-  --c-chat:#6b2e8f;  --c-chat-soft:rgba(107,46,143,.10);
-  --c-video:#b32218; --c-video-soft:rgba(179,34,24,.10);
-  --shadow:0 1px 2px rgba(22,25,29,.05);
-  --shadow-lg:0 10px 34px rgba(22,25,29,.14);
+  /* ערכי תקן הקישורים של הפרויקט. היו כאן ערכים שכנים ולא זהים,
+     וזו הייתה סטייה שקטה מהתקן — תכלת Maps, ירוק Grab, סגול WhatsApp,
+     אדום וידאו, כחול-כהה Booking. */
+  --c-map:#0369a1;   --c-map-soft:rgba(3,105,161,.10);
+  /* מילוי וטקסט נפרדים לכפתור הראשי. #fff קשיח מעל --c-map נתן 4.09
+     בבהיר ו-1.88 בכהה, כי --c-map מתהפך לתכלת בהיר. */
+  --c-map-fill:#0369a1; --c-map-on:#ffffff;
+  --c-ride:#0f7c5c;  --c-ride-soft:rgba(15,124,92,.10);
+  --c-chat:#6d28d9;  --c-chat-soft:rgba(109,40,217,.10);
+  --c-video:#cc0000; --c-video-soft:rgba(204,0,0,.10);
+  --c-book:#1e3a5f;  --c-book-soft:rgba(30,58,95,.10);
+  --shadow:0 1px 2px rgba(25,21,18,.05);
+  --shadow-lg:0 10px 34px rgba(25,21,18,.14);
   --r:12px;
   --r-sm:10px;
   --r-xs:7px;
   /* קול תצוגה נפרד. סריף עברי-לטיני בניגודיות גבוהה — הוא נושא
      את שמות התחנות מעל התצלומים, ואין לו תפקיד אחר בדף. */
   --f-display:"Frank Ruhl Libre",Georgia,serif;
-  --f-ui:"Rubik","Segoe UI",sans-serif;
+  --f-ui:"Assistant","Segoe UI",sans-serif;
   --f-body:"Assistant","Segoe UI",sans-serif;
   --gutter:clamp(15px,4vw,28px);
   --navh:0px;
@@ -65,38 +88,42 @@ try{
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#111417;--surface:#181c21;--surface-2:#222831;
-    --ink:#e9ecef;--ink-2:#aab1ba;--ink-3:#949ba4;
-    --line:rgba(233,236,239,.16);--line-soft:rgba(233,236,239,.08);--line-ctl:rgba(233,236,239,.46);
-    --brand:#4dbc9d;--brand-ink:#0a221c;--brand-soft:#17302a;
-    --gold:#cfa64f;--rose:#e0806c;
-    --c-map:#7fb2ee;   --c-map-soft:rgba(127,178,238,.14);
-    --c-ride:#5cc696;  --c-ride-soft:rgba(92,198,150,.14);
-    --c-chat:#c69ae4;  --c-chat-soft:rgba(198,154,228,.14);
-    --c-video:#f0847a; --c-video-soft:rgba(240,132,122,.14);
+    --bg:#0d0f12;--surface:#151920;--surface-2:#1e242d;
+    --ink:#f2efe9;--ink-2:#a9a096;--ink-3:#968c7f;
+    --line:rgba(242,239,233,.16);--line-soft:rgba(242,239,233,.08);--line-ctl:rgba(242,239,233,.46);
+    --brand:#ff6b4a;--brand-ink:#26100a;--brand-soft:#33180f;--jade:#3ddba0;
+    --gold:#d9b463;--rose:#e0806c;
+    --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
+    --c-map-fill:#7cc4ff; --c-map-on:#06121c;
+    --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
+    --c-chat:#a78bfa;  --c-chat-soft:rgba(167,139,250,.14);
+    --c-video:#ff8a7a; --c-video-soft:rgba(255,138,122,.14);
+    --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
     --shadow:0 1px 2px rgba(0,0,0,.4);
     --shadow-lg:0 12px 40px rgba(0,0,0,.55);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#111417;--surface:#181c21;--surface-2:#222831;
-  --ink:#e9ecef;--ink-2:#aab1ba;--ink-3:#949ba4;
-  --line:rgba(233,236,239,.16);--line-soft:rgba(233,236,239,.08);--line-ctl:rgba(233,236,239,.46);
-  --brand:#4dbc9d;--brand-ink:#0a221c;--brand-soft:#17302a;
-  --gold:#cfa64f;--rose:#e0806c;
-    --c-map:#7fb2ee;   --c-map-soft:rgba(127,178,238,.14);
-    --c-ride:#5cc696;  --c-ride-soft:rgba(92,198,150,.14);
-    --c-chat:#c69ae4;  --c-chat-soft:rgba(198,154,228,.14);
-    --c-video:#f0847a; --c-video-soft:rgba(240,132,122,.14);
+  --bg:#0d0f12;--surface:#151920;--surface-2:#1e242d;
+  --ink:#f2efe9;--ink-2:#a9a096;--ink-3:#968c7f;
+  --line:rgba(242,239,233,.16);--line-soft:rgba(242,239,233,.08);--line-ctl:rgba(242,239,233,.46);
+  --brand:#ff6b4a;--brand-ink:#26100a;--brand-soft:#33180f;--jade:#3ddba0;
+  --gold:#d9b463;--rose:#e0806c;
+    --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
+    --c-map-fill:#7cc4ff; --c-map-on:#06121c;
+    --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
+    --c-chat:#a78bfa;  --c-chat-soft:rgba(167,139,250,.14);
+    --c-video:#ff8a7a; --c-video-soft:rgba(255,138,122,.14);
+    --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
   --shadow:0 1px 2px rgba(0,0,0,.4);
   --shadow-lg:0 12px 40px rgba(0,0,0,.55);
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--gold:#cfa64f}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--gold:#d9b463}}
 
 *{box-sizing:border-box}
 body{
   margin:0;background:var(--bg);color:var(--ink);
-  font-family:var(--f-body);font-size:15.5px;line-height:1.55;
+  font-family:var(--f-body);font-size:.97rem;line-height:1.55;
   -webkit-font-smoothing:antialiased;
 }
 .wrap{padding-bottom:var(--navh)}
@@ -182,7 +209,11 @@ svg.ic-lg{width:21px;height:21px}
   transition:background .13s,color .13s;
 }
 .tab:hover{background:var(--surface-2);color:var(--ink)}
-.tab[aria-current="page"]{background:var(--surface-2);color:var(--ink);font-weight:600}
+/* m-3: הפרש הרקע היה 1.10:1 בלבד — כלומר המצב הפעיל היה מסומן בצבע
+   ובמשקל בלבד. הפס התחתון הוא הסימן שאינו תלוי בתפיסת צבע, ושורד
+   גם קריאה באור שמש ישיר. */
+.tab[aria-current="page"]{background:var(--surface-2);color:var(--ink);font-weight:600;
+  box-shadow:inset 0 -3px 0 0 var(--brand)}
 .tab .cnt{font-size:.76rem;color:var(--ink-3);font-weight:400}
 
 /* ---------- גוף ---------- */
@@ -212,7 +243,12 @@ main:focus,main:focus-visible{outline:none}
   background:linear-gradient(to top,rgba(10,13,17,.92),rgba(10,13,17,.64) 55%,rgba(10,13,17,.24))}
 .hero-name{font-family:var(--f-display);font-weight:700;font-size:clamp(1.9rem,6vw,3.4rem);line-height:1.02;letter-spacing:-.02em;margin:0;text-wrap:balance;text-shadow:0 2px 22px rgba(0,0,0,.5)}
 .hero-name:focus{outline:none}
-.hero-name:focus-visible{outline:2px solid rgba(255,255,255,.9);outline-offset:4px;border-radius:3px}
+/* טבעת כפולה: לבן עובד מעל רקע כהה, השחור שסביבו מעל רקע בהיר —
+   ואחד מהם תמיד רלוונטי. כאן נוחת הפוקוס בכל מעבר מסך במקלדת,
+   והתצלום שמתחת אינו ידוע מראש. --brand אינו אפשרות: הוא נבלע
+   בתצלום כהה בבהיר, ובשקיעה בכהה. */
+.hero-name:focus-visible{outline:3px solid #fff;outline-offset:3px;
+  box-shadow:0 0 0 6px rgba(0,0,0,.85);border-radius:3px}
 .hero-sub{font-family:var(--f-ui);font-weight:400;font-size:.9rem;opacity:.88;margin-top:2px}
 .backbtn{
   display:inline-flex;align-items:center;gap:7px;font-family:var(--f-ui);font-weight:500;font-size:.85rem;
@@ -322,7 +358,8 @@ main:focus,main:focus-visible{outline:none}
   }
   .mob-sheet.is-dragging{transition:none}
   .sheet-grip{
-    flex:none;padding:9px 0 6px;display:flex;justify-content:center;cursor:grab;
+    /* היה 19px גובה, מתחת ל-24 של WCAG 2.5.8. 12px מביא ל-28 בלי שינוי מראה. */
+    flex:none;padding:12px 0;display:flex;justify-content:center;cursor:grab;
     touch-action:none;
   }
   .sheet-grip::before{
@@ -359,8 +396,11 @@ main:focus,main:focus-visible{outline:none}
 .wx-bar{height:7px;background:var(--surface-2);border-radius:99px;overflow:hidden}
 .wx-fill{height:100%;border-radius:99px}
 .wx-pct{font-family:var(--f-ui);font-weight:600;font-size:.86rem;font-variant-numeric:tabular-nums;min-width:2.9em;text-align:end}
-/* הצבע לעולם לא לבד: יש גם אחוז, גם אורך פס וגם תווית */
-.good{color:var(--brand)}      .wx-fill.good{background:var(--brand)}
+/* הצבע לעולם לא לבד: יש גם אחוז, גם אורך פס וגם תווית.
+   --jade ולא --brand: משהחליף המותג לאדום לכה, "טוב" היה מרונדר אדום
+   ונעשה כמעט זהה ל---rose של "גרוע". הירוק נשמר כאן בדיוק לשם כך —
+   הוא נושא משמעות, לא זהות מותג. */
+.good{color:var(--jade)}       .wx-fill.good{background:var(--jade)}
 .fair{color:var(--gold)}       .wx-fill.fair{background:var(--gold)}
 .poor{color:var(--rose)}       .wx-fill.poor{background:var(--rose)}
 .wx-note{font-size:.79rem;color:var(--ink-3);margin:12px 0 0;max-width:62ch}
@@ -397,7 +437,7 @@ main:focus,main:focus-visible{outline:none}
 .rcard-where{direction:rtl;font-family:var(--f-ui);font-size:.76rem;color:var(--ink-3);display:flex;align-items:center;gap:6px}
 html[dir="ltr"] .rcard-where{direction:ltr}
 .dotc{width:8px;height:8px;border-radius:2px;background:var(--stationcolor);flex:none}
-.pcard-h{margin:0;font-size:1rem;font-weight:400}
+.pcard-h{margin:0;font-family:var(--f-display);font-size:1.06rem;font-weight:700;line-height:1.3}
 .pcard-open{text-align:start;padding:0;display:block;width:100%}
 .pcard-open::after{content:"";position:absolute;inset:0;border-radius:inherit}
 .pcard-open:focus-visible{outline:none}
@@ -462,11 +502,23 @@ dialog{border:none;padding:0;background:transparent;max-width:min(560px,94vw);wi
 dialog::backdrop{background:rgba(10,13,17,.52)}
 .sheet{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);overflow:hidden}
 .sheet-hd{padding:18px 20px 0;display:flex;gap:12px;align-items:flex-start}
-.sheet-ttl{font-family:var(--f-ui);font-weight:600;font-size:1.15rem;line-height:1.28;margin:0}
-.sheet-where{font-family:var(--f-ui);font-size:.81rem;color:var(--ink-3);margin-top:3px;display:flex;align-items:center;gap:6px}
-.closebtn{margin-inline-start:auto;width:34px;height:34px;border-radius:var(--r-xs);border:1px solid var(--line-ctl);
+/* כיוון D: שמות מקומות נושאים את סריף התצוגה, כמו שמות התחנות.
+   הם הזהות של הכרטיס, לא תווית ממשק. */
+.sheet-ttl{font-family:var(--f-display);font-weight:700;font-size:1.2rem;line-height:1.26;margin:0}
+.ttl-he{display:block}
+/* הלטיני משני בגודל בלבד, לא בניגודיות — הוא מה שמראים לנהג.
+   width:fit-content מצמיד את התיבה לקצה ההתחלה של ההורה ה-RTL,
+   בזמן ש-direction:ltr (מ-.en) מסדר רק את התווים בתוכה. בלעדיו
+   הבלוק ממלא את הרוחב והשם קופץ לקצה הנגדי מהשם העברי. */
+.ttl-en{display:block;width:fit-content;max-width:100%;
+  font-family:var(--f-ui);font-size:.95rem;font-weight:500;
+  color:var(--ink-2);line-height:1.35;margin-top:3px;
+  letter-spacing:.01em;overflow-wrap:anywhere}
+.sheet-where{font-family:var(--f-ui);font-size:.81rem;color:var(--ink-3);margin-top:4px;display:flex;align-items:center;gap:6px}
+.sheet-acts{margin-inline-start:auto;display:flex;gap:8px;flex:none}
+.closebtn,.ttl-copy{width:34px;height:34px;border-radius:var(--r-xs);border:1px solid var(--line-ctl);
   display:flex;align-items:center;justify-content:center;flex:none;color:var(--ink-2)}
-.closebtn:hover{background:var(--surface-2);color:var(--ink)}
+.closebtn:hover,.ttl-copy:hover{background:var(--surface-2);color:var(--ink)}
 .sheet-bd{padding:13px 20px 20px;display:flex;flex-direction:column;gap:13px}
 .sheet-what{color:var(--ink-2)}
 .whybox{background:var(--brand-soft);border-radius:var(--r-sm);padding:12px 14px}
@@ -488,10 +540,103 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .act-video{color:var(--c-video);--tint:var(--c-video-soft)}
 .act-chat {color:var(--c-chat); --tint:var(--c-chat-soft)}
 .act-src  {color:var(--ink-3)}
-.lbtn.is-primary{background:var(--c-map);color:#fff;border-color:var(--c-map)}
+.lbtn.is-primary{background:var(--c-map-fill);color:var(--c-map-on);border-color:var(--c-map-fill)}
 .lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}
 .srcline{font-size:.8rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 .srcline a{text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- דיאלוג ההגדרות ---------- */
+/* בדסקטופ הפקדים נשארים בשורה העליונה והכפתור מיותר. */
+#settingsBtn{display:none}
+#setDlg{max-width:min(420px,94vw)}
+#setDlg::backdrop{background:rgba(10,13,17,.52)}
+.set-hd{display:flex;align-items:center;gap:12px;
+  background:var(--surface);border:1px solid var(--line);border-bottom:none;
+  border-radius:var(--r) var(--r) 0 0;padding:16px 18px 12px}
+.set-ttl{font-family:var(--f-display);font-weight:700;font-size:1.15rem;margin:0;flex:1}
+.set-body{background:var(--surface);border:1px solid var(--line);border-top:none;
+  border-radius:0 0 var(--r) var(--r);padding:4px 18px 20px;
+  display:flex;flex-direction:column;gap:16px}
+/* בתוך הדיאלוג לפקדים יש רוחב מלא — שם אין תחרות על מקום */
+.set-body .tb-tools{margin-inline-start:0;flex-direction:column;align-items:stretch;gap:12px}
+.set-body .seg{width:100%}
+.set-body .seg button{flex:1;text-align:center;padding:11px 10px;min-height:44px}
+.set-body #themeBtn{width:100%;min-height:44px;gap:9px}
+.set-row-lbl{font-family:var(--f-ui);font-size:.78rem;font-weight:600;color:var(--ink-3);
+  margin:0 0 -8px}
+
+@media (max-width:880px){
+  /* בנייד זהו השער היחיד לשפה, למטבע ולנושא — והחלפת שפה היא פקד
+     נגישות (היא קובעת את lang של המסמך ולכן את קול הקורא). 44×44
+     במקום 33×33, והריפוד של השורה מתכווץ כדי לשמור על ≤120px. */
+  #settingsBtn{display:inline-flex;width:44px;height:44px}
+  .tb-row.r1{padding-top:6px;padding-bottom:6px}
+  /* מוסתרים בשורה, אך אותם צמתים עצמם — לא עותק. */
+  .topbar .tb-tools{display:none}
+  .set-body .tb-tools{display:flex}
+}
+
+/* במצב ניגודיות גבוהה של Windows גם box-shadow וגם background
+   מבוטלים — כלומר הסימן שאינו-צבע היה נעלם דווקא במצב שנועד לעזור.
+   Highlight הוא צבע מערכת ולכן שורד. */
+@media (forced-colors:active){
+  .tab[aria-current="page"]{border-block-end:3px solid Highlight}
+  .bnav[aria-current="page"]::before{background:Highlight;forced-color-adjust:none}
+}
+
+/* ---------- מצב "לפי מרחק" ---------- */
+.seg-sort{align-self:stretch;margin:0 10px}
+.seg-sort button{flex:1;text-align:center;padding:9px 11px;font-size:.84rem}
+
+/* אזור ה-live הוא גם הטקסט הגלוי. שני מקורות אמת נפרדים היו
+   מסתדרים זה מזה ומכריזים כפול. */
+.near-status{margin:8px 10px 0;font-size:.82rem;color:var(--ink-3);min-height:1em}
+.near-status:empty{margin-top:0}
+.near-body{display:flex;flex-direction:column;gap:12px;padding:10px 10px 4px;min-height:0;overflow-y:auto}
+.near-head{font-family:var(--f-display);font-weight:700;font-size:1.05rem;margin:0}
+.near-hint{margin:0;font-size:.79rem;color:var(--ink-3);line-height:1.5}
+.near-wait{margin:0;font-size:.95rem;color:var(--ink-2)}
+/* המצב הזה הוא מידע ולא כשל — בלי אדום ובלי אייקון שגיאה.
+   עד היציאה ב-26/10 זהו המצב הנפוץ ביותר של המסך. */
+.near-far{margin:0;font-size:.92rem;color:var(--ink-2);line-height:1.55}
+.near-err{margin:0;font-size:.9rem;color:var(--ink);line-height:1.55}
+.near-how{margin:0;font-size:.8rem;color:var(--ink-2);line-height:1.6;
+  background:var(--surface-2);border-radius:var(--r-xs);padding:10px 12px}
+.btn-near{
+  font-family:var(--f-ui);font-weight:600;font-size:.9rem;
+  background:var(--brand);color:var(--brand-ink);border-radius:var(--r-sm);
+  padding:12px 16px;text-align:center;min-height:44px;
+}
+.btn-near:hover{filter:brightness(1.08)}
+.near-pick{display:flex;flex-direction:column;gap:7px;
+  border-top:1px solid var(--line-soft);padding-top:12px}
+.near-pick-t{margin:0;font-size:.83rem;color:var(--ink-2)}
+.near-sel{
+  font:inherit;font-size:.9rem;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line-ctl);border-radius:var(--r-xs);padding:10px 12px;
+  min-height:44px;width:100%;
+}
+.near-list{display:flex;flex-direction:column;gap:2px}
+.near-row{
+  display:flex;align-items:center;gap:12px;padding:11px 10px;
+  border-radius:var(--r-xs);transition:background .13s;
+}
+.near-row:hover{background:var(--surface-2)}
+/* המרחק ראשון בכיוון הקריאה. tabular-nums כדי שהעמודה לא תרקוד
+   בין שורה לשורה — אותו טיפול כמו .money. */
+.near-dist{
+  flex:none;min-width:62px;font-family:var(--f-ui);font-weight:700;font-size:.86rem;
+  color:var(--brand);font-variant-numeric:tabular-nums;
+}
+.near-txt{min-width:0;flex:1}
+/* ל-<bdi> יש dir="auto": שם לטיני הופך את התיבה ל-LTR, ואז היא
+   נצמדת לשמאל בעוד שורת המשנה העברית נצמדת לימין. width:fit-content
+   מצמיד את התיבה עצמה לקצה ההתחלה של ההורה ה-RTL — אותו פתרון כמו
+   ב-.ttl-en. הטקסט בתוכה עדיין נקרא LTR, כפי שצריך. */
+.near-name{display:block;width:fit-content;max-width:100%;
+  font-family:var(--f-display);font-weight:600;font-size:.98rem;
+  line-height:1.25;overflow-wrap:anywhere}
+.near-sub{font-size:.76rem;color:var(--ink-3);margin-top:2px}
 
 /* ---------- ניווט תחתון ---------- */
 .botnav{display:none}
@@ -508,7 +653,13 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
   }
   .bnav{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
     font-family:var(--f-ui);font-size:.68rem;font-weight:500;color:var(--ink-3);padding:6px 2px;border-radius:var(--r-xs)}
+  .bnav{position:relative}
   .bnav[aria-current="page"]{color:var(--brand);font-weight:600}
+  /* אותו עיקרון בניווט התחתון: פס מעל הפריט, לא רק צבע. */
+  .bnav[aria-current="page"]::before{
+    content:"";position:absolute;top:0;inset-inline:22%;height:3px;
+    border-radius:0 0 3px 3px;background:var(--brand);
+  }
   .pcard{flex-basis:212px}
   .of-note{display:none}
 }
@@ -540,11 +691,14 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
 <header class="topbar" id="topbar">
   <div class="tb-row r1">
     <div class="brand"><span class="bar"></span><span id="brandName">ויאטנם</span> <span id="brandSub">נובמבר 2026</span></div>
-    <div class="tb-tools">
+    <div class="tb-tools" id="tbTools">
       <div class="seg" role="group" id="langSeg"></div>
       <div class="seg" role="group" id="curSeg"></div>
       <button class="iconbtn" id="themeBtn" type="button" aria-pressed="false"></button>
     </div>
+    <!-- בנייד שלושת הפקדים בולעים שורה שלמה. הכפתור פותח אותם בדיאלוג,
+         והם עצמם עוברים לשם פיזית — עותק שני היה יוצר מזהים כפולים. -->
+    <button class="iconbtn" id="settingsBtn" type="button" aria-haspopup="dialog"></button>
   </div>
   <div class="tripbar">
     <div class="tripbar-in" id="tripbar"></div>
@@ -568,6 +722,14 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
 </div>
 
 <dialog id="dlg" aria-labelledby="dlgTitle"></dialog>
+<dialog id="setDlg" aria-labelledby="setDlgTitle">
+  <div class="set-hd">
+    <h2 id="setDlgTitle" class="set-ttl"></h2>
+    <button class="closebtn" id="setClose" type="button"></button>
+  </div>
+  <div class="set-body" id="setBody"></div>
+  <div class="sr" id="setLive" aria-live="polite" aria-atomic="true"></div>
+</dialog>
 <div class="sr" id="live" aria-live="polite" aria-atomic="true"></div>
 
 <script src="assets/climate.js" defer></script>

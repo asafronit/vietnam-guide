@@ -10,7 +10,7 @@
  */
 // build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
 // גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
-const VERSION = "f537e20f4e80";
+const VERSION = "94bb64c6bc3a";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
@@ -21,6 +21,14 @@ const PRECACHE = [
   "./assets/poi-data.js",
   "./assets/photos.js",
   "./assets/climate.js",
+  /* הגופנים חייבים להיות כאן. הם הוטמעו מקומית בדיוק כדי לעבוד בלי
+     רשת, ובלי precache הטעינה הראשונה אופליין הייתה נופלת ל-fallback
+     של המערכת — כלומר ההטמעה לא הייתה שווה דבר. העבריים ראשונים:
+     הם אלה שנטענים בפועל בממשק עברי. */
+  "./assets/fonts/Assistant-hebrew.woff2",
+  "./assets/fonts/FrankRuhlLibre-hebrew.woff2",
+  "./assets/fonts/Assistant-latin.woff2",
+  "./assets/fonts/FrankRuhlLibre-latin.woff2",
   "./manifest.webmanifest",
 ];
 
