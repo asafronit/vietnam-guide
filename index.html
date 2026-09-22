@@ -344,10 +344,17 @@ main:focus,main:focus-visible{outline:none}
   #mapPane{
     display:block;position:fixed;inset-block-start:var(--map-top,0);inset-inline:0;
     inset-block-end:0;z-index:1;background:var(--surface-2);
+    /* Leaflet מוסיף .leaflet-container לצומת שמוסרים לו, ו-height:100%
+       שם דרס את הפריסה מבוססת ה-inset — הפאנל יצא בגובה מסך מלא
+       שמתחיל מתחת לסרגל, כלומר תחתיתו נתלתה מחוץ למסך. */
+    height:auto;
   }
   .leaflet-container{width:100%;height:100%;font-family:var(--f-body)}
   .mob-sheet{
-    position:fixed;inset-inline:0;inset-block-end:0;z-index:30;
+    /* מעל הניווט התחתון. ב-SNAP[2] הידית נוחתת בתוך 64 הפיקסלים של
+       .botnav (z-index 60), כלומר הפקד היחיד שמחזיר את החלונית היה
+       בלתי נראה ובלתי לחיץ — באייפון, שהוא מכשיר היעד. */
+    position:fixed;inset-inline:0;inset-block-end:0;z-index:70;
     height:92vh;background:var(--surface);
     border-start-start-radius:18px;border-start-end-radius:18px;
     box-shadow:0 -6px 28px rgba(0,0,0,.22);
@@ -365,7 +372,10 @@ main:focus,main:focus-visible{outline:none}
   .sheet-grip::before{
     content:"";width:38px;height:4px;border-radius:99px;background:var(--line-ctl);
   }
-  .sheet-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+  /* touch-action:none על הגיליון חל על כל שרשרת הצאצאים בבדיקת
+     הפגיעה, ולכן גלילת מגע בתוך הגוף נחסמה ב-iOS — המכשיר היחיד
+     שחשוב כאן. */
+  .sheet-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;
     padding:0 var(--gutter) calc(var(--navh) + 18px)}
   /* בתוך הגיליון הרשימה כבר לא דביקה ולא מוגבלת בגובה */
   body.mob-map .rail{position:static;max-height:none}
@@ -377,7 +387,14 @@ main:focus,main:focus-visible{outline:none}
     border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);
     font-variant-numeric:tabular-nums;
   }
-  .map-pin.is-on{outline:3px solid var(--brand);outline-offset:2px}
+  /* .is-on ו-:focus-visible היו כמעט זהים — סמן שהוא גם נבחר וגם
+   ממוקד לא נבדל מסמן שרק נבחר. הנבחר מסומן בטבעת המותג; הפוקוס
+   מקבל את הטבעת הדו-גונית שכבר הוכחה מעל תצלום לא ידוע. */
+.map-pin.is-on{outline:3px solid var(--brand);outline-offset:2px}
+.leaflet-marker-icon:focus-visible{
+  outline:3px solid #fff;outline-offset:2px;
+  box-shadow:0 0 0 6px rgba(0,0,0,.85);border-radius:50%;
+}
 }
 /* ---------- מזג אוויר והיתכנות ---------- */
 .wx{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px 14px;margin-top:14px}
@@ -524,7 +541,10 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .whybox{background:var(--brand-soft);border-radius:var(--r-sm);padding:12px 14px}
 .whybox b{display:block;font-family:var(--f-ui);font-size:.77rem;font-weight:600;color:var(--brand);margin-bottom:2px}
 .factrow{display:flex;flex-wrap:wrap;gap:9px;font-family:var(--f-ui);font-size:.85rem;color:var(--ink-2);align-items:center}
-.linkrow{display:flex;flex-wrap:wrap;gap:8px}
+.map-attr{margin:14px 10px 4px;font-size:.72rem;color:var(--ink-3)}
+.map-attr a{text-decoration:underline;text-underline-offset:2px}
+.linkrow{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.linkrow>li{display:contents}
 /* ---------- תקן צבעי הקישורים ----------
    מתועד ב-PROJECT.md וב-build.py: הצבע מקודד את הפעולה, לא את הקטגוריה.
    כחול=מפות · ירוק=נסיעה/גראב · סגול=וואטסאפ · אדום=יוטיוב.
@@ -539,6 +559,7 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .act-ride {color:var(--c-ride); --tint:var(--c-ride-soft)}
 .act-video{color:var(--c-video);--tint:var(--c-video-soft)}
 .act-chat {color:var(--c-chat); --tint:var(--c-chat-soft)}
+.act-book {color:var(--c-book); --tint:var(--c-book-soft)}
 .act-src  {color:var(--ink-3)}
 .lbtn.is-primary{background:var(--c-map-fill);color:var(--c-map-on);border-color:var(--c-map-fill)}
 .lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}

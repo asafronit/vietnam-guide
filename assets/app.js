@@ -92,6 +92,17 @@ var T={
   howAround:{he:"איך זזים כאן",en:"Getting around"},
   areaMap:{he:"המפה של האזור",en:"Area map"},
   ride:{he:"הזמנת נסיעה",en:"Directions"},
+  grab:{he:"Grab",en:"Grab"},
+  grabNote:{he:" (נפתח באפליקציית Grab, או באתר אם אינה מותקנת)",
+            en:" (opens the Grab app, or the website if it is not installed)"},
+  grabWeb:{he:"אתר Grab",en:"Grab website"},
+  grabMiss:{he:"Grab אינה מותקנת. קישור לאתר Grab נוסף אחרי הכפתור.",
+            en:"Grab is not installed. A link to the Grab website was added after the button."},
+  grabMissCopied:{he:"Grab אינה מותקנת. הכתובת של %s הועתקה. קישור לאתר Grab נוסף אחרי הכפתור.",
+                  en:"Grab is not installed. The address of %s was copied. A link to the Grab website was added after the button."},
+  directions:{he:"הוראות הגעה",en:"Directions"},
+  booking:{he:"Booking.com",en:"Booking.com"},
+  actions:{he:"פעולות למקום הזה",en:"Actions for this place"},
   videos:{he:"סרטונים",en:"Videos"},
   whyHere:{he:"למה זה נכנס למאגר",en:"Why it made the list"},
   whatsapp:{he:"וואטסאפ",en:"WhatsApp"},
@@ -99,6 +110,9 @@ var T={
   pickHint:{he:"או חפשו מקום מסוים בשדה החיפוש למעלה.",en:"Or search for a specific place above."},
   allStations:{he:"כל התחנות",en:"All stations"},
   sheetGripName:{he:"גובה החלונית",en:"Panel height"},
+  sheetFull:{he:"חלונית מלאה",en:"Panel expanded"},
+  sheetHalf:{he:"חצי מסך, המפה גלויה",en:"Half screen, map visible"},
+  sheetHidden:{he:"חלונית מוסתרת, המפה מלאה",en:"Panel hidden, full map"},
   sheetGrip:{he:"גרירה לשינוי גובה החלונית. חצים מעלה ומטה, או Enter להחלפה.",
              en:"Drag to resize the panel. Arrow up and down, or Enter to toggle."},
   backToList:{he:"לרשימה",en:"Back to list"},
@@ -724,6 +738,11 @@ function rideUrl(r,st){
   return r.lat!=null?"https://www.google.com/maps/dir/?api=1&destination="+r.lat+","+r.lng+"&travelmode=driving"
     :"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(r.name+", "+st.name)+"&travelmode=driving";
 }
+/* 20 רשומות נושאות מקור booking.com. הקישור נגזר ממנו ואינו מומצא. */
+function bookingUrl(r){
+  var u=(r.sources||[]).filter(function(x){return /(^|\.)booking\.com\//.test(String(x));})[0];
+  return u||null;
+}
 function vidUrl(r,st){return r.video||"https://www.youtube.com/results?search_query="+encodeURIComponent(r.name+" "+st.name);}
 /* wa.me רוצה ספרות בלבד, בלי פלוס, מקפים או רווחים */
 function waUrl(num){return "https://wa.me/"+String(num).replace(/[^\d]/g,"");}
@@ -741,12 +760,31 @@ function brandOf(u){
    ואי אפשר לפספס אותה.
    האיפוס לפני ההצבה הכרחי: הצבת אותה מחרוזת פעמיים ברצף אינה משנה
    את ה-DOM ולכן אינה מפיקה הכרזה שנייה. */
+/* אזור ה-live הפעיל כרגע. showModal הופך את #live ל-inert, ולכן
+   כל דיאלוג פתוח חייב להצביע לכאן על אזור משלו. הגרסה הקודמת בדקה
+   רק את #setDlg — כלומר כרטיס המקום היה בולע כל הכרזה בשקט, וזה
+   בדיוק מה שהיה קורה לכפתור Grab. */
+var activeLive=null, sayQueue=[], sayTimer=null;
 function say(m){
-  var sd=document.getElementById("setDlg");
-  var n=document.getElementById(sd&&sd.open?"setLive":"live");
-  if(!n) return;
+  /* תור, לא טיימר קבוע. פתיחת תחנה בנייד קוראת ל-say פעמיים באותו
+     tick — פעם עם "האנוי, 42 מקומות" ופעם עם מצב הגיליון — ושני
+     הטיימרים ירו באותו batch, כך ששכבת הנגישות ראתה מוטציה אחת
+     בלבד. הספירה, שהיא כל המידע החדש, לא הוכרזה מעולם. */
+  if(!m) return;
+  sayQueue.push(m);
+  if(sayTimer) return;
+  var n=activeLive||document.getElementById(
+    (function(sd){return sd&&sd.open;})(document.getElementById("setDlg"))?"setLive":"live");
+  if(!n){ sayQueue.length=0; return; }
   n.textContent="";
-  setTimeout(function(){n.textContent=m;},60);
+  sayTimer=setTimeout(function(){
+    sayTimer=null;
+    var msg=sayQueue.join(". "); sayQueue.length=0;
+    /* היעד נקרא שוב כאן: ייתכן שדיאלוג נפתח או נסגר בין ההצבה לירי. */
+    var tgt=activeLive||document.getElementById(
+      (function(sd){return sd&&sd.open;})(document.getElementById("setDlg"))?"setLive":"live");
+    if(tgt) tgt.textContent=msg;
+  },60);
 }
 /* כינוי לשם קריאוּת באתרי הקריאה שנוגעים לכרום. אותה פונקציה בדיוק. */
 var announce=say;
@@ -818,6 +856,9 @@ function openDetail(item){
   dlgLive.setAttribute("aria-live","polite");
   dlgLive.setAttribute("aria-atomic","true");
   function sayHere(m){ dlgLive.textContent=""; setTimeout(function(){dlgLive.textContent=m;},60); }
+  /* מרגע שהכרטיס פתוח, say() מדבר לכאן — כולל קוראים ברמת המודול
+     כמו lbtn, שאין להם גישה לסגור הזה. */
+  activeLive=dlgLive;
 
   var acts=el("div","sheet-acts");
   if(heName&&navigator.clipboard){
@@ -874,18 +915,42 @@ function openDetail(item){
   if(r.lat==null) facts.appendChild(el("span",null,t("noCoords")));
   if(facts.childNodes.length) bd.appendChild(facts);
 
-  var lr=el("div","linkrow");
-  /* כחול=מפות, ירוק=נסיעה, אדום=יוטיוב, סגול=וואטסאפ */
-  lr.appendChild(lbtn("act-map is-primary","pin",t("openMap"),mapsUrl(r,st),r.name));
-  lr.appendChild(lbtn("act-ride","car",t("ride"),rideUrl(r,st),r.name));
-  lr.appendChild(lbtn("act-video","play",t("video"),vidUrl(r,st),r.name));
-  if(r.whatsapp) lr.appendChild(lbtn("act-chat","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
+  /* רשימה ולא div שטוחה: עם Grab ו-Booking יש כאן עד חמש פעולות,
+     וקורא מסך צריך לדעת כמה הן וגם לדלג עליהן. */
+  var lr=el("ul","linkrow");
+  lr.setAttribute("aria-label",t("actions"));
+  /* list-style:none גורם ל-WebKit להפסיק להכריז רשימה ולספור פריטים.
+     התפקידים המפורשים מחזירים את הסמנטיקה — אותו דפוס כמו ב-buildRail. */
+  lr.setAttribute("role","list");
+  function act(node){
+    var li=el("li"); li.setAttribute("role","listitem");
+    li.appendChild(node); lr.appendChild(li); return node;
+  }
+
+  /* תכלת=מפות, ירוק=Grab, כחול-כהה=Booking, אדום=וידאו, סגול=וואטסאפ.
+     הצבע לעולם אינו לבדו — לכל פעולה יש גם אייקון וגם מילה. */
+  act(lbtn("act-map is-primary map-link","pin",t("openMap"),mapsUrl(r,st),r.name));
+
+  /* אותה תווית לשני יעדים שונים היא כשל 2.4.4: ל-134 רשומות יש נ"צ
+     ולכן Grab אפשרי, ול-117 אין — ושם זה פשוט Google Maps. תווית
+     וצבע נפרדים לכל אחד, לפי מה שהקישור באמת עושה. */
+  if(r.lat!=null) act(grabBtn(r,st));
+  else act(lbtn("act-map map-link","pin",t("directions"),rideUrl(r,st),r.name));
+
+  var bk=bookingUrl(r);
+  if(bk) act(lbtn("act-book book-link","bed",t("booking"),bk,r.name));
+
+  act(lbtn("act-video yt-link","play",t("video"),vidUrl(r,st),r.name));
+  if(r.whatsapp) act(lbtn("act-chat wa-link","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
   bd.appendChild(lr);
 
   if((r.sources||[]).length){
     var sl=el("div","srcline");
     sl.appendChild(el("span",null,t("sources")));
-    r.sources.forEach(function(u){
+    /* אותו URL כבר מוצג ככפתור ייעודי; שני קישורים לאותו יעד עם שני
+       שמות שונים באותו כרטיס הם בלבול. */
+    var bkU=bookingUrl(r);
+    r.sources.filter(function(u){return u!==bkU;}).forEach(function(u){
       var a=el("a",null,brandOf(u));
       a.href=u; a.target="_blank"; a.rel="noopener noreferrer";
       a.appendChild(el("span","sr",t("newTab")));
@@ -898,15 +963,92 @@ function openDetail(item){
   dlg.showModal();
   cb.focus();
 }
-function lbtn(cls,ic,label,href,name){
+/* תקן הפרויקט: "קח אותי לשם" פותח את Grab עם היעד ממולא.
+   ב-KML נשאר Google Maps כי My Maps מסננת סכמות URI מותאמות; כאן יש
+   JS ולכן שלושת המנגנונים אפשריים.
+
+   הקושי האמיתי הוא ש-grab:// בדפדפן שאין לו טיפול בסכמה **לא עושה
+   כלום** — אין אירוע, אין שגיאה, אין onerror. לכן:
+   - העוגן נושא את ה-fallback ב-href, לא את ה-deep link. בלי JS
+     הקישור עדיין מוביל ליעד אמיתי.
+   - הזיהוי הוא מדידת זמן: אם המסמך הפך נסתר, האפליקציה תפסה.
+   - **ההעתקה קודמת לכל דבר אסינכרוני.** ב-Safari
+     clipboard.writeText דורש transient user activation; הרצה אחרי
+     פסק-זמן של 1200ms נדחית — כלומר הגיבוי היה נכשל בדיוק במקרה
+     שבו הוא נחוץ. */
+var GRAB_WEB="https://www.grab.com/vn/";
+function grabDeep(r){
+  return "grab://open?screenType=BOOKING&drop_off_lat="+r.lat+"&drop_off_lng="+r.lng;
+}
+function grabAddr(r,st){
+  return [r.name,r.area,st.name,"Vietnam"].filter(Boolean).join(", ");
+}
+function grabBtn(r,st){
+  var addr=grabAddr(r,st);
+  var a=lbtn("act-ride","car",t("grab"),GRAB_WEB,r.name,"grabNote");
+  a.classList.add("grab-link");
+  a.setAttribute("data-grab-deep",grabDeep(r));
+  a.setAttribute("data-grab-addr",addr);
+  a.removeAttribute("target");          /* deep link ב-_blank משאיר לשונית ריקה */
+  a.addEventListener("click",function(e){
+    if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0) return;   /* לחיצה מותאמת */
+    e.preventDefault();
+    /* 1. קליפבורד ראשון, בתוך הג'סטה */
+    var copied=null;
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      copied=navigator.clipboard.writeText(addr).then(function(){return true;},function(){return false;});
+    }
+    /* 2. ניסיון פתיחת האפליקציה */
+    var t0=Date.now(), gone=false;
+    function mark(){ gone=true; }
+    document.addEventListener("visibilitychange",mark,{once:true});
+    window.addEventListener("pagehide",mark,{once:true});
+    window.location.href=a.getAttribute("data-grab-deep");
+    /* 3. נפילה — רק אם עדיין כאן */
+    setTimeout(function(){
+      document.removeEventListener("visibilitychange",mark);
+      if(gone||document.hidden||Date.now()-t0>2500) return;
+      showGrabFallback(a,copied,r.name);
+    },1200);
+  });
+  return a;
+}
+/* לא פותחים לשונית אוטומטית: window.open אחרי פסק-זמן מנותק מהג'סטה,
+   נחסם ב-iOS, ומעבר ההקשר קוטע את ההכרזה לפני שנאמרה. במקום זה —
+   קישור גלוי, ו-Tab אחד מגיע אליו. */
+function showGrabFallback(a,copied,name){
+  var li=a.parentNode, ul=li&&li.parentNode;
+  if(!ul) return;
+  var have=ul.querySelector(".grab-fb");
+  if(have){
+    /* לחיצה שנייה הייתה שקט מוחלט. מי שלא קלט את ההכרזה הראשונה
+       צריך לקבל אותה שוב, ועדיף — להגיע לקישור. */
+    say(t("grabMiss")); have.focus();
+    return;
+  }
+  var web=el("a","lbtn act-ride grab-link grab-fb");
+  web.href=GRAB_WEB; web.target="_blank"; web.rel="noopener noreferrer";
+  web.appendChild(icon("car"));
+  web.appendChild(document.createTextNode(t("grabWeb")));
+  web.appendChild(el("span","sr"," — "+name+t("newTab")));
+  /* פריט משלו ברשימה. הזרקת <a> ישירות ל-<ul> אינה חוקית, והזרקתו
+     לתוך ה-<li> הקיים הייתה מסתירה אותו מספירת הפריטים. */
+  var nli=el("li"); nli.setAttribute("role","listitem"); nli.appendChild(web);
+  if(li.nextSibling) ul.insertBefore(nli,li.nextSibling); else ul.appendChild(nli);
+  function tell(ok){ say(t(ok?"grabMissCopied":"grabMiss",{"%s":name})); }
+  if(copied) copied.then(tell); else tell(false);
+}
+
+function lbtn(cls,ic,label,href,name,noteKey){
   var a=el("a","lbtn "+cls);
   a.href=href; a.target="_blank"; a.rel="noopener noreferrer";
   a.appendChild(icon(ic));
   a.appendChild(document.createTextNode(label));
-  a.appendChild(el("span","sr"," — "+name+t("newTab")));
+  /* עבור Grab "נפתח בכרטיסייה חדשה" הוא פשוט לא נכון — נפתחת אפליקציה. */
+  a.appendChild(el("span","sr"," — "+name+t(noteKey||"newTab")));
   return a;
 }
-dlg.addEventListener("close",function(){ if(lastFocus&&lastFocus.focus) lastFocus.focus(); });
+dlg.addEventListener("close",function(){ activeLive=null; if(lastFocus&&lastFocus.focus) lastFocus.focus(); });
 /* click מגרירה מקבל כ-target את האב המשותף של down ו-up. גרירת
    בחירת-טקסט שמתחילה בכותרת ומסתיימת מחוץ ל-sheet נתנה target===dlg
    וסגרה את החלון באמצע העתקת השם — בדיוק ה-flow שהכותרת משרתת. */
@@ -1003,6 +1145,15 @@ function setDocTitle(screen){
    ולא נכפה על מי שגולש במחשב. */
 var MOBILE_Q=window.matchMedia("(max-width:900px)");
 var lmap=null, lmarkers={}, sheetY=null;
+var lastSnapSaid=null;
+/* SNAP[2] נגזר מגובה הניווט התחתון ולא מקובע ל-0.86: הגיליון הוא
+   92vh מעוגן לתחתית, ולכן הידית נוחתת ב-(0.08+snap)*vh, ו-0.86 הציב
+   אותה בדיוק מאחורי הניווט. */
+function snapHidden(){
+  var nav=document.querySelector(".botnav");
+  var navh=nav?nav.getBoundingClientRect().height:64;
+  return Math.min(0.9,Math.max(0.5,(window.innerHeight-navh-34)/window.innerHeight-0.08));
+}
 var SNAP=[0.08,0.55,0.86];   /* חלקי גובה החלון: מלא, חצי, ידית */
 
 function isMobileMap(){return MOBILE_Q.matches;}
@@ -1015,14 +1166,27 @@ function exitMapMode(){
   document.body.classList.remove("mob-map");
 }
 
+/* screenMobileMap קורא לזה פעמיים באותה ריצה, ושתי הקריאות רואות
+   window.L ריק — כלומר **שני עותקי Leaflet** נטענו. המפה נוצרה בעותק
+   אחד ו-L.latLngBounds הגיע מהשני, ואז instanceof LatLngBounds נכשל,
+   Leaflet עטף את האובייקט מחדש כזוג פינות, והגבולות יצאו לא תקפים.
+   מכאן ה-"Bounds are not valid" שקרה לסירוגין והשאיר את המפה
+   במסגור ההתחלתי. תור קריאות חוזרות על טעינה אחת מונע את זה. */
+var leafletWaiters=null;
 function ensureLeaflet(cb){
   if(window.L) return cb();
+  if(leafletWaiters){ leafletWaiters.push(cb); return; }
+  leafletWaiters=[cb];
+  function flush(err){
+    var q=leafletWaiters; leafletWaiters=null;
+    q.forEach(function(f){ f(err); });
+  }
   var s=document.createElement("script");
   s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
   /* onload מעביר Event כארגומנט ראשון. להעביר את cb ישירות פירושו
      שהקריאה נראית כמו cb(event), והקוד שבודק err חושב שנכשלנו. */
-  s.onload=function(){cb();};
-  s.onerror=function(){cb(new Error("leaflet failed"));};
+  s.onload=function(){flush();};
+  s.onerror=function(){flush(new Error("leaflet failed"));};
   document.head.appendChild(s);
 }
 
@@ -1033,31 +1197,130 @@ function buildMap(){
     document.querySelector(".wrap").appendChild(pane);
   }
   /* הגיליון מתחיל מתחת לסרגל העליון, אז המפה חייבת לדעת את גובהו */
-  var tb=document.querySelector(".topbar");
-  document.documentElement.style.setProperty("--map-top",(tb?tb.offsetHeight:0)+"px");
+  syncMapTop();
   if(lmap){ lmap.invalidateSize(); return; }
 
-  lmap=L.map(pane,{zoomControl:false,attributionControl:true})
-        .setView([16.3,107.2],5);
+  /* אנימציות Leaflet מונעות מ-JS ולכן כלל ה-reduced-motion ב-CSS לא
+     נוגע בהן. במכונה הזו אפקטי האנימציה כבויים ממילא. */
+  var RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  lmap=L.map(pane,{zoomControl:false,attributionControl:false,
+    zoomAnimation:!RM,fadeAnimation:!RM,markerZoomAnimation:!RM})
+    /* view התחלתי הכרחי: Leaflet מסרב להוסיף שכבה למפה שאין לה מרכז
+       וזום, וכשהסרתי אותו לטובת fitBounds בלבד הוספת האריחים והסמנים
+       נפלה מיד — מפה ריקה עם פאנלים ובלי שום שכבה. frameMap מעדן
+       אותו מיד אחר כך לפי הנתונים. */
+    .setView([16.3,107.2],5);
   L.control.zoom({position:"topleft"}).addTo(lmap);
   /* אריחי OSM הרשמיים: חינמיים, בלי מפתח וללא חותמת.
      CartoDB עברו לדרוש API key וצובעים את האריחים ב-"API KEY REQUIRED",
      ולכן הם לא שמישים כאן. הייחוס חובה לפי תנאי השימוש. */
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
-    maxZoom:19,
-    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  }).addTo(lmap);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19}).addTo(lmap);
+  /* פקד הייחוס של Leaflet יושב בתחתית המפה — כלומר מתחת לגיליון בכל
+     אחד משלושת המצבים, ותחת inert במצב המלא. הוא ממוקד ובלתי נראה,
+     וגם דרישת הרישוי של OSM לא מתקיימת בפועל. מוצג בגיליון במקום. */
 
   STATIONS.forEach(function(st){
     var html='<span class="map-pin" style="background:'+stColor(st)+'">'+
              String(st.seq).padStart(2,"0")+'</span>';
     var m=L.marker([st.lat,st.lng],{
       icon:L.divIcon({html:html,className:"",iconSize:[26,26],iconAnchor:[13,13]}),
-      keyboard:true,
-      title:stName(st)+", "+total(st)+" "+t("places")
+      keyboard:true
+      /* בלי title: הוא ו-aria-label זהים, וקורא מסך מקריא name ואז
+         description — כלומר את אותו משפט פעמיים. */
     }).addTo(lmap);
     m.on("click",function(){ location.hash="#s/"+st.id; });
+    /* keyboard:true נותן tabindex ו-title, אבל הצומת נשאר <div> —
+       קורא מסך מקריא את הטקסט ולא מכריז תפקיד, והסמנים אינם מופיעים
+       ברשימת הכפתורים. */
+    var e=m.getElement();
+    if(e){
+      e.setAttribute("role","button");
+      e.setAttribute("aria-label",stName(st)+", "+total(st)+" "+t("places"));
+      /* Leaflet מפעיל click על Enter בלבד; מי ששומע "לחצן" מצפה לרווח. */
+      e.addEventListener("keydown",function(ev){
+        if(ev.key===" "||ev.key==="Spacebar"){ ev.preventDefault(); location.hash="#s/"+st.id; }
+      });
+      /* 2.4.11: סמן שנדחק מתחת לגיליון בזמן שהוא מקבל פוקוס מוחזר
+         לרצועה הנראית, במקום לחסום אותו מראש. */
+      e.addEventListener("focus",function(){ revealMarker(st); });
+    }
     lmarkers[st.id]=m;
+  });
+  frameMap();
+}
+
+/* המסגור נגזר מהתחנות עצמן ולא ממספר קבוע.
+   setView([16.3,107.2],5) היה המרכז הנכון בערך, אבל הוא אינו יודע דבר
+   על גודל המכל בפועל — והמפה נבנית לפני שהגיליון תפס את מקומו. התוצאה
+   ב-390×844 הייתה מפה של דרום סין עם הפינים דחוסים בפינה.
+   fitBounds חסין לזה, וגם ימשיך לעבוד אם תתווסף תחנה. */
+/* 2.4.11 בלי להרוג את המפה. הגיליון נגרר לשלושה גבהים, ולכן "מוסתר"
+   אינו מצב בינארי:
+     SNAP[2] ידית בלבד — המפה גלויה, אין הגבלה
+     SNAP[1] ברירת מחדל — 45% מכוסים; סמן שמקבל פוקוס מתחת לגיליון
+             מוחזר לרצועה הנראית במקום להיחסם
+     SNAP[0] מלא      — 92% מכוסים, אין מרחב לתמרן; inert על המפה
+   keyboard:false נשלל: הוא גלובלי וקבוע. */
+/* הגיליון הוא 92vh מעוגן לתחתית, ולכן הראש שלו יושב ב-(0.08+sheetY),
+   לא ב-sheetY. שני החישובים הידניים כאן שגו ב-8vh, והפאן המיותר
+   שנבע מזה הוא מה שהזין את הבאג החד-כיווני. נמדד מה-DOM במקום. */
+function sheetTopPx(){
+  var sh=document.getElementById("mobSheet");
+  if(sh){ var r=sh.getBoundingClientRect(); if(r.height) return Math.round(r.top); }
+  return Math.round(window.innerHeight*(0.08+sheetY));
+}
+function revealMarker(st){
+  if(!lmap||!st||st.lat==null) return;
+  var lim=sheetTopPx()-40;
+  var pt=lmap.latLngToContainerPoint([st.lat,st.lng]);
+  var mapTop=document.getElementById("mapPane").getBoundingClientRect().top;
+  var absY=mapTop+pt.y, top=mapTop+40;
+  /* דו-כיווני. panBy מזיז את כל 14 הסמנים, ולכן תיקון כלפי מטה בלבד
+     דוחף סמנים אחרים מעל הפריים — שם לא היה שום תיקון, והם נחתכו. */
+  if(absY>lim)      lmap.panBy([0,absY-lim+30],{animate:false});
+  else if(absY<top) lmap.panBy([0,absY-top],{animate:false});
+}
+function syncMapInert(){
+  var pane=document.getElementById("mapPane");
+  if(!pane) return;
+  var hide=sheetY<=SNAP[0]+0.001;   /* רק במצב המלא */
+  if(hide){
+    /* CRIT-2: הפעלת inert על מכל שמחזיק את הפוקוס זורקת אותו ל-body.
+       מעבירים אותו מפורשות לידית לפני. */
+    if(pane.contains(document.activeElement)){
+      var gp=document.querySelector(".sheet-grip");
+      if(gp) gp.focus();
+    }
+    pane.setAttribute("inert","");
+  }else{
+    pane.removeAttribute("inert");
+  }
+}
+function frameMap(){
+  if(!lmap) return;
+  /* MIN-5: מיפוי מחדש מזיז סמן ממוקד ועלול להוציא אותו מהאזור הנראה. */
+  var pane=document.getElementById("mapPane");
+  if(pane&&pane.contains(document.activeElement)) return;
+  var pts=STATIONS.filter(function(st){return st.lat!=null;})
+                  .map(function(st){return [st.lat,st.lng];});
+  if(!pts.length) return;
+  requestAnimationFrame(function(){
+  lmap.invalidateSize();
+  /* הגיליון מכסה את תחתית המפה. בלי הריפוד הזה המסגור "נכון" אך חציו
+     יושב מתחת לגיליון, כלומר הפינים הדרומיים אינם נראים. */
+  /* הריפוד חייב להישאר קטן מהמכל. בקריאה הראשונה הגיליון נמדד לפני
+     שה-transform הוחל, ואז sheetPx יוצא כמעט מסך מלא — ריפוד גדול
+     מהמפה נותן גודל שלילי, ו-Leaflet זורק "Bounds are not valid". */
+  var paneH=pane?pane.getBoundingClientRect().height:window.innerHeight;
+  var sheetPx=Math.max(0,window.innerHeight-sheetTopPx());
+  var padB=Math.min(Math.round(paneH*0.55),Math.max(26,sheetPx+18));
+  var bounds=L.latLngBounds(pts);
+  if(!bounds.isValid()||paneH<80) return;
+  lmap.fitBounds(bounds,{
+    paddingTopLeft:[26,26],
+    paddingBottomRight:[26,padB],
+    animate:false
+  });
   });
 }
 
@@ -1065,10 +1328,15 @@ function markMapPin(sel){
   Object.keys(lmarkers).forEach(function(id){
     var e=lmarkers[id].getElement();
     if(!e) return;
+    var on=!!sel && id===sel.id;
     var pin=e.querySelector(".map-pin");
-    if(pin) pin.classList.toggle("is-on",!!sel && id===sel.id);
+    if(pin) pin.classList.toggle("is-on",on);
+    e.setAttribute("aria-current",on?"true":"false");
   });
-  if(sel && lmap) lmap.flyTo([sel.lat,sel.lng],9,{duration:.6});
+  if(sel && lmap){
+    var rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+    lmap.flyTo([sel.lat,sel.lng],9,{duration:rm?0:.6,animate:!rm});
+  }
 }
 
 /* ---- הגיליון ---- */
@@ -1083,9 +1351,20 @@ function setSheet(frac,animate){
      שום מצב. */
   sh.removeAttribute("aria-expanded");
   var gp=sh.querySelector(".sheet-grip");
-  if(gp) gp.setAttribute("aria-expanded",frac<0.4?"true":"false");
+  /* הסף היה 0.4, כלומר ברירת המחדל (0.55) דיווחה "מכווץ" בזמן
+     שהגיליון מציג את רשימת התחנות המלאה. שלושה מצבים, לא שניים. */
+  if(gp) gp.setAttribute("aria-expanded",frac<SNAP[2]-0.01?"true":"false");
+  syncMapInert();
+  /* נגישותם של 14 סמנים מתהפכת יחד עם ה-snap. בלי הכרזה המשתמש
+     לא יודע שזה קרה. */
+  if(animate&&lastSnapSaid!==frac){
+    lastSnapSaid=frac;
+    say(frac<=SNAP[0]+0.001?t("sheetFull"):(frac>=SNAP[2]-0.001?t("sheetHidden"):t("sheetHalf")));
+  }
   if(!animate) requestAnimationFrame(function(){sh.classList.remove("is-dragging");});
 }
+/* מחושב אחרי שהניווט קיים, ומתעדכן עם המכשיר. */
+function refreshSnaps(){ SNAP[2]=snapHidden(); }
 function nearestSnap(frac){
   return SNAP.reduce(function(a,b){return Math.abs(b-frac)<Math.abs(a-frac)?b:a;});
 }
@@ -1132,6 +1411,8 @@ function screenSplit(sel){
   var wrap=main.querySelector(".split");
   if(!wrap){
     main.textContent="";
+    /* h1 קבוע למסך. קודם לא היה כאן אף h1 בדסקטופ, והמבנה התחיל ב-h2. */
+    main.appendChild(el("h1","sr",t("navStations")));
     /* בלי כותרת סמויה כאן. היא נשאה screenHeading, ישבה ראשונה ב-DOM,
        ולכן getElementById החזיר אותה במקום שם התחנה — כל מעבר תחנה
        הכריז "תחנות" והפוקוס נעלם לתוך אלמנט בגודל פיקסל. */
@@ -1140,6 +1421,10 @@ function screenSplit(sel){
     var d=el("div","detail"); d.id="detailPane";
     wrap.appendChild(d);
     main.appendChild(wrap);
+  }
+  if(!sel){
+    var sh1=main.querySelector("h1");
+    if(sh1) claimScreenHeading(sh1);
   }
   wrap.classList.toggle("has-detail",!!sel);
   syncRail(sel);
@@ -1171,13 +1456,24 @@ function screenMobileMap(sel){
     sh.appendChild(gh);
     var body=el("div","sheet-body"); body.id="sheetBody";
     sh.appendChild(body);
-    document.querySelector(".wrap").appendChild(sh);
+    /* לפני המפה: אחרת משתמש מקלדת עובר את כפתורי הזום ו-14 סמנים —
+       שכל אחד מהם מפעיל panBy — לפני שהוא מגיע לתוכן העיקרי. */
+    var wrapEl=document.querySelector(".wrap"), mp=document.getElementById("mapPane");
+    if(mp) wrapEl.insertBefore(sh,mp); else wrapEl.appendChild(sh);
     wireSheetDrag(sh,grip);
+    refreshSnaps();
     setSheet(SNAP[1],false);
     ensureLeaflet(function(err){ if(!err) buildMap(); });
   }
   var body=document.getElementById("sheetBody");
   body.textContent="";
+  if(!sel){
+    /* renderStationDetail תובע את המזהה ל-h2 של התחנה ולא מחזיר אותו.
+       בלי זה חזרה לרשימה מחפשת screenHeading, לא מוצאת, והפוקוס נופל
+       ל-main — שכמעט ריק, כי התוכן יושב בגיליון. */
+    var mh=main.querySelector("h1");
+    if(mh) claimScreenHeading(mh);
+  }
   if(sel){
     renderStationDetail(sel,body);
     setDocTitle(stName(sel));
@@ -1479,6 +1775,16 @@ function buildRail(){
     list.appendChild(g);
   });
   rail.appendChild(list);
+  /* ייחוס OSM. פקד הייחוס של Leaflet הוסר כי הוא היה מוסתר בכל מצב
+     של הגיליון; תנאי השימוש דורשים שהוא יופיע. */
+  var attr=el("p","map-attr");
+  var al=el("a",null,"OpenStreetMap");
+  al.href="https://www.openstreetmap.org/copyright";
+  al.target="_blank"; al.rel="noopener noreferrer";
+  attr.appendChild(document.createTextNode("© "));
+  attr.appendChild(al);
+  attr.appendChild(el("span","sr",t("newTab")));
+  rail.appendChild(attr);
   return rail;
 }
 
@@ -1594,9 +1900,11 @@ function renderStationDetail(st,pane){
   pane.appendChild(weatherStrip(st));
 
   var qb=el("div","quickbar");
-  qb.appendChild(qbtn("act-map is-primary","pin",t("areaMap"),"https://www.google.com/maps/search/?api=1&query="+st.lat+","+st.lng));
-  qb.appendChild(qbtn("act-ride","car",t("ride"),"https://www.google.com/maps/dir/?api=1&destination="+st.lat+","+st.lng+"&travelmode=driving"));
-  qb.appendChild(qbtn("act-video","play",t("videos"),"https://www.youtube.com/results?search_query="+encodeURIComponent(st.name+" Vietnam travel")));
+  qb.appendChild(qbtn("act-map is-primary map-link","pin",t("areaMap"),"https://www.google.com/maps/search/?api=1&query="+st.lat+","+st.lng));
+  /* ירוק+מכונית = Grab לפי התקן, אבל היעד כאן הוא Google Maps — אותו
+     סימון, יעד אחר, באותו מסך שבו הכרטיס כבר פותח grab://. */
+  qb.appendChild(qbtn("act-map map-link","pin",t("directions"),"https://www.google.com/maps/dir/?api=1&destination="+st.lat+","+st.lng+"&travelmode=driving"));
+  qb.appendChild(qbtn("act-video yt-link","play",t("videos"),"https://www.youtube.com/results?search_query="+encodeURIComponent(st.name+" Vietnam travel")));
   pane.appendChild(qb);
 
   var filled=CATS.filter(function(c){return (st.poi[c.id]||[]).length;});
@@ -1709,6 +2017,7 @@ function screenCategory(cat){
   h.appendChild(el("span","cnt",items.length+" "+t("inWholeTrip")));
   main.appendChild(h);
   main.appendChild(cardsByStation(items));
+  setDocTitle(catName(c));
   say(catName(c)+", "+items.length);
 }
 
@@ -1717,7 +2026,8 @@ function cardsByStation(items){
   items.forEach(function(x){(byId[x.station.id]=byId[x.station.id]||[]).push(x);});
   STATIONS.forEach(function(st){
     var g=byId[st.id]; if(!g) return;
-    var h=el("h3","sec-head"); h.style.fontSize=".96rem";
+    /* מתחת ל-h1 של המסך, בלי לדלג על רמה. */
+    var h=el("h2","sec-head"); h.style.fontSize=".96rem";
     var d=el("span","dotc"); d.style.setProperty("--stationcolor",stColor(st));
     h.appendChild(d);
     h.appendChild(document.createTextNode(stName(st)));
@@ -1823,6 +2133,7 @@ function screenSearch(){
   var b=document.createElement("bdi"); b.textContent="“"+query+"”";
   h.appendChild(b);
   main.appendChild(h);
+  setDocTitle(hits.length+" "+t("results"));
   say(hits.length+" "+t("results"));
   if(!hits.length){
     var d=el("div","empty");
@@ -2155,13 +2466,21 @@ window.addEventListener("scroll",function(){
    לא-חוקי, נפל ל-auto, ו-position:sticky לא עשה כלום — הרשימה שאמורה
    להישאר בצד פשוט נגללה החוצה. נמדד ולא מנוחש, כי גובה הכרום משתנה
    עם עטיפת שורות וגם בין נייד לדסקטופ. */
+/* גובה הסרגל משתנה עם השפה ועם עטיפת שורות. כשהוא גדל ו---map-top
+   נשאר, הסרגל מכסה את ראש המפה — כולל כפתורי הזום, שממוקדים. */
+function syncMapTop(){
+  var tb=document.querySelector(".topbar");
+  document.documentElement.style.setProperty("--map-top",(tb?Math.round(tb.getBoundingClientRect().height):0)+"px");
+}
 function syncStickyTop(){
   var h=Math.round(topbar.getBoundingClientRect().height);
   var root=document.documentElement.style;
   root.setProperty("--sticky-top",h+"px");
+  syncMapTop();
   root.setProperty("scroll-padding-top",(h+16)+"px");
 }
 window.addEventListener("resize",syncStickyTop);
+window.addEventListener("resize",function(){ refreshSnaps(); if(lmap) frameMap(); });
 window.addEventListener("load",syncStickyTop);
 syncStickyTop();
 
