@@ -1,4 +1,28 @@
 <title>ויאטנם במבט אחד</title>
+<script id="splashgate">
+/* שער הספלאש — מחליט לפני הצביעה הראשונה. מוצג רק כשאין העדפת
+   reduced-motion וכשלא הוצג בסשן הזה. ?splash=0 מכבה, =1 מתעלם
+   מהסשן, =force לבדיקה.
+   force **מכבד** את reduced-motion: בלעדיו נשארה שכבה חוסמת סטטית. */
+(function(){
+  var p=new URLSearchParams(location.search), q=p.get("splash");
+  var rm=false; try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+  var seen=false; try{seen=sessionStorage.getItem("vnSplashSeen")==="1";}catch(e){}
+  var show = q==="0" ? false : (rm ? false : (q==="force"||q==="1" ? true : !seen));
+  if(show){
+    document.documentElement.classList.add("splash-on");
+    try{sessionStorage.setItem("vnSplashSeen","1");}catch(e){}
+    /* רשת ביטחון בלתי-תלויה: אם סקריפט הספלאש לא יגיע — והמדריך
+       הוא פלט בנייה, כלומר הסקריפטים מופרדים מה-markup — המחלקה
+       הייתה נשארת ו-overflow:hidden היה נועל את הדף לצמיתות. */
+    setTimeout(function(){
+      document.documentElement.classList.remove("splash-on");
+      var w=document.querySelector(".wrap"); if(w) w.removeAttribute("inert");
+    },6000);
+  }
+})();
+</script>
+
 <script>
 document.documentElement.setAttribute("dir","rtl");
 try{
@@ -9,15 +33,12 @@ try{
 }catch(e){document.documentElement.setAttribute("lang","he");}
 </script>
 <link rel="preload" href="assets/fonts/Assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/FrankRuhlLibre-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 /* פונטים מוטמעים מקומית ולא מ-Google Fonts. עבודה אופליין היא דרישת ליבה
    והסיבה שהריפו הופרד; פונט שנטען מהרשת היה נעלם בדיוק בהרים שבהם אין
    קליטה. שני קבצים משתנים לכל משפחה (עברית ולטינית) — 90KB בסך הכול,
    כי Google מגישה variable fonts וכל המשקלים יושבים באותו קובץ. */
-@font-face{font-family:"Frank Ruhl Libre";font-style:normal;font-weight:500 900;font-display:swap;src:url("assets/fonts/FrankRuhlLibre-hebrew.woff2") format("woff2");unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
-@font-face{font-family:"Frank Ruhl Libre";font-style:normal;font-weight:500 900;font-display:swap;src:url("assets/fonts/FrankRuhlLibre-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Assistant";font-style:normal;font-weight:400 700;font-display:swap;src:url("assets/fonts/Assistant-hebrew.woff2") format("woff2");unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
 @font-face{font-family:"Assistant";font-style:normal;font-weight:400 700;font-display:swap;src:url("assets/fonts/Assistant-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 </style>
@@ -28,87 +49,112 @@ try{
    ========================================================== */
 :root{
   scroll-padding-top:150px;scroll-padding-bottom:calc(var(--navh) + 14px);
-  /* כיוון D (פאזה 3): נייר אורז ואדום לכה. בהיר הוא ברירת המחדל ולא
-     מוסכמה — רקע כהה בשמש חזקה מאבד ניגודיות מול האור הסביבתי, וזה
-     תנאי השימוש המרכזי: אייפון ביד אחת בוויאטנם בנובמבר. */
-  --bg:#fbf7f0;
+  /* פאזה 6: שפת האתר הראשי (VIETNAM/index.html:29). לא כיוון חדש אלא
+     מערכת קיימת ומוכחת — סגול מלכותי, לבנדר בהיר, כרטיסים לבנים.
+     הסיבה: כיוון D הוכרע על מוקאפ ונסחף פעמיים במימוש; אתר חי אפשר
+     למדוד ממנו במקום לפרש אותו. */
+  --bg:#f3f0f8;
   --surface:#ffffff;
-  --surface-2:#f3ece0;
-  --ink:#191512;
-  --ink-2:#574d43;
-  --ink-3:#6f6558;   /* bg 5.35 · surface 5.71 · surface-2 4.86 */
-  --line:rgba(25,21,18,.14);
+  --surface-2:#ece7f4;
+  --ink:#111827;
+  --ink-2:#374151;
+  /* --muted של המקור (#6b7280) נותן 4.83 על לבן אבל רק **4.29** על
+     הלבנדר — ושם יושבות כל תוויות המקטע. שני טוקנים, לא אחד. */
+  --ink-3:#4b5563;           /* על --bg: 6.71 */
+  --ink-3-card:#6b7280;      /* על --surface: 4.83 */
+  --line:rgba(17,24,39,.12);
   /* גבול פקדים. חייב להיות מוגדר בכל שלושת מצבי הצבע: משתנה חסר הופך
-     את border:1px solid var(--x) ללא-חוקי, והקיצור כולו נופל ל-border-style:none.
-     .48 עובר 3:1 גם מול --surface וגם מול --bg. */
-  --line-ctl:rgba(25,21,18,.52);   /* .48 נתן 3.03 מול --bg — מרווח 0.03 */
-  --line-soft:rgba(25,21,18,.07);
-  /* האדום הוא צבע ההטעמה: המרחק, המצב הפעיל, ההדגשה. ירוק המותג
-     הקודם נשאר כ---jade לתגיות מחיר, שם הוא נושא משמעות ולא זהות. */
-  --brand:#a8231f;
+     את border:1px solid var(--x) ללא-חוקי, והקיצור כולו נופל ל-border-style:none. */
+  --line-ctl:rgba(17,24,39,.42);
+  --line-soft:#e8e3f0;
+  /* הסגול ממלא שני תפקידים מנוגדים — טקסט ומילוי — והם מתהפכים
+     בכיוונים שונים במצב כהה. טוקן אחד לא יכול לעשות את שניהם; זה
+     בדיוק הבאג שתועד כאן על --c-map. */
+  --primary-ink:#42276f;     /* טקסט/מספרים · על --bg: 10.64 */
+  --primary-fill:#42276f;    /* מילוי · לבן מעליו: 11.99 */
+  --primary-on:#ffffff;
+  --primary-2:#6c479c;       /* הקצה הבהיר של הגרדיאנט */
+  --brand:#42276f;
   --brand-ink:#ffffff;
-  --brand-soft:#f7e7e4;
-  --jade:#1f6b52;
-  --gold:#8a6412;
-  --rose:#a13924;
-  /* ערכי תקן הקישורים של הפרויקט. היו כאן ערכים שכנים ולא זהים,
-     וזו הייתה סטייה שקטה מהתקן — תכלת Maps, ירוק Grab, סגול WhatsApp,
-     אדום וידאו, כחול-כהה Booking. */
+  --brand-soft:#ece7f4;
+  /* זהב: 7.39 על הקצה הכהה, אך רק 4.29 על הבהיר — כלומר תקף שם
+     ורק ב-bold מעל 18.66px. לא להשתמש בו בטיפוגרפיה קטנה. */
+  --gold:#f5c542;
+  --on-header:#ffffff;
+  --on-header-2:#e2dbec;     /* אטום במקום opacity:.7 — 5.6 על הבהיר */
+  --jade:#0f7c5c;  --jade-on:#ffffff;
+  --rose:#991b1b;
+  /* ערכי תקן הקישורים של הפרויקט — אינם משתנים. הסגול המותגי חי
+     בכרום בלבד ולעולם לא על כפתור פעולה, ולכן אין התנגשות בהקשר. */
   --c-map:#0369a1;   --c-map-soft:rgba(3,105,161,.10);
-  /* מילוי וטקסט נפרדים לכפתור הראשי. #fff קשיח מעל --c-map נתן 4.09
-     בבהיר ו-1.88 בכהה, כי --c-map מתהפך לתכלת בהיר. */
   --c-map-fill:#0369a1; --c-map-on:#ffffff;
   --c-ride:#0f7c5c;  --c-ride-soft:rgba(15,124,92,.10);
   --c-chat:#6d28d9;  --c-chat-soft:rgba(109,40,217,.10);
   --c-video:#cc0000; --c-video-soft:rgba(204,0,0,.10);
   --c-book:#1e3a5f;  --c-book-soft:rgba(30,58,95,.10);
-  --shadow:0 1px 2px rgba(25,21,18,.05);
-  --shadow-lg:0 10px 34px rgba(25,21,18,.14);
+  --card-edge:var(--line-soft);
+  --shadow:0 2px 10px rgba(66,39,111,.10);
+  --shadow-lg:0 10px 30px rgba(66,39,111,.20);
   --r:12px;
   --r-sm:10px;
-  --r-xs:7px;
-  /* קול תצוגה נפרד. סריף עברי-לטיני בניגודיות גבוהה — הוא נושא
-     את שמות התחנות מעל התצלומים, ואין לו תפקיד אחר בדף. */
-  --f-display:"Frank Ruhl Libre",Georgia,serif;
-  --f-ui:"Assistant","Segoe UI",sans-serif;
-  --f-body:"Assistant","Segoe UI",sans-serif;
+  --r-xs:8px;
+  /* מחסנית המערכת כמו באתר הראשי. באייפון זה SF Hebrew — מצוין לעברית
+     ועולה אפס. Assistant המוטמע נשאר אחריה כרשת ביטחון אופליין למי
+     שאינו אפל. Frank Ruhl Libre ירד. */
+  --f-display:-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
+  --f-ui:-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
   --gutter:clamp(15px,4vw,28px);
   --navh:0px;
   --sticky-top:0px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0d0f12;--surface:#151920;--surface-2:#1e242d;
-    --ink:#f2efe9;--ink-2:#a9a096;--ink-3:#968c7f;
-    --line:rgba(242,239,233,.16);--line-soft:rgba(242,239,233,.08);--line-ctl:rgba(242,239,233,.46);
-    --brand:#ff6b4a;--brand-ink:#26100a;--brand-soft:#33180f;--jade:#3ddba0;
-    --gold:#d9b463;--rose:#e0806c;
-    --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
-    --c-map-fill:#7cc4ff; --c-map-on:#06121c;
-    --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
-    --c-chat:#a78bfa;  --c-chat-soft:rgba(167,139,250,.14);
-    --c-video:#ff8a7a; --c-video-soft:rgba(255,138,122,.14);
-    --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
-    --shadow:0 1px 2px rgba(0,0,0,.4);
-    --shadow-lg:0 12px 40px rgba(0,0,0,.55);
+  --bg:#14101c;--surface:#1d1828;--surface-2:#272036;
+  --ink:#f2effa;--ink-2:#cdc4de;--ink-3:#a79fb8;--ink-3-card:#a79fb8;
+  --line:rgba(242,239,250,.14);--line-soft:rgba(242,239,250,.10);--line-ctl:rgba(242,239,250,.46);
+  /* הכותרת הסגולה היא הזהות ולכן אינה מתהפכת: הלבן עליה כבר נותן
+     11.99 בקצה הכהה ו-6.95 בבהיר. רק הטקסט הסגול על הרקע מתבהר. */
+  --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
+  --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
+  --gold:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
+  --jade:#3ddba0;  --jade-on:#06251a;  --rose:#e0806c;
+  --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
+  --c-map-fill:#7cc4ff; --c-map-on:#06121c;
+  --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
+  --c-chat:#a78bfa;  --c-chat-soft:rgba(167,139,250,.14);
+  --c-video:#ff8a7a; --c-video-soft:rgba(255,138,122,.14);
+  --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
+  /* צל שחור על רקע כהה בלתי נראה, והצל הוא הגבול היחיד של כרטיס —
+     בלי קצה מפורש כל הפריסה מתמוטטת לגוש אחיד. */
+  --card-edge:rgba(242,239,250,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.45);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0d0f12;--surface:#151920;--surface-2:#1e242d;
-  --ink:#f2efe9;--ink-2:#a9a096;--ink-3:#968c7f;
-  --line:rgba(242,239,233,.16);--line-soft:rgba(242,239,233,.08);--line-ctl:rgba(242,239,233,.46);
-  --brand:#ff6b4a;--brand-ink:#26100a;--brand-soft:#33180f;--jade:#3ddba0;
-  --gold:#d9b463;--rose:#e0806c;
-    --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
-    --c-map-fill:#7cc4ff; --c-map-on:#06121c;
-    --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
-    --c-chat:#a78bfa;  --c-chat-soft:rgba(167,139,250,.14);
-    --c-video:#ff8a7a; --c-video-soft:rgba(255,138,122,.14);
-    --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
-  --shadow:0 1px 2px rgba(0,0,0,.4);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.55);
+  --bg:#14101c;--surface:#1d1828;--surface-2:#272036;
+  --ink:#f2effa;--ink-2:#cdc4de;--ink-3:#a79fb8;--ink-3-card:#a79fb8;
+  --line:rgba(242,239,250,.14);--line-soft:rgba(242,239,250,.10);--line-ctl:rgba(242,239,250,.46);
+  /* הכותרת הסגולה היא הזהות ולכן אינה מתהפכת: הלבן עליה כבר נותן
+     11.99 בקצה הכהה ו-6.95 בבהיר. רק הטקסט הסגול על הרקע מתבהר. */
+  --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
+  --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
+  --gold:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
+  --jade:#3ddba0;  --jade-on:#06251a;  --rose:#e0806c;
+  --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
+  --c-map-fill:#7cc4ff; --c-map-on:#06121c;
+  --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
+  --c-chat:#a78bfa;  --c-chat-soft:rgba(167,139,250,.14);
+  --c-video:#ff8a7a; --c-video-soft:rgba(255,138,122,.14);
+  --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
+  /* צל שחור על רקע כהה בלתי נראה, והצל הוא הגבול היחיד של כרטיס —
+     בלי קצה מפורש כל הפריסה מתמוטטת לגוש אחיד. */
+  --card-edge:rgba(242,239,250,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.45);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.6);
 }
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--gold:#d9b463}}
+
 
 *{box-sizing:border-box}
 body{
@@ -132,10 +178,19 @@ svg.ic-lg{width:21px;height:21px}
 .topbar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid transparent;transition:border-color .2s}
 .topbar.is-stuck{border-bottom-color:var(--line)}
 .tb-row{max-width:1140px;margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.tb-row.r1{padding-top:13px;padding-bottom:9px}
-.brand{font-family:var(--f-ui);font-weight:600;font-size:1.05rem;display:flex;align-items:center;gap:8px;letter-spacing:-.01em}
-.brand .bar{width:3px;height:17px;background:var(--brand);border-radius:2px;flex:none}
-.brand span{font-weight:400;color:var(--ink-3);font-size:.84rem}
+/* הכותרת הסגולה של האתר הראשי. היא הזהות, ולכן אינה מתהפכת במצב
+   כהה — רק מה שסביבה. */
+.tb-row.r1{padding-top:13px;padding-bottom:14px;background:linear-gradient(135deg,var(--primary-fill),var(--primary-2));
+  color:var(--on-header);max-width:none}
+.r1-in{max-width:1140px;margin:0 auto;width:100%;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-ui);font-weight:800;font-size:1.08rem;display:flex;align-items:center;gap:8px;letter-spacing:-.01em}
+/* הזהב תקף רק כאן: 7.39 על הקצה הכהה, אך 4.29 על הבהיר — כלומר
+   הוא עובר רק כטקסט גדול ומודגש. לא להשתמש בו בטיפוגרפיה קטנה. */
+.brand span{font-weight:800;color:var(--gold);font-size:1.08rem}
+.brand .bar{display:none}
+/* ספירה לאחור. המספר לבדו קורא "34"; המשפט המלא יושב ב-sr. */
+.countdown{width:100%;margin:10px 0 0;display:flex;align-items:baseline;gap:9px;font-size:.84rem;color:var(--on-header-2)}
+.countdown b{font-size:2rem;font-weight:800;line-height:1;color:var(--gold);font-variant-numeric:tabular-nums}
 .tb-tools{display:flex;gap:7px;align-items:center;margin-inline-start:auto;flex-wrap:wrap}
 
 /* מקטע מחליף — שפה ומטבע */
@@ -151,6 +206,20 @@ svg.ic-lg{width:21px;height:21px}
   display:inline-flex;align-items:center;justify-content:center;width:33px;height:33px;
   border:1px solid var(--line-ctl);border-radius:var(--r-xs);color:var(--ink-2);background:var(--surface);
   transition:background .13s,color .13s;
+}
+/* פקדים שיושבים על הכותרת הסגולה */
+.tb-row.r1 .iconbtn{border-color:rgba(255,255,255,.45);color:#fff;background:transparent;border-radius:999px}
+.tb-row.r1 .seg{border-color:rgba(255,255,255,.45);background:transparent;border-radius:999px;overflow:hidden}
+.tb-row.r1 .seg button{color:#fff;border-inline-start-color:rgba(255,255,255,.3)}
+.tb-row.r1 .seg button[aria-pressed="true"]{background:#fff;color:var(--primary-fill)}
+.tb-row.r1 .seg button:hover:not([aria-pressed="true"]){background:rgba(255,255,255,.14);color:#fff}
+/* טבעת פוקוס על רקע סגול או על תצלום: טבעת בודדת בצבע המותג נעלמת.
+   הדפוס הכפול כבר הוכח כאן על .hero-name — מרחיבים את תחולתו. */
+.tb-row.r1 :focus-visible,.tile:focus-visible{
+  outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px rgba(0,0,0,.85);border-radius:8px
+}
+#splash .sp-skip:focus-visible{
+  outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px rgba(0,0,0,.85);border-radius:999px
 }
 .iconbtn:hover{background:var(--surface-2);color:var(--ink)}
 
@@ -182,7 +251,8 @@ svg.ic-lg{width:21px;height:21px}
 .tb-row.r2{padding-top:10px;padding-bottom:10px;gap:10px}
 .searchbox{
   flex:1 1 260px;display:flex;align-items:center;gap:10px;background:var(--surface);
-  border:1px solid var(--line-ctl);border-radius:var(--r-sm);padding:9px 14px;transition:border-color .13s;
+  border:1px solid var(--line-soft);border-radius:999px;padding:11px 16px;
+  box-shadow:var(--shadow);transition:border-color .13s;
 }
 .searchbox:focus-within{border-color:var(--brand)}
 .searchbox input{flex:1;min-width:0;border:none;background:none;font:inherit;color:var(--ink);padding:0}
@@ -372,8 +442,8 @@ main:focus,main:focus-visible{outline:none}
   body.mob-map .rail-list{overflow:visible;max-height:none}
   body.mob-map .topbar{position:relative;z-index:40;background:var(--bg)}
   .map-pin{
-    display:grid;place-items:center;width:26px;height:26px;border-radius:50%;
-    color:#fff;font-family:var(--f-ui);font-weight:600;font-size:.68rem;
+    display:grid;place-items:center;min-width:26px;min-height:26px;border-radius:50%;
+    font-family:var(--f-ui);font-weight:600;font-size:.68rem;
     border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);
     font-variant-numeric:tabular-nums;
   }
@@ -649,6 +719,64 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
   line-height:1.25;overflow-wrap:anywhere}
 .near-sub{font-size:.76rem;color:var(--ink-3);margin-top:2px}
 
+/* ---------- מסך הפתיחה: ריבועי מידע וקבוצות אזור ---------- */
+/* תווית מקטע היא כותרת אמיתית: היא מתייגת את הקבוצה שאחריה.
+   בלי uppercase — הוא חסר משמעות בעברית, ו-VoiceOver מאיית בגללו
+   מחרוזות לטיניות קצרות אות-אות. letter-spacing ביחידות יחסיות
+   ומתחת ל-0.12em, כדי ש-1.4.12 Text Spacing לא ייגזר. */
+.sec-label{
+  display:flex;align-items:center;gap:10px;margin:24px 0 10px;
+  font-family:var(--f-ui);font-size:.78rem;font-weight:800;letter-spacing:.06em;
+  color:var(--ink-3);
+}
+.sec-label .ln{flex:1;height:1px;background:var(--line-soft)}
+.sec-label .cnt{font-weight:700;color:var(--primary-ink);background:var(--surface);
+  border:1px solid var(--line-soft);border-radius:999px;padding:2px 9px;white-space:nowrap;font-size:.72rem}
+
+/* בלי display:contents: ה-<li> עצמו הוא הכרטיס. WebKit אינו חושף
+   אלמנטים כאלה באופן אמין, וזה מכשיר היעד.
+   auto-fill במקום שתי עמודות קשיחות — ב-320px שתי עמודות נותנות
+   139px לכרטיס, ושערי המטבע נגלשים. */
+.infogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;list-style:none;margin:0;padding:0}
+li.icard{list-style:none}
+.icard{background:var(--surface);border:1px solid var(--card-edge);border-radius:var(--r);
+  box-shadow:var(--shadow);padding:13px 14px 14px;display:flex;flex-direction:column;min-height:104px}
+.icard.wide{grid-column:1 / -1;min-height:0}
+.icard .k{font-family:var(--f-ui);font-size:.7rem;font-weight:700;letter-spacing:.05em;color:var(--ink-3-card)}
+.icard .v{font-size:1.5rem;font-weight:800;color:var(--primary-ink);line-height:1.12;margin-top:5px;
+  font-variant-numeric:tabular-nums}
+.icard .t{margin-top:auto;padding-top:6px;font-size:.76rem;color:var(--ink-3-card);line-height:1.38}
+.icard .t .en{display:block;width:fit-content}
+.fxrow{display:flex;gap:18px;flex-wrap:wrap;margin-top:4px}
+.fxrow bdi{direction:ltr;unicode-bidi:isolate;font-size:1.02rem;font-weight:800;
+  color:var(--primary-ink);font-variant-numeric:tabular-nums}
+
+/* ריבוע תחנה. הטקסט **מחוץ** לתצלום, על כרטיס אטום: טקסט לבן מעל
+   14 תצלומים שונים אינו ניתן להבטחה ל-4.5:1, ושכבת הצללה שמבטיחה
+   אותו דורשת 54% אטימות שמכבה את התצלום ממילא. ההוצאה פותרת גם את
+   טבעת הפוקוס, גם גזירה בזום 200%, וגם מצב ניגודיות גבוהה. */
+.tilegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.tile{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--card-edge);
+  border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;text-decoration:none;color:inherit;height:100%}
+.tile-ph{position:relative;aspect-ratio:4/3;background:var(--surface-2)}
+.tile-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tile-idx{position:absolute;top:8px;inset-inline-end:8px;min-width:26px;height:26px;padding:0 6px;
+  border-radius:8px;background:var(--surface);color:var(--primary-ink);font-weight:800;font-size:.8rem;
+  display:grid;place-items:center;font-variant-numeric:tabular-nums;box-shadow:var(--shadow)}
+/* הטקסט נגזר מהטוקן ולא מקובע: --jade מתהפך למנטה בהירה במצב כהה,
+   ולבן עליה נותן 1.77. אותו באג שכבר נתפס על .sig-bib. */
+.tile-flag{position:absolute;top:9px;inset-inline-start:8px;font-size:.66rem;font-weight:800;
+  border-radius:7px;padding:3px 8px;color:var(--jade-on);background:var(--jade)}
+.tile-txt{padding:10px 11px 12px;display:flex;flex-direction:column;flex:1}
+.tile-nm{font-family:var(--f-ui);font-size:1.02rem;font-weight:800;line-height:1.16;color:var(--ink)}
+.tile-lat{direction:ltr;unicode-bidi:isolate;display:block;width:fit-content;
+  font-size:.72rem;font-weight:600;color:var(--ink-3-card);margin-top:2px}
+.tile-cnt{margin-top:auto;padding-top:8px;font-size:.74rem;font-weight:700;color:var(--primary-ink)}
+.tile:hover{border-color:var(--primary-2)}
+@media (forced-colors:active){
+  .tile-idx,.tile-flag{border:1px solid CanvasText}
+}
+
 /* ---------- ניווט תחתון ---------- */
 .botnav{display:none}
 @media (max-width:880px){
@@ -694,12 +822,34 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
 }
 </style>
+<style>
+html.splash-on,html.splash-on body{overflow:hidden}
+#splash{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;overflow:hidden;opacity:1;transition:opacity .5s ease}
+html.splash-on #splash{display:flex}
+#splash.sp-hide{opacity:0;pointer-events:none}
+#splash .sp-bg{display:none}/* transparent: page shows through behind the animation */
+#splash .sp-stage{position:relative;width:min(90vw,440px);aspect-ratio:3/4}
+#splash svg{width:100%;height:100%;display:block;overflow:visible}
+#splash .sp-title{position:absolute;left:50%;bottom:8%;transform:translate(-50%,12px);text-align:center;padding:8px 18px;border-radius:14px;background:rgba(8,24,40,.62);color:#fff;font-weight:900;font-size:1.5rem;letter-spacing:.5px;opacity:0}
+#splash .sp-title small{display:block;font-size:.66rem;font-weight:700;letter-spacing:3px;opacity:.95}
+#splash .sp-skip{z-index:2;position:absolute;top:14px;inset-inline-end:14px;min-width:44px;min-height:44px;padding:8px 16px;border:0;border-radius:999px;background:rgba(8,24,40,.62);color:#fff;font-weight:700;font-size:.9rem;cursor:pointer}
+.sp-piece{opacity:0;animation:sp-assemble .7s cubic-bezier(.18,.85,.25,1.12) both;animation-delay:var(--d,0s)}
+@keyframes sp-assemble{from{opacity:0;transform:translate(var(--fx,0),var(--fy,0)) rotate(var(--fr,0))}35%{opacity:1}to{opacity:1;transform:translate(0,0) rotate(0)}}
+.sp-item{opacity:0;animation:sp-item .7s ease-out both;animation-delay:var(--d,0s)}
+@keyframes sp-item{0%{opacity:0}30%{opacity:1}100%{opacity:1}}
+.sp-outline{fill:none;stroke:rgba(255,255,255,.32);stroke-width:5;opacity:0;animation:sp-fade .6s ease-out var(--od,1.6s) both}
+@keyframes sp-fade{to{opacity:1}}
+.sp-title.sp-show{animation:sp-rise .6s ease-out var(--td,1.8s) both}
+@keyframes sp-rise{to{opacity:1;transform:translate(-50%,0)}}
+@media (prefers-reduced-motion: reduce){.sp-piece,.sp-item,.sp-outline,.sp-title{animation:none!important}}
+</style>
 
 <div class="wrap">
 <a class="skip" href="#main" id="skipLink">דלג לתוכן</a>
 
 <header class="topbar" id="topbar">
   <div class="tb-row r1">
+   <div class="r1-in">
     <div class="brand"><span class="bar"></span><span id="brandName">ויאטנם</span> <span id="brandSub">נובמבר 2026</span></div>
     <div class="tb-tools" id="tbTools">
       <div class="seg" role="group" id="langSeg"></div>
@@ -709,6 +859,8 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
     <!-- בנייד שלושת הפקדים בולעים שורה שלמה. הכפתור פותח אותם בדיאלוג,
          והם עצמם עוברים לשם פיזית — עותק שני היה יוצר מזהים כפולים. -->
     <button class="iconbtn" id="settingsBtn" type="button" aria-haspopup="dialog"></button>
+    <p class="countdown" id="countdown"></p>
+   </div>
   </div>
   <div class="tripbar">
     <div class="tripbar-in" id="tripbar"></div>
@@ -731,6 +883,14 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
 <nav class="botnav" id="botnav" aria-label="ניווט ראשי"></nav>
 </div>
 
+<div id="splash">
+  <div class="sp-bg"></div>
+  <div class="sp-stage" aria-hidden="true">
+    <svg id="sp-svg" aria-hidden="true" focusable="false" viewBox="0 0 1024 1024"></svg>
+    <div class="sp-title" id="sp-title"><span lang="en" dir="ltr">VIETNAM</span><small>ויאטנם 2026</small></div>
+  </div>
+  <button type="button" class="sp-skip" id="sp-skip">דילוג על אנימציית הפתיחה</button>
+</div>
 <dialog id="dlg" aria-labelledby="dlgTitle"></dialog>
 <dialog id="setDlg" aria-labelledby="setDlgTitle">
   <div class="set-hd">
@@ -742,6 +902,128 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
 </dialog>
 <div class="sr" id="live" aria-live="polite" aria-atomic="true"></div>
 
+<script id="splashjs">
+
+(function(){
+  "use strict";
+  if(!document.documentElement.classList.contains("splash-on")) return;
+  var splash=document.getElementById("splash"), svg=document.getElementById("sp-svg");
+  function clearSplash(){
+    document.documentElement.classList.remove("splash-on");
+    var w=document.querySelector(".wrap"); if(w) w.removeAttribute("inert");
+  }
+  if(!splash||!svg){ clearSplash(); return; }
+  var titleEl=document.getElementById("sp-title"), skip=document.getElementById("sp-skip");
+  var he=document.documentElement.lang==="he";
+  if(skip) skip.textContent = he ? "דילוג על אנימציית הפתיחה" : "Skip intro animation";
+
+  var SVGNS="http://www.w3.org/2000/svg", XLINK="http://www.w3.org/1999/xlink";
+  var GROUP_TF="translate(0,1024) scale(0.1,-0.1)", SAT="assets/splash/sat.webp";
+  var ITEMS=["assets/splash/hat.webp","assets/splash/lantern.webp","assets/splash/boat.webp","assets/splash/pho.webp","assets/splash/lotus.webp"];
+  var ROWS=5;
+  var VN_PATH="M4655 10212 c-17 -15 -72 -42 -122 -60 -74 -27 -97 -40 -118 -68 -23 -30 -26 -42 -21 -74 6 -36 3 -41 -29 -66 -23 -17 -35 -35 -35 -50 0 -22 -4 -24 -52 -24 -44 0 -62 -7 -124 -45 -78 -49 -85 -51 -133 -34 -35 12 -38 24 -15 50 18 20 11 39 -13 39 -29 0 -93 -44 -113 -77 -12 -21 -20 -52 -20 -82 0 -69 -10 -74 -89 -45 -44 17 -78 38 -103 64 -47 50 -75 57 -119 31 -19 -12 -41 -21 -50 -21 -18 0 -59 40 -59 58 0 7 -4 12 -9 12 -24 0 -43 -15 -63 -51 -12 -21 -30 -41 -40 -45 -14 -4 -18 -14 -16 -37 3 -30 1 -32 -30 -35 -26 -3 -38 -11 -53 -37 -26 -44 -45 -50 -65 -20 -8 13 -44 42 -80 65 -35 23 -64 46 -64 51 0 5 -10 9 -22 9 -13 0 -52 14 -88 31 -35 17 -66 27 -67 22 -16 -46 -42 -77 -73 -87 -30 -9 -35 -16 -38 -46 -4 -40 -25 -68 -64 -84 l-27 -12 37 -55 c20 -31 102 -124 181 -207 l145 -152 -3 -57 -3 -56 34 21 c29 19 34 27 38 76 3 30 8 58 12 62 11 11 45 -23 52 -52 6 -21 11 -24 29 -18 42 13 52 10 50 -16 -2 -14 -5 -46 -7 -72 -3 -42 -9 -53 -46 -86 -32 -28 -42 -43 -37 -56 5 -12 13 -15 27 -11 40 13 18 -29 -23 -44 -23 -9 -27 -15 -21 -34 9 -29 117 -182 163 -230 51 -55 154 -100 207 -92 37 5 44 2 85 -33 24 -22 58 -46 76 -56 58 -30 102 -14 67 25 -19 21 -19 21 14 38 18 10 21 15 12 26 -10 12 -4 13 37 8 47 -5 51 -4 79 29 16 19 41 43 57 53 24 16 30 16 45 3 9 -8 36 -20 58 -26 33 -10 45 -20 60 -50 20 -43 103 -142 118 -142 6 0 17 -4 24 -8 25 -16 -2 -53 -59 -80 -33 -17 -55 -35 -58 -46 -5 -28 37 -56 71 -49 16 3 35 0 43 -7 13 -11 20 -9 40 10 l23 22 16 -30 c20 -39 20 -39 -4 -45 -10 -3 -27 -21 -36 -40 -14 -30 -15 -39 -4 -52 18 -21 33 -19 60 10 30 32 80 35 80 5 0 -16 7 -20 34 -20 37 0 62 -27 72 -79 5 -23 2 -32 -16 -43 -25 -15 -54 -68 -65 -118 -9 -44 -22 -60 -48 -60 -12 0 -35 -14 -53 -31 -27 -26 -37 -30 -64 -24 -20 4 -34 15 -40 30 -8 22 -12 23 -42 14 -52 -16 -168 -32 -225 -30 l-53 1 20 -32 c11 -18 20 -40 20 -49 0 -23 -37 -58 -109 -102 -33 -21 -61 -42 -61 -47 0 -17 128 -80 163 -80 29 0 42 -7 70 -40 23 -27 39 -38 50 -34 9 3 28 -3 43 -15 15 -12 33 -21 41 -21 8 0 32 -20 54 -44 32 -35 59 -51 137 -81 53 -21 103 -46 111 -56 10 -14 26 -19 63 -19 43 0 55 -5 98 -42 l48 -41 -5 -53 c-5 -48 -2 -59 42 -143 42 -79 53 -92 84 -102 74 -24 109 -48 116 -77 3 -16 19 -39 35 -51 21 -15 30 -30 30 -49 0 -16 16 -54 35 -86 42 -70 140 -183 166 -191 13 -4 19 -16 19 -34 0 -36 28 -65 100 -101 33 -17 69 -43 80 -58 15 -20 28 -28 43 -25 19 3 27 -8 57 -69 19 -39 54 -92 78 -116 47 -49 46 -44 32 -126 -9 -57 -8 -60 19 -91 16 -18 31 -49 35 -68 5 -26 18 -45 47 -68 46 -36 50 -34 71 34 12 39 31 45 36 11 2 -10 20 -44 40 -74 36 -53 39 -55 87 -58 71 -4 95 -18 95 -57 0 -20 8 -39 23 -53 26 -25 45 -27 81 -11 38 18 76 -10 76 -56 0 -37 -23 -65 -75 -92 -16 -9 -33 -21 -37 -27 -4 -6 -8 -7 -8 -2 0 6 -13 -3 -30 -19 -37 -35 -39 -71 -5 -87 13 -6 28 -24 34 -39 5 -16 15 -29 20 -29 6 0 17 -16 25 -35 10 -24 22 -35 35 -35 12 0 21 -5 21 -11 0 -8 12 -10 34 -6 30 5 35 3 38 -16 2 -13 13 -23 28 -27 31 -7 37 -33 15 -67 -16 -24 -16 -28 6 -74 l23 -49 -32 -33 c-17 -17 -34 -45 -38 -60 -3 -16 -17 -33 -31 -40 l-24 -10 33 -34 c22 -23 27 -33 16 -33 -29 0 -31 -47 -3 -88 19 -27 25 -50 25 -89 0 -28 5 -64 10 -79 9 -22 7 -31 -8 -48 -56 -65 -106 -165 -100 -201 3 -11 -2 -27 -10 -35 -13 -12 -12 -15 4 -27 11 -8 30 -17 44 -20 33 -8 41 -22 34 -56 -4 -21 8 -55 51 -141 31 -63 59 -131 62 -153 4 -28 -5 -71 -31 -154 l-37 -116 9 -157 c9 -151 10 -159 38 -199 l29 -41 -49 -93 -49 -93 -32 20 c-19 12 -50 20 -76 20 -38 0 -48 -5 -89 -48 -94 -95 -93 -95 -137 -83 -56 15 -92 0 -143 -60 -37 -44 -46 -49 -81 -49 -22 0 -56 7 -76 15 -49 21 -63 1 -26 -37 l26 -27 -27 -35 c-26 -34 -26 -37 -11 -66 8 -16 20 -30 25 -30 6 0 10 -7 10 -16 0 -12 -11 -15 -57 -13 -32 2 -66 -1 -76 -5 -14 -7 -18 -2 -23 23 -7 34 -29 40 -90 22 -29 -8 -33 -6 -44 17 -12 26 -12 26 -27 7 -8 -11 -17 -32 -20 -47 -5 -26 -7 -27 -51 -21 -37 5 -47 3 -58 -12 -18 -25 -18 -72 1 -125 8 -23 15 -57 15 -74 1 -17 6 -41 13 -53 18 -33 113 -100 167 -118 37 -12 50 -22 54 -41 4 -15 2 -32 -5 -40 -12 -15 -10 -29 16 -88 l16 -39 -47 6 c-37 4 -54 12 -70 32 -31 40 -60 29 -78 -27 -3 -11 -15 -18 -30 -18 -21 0 -26 6 -32 35 -3 20 -15 40 -25 46 -14 7 -19 21 -19 50 0 46 -21 61 -49 35 -10 -9 -49 -27 -87 -40 -38 -13 -86 -34 -107 -46 -37 -22 -40 -22 -73 -6 -20 9 -65 21 -102 26 -63 9 -68 8 -83 -12 -21 -27 -15 -45 25 -80 l31 -27 -80 -81 c-76 -76 -82 -80 -125 -80 -61 0 -162 -22 -191 -42 -15 -9 -31 -36 -42 -69 l-17 -54 46 -46 c43 -44 49 -46 75 -37 44 15 98 2 111 -28 8 -18 22 -26 52 -31 37 -6 96 -52 96 -75 0 -5 -30 -36 -66 -71 l-66 -62 -5 -90 c-3 -50 -12 -102 -20 -118 -7 -15 -13 -44 -12 -65 1 -20 -6 -64 -15 -97 -20 -73 -21 -153 -2 -174 11 -14 11 -26 0 -80 -7 -36 -11 -67 -8 -70 4 -5 20 0 77 24 13 6 17 2 17 -18 0 -14 5 -29 10 -32 6 -3 10 -17 10 -30 0 -28 -22 -35 -64 -22 -24 8 -31 7 -46 -12 -13 -18 -24 -22 -51 -19 -25 2 -34 -1 -37 -14 -2 -12 7 -20 37 -27 23 -6 59 -16 81 -21 29 -8 64 -8 123 1 90 13 112 28 122 82 5 27 14 36 52 51 51 21 103 84 103 125 0 14 5 42 10 61 22 78 287 209 423 210 27 0 45 7 62 25 23 22 25 32 25 114 l0 89 34 -34 c36 -36 51 -39 156 -35 42 2 61 8 78 25 l24 23 -26 49 c-30 58 -54 87 -84 103 -13 7 -22 21 -22 35 0 35 28 24 64 -24 35 -46 83 -71 97 -49 23 37 0 82 -60 116 -72 40 -67 53 19 53 39 0 70 4 70 9 0 6 16 7 35 4 l35 -6 0 42 c0 38 -3 42 -29 47 -15 3 -41 17 -57 30 l-29 23 38 1 c37 0 77 27 77 52 0 7 -12 24 -27 40 -30 31 -26 46 7 28 12 -6 29 -9 37 -6 14 6 14 9 -2 25 -27 31 -16 49 22 39 30 -8 32 -10 21 -34 -10 -21 -8 -28 10 -46 12 -12 23 -20 24 -17 2 2 11 18 20 34 20 37 35 40 82 21 30 -13 36 -20 36 -46 0 -37 1 -37 131 21 49 22 102 39 123 39 20 0 36 4 36 8 0 4 15 25 34 45 25 27 42 37 64 37 17 0 43 10 59 24 39 32 68 46 96 46 35 0 122 95 131 143 6 32 11 37 34 37 15 0 39 -6 53 -14 32 -16 52 -7 69 34 9 21 21 31 45 36 23 4 36 14 47 38 13 27 24 34 68 44 40 9 56 10 67 1 11 -10 22 -4 56 28 60 56 94 75 130 71 25 -2 32 1 35 17 2 11 9 36 16 55 8 21 12 56 9 88 -6 52 9 74 20 31 12 -46 53 8 79 107 11 41 11 49 -9 85 -12 21 -17 39 -12 39 5 0 14 11 19 25 l9 25 25 -25 c34 -34 58 -33 54 3 -2 19 -12 31 -34 41 -45 19 -65 66 -48 111 17 47 7 139 -17 163 -22 21 -25 47 -6 47 26 0 50 -27 56 -65 3 -21 12 -40 19 -43 14 -4 49 68 54 113 3 29 2 30 -34 27 -34 -3 -38 -1 -38 20 0 14 -11 35 -25 48 -32 30 -31 38 2 38 20 0 38 12 65 42 21 23 38 49 38 56 0 8 9 14 21 14 25 0 59 17 59 30 0 5 -24 27 -52 49 -73 55 -81 70 -67 125 9 37 8 50 -5 77 -10 21 -13 36 -7 43 13 15 1 33 -23 37 -20 4 -43 55 -31 67 4 4 17 -5 30 -20 15 -17 30 -26 39 -22 13 5 13 12 -4 56 -10 28 -28 59 -40 70 -13 13 -20 31 -20 58 0 21 -5 51 -10 65 -6 17 -7 33 -1 43 8 14 11 13 21 -13 22 -62 22 -61 32 -33 6 19 5 37 -6 63 -9 21 -16 52 -16 69 -1 36 -20 66 -44 66 -9 0 -21 11 -26 24 -5 13 -14 27 -19 31 -6 3 -11 11 -11 17 0 6 10 2 23 -9 45 -41 50 -40 45 8 -5 43 -58 140 -91 167 -21 18 -33 108 -16 128 19 23 -18 123 -50 135 -18 7 -22 15 -18 35 2 15 -4 50 -14 80 -11 29 -19 59 -19 66 0 7 -9 19 -21 26 l-21 13 22 24 c17 18 21 30 16 52 -4 15 -10 43 -13 61 -4 23 -11 32 -24 32 -10 0 -23 9 -29 20 -13 24 -35 26 -44 5 -9 -25 -26 -17 -32 15 -7 34 -11 36 -35 14 -25 -22 -34 -13 -49 51 -8 35 -26 70 -47 94 -18 22 -41 57 -49 78 -18 43 -51 83 -70 83 -6 0 -17 14 -24 30 -7 17 -21 35 -31 41 -27 14 -24 46 6 65 14 9 25 23 25 30 0 20 -64 18 -84 -2 -9 -8 -26 -14 -38 -12 l-23 3 23 23 c12 12 22 30 22 41 0 15 -7 18 -40 17 -50 -1 -66 13 -50 45 11 19 10 24 -6 36 -16 12 -20 11 -30 -2 -6 -8 -23 -15 -37 -15 -14 0 -29 -5 -32 -10 -8 -12 -46 -3 -57 14 -4 6 -8 23 -8 37 0 23 -8 30 -56 49 -53 22 -228 129 -221 136 8 9 95 -30 113 -51 19 -20 25 -22 39 -11 16 11 15 14 -11 35 -40 31 -103 71 -112 71 -4 0 -28 20 -52 45 -39 39 -50 45 -87 45 -40 0 -43 2 -52 38 -6 20 -11 47 -11 60 0 28 -25 78 -54 111 -11 13 -53 38 -93 56 -47 22 -73 40 -78 55 -4 12 -28 37 -55 56 -53 38 -74 75 -84 145 -5 36 -12 49 -31 57 -14 7 -25 19 -25 27 0 9 -10 29 -21 45 l-22 29 27 31 c31 38 32 42 5 65 -12 12 -19 29 -17 45 3 32 -8 50 -32 50 -11 0 -35 16 -54 35 -20 19 -44 35 -55 35 -10 0 -22 7 -25 16 -4 10 -16 14 -34 12 -23 -2 -36 6 -70 45 -23 27 -42 52 -42 58 0 5 -6 9 -14 9 -25 0 -46 30 -46 67 0 20 -9 46 -20 60 -11 14 -20 41 -20 59 0 26 -4 33 -22 36 -16 2 -25 13 -31 39 -5 24 -18 41 -38 53 -30 18 -49 51 -49 86 0 14 11 22 40 30 52 14 71 47 46 84 -20 32 -20 33 4 39 13 3 20 14 20 30 0 14 5 38 11 54 16 42 32 142 31 195 0 41 2 47 25 53 21 5 24 11 21 35 -3 21 1 35 14 47 10 9 18 29 18 44 0 34 7 39 95 64 57 16 73 26 92 54 13 19 36 42 52 52 16 9 32 30 35 46 7 25 9 26 20 10 15 -20 49 -23 63 -4 24 33 53 147 55 221 2 71 4 76 16 57 8 -12 23 -21 33 -21 23 0 24 10 4 36 -22 29 -18 36 14 29 40 -9 55 20 53 103 0 36 3 60 9 57 5 -4 9 -12 9 -18 1 -14 35 -57 45 -57 4 0 5 12 2 27 -6 32 39 83 72 83 14 0 21 6 21 20 0 27 19 25 51 -6 l28 -26 29 21 c17 11 42 21 56 21 16 0 32 9 42 26 15 22 19 23 26 10 11 -20 28 -21 28 -2 0 8 25 36 55 61 52 45 71 72 43 62 -7 -2 -22 0 -32 6 -15 7 -23 5 -36 -10 -26 -33 -56 -38 -63 -11 -8 28 7 38 60 38 32 0 46 5 55 20 7 11 20 20 28 21 8 0 27 8 41 17 53 34 84 57 94 68 15 18 65 26 80 14 20 -16 51 3 59 36 6 21 3 30 -11 37 -10 6 -36 29 -57 51 -95 99 -132 106 -247 51 -85 -41 -95 -42 -102 -15 -4 16 -14 20 -47 20 -33 0 -43 4 -47 20 -4 15 -14 20 -39 20 -48 0 -134 65 -134 102 0 44 -9 59 -29 46 -31 -19 -67 -2 -83 38 l-15 37 -22 -32 c-14 -20 -31 -31 -46 -31 -23 0 -23 1 -19 100 l5 99 -39 20 c-57 29 -63 41 -60 112 l3 63 37 9 c33 8 39 15 64 73 15 35 33 69 41 75 20 17 16 26 -17 45 -16 10 -36 34 -44 55 -14 35 -17 37 -73 43 -87 10 -93 9 -147 -19 -42 -22 -52 -24 -61 -12 -16 22 -71 47 -105 47 -17 0 -55 -8 -84 -19 -67 -23 -101 -17 -138 25 -16 18 -44 38 -62 44 -19 6 -42 20 -51 30 -14 15 -21 17 -31 9 -11 -9 -15 -2 -20 30 -5 33 -16 49 -48 75 -41 33 -98 66 -113 66 -4 0 -22 -13 -38 -28z";
+
+  function el(t,a){var n=document.createElementNS(SVGNS,t),k;for(k in a)n.setAttribute(k,a[k]);return n;}
+  function rng(s){return function(){s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+  function pixels(){var c=document.createElement("canvas");c.width=1024;c.height=1024;var x=c.getContext("2d");x.setTransform(0.1,0,0,-0.1,0,1024);x.fillStyle="#000";x.fill(new Path2D(VN_PATH));return x.getImageData(0,0,1024,1024).data;}
+  function inside(px,X,Y){X=Math.round(X);Y=Math.round(Y);if(X<0||Y<0||X>1023||Y>1023)return false;return px[(Y*1024+X)*4+3]>10;}
+  function bbox(px){var x0=1024,y0=1024,x1=0,y1=0,x,y;for(y=0;y<1024;y+=2)for(x=0;x<1024;x+=2){if(px[(y*1024+x)*4+3]>10){if(x<x0)x0=x;if(x>x1)x1=x;if(y<y0)y0=y;if(y>y1)y1=y;}}return{x0:x0,y0:y0,x1:x1,y1:y1};}
+
+  function build(){
+    var px=pixels(), bb=bbox(px), pad=18;
+    svg.setAttribute("viewBox",(bb.x0-pad)+" "+(bb.y0-pad)+" "+((bb.x1-bb.x0)+2*pad)+" "+((bb.y1-bb.y0)+2*pad));
+    var defs=el("defs",{});
+    var clip=el("clipPath",{id:"spvn",clipPathUnits:"userSpaceOnUse"});
+    clip.appendChild(el("path",{d:VN_PATH,transform:GROUP_TF})); defs.appendChild(clip);
+    var filt=el("filter",{id:"spish",x:"-30%",y:"-30%",width:"160%",height:"160%"});
+    filt.innerHTML='<feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f2740" flood-opacity="0.45"/>';
+    defs.appendChild(filt); svg.appendChild(defs);
+
+    var gx=bb.x0, gy=bb.y0, W=bb.x1-bb.x0, gh=(bb.y1-bb.y0)/ROWS, r=rng(20250620);
+    function makeSeam(line){var yb=gy+line*gh,dir=r()<.5?1:-1,amp=0.22*gh*dir,amp2=0.08*gh*dir,ph=r()*6.283,N=90,pts=[],k,t;for(k=0;k<=N;k++){t=k/N;pts.push({x:gx+t*W,y:yb+amp*Math.sin(Math.PI*t)+amp2*Math.sin(3*Math.PI*t+ph)});}return pts;}
+    var seams={},line;for(line=1;line<ROWS;line++)seams[line]=makeSeam(line);
+    var topB=[{x:gx,y:gy},{x:gx+W,y:gy}], botB=[{x:gx+W,y:gy+ROWS*gh},{x:gx,y:gy+ROWS*gh}];
+    function Lp(pts){return pts.map(function(p){return "L "+p.x.toFixed(1)+" "+p.y.toFixed(1);}).join(" ");}
+    var cells=[],row;
+    for(row=0;row<ROWS;row++){
+      var top=row===0?topB:seams[row];
+      var bottom=row===ROWS-1?botB:seams[row+1].slice().reverse();
+      var d="M "+top[0].x.toFixed(1)+" "+top[0].y.toFixed(1)+" "+Lp(top.slice(1))+" "+Lp(bottom)+" Z";
+      var y0=gy+row*gh,y1=gy+(row+1)*gh,side=row%2===0?1:-1,ex=null,ey=(y0+y1)/2,yy,s,xx;
+      for(yy=Math.round(y0);yy<y1;yy+=2){for(s=0;s<=W;s+=2){xx=side>0?gx+W-s:gx+s;if(inside(px,Math.round(xx),yy)){if(ex===null||(side>0?xx>ex:xx<ex)){ex=xx;ey=yy;}break;}}}
+      if(ex===null)ex=gx+W/2;
+      cells.push({d:d,cx:ex+side*40,cy:ey});
+    }
+    var frame=Math.max(bb.x1-bb.x0,bb.y1-bb.y0);
+    cells.forEach(function(c,i){
+      var g=el("g",{"class":"sp-piece"});
+      var ang=(i*137.5+25)*Math.PI/180, dist=frame*0.95+220;
+      g.style.setProperty("--fx",(Math.cos(ang)*dist).toFixed(0)+"px");
+      g.style.setProperty("--fy",(Math.sin(ang)*dist).toFixed(0)+"px");
+      g.style.setProperty("--fr",((r()*2-1)*45).toFixed(0)+"deg");
+      g.style.setProperty("--d",(i*0.18).toFixed(2)+"s");
+      var cid="spcell"+i, cc=el("clipPath",{id:cid,clipPathUnits:"userSpaceOnUse"});
+      cc.appendChild(el("path",{d:c.d})); defs.appendChild(cc);
+      var gv=el("g",{"clip-path":"url(#spvn)"}), gc=el("g",{"clip-path":"url(#"+cid+")"});
+      var img=el("image",{x:bb.x0,y:bb.y0,width:(bb.x1-bb.x0),height:(bb.y1-bb.y0),preserveAspectRatio:"none"});
+      img.setAttributeNS(XLINK,"href",SAT); img.setAttribute("href",SAT);
+      gc.appendChild(img); gv.appendChild(gc); g.appendChild(gv);
+      g.appendChild(el("path",{d:c.d,fill:"none",stroke:"rgba(255,255,255,.75)","stroke-width":"2.5","clip-path":"url(#spvn)"}));
+      var SZ=140, it=el("image",{x:c.cx-SZ/2,y:c.cy-SZ/2,width:SZ,height:SZ,preserveAspectRatio:"xMidYMid meet","class":"sp-item",filter:"url(#spish)"});
+      it.setAttributeNS(XLINK,"href",ITEMS[i%ITEMS.length]); it.setAttribute("href",ITEMS[i%ITEMS.length]);
+      it.style.setProperty("--d",(i*0.18).toFixed(2)+"s");
+      g.appendChild(it); svg.appendChild(g);
+    });
+    var lastDelay=(cells.length-1)*0.18+0.7;
+    svg.appendChild(el("path",{d:VN_PATH,transform:GROUP_TF,"class":"sp-outline"}));
+    svg.style.setProperty("--od",lastDelay+"s");
+    if(titleEl){titleEl.style.setProperty("--td",(lastDelay+0.2)+"s");titleEl.classList.add("sp-show");}
+    return lastDelay;
+  }
+
+  var done=false;
+  function onKey(){ dismiss(); }            // any key skips; Tab not prevented so focus flows
+  function dismiss(){
+    if(done) return; done=true;
+    document.removeEventListener("keydown",onKey,true);
+    splash.removeEventListener("click",dismiss);
+    splash.classList.add("sp-hide");
+    /* הפוקוס עובר **לפני** ההסרה: מרגע שכפתור הדילוג מקבל פוקוס,
+       הסרת הצומת הייתה מפילה אותו ל-body. */
+    var fin=function(){
+      try{
+        if(splash.contains(document.activeElement)){
+          /* main ולא skipLink: האחרון מציג שבב "דלג לתוכן" ברגע
+             שהוא מקבל פוקוס, וזה נראה כמו תקלה מיד אחרי הפתיחה. */
+          var sk=document.getElementById("main")||document.getElementById("skipLink");
+          if(sk) sk.focus();
+        }
+        splash.parentNode&&splash.parentNode.removeChild(splash);
+      }catch(e){}
+      clearSplash();
+    };
+    splash.addEventListener("transitionend",fin,{once:true});
+    setTimeout(fin,700);
+  }
+
+  var lastDelay=4;
+  try{ lastDelay=build(); }catch(e){ dismiss(); return; }
+  document.addEventListener("keydown",onKey,true);
+  /* באייפון אין מקלדת, ולכן onKey אינו מוצא. הכפתור חייב להיות
+     ממוקד ולחיץ באמת — זה היה הפקד היחיד על המסך שלא ניתן להפעלה. */
+  if(skip){
+    /* inert על הדף שמאחור, ולא מלכודת פוקוס: יש כאן פקד אחד בלבד.
+       בלעדיו Tab יוצא אל דף שנראה פעיל אך נעול, ואז fin() כבר לא
+       מוצא את הפוקוס בתוך הספלאש ומדלג על החזרתו. */
+    var wrapEl=document.querySelector(".wrap"); if(wrapEl) wrapEl.setAttribute("inert","");
+    skip.addEventListener("click",function(e){e.stopPropagation();dismiss();});
+    skip.focus();
+  }
+  splash.addEventListener("click",dismiss);
+  setTimeout(dismiss,(lastDelay+1.6)*1000); // auto-dismiss after assembly + read time
+  setTimeout(dismiss,5000);                 // hard backstop
+})();
+</script>
 <script>
 /*__CLIMATE__*/
 </script>
@@ -801,6 +1083,22 @@ var T={
   searchPh:{he:"מה מחפשים? מסעדה, שוק, פעילות, מלון…",en:"Restaurant, market, activity, hotel…"},
   clear:{he:"נקה חיפוש",en:"Clear search"},
   navStations:{he:"תחנות",en:"Stations"},
+  navMap:{he:"מפה",en:"Map"},
+  mapRegion:{he:"מפת התחנות",en:"Map of the stops"},
+  homeTitle:{he:"ויאטנם 2026 — מסך הבית",en:"Vietnam 2026 — Home"},
+  atAGlance:{he:"הטיול במבט",en:"Trip at a glance"},
+  departs:{he:"יציאה",en:"Departs"},
+  returns:{he:"חזרה",en:"Returns"},
+  nights:{he:"לילות",en:"Nights"},
+  nightsNote:{he:"כולל 2 רכבות לילה ושייט בהא לונג",en:"Incl. 2 night trains and the Ha Long cruise"},
+  poolCount:{he:"מקומות במאגר",en:"Places in the pool"},
+  poolNote:{he:"ב-%n תחנות · לינה, אוכל, אטרקציות",en:"across %n stops · stay, food, sights"},
+  fxRate:{he:"שער חליפין",en:"Exchange rate"},
+  mustSee:{he:"חובה",en:"must-see"},
+  daysToGo:{he:"ימים ליציאה",en:"days to go"},
+  daysToGoSr:{he:"נותרו %n ימים עד היציאה",en:"%n days until departure"},
+  tripNow:{he:"הטיול בעיצומו",en:"The trip is under way"},
+  tripDone:{he:"הטיול הסתיים",en:"The trip is over"},
   /* ---- מצב "לפי מרחק" ---- */
   byRoute:{he:"לפי מסלול",en:"By route"},
   byDist:{he:"לפי מרחק",en:"By distance"},
@@ -1004,6 +1302,17 @@ var SCENE={
 };
 function catName(c){return isHe()?c.he:c.en;}
 function regName(r){return isHe()?r.he:r.en;}
+/* התצוגה מקבצת לשלושה, בעוד שהנתונים מחזיקים ארבעה: highlands הוא
+   "רמות המרכז" ונכנס למרכז, והקיפול שומר על רצף המסלול 1–5 / 6–11 / 12–14. */
+var GROUPS=[
+  {id:"north",  he:"צפון", en:"North",   regions:["north"]},
+  {id:"central",he:"מרכז", en:"Central", regions:["central","highlands"]},
+  {id:"south",  he:"דרום", en:"South",   regions:["south"]}
+];
+function groupName(g){return isHe()?g.he:g.en;}
+function stationsIn(g){
+  return STATIONS.filter(function(st){return g.regions.indexOf(st.region)>=0;});
+}
 function stName(st){return isHe()?(HE_NAME[st.id]||st.name):st.name;}
 var CAT_BY={}; CATS.forEach(function(c){CAT_BY[c.id]=c;});
 
@@ -1162,11 +1471,25 @@ function hexToRgb(h){h=h.replace("#","");return [parseInt(h.slice(0,2),16),parse
 function ch(c){c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);}
 function lum(r){return .2126*ch(r[0])+.7152*ch(r[1])+.0722*ch(r[2]);}
 function ratio(a,b){var l1=lum(a),l2=lum(b);if(l1<l2){var t2=l1;l1=l2;l2=t2;}return (l1+.05)/(l2+.05);}
+function rgbToHex(r){return "#"+r.map(function(v){return ("0"+v.toString(16)).slice(-2);}).join("");}
 function shiftc(r,f){return r.map(function(v){return Math.max(0,Math.min(255,Math.round(f<1?v*f:v+(255-v)*(f-1))));});}
 function hex(r){return "#"+r.map(function(v){return ("0"+v.toString(16)).slice(-2);}).join("");}
 function desat(r,amt){var g=Math.round(.2126*r[0]+.7152*r[1]+.0722*r[2]);
   return r.map(function(v){return Math.round(v+(g-v)*amt);});}
 var colorCache={};
+/* הפין נגזר מצבע התחנה, ולכן עובד גם לתחנות שיתווספו. בחירת הדיו
+   לבדה אינה מספיקה: צבע בינוני נכשל מול לבן **וגם** מול שחור, ולכן
+   אם הטוב מבין השניים עדיין מתחת ל-4.5 מזיזים את הרקע עצמו. */
+function pinPair(c){
+  var rgb=typeof c==="string"?hexToRgb(c):c;
+  var W=[255,255,255], B=[16,16,16];
+  for(var i=0;i<28;i++){
+    var rw=ratio(rgb,W), rb=ratio(rgb,B);
+    if(rw>=4.5||rb>=4.5) return {bg:rgbToHex(rgb),ink:rw>=rb?"#ffffff":"#101010"};
+    rgb=shiftc(rgb,0.9);      /* מכהים — שם יש יותר מרחב מול לבן */
+  }
+  return {bg:rgbToHex(rgb),ink:"#ffffff"};
+}
 function stColor(st){
   var isDark=currentDark(), key=st.id+"|"+isDark;
   if(colorCache[key]) return colorCache[key];
@@ -1476,6 +1799,10 @@ function paint(g,w,h,st){
 /* ============ עזרים ============ */
 function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n;}
 function en2(n){n.lang="en";n.dir="ltr";n.classList.add("en");return n;}
+/* שמות מקומות ויאטנמיים אינם אנגלית. VoiceOver עברית קרא "Hội An"
+   ו-"Bánh Mì Phượng" בפונמות אנגליות, וזו בדיוק הסיבה שהשם הלועזי
+   בריבוע קיבל lang="vi". הפונקציה הגנרית נשארה מאחור. */
+function vi2(n){n.lang="vi";n.dir="ltr";n.classList.add("en");return n;}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
 function hl(txt){
   if(!query) return esc(txt);
@@ -1591,9 +1918,9 @@ function openDetail(item){
   if(heName){
     var nHe=el("span","ttl-he",heName); nHe.lang="he";
     ttl.appendChild(nHe);
-    ttl.appendChild(en2(el("span","ttl-en",r.name)));
+    ttl.appendChild(vi2(el("span","ttl-en",r.name)));
   }else{
-    en2(ttl); ttl.textContent=r.name;
+    vi2(ttl); ttl.textContent=r.name;
   }
   box.appendChild(ttl);
 
@@ -1836,7 +2163,7 @@ function poiCard(item,cls){
   var open=el("button","pcard-open"); open.type="button";
   open.setAttribute("aria-haspopup","dialog");
   var nm=el("span","pcard-name");
-  if(!r.nameHe||!isHe()) en2(nm);          /* שם המקום נשאר לטיני אם אין תעתיק */
+  if(!r.nameHe||!isHe()) vi2(nm);          /* שם המקום נשאר לטיני אם אין תעתיק */
   nm.innerHTML=hl(recName(r));
   open.appendChild(nm);
   open.addEventListener("click",function(){openDetail(item);});
@@ -1948,6 +2275,10 @@ function buildMap(){
   var pane=document.getElementById("mapPane");
   if(!pane){
     pane=el("div",null); pane.id="mapPane";
+    /* 14 סמנים ושני כפתורי זום מחוץ לכל landmark ובלי שם — משתמש
+       מקלדת נכנס אליהם בלי לדעת שהוא במפה. */
+    pane.setAttribute("role","region");
+    pane.setAttribute("aria-label",t("mapRegion"));
     document.querySelector(".wrap").appendChild(pane);
   }
   /* הגיליון מתחיל מתחת לסרגל העליון, אז המפה חייבת לדעת את גובהו */
@@ -1974,7 +2305,11 @@ function buildMap(){
      וגם דרישת הרישוי של OSM לא מתקיימת בפועל. מוצג בגיליון במקום. */
 
   STATIONS.forEach(function(st){
-    var html='<span class="map-pin" style="background:'+stColor(st)+'">'+
+    /* stColor מבטיח 3.2 מול רקע הדף ועוצר שם — כלומר לבן על הפין
+       יוצא סביב 3.2–3.6, ומספר הרצף הוא 10.9px. הוא גם אינו מופיע
+       בשם הנגיש של הסמן, ולכן אין לו חלופה. */
+    var pp=pinPair(stColor(st));
+    var html='<span class="map-pin" style="background:'+pp.bg+';color:'+pp.ink+'">'+
              String(st.seq).padStart(2,"0")+'</span>';
     var m=L.marker([st.lat,st.lng],{
       icon:L.divIcon({html:html,className:"",iconSize:[26,26],iconAnchor:[13,13]}),
@@ -2159,6 +2494,88 @@ function wireSheetDrag(sh,grip){
 /* ============ תצוגה מפוצלת ============
    מסך אחד: רשימה קבועה בצד, פרטים לצידה. מעבר בין תחנות מחליף
    את חלונית הפרטים בלבד — הרשימה לא נבנית מחדש ולא מאבדת גלילה. */
+/* ============ מסך הפתיחה ============
+   ריבועי מידע על הטיול, ומתחתיהם חלוקה גאוגרפית. **בלי מפה** —
+   היא ירדה לפריט ניווט משלה. */
+function secLabel(text,count){
+  var h=el("h2","sec-label");
+  h.appendChild(document.createTextNode(text));
+  h.appendChild(el("span","ln"));
+  /* רווח מפורש: בלעדיו השם המחושב הוא "צפון5 תחנות". */
+  if(count) h.appendChild(el("span","cnt"," "+count));
+  return h;
+}
+function infoCard(k,v,tail,wide){
+  var li=el("li","icard"+(wide?" wide":""));
+  li.setAttribute("role","listitem");
+  li.appendChild(el("div","k",k));
+  if(v) li.appendChild(el("div","v",v));
+  if(tail) li.appendChild(tail);
+  return li;
+}
+function tileFor(st){
+  var li=el("li"); li.setAttribute("role","listitem");
+  var a=el("a","tile"); a.href="#s/"+st.id;
+  var ph=el("div","tile-ph");
+  if(hasPhoto(st)){
+    var img=el("img"); img.src=STATION_PHOTO[st.id]; img.alt=""; img.setAttribute("aria-hidden","true");
+    if(st.seq>4) img.loading="lazy";   /* lazy על הראשונים פוגע ב-LCP */
+    ph.appendChild(img);
+  }
+  ph.appendChild(el("span","tile-idx",String(st.seq).padStart(2,"0")));
+  var must=(st.counts&&st.counts.must_see)||0;
+  if(must) ph.appendChild(el("span","tile-flag",must+" "+t("mustSee")));
+  a.appendChild(ph);
+  var tx=el("div","tile-txt");
+  tx.appendChild(el("div","tile-nm",stName(st)));
+  /* שם לועזי במסמך עברי חייב lang, אחרת VoiceOver קורא אותו
+     בפונמות עבריות — ושמות ויאטנמיים עם דיאקריטיקה יוצאים בלתי מובנים. */
+  var lat=el("span","tile-lat",st.name); lat.lang="vi"; lat.dir="ltr";
+  tx.appendChild(lat);
+  tx.appendChild(el("div","tile-cnt",total(st)+" "+t("places")));
+  a.appendChild(tx);
+  /* קישור אחד לכל ריבוע, עם שם נגיש מלא. שמות התחנות אינם כותרות:
+     14 כותרות במסך אחד מציפות את הרוטור בלי להוסיף ניווט. */
+  a.setAttribute("aria-label",String(st.seq).padStart(2,"0")+", "+stName(st)+", "+
+    st.name+", "+total(st)+" "+t("places")+(must?", "+must+" "+t("mustSee"):""));
+  li.appendChild(a); return li;
+}
+function screenHome(){
+  exitMapMode();
+  main.textContent="";
+  /* h1 סמוי: הכותרת הסגולה נושאת מותג וספירה, לא שם מסך — ובלי
+     screenHeading מתויג כל ניווט הביתה נוחת ב-main בלי הקשר. */
+  main.appendChild(screenTitle(t("homeTitle"),"sr"));
+  setDocTitle(null);
+
+  main.appendChild(secLabel(t("atAGlance")));
+  var ig=el("ul","infogrid"); ig.setAttribute("role","list");
+  var loc=isHe()?"he-IL":"en-GB", dMY={day:"numeric",month:"short"};
+  var nights=Math.round((TRIP.back-TRIP.depart)/864e5);
+  ig.appendChild(infoCard(t("departs"),TRIP.depart.toLocaleDateString(loc,dMY),
+    (function(){var d=el("div","t");var e=el("span","en","TLV → AUH → HAN");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("Etihad EY600"));return d;})()));
+  ig.appendChild(infoCard(t("returns"),TRIP.back.toLocaleDateString(loc,dMY),
+    (function(){var d=el("div","t");var e=el("span","en","HAN → AUH → TLV");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("EY431"));return d;})()));
+  ig.appendChild(infoCard(t("nights"),String(nights),el("div","t",t("nightsNote"))));
+  ig.appendChild(infoCard(t("poolCount"),String(INDEX.length),el("div","t",t("poolNote",{"%n":String(STATIONS.length)}))));
+  var fx=el("div","fxrow");
+  ["$1 = ₪"+RATES.ILS.toFixed(2),"₪1 = ₫"+Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US")]
+    .forEach(function(x){var b=document.createElement("bdi");b.textContent=x;fx.appendChild(b);});
+  ig.appendChild(infoCard(t("fxRate"),null,fx,true));
+  main.appendChild(ig);
+
+  GROUPS.forEach(function(g){
+    var list=stationsIn(g);
+    if(!list.length) return;
+    var places=list.reduce(function(a,st){return a+total(st);},0);
+    main.appendChild(secLabel(groupName(g),
+      list.length+" "+t("stations")+" · "+places+" "+t("places")));
+    var ul=el("ul","tilegrid"); ul.setAttribute("role","list");
+    list.forEach(function(st){ ul.appendChild(tileFor(st)); });
+    main.appendChild(ul);
+  });
+}
+
 function screenSplit(sel){
   if(isMobileMap()) return screenMobileMap(sel);
   document.body.classList.remove("mob-map");
@@ -2647,7 +3064,12 @@ function renderStationDetail(st,pane){
   var h1=el("h2","hero-name",stName(st));
   claimScreenHeading(h1);
   ht.appendChild(h1);
-  ht.appendChild(en2(el("div","hero-sub",st.name+" · "+total(st)+" places")));
+  /* המחרוזת מעורבת: שם ויאטנמי ואז טקסט ממשק. תיוג אחיד שלה כאנגלית
+     היה שגוי בשני הצדדים, והמילה "places" הייתה מקובעת. */
+  var hs=el("div","hero-sub");
+  hs.appendChild(vi2(el("span",null,st.name)));
+  hs.appendChild(document.createTextNode(" · "+total(st)+" "+t("places")));
+  ht.appendChild(hs);
   hero.appendChild(ht);
   pane.appendChild(hero);
 
@@ -2905,6 +3327,7 @@ function routeName(){
   if(query) return "search";
   if(hz.indexOf("s/")===0) return "station";
   if(hz.indexOf("c/")===0) return "category";
+  if(hz==="map") return "map";
   if(hz==="topics") return "topics";
   if(hz==="saved") return "saved";
   if(hz==="info") return "info";
@@ -2915,21 +3338,24 @@ function render(){
   var r=routeName();
   /* בית ותחנה חולקים מסך אחד — רק חלונית הפרטים מתחלפת ביניהם */
   if(r==="search")        screenSearch();
+  else if(r==="map")      screenSplit(null);
   else if(r==="station")  screenSplit(POI_DATA[hz.slice(2)]||null);
   else if(r==="category") screenCategory(hz.slice(2));
   else if(r==="topics")   screenTopics();
   else if(r==="saved")    screenSaved();
   else if(r==="info")     screenInfo();
-  else                    screenSplit(null);
+  else                    screenHome();
   markNav(r);
 }
 var NAV=[
   {id:"home",  hash:"#",       ic:"grid",   key:"navStations"},
+  {id:"map",   hash:"#map",    ic:"pin",    key:"navMap"},
   {id:"topics",hash:"#topics", ic:"compass",key:"navTopics"},
   {id:"saved", hash:"#saved",  ic:"heart",  key:"navSaved"},
   {id:"info",  hash:"#info",   ic:"info",   key:"navInfo"}
 ];
 function markNav(r){
+  /* תחנה נפתחת ממסך הבית, ולכן היא מסמנת אותו. המפה היא יעד משלה. */
   var wants = (r==="category")?"topics":(r==="station"?"home":r);
   if(r==="search") wants=null;
   Array.prototype.forEach.call(document.querySelectorAll("[data-nav]"),function(n){
@@ -3018,6 +3444,7 @@ function renderChrome(){
   tb.setAttribute("aria-label",t("dark"));
 
   renderTripbar();
+  renderCountdown();
 
   /* קישורים רשמיים */
   var of=document.getElementById("officialRow");
@@ -3051,6 +3478,26 @@ function renderChrome(){
 /* התאריכים נגזרים מהשעון החי, לא קבועים בקוד —
    הספירה לאחור נכונה בכל טעינה, גם בעוד חודש. */
 var TRIP={depart:new Date(2026,9,26), back:new Date(2026,10,24)};
+/* המספר לבדו קורא "34". המשפט המלא יושב ב-sr, והמונה **אינו** אזור
+   live — כותרת שמכריזה בכל עדכון היא בלתי נסבלת. */
+function renderCountdown(){
+  var box=document.getElementById("countdown");
+  if(!box) return;
+  box.textContent="";
+  var today=new Date(); today.setHours(0,0,0,0);
+  var left=Math.round((TRIP.depart-today)/864e5);
+  if(left>0){
+    var vis=el("span"); vis.setAttribute("aria-hidden","true");
+    vis.appendChild(el("b",null,String(left)));
+    vis.appendChild(document.createTextNode(" "+t("daysToGo")));
+    box.appendChild(vis);
+    box.appendChild(el("span","sr",t("daysToGoSr",{"%n":String(left)})));
+  }else{
+    /* אופליין השעון ממשיך לרוץ, ובלי הענפים האלה המונה היה מגיע
+       לאפס ואז לשלילי. */
+    box.appendChild(document.createTextNode(today>TRIP.back?t("tripDone"):t("tripNow")));
+  }
+}
 function renderTripbar(){
   var box=document.getElementById("tripbar");
   if(!box) return;

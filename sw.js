@@ -10,7 +10,7 @@
  */
 // build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
 // גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
-const VERSION = "62a9edd8193f";
+const VERSION = "9bb4966cf932";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
@@ -26,9 +26,15 @@ const PRECACHE = [
      של המערכת — כלומר ההטמעה לא הייתה שווה דבר. העבריים ראשונים:
      הם אלה שנטענים בפועל בממשק עברי. */
   "./assets/fonts/Assistant-hebrew.woff2",
-  "./assets/fonts/FrankRuhlLibre-hebrew.woff2",
   "./assets/fonts/Assistant-latin.woff2",
-  "./assets/fonts/FrankRuhlLibre-latin.woff2",
+  /* הספלאש חייב להיות בקאש, אחרת הטעינה הראשונה אופליין מציגה
+     שכבה ריקה עד שהשער משחרר אותה. */
+  "./assets/splash/sat.webp",
+  "./assets/splash/hat.webp",
+  "./assets/splash/lantern.webp",
+  "./assets/splash/boat.webp",
+  "./assets/splash/pho.webp",
+  "./assets/splash/lotus.webp",
   "./manifest.webmanifest",
 ];
 

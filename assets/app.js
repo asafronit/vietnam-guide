@@ -47,6 +47,22 @@ var T={
   searchPh:{he:"מה מחפשים? מסעדה, שוק, פעילות, מלון…",en:"Restaurant, market, activity, hotel…"},
   clear:{he:"נקה חיפוש",en:"Clear search"},
   navStations:{he:"תחנות",en:"Stations"},
+  navMap:{he:"מפה",en:"Map"},
+  mapRegion:{he:"מפת התחנות",en:"Map of the stops"},
+  homeTitle:{he:"ויאטנם 2026 — מסך הבית",en:"Vietnam 2026 — Home"},
+  atAGlance:{he:"הטיול במבט",en:"Trip at a glance"},
+  departs:{he:"יציאה",en:"Departs"},
+  returns:{he:"חזרה",en:"Returns"},
+  nights:{he:"לילות",en:"Nights"},
+  nightsNote:{he:"כולל 2 רכבות לילה ושייט בהא לונג",en:"Incl. 2 night trains and the Ha Long cruise"},
+  poolCount:{he:"מקומות במאגר",en:"Places in the pool"},
+  poolNote:{he:"ב-%n תחנות · לינה, אוכל, אטרקציות",en:"across %n stops · stay, food, sights"},
+  fxRate:{he:"שער חליפין",en:"Exchange rate"},
+  mustSee:{he:"חובה",en:"must-see"},
+  daysToGo:{he:"ימים ליציאה",en:"days to go"},
+  daysToGoSr:{he:"נותרו %n ימים עד היציאה",en:"%n days until departure"},
+  tripNow:{he:"הטיול בעיצומו",en:"The trip is under way"},
+  tripDone:{he:"הטיול הסתיים",en:"The trip is over"},
   /* ---- מצב "לפי מרחק" ---- */
   byRoute:{he:"לפי מסלול",en:"By route"},
   byDist:{he:"לפי מרחק",en:"By distance"},
@@ -250,6 +266,17 @@ var SCENE={
 };
 function catName(c){return isHe()?c.he:c.en;}
 function regName(r){return isHe()?r.he:r.en;}
+/* התצוגה מקבצת לשלושה, בעוד שהנתונים מחזיקים ארבעה: highlands הוא
+   "רמות המרכז" ונכנס למרכז, והקיפול שומר על רצף המסלול 1–5 / 6–11 / 12–14. */
+var GROUPS=[
+  {id:"north",  he:"צפון", en:"North",   regions:["north"]},
+  {id:"central",he:"מרכז", en:"Central", regions:["central","highlands"]},
+  {id:"south",  he:"דרום", en:"South",   regions:["south"]}
+];
+function groupName(g){return isHe()?g.he:g.en;}
+function stationsIn(g){
+  return STATIONS.filter(function(st){return g.regions.indexOf(st.region)>=0;});
+}
 function stName(st){return isHe()?(HE_NAME[st.id]||st.name):st.name;}
 var CAT_BY={}; CATS.forEach(function(c){CAT_BY[c.id]=c;});
 
@@ -408,11 +435,25 @@ function hexToRgb(h){h=h.replace("#","");return [parseInt(h.slice(0,2),16),parse
 function ch(c){c/=255;return c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);}
 function lum(r){return .2126*ch(r[0])+.7152*ch(r[1])+.0722*ch(r[2]);}
 function ratio(a,b){var l1=lum(a),l2=lum(b);if(l1<l2){var t2=l1;l1=l2;l2=t2;}return (l1+.05)/(l2+.05);}
+function rgbToHex(r){return "#"+r.map(function(v){return ("0"+v.toString(16)).slice(-2);}).join("");}
 function shiftc(r,f){return r.map(function(v){return Math.max(0,Math.min(255,Math.round(f<1?v*f:v+(255-v)*(f-1))));});}
 function hex(r){return "#"+r.map(function(v){return ("0"+v.toString(16)).slice(-2);}).join("");}
 function desat(r,amt){var g=Math.round(.2126*r[0]+.7152*r[1]+.0722*r[2]);
   return r.map(function(v){return Math.round(v+(g-v)*amt);});}
 var colorCache={};
+/* הפין נגזר מצבע התחנה, ולכן עובד גם לתחנות שיתווספו. בחירת הדיו
+   לבדה אינה מספיקה: צבע בינוני נכשל מול לבן **וגם** מול שחור, ולכן
+   אם הטוב מבין השניים עדיין מתחת ל-4.5 מזיזים את הרקע עצמו. */
+function pinPair(c){
+  var rgb=typeof c==="string"?hexToRgb(c):c;
+  var W=[255,255,255], B=[16,16,16];
+  for(var i=0;i<28;i++){
+    var rw=ratio(rgb,W), rb=ratio(rgb,B);
+    if(rw>=4.5||rb>=4.5) return {bg:rgbToHex(rgb),ink:rw>=rb?"#ffffff":"#101010"};
+    rgb=shiftc(rgb,0.9);      /* מכהים — שם יש יותר מרחב מול לבן */
+  }
+  return {bg:rgbToHex(rgb),ink:"#ffffff"};
+}
 function stColor(st){
   var isDark=currentDark(), key=st.id+"|"+isDark;
   if(colorCache[key]) return colorCache[key];
@@ -722,6 +763,10 @@ function paint(g,w,h,st){
 /* ============ עזרים ============ */
 function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt!=null)n.textContent=txt;return n;}
 function en2(n){n.lang="en";n.dir="ltr";n.classList.add("en");return n;}
+/* שמות מקומות ויאטנמיים אינם אנגלית. VoiceOver עברית קרא "Hội An"
+   ו-"Bánh Mì Phượng" בפונמות אנגליות, וזו בדיוק הסיבה שהשם הלועזי
+   בריבוע קיבל lang="vi". הפונקציה הגנרית נשארה מאחור. */
+function vi2(n){n.lang="vi";n.dir="ltr";n.classList.add("en");return n;}
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
 function hl(txt){
   if(!query) return esc(txt);
@@ -837,9 +882,9 @@ function openDetail(item){
   if(heName){
     var nHe=el("span","ttl-he",heName); nHe.lang="he";
     ttl.appendChild(nHe);
-    ttl.appendChild(en2(el("span","ttl-en",r.name)));
+    ttl.appendChild(vi2(el("span","ttl-en",r.name)));
   }else{
-    en2(ttl); ttl.textContent=r.name;
+    vi2(ttl); ttl.textContent=r.name;
   }
   box.appendChild(ttl);
 
@@ -1082,7 +1127,7 @@ function poiCard(item,cls){
   var open=el("button","pcard-open"); open.type="button";
   open.setAttribute("aria-haspopup","dialog");
   var nm=el("span","pcard-name");
-  if(!r.nameHe||!isHe()) en2(nm);          /* שם המקום נשאר לטיני אם אין תעתיק */
+  if(!r.nameHe||!isHe()) vi2(nm);          /* שם המקום נשאר לטיני אם אין תעתיק */
   nm.innerHTML=hl(recName(r));
   open.appendChild(nm);
   open.addEventListener("click",function(){openDetail(item);});
@@ -1194,6 +1239,10 @@ function buildMap(){
   var pane=document.getElementById("mapPane");
   if(!pane){
     pane=el("div",null); pane.id="mapPane";
+    /* 14 סמנים ושני כפתורי זום מחוץ לכל landmark ובלי שם — משתמש
+       מקלדת נכנס אליהם בלי לדעת שהוא במפה. */
+    pane.setAttribute("role","region");
+    pane.setAttribute("aria-label",t("mapRegion"));
     document.querySelector(".wrap").appendChild(pane);
   }
   /* הגיליון מתחיל מתחת לסרגל העליון, אז המפה חייבת לדעת את גובהו */
@@ -1220,7 +1269,11 @@ function buildMap(){
      וגם דרישת הרישוי של OSM לא מתקיימת בפועל. מוצג בגיליון במקום. */
 
   STATIONS.forEach(function(st){
-    var html='<span class="map-pin" style="background:'+stColor(st)+'">'+
+    /* stColor מבטיח 3.2 מול רקע הדף ועוצר שם — כלומר לבן על הפין
+       יוצא סביב 3.2–3.6, ומספר הרצף הוא 10.9px. הוא גם אינו מופיע
+       בשם הנגיש של הסמן, ולכן אין לו חלופה. */
+    var pp=pinPair(stColor(st));
+    var html='<span class="map-pin" style="background:'+pp.bg+';color:'+pp.ink+'">'+
              String(st.seq).padStart(2,"0")+'</span>';
     var m=L.marker([st.lat,st.lng],{
       icon:L.divIcon({html:html,className:"",iconSize:[26,26],iconAnchor:[13,13]}),
@@ -1405,6 +1458,88 @@ function wireSheetDrag(sh,grip){
 /* ============ תצוגה מפוצלת ============
    מסך אחד: רשימה קבועה בצד, פרטים לצידה. מעבר בין תחנות מחליף
    את חלונית הפרטים בלבד — הרשימה לא נבנית מחדש ולא מאבדת גלילה. */
+/* ============ מסך הפתיחה ============
+   ריבועי מידע על הטיול, ומתחתיהם חלוקה גאוגרפית. **בלי מפה** —
+   היא ירדה לפריט ניווט משלה. */
+function secLabel(text,count){
+  var h=el("h2","sec-label");
+  h.appendChild(document.createTextNode(text));
+  h.appendChild(el("span","ln"));
+  /* רווח מפורש: בלעדיו השם המחושב הוא "צפון5 תחנות". */
+  if(count) h.appendChild(el("span","cnt"," "+count));
+  return h;
+}
+function infoCard(k,v,tail,wide){
+  var li=el("li","icard"+(wide?" wide":""));
+  li.setAttribute("role","listitem");
+  li.appendChild(el("div","k",k));
+  if(v) li.appendChild(el("div","v",v));
+  if(tail) li.appendChild(tail);
+  return li;
+}
+function tileFor(st){
+  var li=el("li"); li.setAttribute("role","listitem");
+  var a=el("a","tile"); a.href="#s/"+st.id;
+  var ph=el("div","tile-ph");
+  if(hasPhoto(st)){
+    var img=el("img"); img.src=STATION_PHOTO[st.id]; img.alt=""; img.setAttribute("aria-hidden","true");
+    if(st.seq>4) img.loading="lazy";   /* lazy על הראשונים פוגע ב-LCP */
+    ph.appendChild(img);
+  }
+  ph.appendChild(el("span","tile-idx",String(st.seq).padStart(2,"0")));
+  var must=(st.counts&&st.counts.must_see)||0;
+  if(must) ph.appendChild(el("span","tile-flag",must+" "+t("mustSee")));
+  a.appendChild(ph);
+  var tx=el("div","tile-txt");
+  tx.appendChild(el("div","tile-nm",stName(st)));
+  /* שם לועזי במסמך עברי חייב lang, אחרת VoiceOver קורא אותו
+     בפונמות עבריות — ושמות ויאטנמיים עם דיאקריטיקה יוצאים בלתי מובנים. */
+  var lat=el("span","tile-lat",st.name); lat.lang="vi"; lat.dir="ltr";
+  tx.appendChild(lat);
+  tx.appendChild(el("div","tile-cnt",total(st)+" "+t("places")));
+  a.appendChild(tx);
+  /* קישור אחד לכל ריבוע, עם שם נגיש מלא. שמות התחנות אינם כותרות:
+     14 כותרות במסך אחד מציפות את הרוטור בלי להוסיף ניווט. */
+  a.setAttribute("aria-label",String(st.seq).padStart(2,"0")+", "+stName(st)+", "+
+    st.name+", "+total(st)+" "+t("places")+(must?", "+must+" "+t("mustSee"):""));
+  li.appendChild(a); return li;
+}
+function screenHome(){
+  exitMapMode();
+  main.textContent="";
+  /* h1 סמוי: הכותרת הסגולה נושאת מותג וספירה, לא שם מסך — ובלי
+     screenHeading מתויג כל ניווט הביתה נוחת ב-main בלי הקשר. */
+  main.appendChild(screenTitle(t("homeTitle"),"sr"));
+  setDocTitle(null);
+
+  main.appendChild(secLabel(t("atAGlance")));
+  var ig=el("ul","infogrid"); ig.setAttribute("role","list");
+  var loc=isHe()?"he-IL":"en-GB", dMY={day:"numeric",month:"short"};
+  var nights=Math.round((TRIP.back-TRIP.depart)/864e5);
+  ig.appendChild(infoCard(t("departs"),TRIP.depart.toLocaleDateString(loc,dMY),
+    (function(){var d=el("div","t");var e=el("span","en","TLV → AUH → HAN");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("Etihad EY600"));return d;})()));
+  ig.appendChild(infoCard(t("returns"),TRIP.back.toLocaleDateString(loc,dMY),
+    (function(){var d=el("div","t");var e=el("span","en","HAN → AUH → TLV");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("EY431"));return d;})()));
+  ig.appendChild(infoCard(t("nights"),String(nights),el("div","t",t("nightsNote"))));
+  ig.appendChild(infoCard(t("poolCount"),String(INDEX.length),el("div","t",t("poolNote",{"%n":String(STATIONS.length)}))));
+  var fx=el("div","fxrow");
+  ["$1 = ₪"+RATES.ILS.toFixed(2),"₪1 = ₫"+Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US")]
+    .forEach(function(x){var b=document.createElement("bdi");b.textContent=x;fx.appendChild(b);});
+  ig.appendChild(infoCard(t("fxRate"),null,fx,true));
+  main.appendChild(ig);
+
+  GROUPS.forEach(function(g){
+    var list=stationsIn(g);
+    if(!list.length) return;
+    var places=list.reduce(function(a,st){return a+total(st);},0);
+    main.appendChild(secLabel(groupName(g),
+      list.length+" "+t("stations")+" · "+places+" "+t("places")));
+    var ul=el("ul","tilegrid"); ul.setAttribute("role","list");
+    list.forEach(function(st){ ul.appendChild(tileFor(st)); });
+    main.appendChild(ul);
+  });
+}
+
 function screenSplit(sel){
   if(isMobileMap()) return screenMobileMap(sel);
   document.body.classList.remove("mob-map");
@@ -1893,7 +2028,12 @@ function renderStationDetail(st,pane){
   var h1=el("h2","hero-name",stName(st));
   claimScreenHeading(h1);
   ht.appendChild(h1);
-  ht.appendChild(en2(el("div","hero-sub",st.name+" · "+total(st)+" places")));
+  /* המחרוזת מעורבת: שם ויאטנמי ואז טקסט ממשק. תיוג אחיד שלה כאנגלית
+     היה שגוי בשני הצדדים, והמילה "places" הייתה מקובעת. */
+  var hs=el("div","hero-sub");
+  hs.appendChild(vi2(el("span",null,st.name)));
+  hs.appendChild(document.createTextNode(" · "+total(st)+" "+t("places")));
+  ht.appendChild(hs);
   hero.appendChild(ht);
   pane.appendChild(hero);
 
@@ -2151,6 +2291,7 @@ function routeName(){
   if(query) return "search";
   if(hz.indexOf("s/")===0) return "station";
   if(hz.indexOf("c/")===0) return "category";
+  if(hz==="map") return "map";
   if(hz==="topics") return "topics";
   if(hz==="saved") return "saved";
   if(hz==="info") return "info";
@@ -2161,21 +2302,24 @@ function render(){
   var r=routeName();
   /* בית ותחנה חולקים מסך אחד — רק חלונית הפרטים מתחלפת ביניהם */
   if(r==="search")        screenSearch();
+  else if(r==="map")      screenSplit(null);
   else if(r==="station")  screenSplit(POI_DATA[hz.slice(2)]||null);
   else if(r==="category") screenCategory(hz.slice(2));
   else if(r==="topics")   screenTopics();
   else if(r==="saved")    screenSaved();
   else if(r==="info")     screenInfo();
-  else                    screenSplit(null);
+  else                    screenHome();
   markNav(r);
 }
 var NAV=[
   {id:"home",  hash:"#",       ic:"grid",   key:"navStations"},
+  {id:"map",   hash:"#map",    ic:"pin",    key:"navMap"},
   {id:"topics",hash:"#topics", ic:"compass",key:"navTopics"},
   {id:"saved", hash:"#saved",  ic:"heart",  key:"navSaved"},
   {id:"info",  hash:"#info",   ic:"info",   key:"navInfo"}
 ];
 function markNav(r){
+  /* תחנה נפתחת ממסך הבית, ולכן היא מסמנת אותו. המפה היא יעד משלה. */
   var wants = (r==="category")?"topics":(r==="station"?"home":r);
   if(r==="search") wants=null;
   Array.prototype.forEach.call(document.querySelectorAll("[data-nav]"),function(n){
@@ -2264,6 +2408,7 @@ function renderChrome(){
   tb.setAttribute("aria-label",t("dark"));
 
   renderTripbar();
+  renderCountdown();
 
   /* קישורים רשמיים */
   var of=document.getElementById("officialRow");
@@ -2297,6 +2442,26 @@ function renderChrome(){
 /* התאריכים נגזרים מהשעון החי, לא קבועים בקוד —
    הספירה לאחור נכונה בכל טעינה, גם בעוד חודש. */
 var TRIP={depart:new Date(2026,9,26), back:new Date(2026,10,24)};
+/* המספר לבדו קורא "34". המשפט המלא יושב ב-sr, והמונה **אינו** אזור
+   live — כותרת שמכריזה בכל עדכון היא בלתי נסבלת. */
+function renderCountdown(){
+  var box=document.getElementById("countdown");
+  if(!box) return;
+  box.textContent="";
+  var today=new Date(); today.setHours(0,0,0,0);
+  var left=Math.round((TRIP.depart-today)/864e5);
+  if(left>0){
+    var vis=el("span"); vis.setAttribute("aria-hidden","true");
+    vis.appendChild(el("b",null,String(left)));
+    vis.appendChild(document.createTextNode(" "+t("daysToGo")));
+    box.appendChild(vis);
+    box.appendChild(el("span","sr",t("daysToGoSr",{"%n":String(left)})));
+  }else{
+    /* אופליין השעון ממשיך לרוץ, ובלי הענפים האלה המונה היה מגיע
+       לאפס ואז לשלילי. */
+    box.appendChild(document.createTextNode(today>TRIP.back?t("tripDone"):t("tripNow")));
+  }
+}
 function renderTripbar(){
   var box=document.getElementById("tripbar");
   if(!box) return;
