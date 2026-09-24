@@ -3,6 +3,7 @@
 
 /* ============ אייקוני קו ============ */
 var ICONS={
+  home:'<path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V20h13V9.4"/><path d="M9.8 20v-5.4h4.4V20"/>',
   gear:'<circle cx="12" cy="12" r="3.1"/><path d="M19.4 14.5a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5v.2a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1h.2a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>',
   star:'<path d="M12 3.6l2.6 5.3 5.8.9-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.9z"/>',
   hike:'<path d="M2.5 19l6-9.5 4 6 2.5-3.5L21.5 19z"/><circle cx="17.5" cy="6" r="2"/>',
@@ -2355,6 +2356,8 @@ function renderChrome(){
   document.documentElement.setAttribute("lang",lang);
   document.documentElement.setAttribute("dir",isHe()?"rtl":"ltr");
   document.getElementById("skipLink").textContent=t("skip");
+  var bl=document.getElementById("brandLink");
+  if(bl&&!bl.querySelector("svg")) bl.insertBefore(icon("home"),bl.firstChild);
   document.getElementById("brandName").textContent=t("brand");
   var bh=document.getElementById("brandHint");
   if(bh) bh.textContent=" — "+t("brandLink");

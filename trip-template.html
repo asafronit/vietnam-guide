@@ -8,9 +8,13 @@
   var p=new URLSearchParams(location.search), q=p.get("splash");
   var rm=false; try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
   var seen=false; try{seen=sessionStorage.getItem("vnSplashSeen")==="1";}catch(e){}
-  /* hold מחזיק את הספלאש פתוח לבדיקה ולצפייה; הוא עדיין מכבד
-     reduced-motion ועדיין ניתן לדילוג בכפתור, במקש ובלחיצה. */
-  var show = q==="0" ? false : (rm ? false : (q==="force"||q==="1"||q==="hold" ? true : !seen));
+  /* ההבחנה: reduced-motion נועד למנוע תנועה שהמשתמש **לא** ביקש.
+     הפעלה אוטומטית מכבדת אותו במלואה. אבל force ו-hold מגיעים
+     מלחיצה מפורשת על "הפעל את הפתיח" — זו בקשה, ולכן הם עוברים.
+     בלי ההבחנה הזו מכונה שבה אפקטי האנימציה כבויים לא יכולה
+     להציג את הפתיח לעולם, גם כשמבקשים. */
+  var asked = (q==="force"||q==="hold");
+  var show = q==="0" ? false : (asked ? true : (rm ? false : (q==="1" ? true : !seen)));
   if(show){
     document.documentElement.classList.add("splash-on");
     try{sessionStorage.setItem("vnSplashSeen","1");}catch(e){}
@@ -188,8 +192,16 @@ svg.ic-lg{width:21px;height:21px}
 /* הכותרת היא קישור הביתה שגם מריץ מחדש את הפתיח. ניווט אמיתי ולא
    מתג: שער הספלאש רץ ב-<head> לפני הצביעה הראשונה, ולכן רק טעינה
    נקייה יכולה להציג אותו שוב. */
-.brand{font-family:var(--f-ui);font-weight:800;font-size:1.08rem;display:flex;align-items:center;gap:8px;
-  letter-spacing:-.01em;color:inherit;text-decoration:none;min-height:44px}
+/* בלי הטיפול הזה הקישור נראה בדיוק כמו טקסט, ואי אפשר לנחש שהוא
+   לחיץ — במגע אין hover שיגלה את זה. האייקון הוא הסימן. */
+.brand{font-family:var(--f-ui);font-weight:800;font-size:1.08rem;display:inline-flex;align-items:center;gap:8px;
+  letter-spacing:-.01em;color:inherit;text-decoration:none;min-height:44px;
+  padding:4px 11px 4px 9px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.08);
+  transition:background .14s,border-color .14s}
+.brand:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.6)}
+.brand:active{background:rgba(255,255,255,.26)}
+.brand .ic{width:16px;height:16px;flex:none;opacity:.95}
 /* הזהב תקף רק כאן: 7.39 על הקצה הכהה, אך 4.29 על הבהיר — כלומר
    הוא עובר רק כטקסט גדול ומודגש. לא להשתמש בו בטיפוגרפיה קטנה. */
 .brand span{font-weight:800;color:var(--gold);font-size:1.08rem}
@@ -857,10 +869,13 @@ html.splash-on,html.splash-on body{overflow:hidden}
 #splash{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;overflow:hidden;opacity:1;transition:opacity .5s ease}
 html.splash-on #splash{display:flex}
 #splash.sp-hide{opacity:0;pointer-events:none}
-/* במקור הרקע היה שקוף בכוונה. כאן הספלאש בא **לפני** מסך הבית,
-   ומסך שמציץ מבעד לאנימציה נראה כמו תקלה — לכן כיסוי אטום בגרדיאנט
-   המותג. לבן עליו נמדד 11.99 בקצה הכהה ו-6.95 בבהיר. */
-#splash{background:linear-gradient(160deg,#42276f 0%,#5a3a86 55%,#6c479c 100%)}
+/* וילון ולא קיר: מסך הבית נראה מבעד לספלאש, ולכן מובן מיד מה
+   ייפתח כשהוא נסגר. אטימות .86 היא הגבול — לבן עליו נמדד 8.17
+   בקצה הכהה ו-5.11 בבהיר (מעל לבן מלא של כרטיס: 5.05), כלומר
+   גם התרחיש הגרוע ביותר עובר 4.5:1 בשני הנושאים. */
+#splash{background:linear-gradient(160deg,
+   rgba(66,39,111,.86) 0%,rgba(90,58,134,.86) 55%,rgba(108,71,156,.86) 100%)}
+@supports (backdrop-filter:blur(3px)){#splash{backdrop-filter:blur(3px) saturate(.92)}}
 #splash .sp-bg{display:none}
 #splash .sp-stage{position:relative;width:min(90vw,440px);aspect-ratio:3/4}
 #splash svg{width:100%;height:100%;display:block;overflow:visible}
@@ -875,7 +890,12 @@ html.splash-on #splash{display:flex}
 @keyframes sp-fade{to{opacity:1}}
 .sp-title.sp-show{animation:sp-rise .6s ease-out var(--td,1.8s) both}
 @keyframes sp-rise{to{opacity:1;transform:translate(-50%,0)}}
-@media (prefers-reduced-motion: reduce){.sp-piece,.sp-item,.sp-outline,.sp-title{animation:none!important}}
+/* animation:none לבדו הותיר את החלקים ב-opacity:0 — מסך סגול ריק.
+   מי שכיבה אנימציות אמור לראות את התמונה המורכבת, מיד ובלי תנועה. */
+@media (prefers-reduced-motion: reduce){
+  .sp-piece,.sp-item,.sp-outline{animation:none!important;opacity:1;transform:none}
+  #splash .sp-title{animation:none!important;opacity:1;transform:translate(-50%,0)}
+}
 </style>
 
 <div class="wrap">
@@ -884,7 +904,7 @@ html.splash-on #splash{display:flex}
 <header class="topbar" id="topbar">
   <div class="tb-row r1">
    <div class="r1-in">
-    <a class="brand" id="brandLink" href="./?splash=force"><span class="bar"></span><span id="brandName">ויאטנם</span> <span id="brandSub">נובמבר 2026</span><span class="sr" id="brandHint"></span></a>
+    <a class="brand" id="brandLink" href="./?splash=force"><span id="brandName">ויאטנם</span> <span id="brandSub">נובמבר 2026</span><span class="sr" id="brandHint"></span></a>
     <div class="tb-tools" id="tbTools">
       <div class="seg" role="group" id="langSeg"></div>
       <div class="seg" role="group" id="curSeg"></div>
@@ -1066,8 +1086,11 @@ html.splash-on #splash{display:flex}
   var hold=false;
   try{ hold=new URLSearchParams(location.search).get("splash")==="hold"; }catch(e){}
   if(!hold){
-    setTimeout(dismiss,(lastDelay+1.6)*1000); // auto-dismiss after assembly + read time
-    setTimeout(dismiss,5000);                 // hard backstop
+    /* כשהאנימציות כבויות אין הרכבה להמתין לה — התמונה שלמה מהרגע
+       הראשון, ולכן lastDelay שניות של תמונה קפואה הן רק עיכוב. */
+    var rmNow=false; try{rmNow=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+    setTimeout(dismiss,rmNow?2200:(lastDelay+1.6)*1000);
+    setTimeout(dismiss,rmNow?2600:5000);       // hard backstop
   }
 })();
 </script>
@@ -1086,6 +1109,7 @@ html.splash-on #splash{display:flex}
 
 /* ============ אייקוני קו ============ */
 var ICONS={
+  home:'<path d="M3 10.2 12 3l9 7.2"/><path d="M5.5 9.4V20h13V9.4"/><path d="M9.8 20v-5.4h4.4V20"/>',
   gear:'<circle cx="12" cy="12" r="3.1"/><path d="M19.4 14.5a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5v.2a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3H9a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V9a1.6 1.6 0 0 0 1.5 1h.2a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/>',
   star:'<path d="M12 3.6l2.6 5.3 5.8.9-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.9z"/>',
   hike:'<path d="M2.5 19l6-9.5 4 6 2.5-3.5L21.5 19z"/><circle cx="17.5" cy="6" r="2"/>',
@@ -3438,6 +3462,8 @@ function renderChrome(){
   document.documentElement.setAttribute("lang",lang);
   document.documentElement.setAttribute("dir",isHe()?"rtl":"ltr");
   document.getElementById("skipLink").textContent=t("skip");
+  var bl=document.getElementById("brandLink");
+  if(bl&&!bl.querySelector("svg")) bl.insertBefore(icon("home"),bl.firstChild);
   document.getElementById("brandName").textContent=t("brand");
   var bh=document.getElementById("brandHint");
   if(bh) bh.textContent=" — "+t("brandLink");
