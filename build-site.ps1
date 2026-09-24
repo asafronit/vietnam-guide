@@ -95,6 +95,15 @@ if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("sw.js").catch(function () {});
   });
+  // הנכסים מוגשים מהקאש ומתרעננים ברקע, ולכן הכניסה הראשונה אחרי
+  // פרסום הציגה את הגרסה הקודמת — באייפון זה נראה כאילו שום דבר לא
+  // השתנה. כשה-worker החדש תופס שליטה, טוענים מחדש פעם אחת.
+  var vnReloaded = false;
+  navigator.serviceWorker.addEventListener("controllerchange", function () {
+    if (vnReloaded) return;
+    vnReloaded = true;
+    location.reload();
+  });
 }
 </script>
 </body>

@@ -8,14 +8,16 @@
   var p=new URLSearchParams(location.search), q=p.get("splash");
   var rm=false; try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
   var seen=false; try{seen=sessionStorage.getItem("vnSplashSeen")==="1";}catch(e){}
-  var show = q==="0" ? false : (rm ? false : (q==="force"||q==="1" ? true : !seen));
+  /* hold מחזיק את הספלאש פתוח לבדיקה ולצפייה; הוא עדיין מכבד
+     reduced-motion ועדיין ניתן לדילוג בכפתור, במקש ובלחיצה. */
+  var show = q==="0" ? false : (rm ? false : (q==="force"||q==="1"||q==="hold" ? true : !seen));
   if(show){
     document.documentElement.classList.add("splash-on");
     try{sessionStorage.setItem("vnSplashSeen","1");}catch(e){}
     /* רשת ביטחון בלתי-תלויה: אם סקריפט הספלאש לא יגיע — והמדריך
        הוא פלט בנייה, כלומר הסקריפטים מופרדים מה-markup — המחלקה
        הייתה נשארת ו-overflow:hidden היה נועל את הדף לצמיתות. */
-    setTimeout(function(){
+    if(q!=="hold") setTimeout(function(){
       document.documentElement.classList.remove("splash-on");
       var w=document.querySelector(".wrap"); if(w) w.removeAttribute("inert");
     },6000);
@@ -827,12 +829,16 @@ html.splash-on,html.splash-on body{overflow:hidden}
 #splash{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;overflow:hidden;opacity:1;transition:opacity .5s ease}
 html.splash-on #splash{display:flex}
 #splash.sp-hide{opacity:0;pointer-events:none}
-#splash .sp-bg{display:none}/* transparent: page shows through behind the animation */
+/* במקור הרקע היה שקוף בכוונה. כאן הספלאש בא **לפני** מסך הבית,
+   ומסך שמציץ מבעד לאנימציה נראה כמו תקלה — לכן כיסוי אטום בגרדיאנט
+   המותג. לבן עליו נמדד 11.99 בקצה הכהה ו-6.95 בבהיר. */
+#splash{background:linear-gradient(160deg,#42276f 0%,#5a3a86 55%,#6c479c 100%)}
+#splash .sp-bg{display:none}
 #splash .sp-stage{position:relative;width:min(90vw,440px);aspect-ratio:3/4}
 #splash svg{width:100%;height:100%;display:block;overflow:visible}
-#splash .sp-title{position:absolute;left:50%;bottom:8%;transform:translate(-50%,12px);text-align:center;padding:8px 18px;border-radius:14px;background:rgba(8,24,40,.62);color:#fff;font-weight:900;font-size:1.5rem;letter-spacing:.5px;opacity:0}
+#splash .sp-title{position:absolute;left:50%;bottom:8%;transform:translate(-50%,12px);text-align:center;padding:8px 18px;border-radius:14px;background:rgba(0,0,0,.34);color:#fff;font-weight:900;font-size:1.5rem;letter-spacing:.5px;opacity:0}
 #splash .sp-title small{display:block;font-size:.66rem;font-weight:700;letter-spacing:3px;opacity:.95}
-#splash .sp-skip{z-index:2;position:absolute;top:14px;inset-inline-end:14px;min-width:44px;min-height:44px;padding:8px 16px;border:0;border-radius:999px;background:rgba(8,24,40,.62);color:#fff;font-weight:700;font-size:.9rem;cursor:pointer}
+#splash .sp-skip{z-index:2;position:absolute;top:14px;inset-inline-end:14px;min-width:44px;min-height:44px;padding:8px 16px;border:1px solid rgba(255,255,255,.5);border-radius:999px;background:rgba(0,0,0,.34);color:#fff;font-weight:700;font-size:.9rem;cursor:pointer}
 .sp-piece{opacity:0;animation:sp-assemble .7s cubic-bezier(.18,.85,.25,1.12) both;animation-delay:var(--d,0s)}
 @keyframes sp-assemble{from{opacity:0;transform:translate(var(--fx,0),var(--fy,0)) rotate(var(--fr,0))}35%{opacity:1}to{opacity:1;transform:translate(0,0) rotate(0)}}
 .sp-item{opacity:0;animation:sp-item .7s ease-out both;animation-delay:var(--d,0s)}
@@ -1020,8 +1026,12 @@ html.splash-on #splash{display:flex}
     skip.focus();
   }
   splash.addEventListener("click",dismiss);
-  setTimeout(dismiss,(lastDelay+1.6)*1000); // auto-dismiss after assembly + read time
-  setTimeout(dismiss,5000);                 // hard backstop
+  var hold=false;
+  try{ hold=new URLSearchParams(location.search).get("splash")==="hold"; }catch(e){}
+  if(!hold){
+    setTimeout(dismiss,(lastDelay+1.6)*1000); // auto-dismiss after assembly + read time
+    setTimeout(dismiss,5000);                 // hard backstop
+  }
 })();
 </script>
 <script>
