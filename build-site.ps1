@@ -98,9 +98,14 @@ if ("serviceWorker" in navigator) {
   // הנכסים מוגשים מהקאש ומתרעננים ברקע, ולכן הכניסה הראשונה אחרי
   // פרסום הציגה את הגרסה הקודמת — באייפון זה נראה כאילו שום דבר לא
   // השתנה. כשה-worker החדש תופס שליטה, טוענים מחדש פעם אחת.
+  // clients.claim() יורה controllerchange גם בהתקנה הראשונה, כשדף שנטען
+  // בלי controller הופך למבוקר — ולכן כל ביקור ראשון קיבל טעינה מחדש
+  // מלאה שניות ספורות לתוכו, קוטע את הקראת קורא המסך ומאפס את הפוקוס.
+  // אין גרסה ישנה לרענן כשלא היה controller מלכתחילה.
+  var vnHadController = !!navigator.serviceWorker.controller;
   var vnReloaded = false;
   navigator.serviceWorker.addEventListener("controllerchange", function () {
-    if (vnReloaded) return;
+    if (!vnHadController || vnReloaded) return;
     vnReloaded = true;
     location.reload();
   });

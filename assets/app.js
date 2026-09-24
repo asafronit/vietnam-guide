@@ -2301,7 +2301,11 @@ function screenSearch(){
 /* ============ ניתוב ============ */
 function routeName(){
   var hz=decodeURIComponent(location.hash.replace(/^#/,""));
-  if(query) return "search";
+  /* החיפוש מרוקן את ה-hash בכוונה (ראה מאזין ה-input), ולכן hash
+     לא-ריק הוא תמיד ניווט מפורש וגובר. קודם `if(query)` היה ראשון
+     ללא תנאי: כל לחיצה על פריט ניווט החזירה את מסך התוצאות, חטפה
+     את הפוקוס בחזרה לכותרתן, והסירה aria-current מכל הפריטים. */
+  if(query && !hz) return "search";
   if(hz.indexOf("s/")===0) return "station";
   if(hz.indexOf("c/")===0) return "category";
   if(hz==="map") return "map";
@@ -2537,6 +2541,14 @@ qEl.addEventListener("input",function(){
   },300);
 });
 xBtn.addEventListener("click",function(){qEl.value="";query="";xBtn.hidden=true;render();qEl.focus();});
+/* ניווט מפורש מסיים את החיפוש. מואצל על המסמך ולא על הפריטים עצמם,
+   כי renderChrome בונה אותם מחדש בכל החלפת שפה, מטבע או ערכת נושא. */
+document.addEventListener("click",function(e){
+  if(!query) return;
+  var t=e.target&&e.target.closest?e.target.closest("[data-nav]"):null;
+  if(!t) return;
+  qEl.value="";query="";xBtn.hidden=true;
+});
 qEl.addEventListener("keydown",function(e){
   if(e.key==="Escape"&&qEl.value){qEl.value="";query="";xBtn.hidden=true;render();}
 });

@@ -96,8 +96,12 @@ try{
   --brand-ink:#ffffff;
   --brand-soft:#ece7f4;
   /* זהב: 7.39 על הקצה הכהה, אך רק 4.29 על הבהיר — כלומר תקף שם
-     ורק ב-bold מעל 18.66px. לא להשתמש בו בטיפוגרפיה קטנה. */
+     ורק ב-bold מעל 18.66px. לא להשתמש בו בטיפוגרפיה קטנה.
+     --gold הוא צבע מילוי. לטקסט ולקווי מתאר יש --gold-ink: הזהב
+     עצמו נותן 1.62 על לבן, ולכן כל שימוש טיפוגרפי בו נכשל במצב
+     הבהיר. אותה משפחת ענבר, ניגודיות תקפה: 6.38 על --surface. */
   --gold:#f5c542;
+  --gold-ink:#7a5a00;
   --on-header:#ffffff;
   --on-header-2:#e2dbec;     /* אטום במקום opacity:.7 — 5.6 על הבהיר */
   --jade:#0f7c5c;  --jade-on:#ffffff;
@@ -135,7 +139,7 @@ try{
      11.99 בקצה הכהה ו-6.95 בבהיר. רק הטקסט הסגול על הרקע מתבהר. */
   --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
   --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
-  --gold:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
+  --gold:#f5c542;--gold-ink:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
   --jade:#3ddba0;  --jade-on:#06251a;  --rose:#e0806c;
   --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
   --c-map-fill:#7cc4ff; --c-map-on:#06121c;
@@ -158,7 +162,7 @@ try{
      11.99 בקצה הכהה ו-6.95 בבהיר. רק הטקסט הסגול על הרקע מתבהר. */
   --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
   --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
-  --gold:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
+  --gold:#f5c542;--gold-ink:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
   --jade:#3ddba0;  --jade-on:#06251a;  --rose:#e0806c;
   --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
   --c-map-fill:#7cc4ff; --c-map-on:#06121c;
@@ -214,9 +218,12 @@ svg.ic-lg{width:21px;height:21px}
 .brand:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.6)}
 .brand:active{background:rgba(255,255,255,.26)}
 .brand .ic{width:16px;height:16px;flex:none;opacity:.95}
-/* הזהב תקף רק כאן: 7.39 על הקצה הכהה, אך 4.29 על הבהיר — כלומר
-   הוא עובר רק כטקסט גדול ומודגש. לא להשתמש בו בטיפוגרפיה קטנה. */
-.brand span{font-weight:800;color:var(--gold);font-size:1.08rem}
+/* הזהב תקף כאן רק כטקסט גדול ומודגש, וסף "גדול" ב-bold הוא 18.66px.
+   ב-1.08rem זה היה 17.28px — כלומר מתחת לסף, ולכן הדרישה הייתה 4.5
+   בעוד ההערה עצמה מדדה 4.29. 1.17rem מעביר את הסף בפחות מפיקסל,
+   והצבע לא זז. גלולת ה-.brand מבהירה את הגרדיאנט תחתיה, ולכן המספר
+   בפועל נמוך מהמדידה על הגרדיאנט הנקי. */
+.brand span{font-weight:800;color:var(--gold);font-size:1.17rem}
 .brand .bar{display:none}
 /* ספירה לאחור. המספר לבדו קורא "34"; המשפט המלא יושב ב-sr. */
 .countdown{width:100%;margin:10px 0 0;display:flex;align-items:baseline;gap:9px;font-size:.84rem;color:var(--on-header-2)}
@@ -508,7 +515,7 @@ main:focus,main:focus-visible{outline:none}
    ונעשה כמעט זהה ל---rose של "גרוע". הירוק נשמר כאן בדיוק לשם כך —
    הוא נושא משמעות, לא זהות מותג. */
 .good{color:var(--jade)}       .wx-fill.good{background:var(--jade)}
-.fair{color:var(--gold)}       .wx-fill.fair{background:var(--gold)}
+.fair{color:var(--gold-ink)}   .wx-fill.fair{background:var(--gold)}
 .poor{color:var(--rose)}       .wx-fill.poor{background:var(--rose)}
 .wx-note{font-size:.79rem;color:var(--ink-3);margin:12px 0 0;max-width:62ch}
 .feas{font-family:var(--f-ui);font-weight:600;font-size:.76rem;font-variant-numeric:tabular-nums;
@@ -516,9 +523,10 @@ main:focus,main:focus-visible{outline:none}
 /* מישלין: אדום הכוכב לכוכב, ענבר ל-Bib. הטקסט נושא את המשמעות, לא הצבע. */
 .sig{font-family:var(--f-ui);font-weight:600;font-size:.72rem;border-radius:var(--r-xs);padding:2px 7px;white-space:nowrap}
 .sig-star{background:#8e1b2e;color:#fff}
-.sig-bib{background:var(--gold);color:#fff}
-:root[data-theme="dark"] .sig-bib{color:#231a06}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sig-bib{color:#231a06}}
+/* הזהב אינו מתהפך בין מצבי הצבע, ולכן גם טקסט-העל לא צריך להתהפך.
+   ההחרגה הייתה חלה על מצב כהה בלבד, והתג נשאר לבן על זהב — 1.62 —
+   בדיוק במצב שהוא ברירת המחדל. */
+.sig-bib{background:var(--gold);color:#231a06}
 
 .quickbar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
 .qbtn{
@@ -555,7 +563,7 @@ html[dir="ltr"] .rcard-where{direction:ltr}
   display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:auto;padding-top:8px;
   font-family:var(--f-ui);font-size:.79rem;color:var(--ink-2);position:relative;z-index:2;
 }
-.stars{color:var(--gold);letter-spacing:.05em;font-size:.76rem}
+.stars{color:var(--gold-ink);letter-spacing:.05em;font-size:.76rem}
 .money{font-weight:600;font-variant-numeric:tabular-nums}
 .money.is-free{color:var(--brand)}
 .warn{color:var(--rose);font-weight:500}
@@ -987,6 +995,9 @@ html.splash-on #splash{display:flex}
   var titleEl=document.getElementById("sp-title"), skip=document.getElementById("sp-skip");
   var he=document.documentElement.lang==="he";
   if(skip) skip.textContent = he ? "דילוג על אנימציית הפתיחה" : "Skip intro animation";
+  /* גם תווית הקבוצה, ולא רק הכפתור: במצב אנגלית ה-<html lang> כבר "en",
+     וקורא מסך ינסה להגות את המחרוזת העברית בקול אנגלי. */
+  splash.setAttribute("aria-label", he ? "פתיח המדריך" : "Guide intro");
 
   var SVGNS="http://www.w3.org/2000/svg", XLINK="http://www.w3.org/1999/xlink";
   var GROUP_TF="translate(0,1024) scale(0.1,-0.1)", SAT="assets/splash/sat.webp";
@@ -3440,7 +3451,11 @@ function screenSearch(){
 /* ============ ניתוב ============ */
 function routeName(){
   var hz=decodeURIComponent(location.hash.replace(/^#/,""));
-  if(query) return "search";
+  /* החיפוש מרוקן את ה-hash בכוונה (ראה מאזין ה-input), ולכן hash
+     לא-ריק הוא תמיד ניווט מפורש וגובר. קודם `if(query)` היה ראשון
+     ללא תנאי: כל לחיצה על פריט ניווט החזירה את מסך התוצאות, חטפה
+     את הפוקוס בחזרה לכותרתן, והסירה aria-current מכל הפריטים. */
+  if(query && !hz) return "search";
   if(hz.indexOf("s/")===0) return "station";
   if(hz.indexOf("c/")===0) return "category";
   if(hz==="map") return "map";
@@ -3676,6 +3691,14 @@ qEl.addEventListener("input",function(){
   },300);
 });
 xBtn.addEventListener("click",function(){qEl.value="";query="";xBtn.hidden=true;render();qEl.focus();});
+/* ניווט מפורש מסיים את החיפוש. מואצל על המסמך ולא על הפריטים עצמם,
+   כי renderChrome בונה אותם מחדש בכל החלפת שפה, מטבע או ערכת נושא. */
+document.addEventListener("click",function(e){
+  if(!query) return;
+  var t=e.target&&e.target.closest?e.target.closest("[data-nav]"):null;
+  if(!t) return;
+  qEl.value="";query="";xBtn.hidden=true;
+});
 qEl.addEventListener("keydown",function(e){
   if(e.key==="Escape"&&qEl.value){qEl.value="";query="";xBtn.hidden=true;render();}
 });
