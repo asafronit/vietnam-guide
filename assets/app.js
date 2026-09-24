@@ -41,6 +41,8 @@ function icon(name,cls){
 /* ============ מילון ============ */
 var T={
   brand:{he:"ויאטנם",en:"Vietnam"},
+  brandLink:{he:"חזרה למסך הבית, עם אנימציית הפתיחה",
+             en:"Back to the home screen, with the intro animation"},
   brandSub:{he:"נובמבר 2026",en:"November 2026"},
   skip:{he:"דלג לתוכן",en:"Skip to content"},
   searchLabel:{he:"חיפוש בכל המאגר",en:"Search everything"},
@@ -2354,6 +2356,8 @@ function renderChrome(){
   document.documentElement.setAttribute("dir",isHe()?"rtl":"ltr");
   document.getElementById("skipLink").textContent=t("skip");
   document.getElementById("brandName").textContent=t("brand");
+  var bh=document.getElementById("brandHint");
+  if(bh) bh.textContent=" — "+t("brandLink");
   document.getElementById("brandSub").textContent=t("brandSub");
   document.getElementById("qLabel").textContent=t("searchLabel");
   var qi=document.getElementById("q");
