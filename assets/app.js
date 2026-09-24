@@ -256,8 +256,8 @@ var REGIONS=[
 var HE_NAME={
   "hanoi":"האנוי","ha-giang":"הא ז'יאנג","sapa":"סאפה","ha-long":"הא לונג וקאט בא",
   "ninh-binh":"נין בין","phong-nha":"פונג ניה","hue":"הואה","hoi-an":"הוי אן ודה נאנג",
-  "buon-ma-thuot":"בואן מה תואוט","lak-lake":"אגם לאק","da-lat":"דה לאט",
-  "saigon":"הו צ'י מין (סייגון)","mekong":"מקונג וקאן טו","phu-quoc":"פו קוטק"
+  "buon-ma-thuot":"בואן מה תואט","lak-lake":"אגם לאק","da-lat":"דה לאט",
+  "saigon":"הו צ'י מין (סייגון)","mekong":"מקונג וקאן טו","phu-quoc":"פו קוק"
 };
 var SCENE={
   "hanoi":"city","ha-giang":"peaks","sapa":"terraces","ha-long":"karst","ninh-binh":"karst",
