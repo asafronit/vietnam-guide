@@ -21,10 +21,22 @@
     /* רשת ביטחון בלתי-תלויה: אם סקריפט הספלאש לא יגיע — והמדריך
        הוא פלט בנייה, כלומר הסקריפטים מופרדים מה-markup — המחלקה
        הייתה נשארת ו-overflow:hidden היה נועל את הדף לצמיתות. */
-    if(q!=="hold") setTimeout(function(){
+    /* ה-gate רץ ב-head, לפני ש-.wrap קיים, ולכן אינו יכול להציב
+       inert כאן ועכשיו. עד כה הוא רק **הסיר** אותו — אסימטריה
+       שבכל נתיב שבו splashjs חסר הותירה את הדף נגיש ל-Tab מתחת
+       לווילון, כלומר פוקוס על פקד שאי אפשר לקרוא. */
+    document.addEventListener("DOMContentLoaded",function(){
+      if(!document.documentElement.classList.contains("splash-on")) return;
+      var w=document.querySelector(".wrap"); if(w) w.setAttribute("inert","");
+    });
+    /* hold ניטרל את רשת הביטחון לגמרי, ודווקא הוא הנתיב היחיד
+       שגם מוותר על טיימרי הסגירה. URL עם hold בסימנייה או בוואטסאפ
+       היה נועל את הדף לצמיתות אצל מי שפותח אותו. חלון ארוך שומר
+       את ערך הניפוי בלי לאפשר נעילה. */
+    setTimeout(function(){
       document.documentElement.classList.remove("splash-on");
       var w=document.querySelector(".wrap"); if(w) w.removeAttribute("inert");
-    },6000);
+    },q==="hold"?30000:6000);
   }
 })();
 </script>
@@ -236,7 +248,7 @@ svg.ic-lg{width:21px;height:21px}
 .tb-row.r1 :focus-visible,.tile:focus-visible{
   outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px rgba(0,0,0,.85);border-radius:8px
 }
-#splash .sp-skip:focus-visible{
+#splash .sp-skip:focus,#splash .sp-skip:focus-visible{
   outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px rgba(0,0,0,.85);border-radius:999px
 }
 .iconbtn:hover{background:var(--surface-2);color:var(--ink)}
@@ -937,7 +949,7 @@ html.splash-on #splash{display:flex}
 <nav class="botnav" id="botnav" aria-label="ניווט ראשי"></nav>
 </div>
 
-<div id="splash">
+<div id="splash" role="group" aria-label="פתיח המדריך">
   <div class="sp-bg"></div>
   <div class="sp-stage" aria-hidden="true">
     <svg id="sp-svg" aria-hidden="true" focusable="false" viewBox="0 0 1024 1024"></svg>
@@ -1035,6 +1047,8 @@ html.splash-on #splash{display:flex}
     return lastDelay;
   }
 
+  var RM_NOW=false; try{RM_NOW=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+
   var done=false;
   function onKey(){ dismiss(); }            // any key skips; Tab not prevented so focus flows
   function dismiss(){
@@ -1042,18 +1056,26 @@ html.splash-on #splash{display:flex}
     document.removeEventListener("keydown",onKey,true);
     splash.removeEventListener("click",dismiss);
     splash.classList.add("sp-hide");
-    /* הפוקוס עובר **לפני** ההסרה: מרגע שכפתור הדילוג מקבל פוקוס,
-       הסרת הצומת הייתה מפילה אותו ל-body. */
+    /* השחרור קורה כאן ולא ב-fin: מרגע ש-sp-hide מוסיף opacity:0
+       הדף **נראה** פעיל, ובמשך 700ms הוא עדיין היה inert והפוקוס
+       עוד ישב על כפתור בלתי-נראה. חצי שנייה שבה כלום לא מגיב.
+       הפוקוס עובר עדיין לפני הסרת הצומת, כפי שנדרש. */
+    /* ה-inert יורד **לפני** הפוקוס. כשהסדר היה הפוך focus() על
+       #main נדחה בשקט — הוא בתוך .wrap — והפוקוס נפל ל-body.
+       המחלקה splash-on נשארת עד fin: היא זו שמציגה את הצומת,
+       והסרתה כאן הייתה מבטלת את ההעלמות ההדרגתית. */
+    var wrapNow=document.querySelector(".wrap");
+    if(wrapNow) wrapNow.removeAttribute("inert");
+    try{
+      if(splash.contains(document.activeElement)){
+        /* main ולא skipLink: האחרון מציג שבב "דלג לתוכן" ברגע
+           שהוא מקבל פוקוס, וזה נראה כמו תקלה מיד אחרי הפתיחה. */
+        var sk=document.getElementById("main")||document.getElementById("skipLink");
+        if(sk) sk.focus();
+      }
+    }catch(e){}
     var fin=function(){
-      try{
-        if(splash.contains(document.activeElement)){
-          /* main ולא skipLink: האחרון מציג שבב "דלג לתוכן" ברגע
-             שהוא מקבל פוקוס, וזה נראה כמו תקלה מיד אחרי הפתיחה. */
-          var sk=document.getElementById("main")||document.getElementById("skipLink");
-          if(sk) sk.focus();
-        }
-        splash.parentNode&&splash.parentNode.removeChild(splash);
-      }catch(e){}
+      try{ splash.parentNode&&splash.parentNode.removeChild(splash); }catch(e){}
       clearSplash();
       /* מנקים את הפרמטר: בלעדיו כל רענון ידני אחר כך היה מריץ את
          הפתיח שוב, בלי שהמשתמש ביקש. */
@@ -1065,8 +1087,11 @@ html.splash-on #splash{display:flex}
         }
       }catch(e){}
     };
-    splash.addEventListener("transitionend",fin,{once:true});
-    setTimeout(fin,700);
+    /* transitionend לא נורה כשהאנימציות כבויות — הכלל הגלובלי
+       מבטל גם transition — ואז הטיימר היה נתיב היציאה היחיד,
+       וטיימר בטאב רקע ממותן. בלי מעבר אין גם מה לחכות לו. */
+    if(RM_NOW){ fin(); }
+    else{ splash.addEventListener("transitionend",fin,{once:true}); setTimeout(fin,700); }
   }
 
   var lastDelay=4;
@@ -1087,10 +1112,13 @@ html.splash-on #splash{display:flex}
   try{ hold=new URLSearchParams(location.search).get("splash")==="hold"; }catch(e){}
   if(!hold){
     /* כשהאנימציות כבויות אין הרכבה להמתין לה — התמונה שלמה מהרגע
-       הראשון, ולכן lastDelay שניות של תמונה קפואה הן רק עיכוב. */
-    var rmNow=false; try{rmNow=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
-    setTimeout(dismiss,rmNow?2200:(lastDelay+1.6)*1000);
-    setTimeout(dismiss,rmNow?2600:5000);       // hard backstop
+       הראשון, ולכן lastDelay שניות של תמונה קפואה הן רק עיכוב.
+       והגבול נמדד מטעינת הדף: build() סורק קנבס של מיליון פיקסלים,
+       ובטלפון חלש ה-backstop "של חמש שניות" נמתח אל מעבר לשש. */
+    var spent=0; try{spent=performance.now();}catch(e){}
+    var soft=RM_NOW?2200:(lastDelay+1.6)*1000, hard=RM_NOW?2600:5000;
+    setTimeout(dismiss,Math.max(400,soft-spent));
+    setTimeout(dismiss,Math.max(600,hard-spent));
   }
 })();
 </script>
