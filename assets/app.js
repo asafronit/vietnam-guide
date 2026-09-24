@@ -1532,11 +1532,21 @@ function screenHome(){
     var list=stationsIn(g);
     if(!list.length) return;
     var places=list.reduce(function(a,st){return a+total(st);},0);
-    main.appendChild(secLabel(groupName(g),
-      list.length+" "+t("stations")+" · "+places+" "+t("places")));
+    var sec=el("section","region");
+    /* הכותרת היא גם השם הנגיש של המקטע, ולכן aria-labelledby ולא
+       תווית כפולה. */
+    var hid="reg-"+g.id;
+    var hd=el("h2","region-hd"); hd.id=hid;
+    hd.appendChild(document.createTextNode(groupName(g)));
+    hd.appendChild(el("span","cnt",list.length+" "+t("stations")+" · "+places+" "+t("places")));
+    sec.setAttribute("aria-labelledby",hid);
+    sec.appendChild(hd);
+    var body=el("div","region-body");
     var ul=el("ul","tilegrid"); ul.setAttribute("role","list");
     list.forEach(function(st){ ul.appendChild(tileFor(st)); });
-    main.appendChild(ul);
+    body.appendChild(ul);
+    sec.appendChild(body);
+    main.appendChild(sec);
   });
 }
 

@@ -749,6 +749,30 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
    אלמנטים כאלה באופן אמין, וזה מכשיר היעד.
    auto-fill במקום שתי עמודות קשיחות — ב-320px שתי עמודות נותנות
    139px לכרטיס, ושערי המטבע נגלשים. */
+/* חלוקת האזורים הייתה תווית אפורה דקה בין 14 ריבועי תצלום, ונבלעה
+   בגלילה. סרגל מלא וצמוד לראש הופך את הגבול לחד, וגם עונה על
+   "באיזה אזור אני עכשיו" בלי לגלול בחזרה. */
+.region{margin-top:20px}
+.region-hd{
+  position:sticky;top:0;z-index:12;
+  margin-inline:calc(-1 * var(--gutter));padding:11px var(--gutter);
+  display:flex;align-items:center;gap:10px;
+  background:var(--primary-fill);color:var(--primary-on);
+  font-family:var(--f-ui);font-weight:800;font-size:1.02rem;letter-spacing:-.01em;
+  box-shadow:0 2px 8px rgba(66,39,111,.25);
+}
+.region-hd .cnt{
+  margin-inline-start:auto;font-size:.74rem;font-weight:700;
+  background:rgba(255,255,255,.2);border-radius:999px;padding:3px 10px;white-space:nowrap;
+}
+/* הרצועה עצמה מקבלת גוון, כך שהקבוצה נקראת כגוש אחד ולא כרצף. */
+.region-body{
+  margin-inline:calc(-1 * var(--gutter));padding:14px var(--gutter) 22px;
+  background:var(--surface-2);
+}
+/* סרגל דביק יכול להסתיר ריבוע שמקבל פוקוס — 2.4.11. */
+.tile{scroll-margin-top:60px}
+
 .infogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;list-style:none;margin:0;padding:0}
 li.icard{list-style:none}
 .icard{background:var(--surface);border:1px solid var(--card-edge);border-radius:var(--r);
