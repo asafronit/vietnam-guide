@@ -216,6 +216,16 @@ var T={
   lim_flood:{he:"לפי הצפה",en:"by flooding"},
   lim_wind:{he:"לפי הרוח",en:"by wind"},
   lim_sea:{he:"לפי מצב הים",en:"by sea state"},
+  /* על מה המספר מדבר. בלי זה 93% נקרא כהבטחה ליום מסוים גם כשהוא
+     ממוצע של חודש, ו-5% נקרא כגזר דין גם כשהוא יום אחד. */
+  scope_today:{he:"היום",en:"today"},
+  scope_window:{he:"ממוצע התקופה",en:"period average"},
+  wxToday:{he:"היום",en:"today"},
+  wxTomorrow:{he:"מחר",en:"tomorrow"},
+  rain0:{he:"יבש",en:"dry"},
+  rain1:{he:"ממטרים",en:"showers"},
+  rain2:{he:"גשם כבד",en:"heavy rain"},
+  rain3:{he:"מבול",en:"downpour"},
   wxRainTotal:{he:"משקעים בחלון",en:"rain in window"},
   wxFeasible:{he:"היתכנות",en:"feasible"},
   sensHigh:{he:"פעילות חוץ",en:"Outdoor"},
@@ -599,6 +609,11 @@ function fetchForecast(st){
       var windArr=pick(d.wind_speed_10m_max).filter(function(v){return v!=null;});
       wxCache[st.id]={at:Date.now(),data:{
         daily:{mm:mmArr,wind:windArr},
+        /* התאריכים נשמרים כדי שאפשר יהיה לבודד יום בודד. בשטח השאלה
+           היא "היום?", וממוצע של חלון שלם אינו עונה עליה: שבוע יבש
+           ויום מונסון מתמצעים ל"בינוני", והמטייל שמחליט ב-08:00 אם
+           לצלול מקבל את הממוצע ולא את התשובה. */
+        dates:keep.map(function(i){return d.time[i];}),
         rainDays:mmArr.filter(function(v){return v>2;}).length,
         wind:windArr.length?Math.round(avg(windArr)*10)/10:null,
         tmax:Math.round(avg(pick(d.temperature_2m_max))*10)/10,
@@ -654,7 +669,8 @@ function fetchWaves(st,days){
 /* העומס לפי המגביל. זו הנקודה שבה "מה מגביל" הופך למספר, והיא נקראת
    פר-רשומה ולא פר-תחנה — שתי רשומות באותו מקום יכולות להיות מוגבלות
    בדברים שונים, וזה בדיוק המצב בפו קוק בין רכבל לצלילה. */
-function loadFor(wx,limiter){
+/* idx אופציונלי: כשהוא נתון מחשבים יום אחד ולא ממוצע חלון. */
+function loadFor(wx,limiter,idx){
   if(!wx) return null;
   limiter=limiter||"rain";
   if(wx.source==="forecast"&&wx.daily){
@@ -668,13 +684,32 @@ function loadFor(wx,limiter){
       }else{
         a=w.map(function(v,i){return seaLoss(v,k[i]);});
       }
-      a=a.filter(function(v){return v!=null;});
     }
     else a=(wx.daily.mm||[]).map(limiter==="flood"?floodLoss:dayLoss);
-    if(!a||!a.length) return null;
+    if(!a) return null;
+    if(idx!=null) return a[idx]==null?null:a[idx];
+    a=a.filter(function(v){return v!=null;});
+    if(!a.length) return null;
     return a.reduce(function(x,y){return x+y;},0)/a.length;
   }
+  /* לנורמה אין פילוח יומי, ולכן אין לה "היום" — היא תמיד החלון. */
+  if(idx!=null) return null;
   return climateLoad(wx.norm,wx.days,limiter);
+}
+/* האינדקס של תאריך בתוך התחזית השמורה, או null אם הוא מחוצה לה. */
+function dayIndex(wx,date){
+  if(!wx||!wx.dates) return null;
+  var k=date.getFullYear()+"-"+pad2(date.getMonth()+1)+"-"+pad2(date.getDate());
+  var i=wx.dates.indexOf(k);
+  return i<0?null:i;
+}
+function pad2(n){ return (n<10?"0":"")+n; }
+function startOfDay(d){ return new Date(d.getFullYear(),d.getMonth(),d.getDate()); }
+/* האם אנחנו בתוך הטיול. מחוצה לו "היום" אינו שאלה רלוונטית, והחלון
+   כולו הוא התשובה הנכונה. */
+function inTrip(){
+  var n=startOfDay(new Date()).getTime();
+  return n>=startOfDay(TRIP.depart).getTime() && n<=startOfDay(TRIP.back).getTime();
 }
 /* מחליף את רצועת מזג האוויר בלבד.
    קריאה ל-render() מכאן הייתה בונה מחדש את כל חלונית הפרטים כמה מאות
@@ -706,14 +741,35 @@ function limiterOf(rec,cat){
 function feasibility(rec,cat,st){
   var wx=weatherFor(st);
   if(!wx) return null;
-  var lim=limiterOf(rec,cat), load=loadFor(wx,lim);
+  var lim=limiterOf(rec,cat);
+  /* בתוך הטיול הצ'יפ עונה על "היום", וזו השאלה שנשאלת בשטח. מחוץ לו,
+     ובכל מקרה שאין ליום הזה נתון, הוא חוזר להיות ממוצע החלון — ומה
+     מהשניים הוא מוצהר בתווית, כדי ש-93% לא ייקרא כהבטחה ליום מסוים. */
+  var scope="window", load=null;
+  if(inTrip()){
+    var i=dayIndex(wx,new Date());
+    if(i!=null){ load=loadFor(wx,lim,i); if(load!=null) scope="today"; }
+  }
   /* null ולא אפס: אין נתון לחשב ממנו, ומספר מומצא גרוע מהיעדר צ'יפ.
      קורה לגל בתחנה שאין בה נורמה ימית. */
+  if(load==null) load=loadFor(wx,lim);
   if(load==null) return null;
   var s=sensOf(rec,cat);
-  return {pct:feasScore(load,s),sens:s,limiter:lim,source:wx.source,wx:wx};
+  /* רגישות נמוכה לא מקבלת צ'יפ. המקדם הוא 0.12, ולכן הציון הגרוע
+     ביותר שאפשר להגיע אליו הוא 88 — כלומר מלון, מסעדה, ספא וחיי לילה
+     היו תמיד ירוקים, בכל מזג אוויר, בכל תחנה. מספר שאינו יכול להיות
+     רע אינו מידע, והוא מלמד להתעלם גם מהצ'יפים שכן אומרים משהו.
+     הרצועה בראש התחנה ממשיכה להציג את הרמה "מקורה", וזו ההסבר. */
+  if(s==="low") return null;
+  return {pct:feasScore(load,s),sens:s,limiter:lim,scope:scope,source:wx.source,wx:wx};
 }
 function feasBand(p){ return p>=75?"good":(p>=50?"fair":"poor"); }
+/* מילימטרים למילה. אותן מדרגות שעקומת dayLoss נשענת עליהן, כדי
+   שהצבע בתא היום והציון בצ'יפ לא יסתרו זה את זה. */
+function rainBand(mm){ return mm<2?"good":(mm<10?"fair":"poor"); }
+function rainWordKey(mm){
+  return mm<2?"rain0":(mm<10?"rain1":(mm<25?"rain2":"rain3"));
+}
 
 /* ============ תצלום התחנה ============
    תצלומים אמיתיים מ-Wikimedia Commons, מוטמעים כ-data URI כי ה-CSP
@@ -1336,7 +1392,7 @@ function poiCard(item,cls){
     var chip=el("span","feas "+feasBand(fe.pct),fe.pct+"%");
     /* הרגישות *וגם* המגביל. בלי המגביל, 5% על צלילה ביום ללא גשם
        נראה כשגיאה — ועם "לפי מצב הים" הוא הופך למידע. */
-    var why=t("sens_"+fe.sens)+" · "+t("lim_"+fe.limiter);
+    var why=t("scope_"+fe.scope)+" · "+t("sens_"+fe.sens)+" · "+t("lim_"+fe.limiter);
     chip.title=t("feasTip",{"%s":why});
     chip.setAttribute("role","img");
     chip.setAttribute("aria-label",t("feasAria",{"%p":fe.pct,"%s":why}));
@@ -2176,6 +2232,30 @@ function weatherStrip(st){
   if(wx.wind!=null) stats.appendChild(wxStat(Math.round(wx.wind)+" km/h",t("wxWind")));
   if(wx.wave!=null) stats.appendChild(wxStat(wx.wave.toFixed(1)+" m",t("wxWave")));
   box.appendChild(stats);
+
+  /* בתוך הטיול, היום ומחר קודמים לכל השאר. זו השאלה שנשאלת בבוקר
+     מול הדלת, והיא נענית פר-יום ולא בממוצע של חודש. מחוץ לטיול שתי
+     השורות האלה פשוט אינן, כי אין להן משמעות. */
+  if(inTrip()&&wx.dates){
+    var now=new Date(), tom=new Date(now.getTime()+864e5);
+    var pair=el("div","wx-days");
+    [[t("wxToday"),now],[t("wxTomorrow"),tom]].forEach(function(p){
+      var i=dayIndex(wx,p[1]); if(i==null) return;
+      var mm=wx.daily&&wx.daily.mm&&wx.daily.mm[i];
+      if(mm==null) return;
+      /* מילימטרים ומילה, בלי אחוז. אחוז כאן היה מחושב לפי גשם בלבד,
+         והוא היה יושב ליד צ'יפ צלילה שמחושב לפי מצב הים — שני מספרים
+         ל"היום", זה ליד זה, שאינם אותו דבר. הרצועה אומרת מה מזג
+         האוויר; הצ'יפים אומרים מה אפשר לעשות בו, כל אחד לפי המגביל
+         שלו. מספר אחד לעובדה, הרבה ורדיקטים. */
+      var cell=el("div","wx-day");
+      cell.appendChild(el("span","wx-day-l",p[0]));
+      cell.appendChild(el("b","wx-day-mm "+rainBand(mm),Math.round(mm)+" mm"));
+      cell.appendChild(el("span","wx-day-w",t(rainWordKey(mm))));
+      pair.appendChild(cell);
+    });
+    if(pair.childNodes.length) box.appendChild(pair);
+  }
 
   /* שלוש רמות הרגישות, מחושבות עכשיו מאותו מזג אוויר */
   var rows=el("div","wx-rows");

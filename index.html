@@ -513,6 +513,14 @@ main:focus,main:focus-visible{outline:none}
 .wx-stats{display:flex;flex-wrap:wrap;gap:20px;margin:11px 0 13px}
 .wx-stat b{display:block;font-family:var(--f-ui);font-weight:600;font-size:1.08rem;font-variant-numeric:tabular-nums}
 .wx-stat span{font-size:.78rem;color:var(--ink-3)}
+/* היום ומחר. שתי תאים רחבים מעל רמות הרגישות, כי בשטח הם התשובה
+   ושלוש הרמות הן ההסבר. מופיעים רק בתוך הטיול. */
+.wx-days{display:flex;gap:10px;margin:0 0 13px;flex-wrap:wrap}
+.wx-day{flex:1 1 120px;display:flex;align-items:baseline;gap:8px;
+  background:var(--surface-2);border-radius:var(--r-xs);padding:9px 12px}
+.wx-day-l{font-family:var(--f-ui);font-size:.79rem;color:var(--ink-2)}
+.wx-day-mm{font-family:var(--f-ui);font-size:1.02rem;font-variant-numeric:tabular-nums}
+.wx-day-w{font-size:.78rem;color:var(--ink-2);margin-inline-start:auto}
 .wx-rows{display:grid;gap:9px}
 .wx-row{display:grid;grid-template-columns:minmax(9em,auto) 1fr auto;gap:12px;align-items:center}
 .wx-lab b{display:block;font-family:var(--f-ui);font-weight:500;font-size:.86rem}
