@@ -207,7 +207,7 @@ var T={
   wxLive:{he:"תחזית חיה",en:"live forecast"},
   wxClimate:{he:"לפי 6 שנים",en:"6-year normal"},
   wxTemp:{he:"טמפרטורה",en:"temperature"},
-  wxRainChance:{he:"סיכוי לגשם",en:"chance of rain"},
+  wxWetDays:{he:"ימים גשומים",en:"wet days"},
   wxRainTotal:{he:"משקעים בחלון",en:"rain in window"},
   wxFeasible:{he:"היתכנות",en:"feasible"},
   sensHigh:{he:"פעילות חוץ",en:"Outdoor"},
@@ -496,12 +496,40 @@ function sensOf(rec,cat){
   return rec && rec.weather ? rec.weather : (SENS_BY_CAT[cat]||"medium");
 }
 
+/* ---------- נפח ולא הסתברות ----------
+   הציון נשען על כמה מים יורדים, לא על הסיכוי שירד משהו. ההסתברות
+   נמדדה והיא הופכת את המציאות: בעונה הרטובה היא רוויה סביב 90% לכל
+   מקום, ואז היא מתגמלת גשם כבד-ונדיר על חשבון טפטוף תכוף. נמדד
+   ב-05/10/2026 על נתוני Open-Meteo: דה לאט קיבלה 98% הסתברות ולכן
+   ציון 2, מול הוי אן ב-86% וציון 14 — בעוד הוי אן מקבלת 471 מ"מ
+   בשישה-עשר יום מול 121 בדה לאט, כלומר פי ארבעה מים ואחת-עשרה
+   יממות מעל 10 מ"מ מול שלוש. המדד דירג את היבשה כגרועה מהמוצפת.
+
+   dayLoss היא כמה מהיום אובד לפעילות חוצות, לפי המשקעים בו:
+   עד 2 מ"מ זניח, מעל 15 מ"מ אבוד, ולינארי ביניהם. בלי מדרגה חדה,
+   כדי ששני מילימטרים של הפרש לא יקפיצו תחנה בין רצועות צבע. */
+function dayLoss(mm){
+  if(mm==null) return 0;
+  if(mm<=2) return 0;
+  if(mm>=15) return 1;
+  return (mm-2)/13;
+}
+/* מהנורמה האקלימית אין פילוח יומי — יש סך משקעים וספירת ימי גשם.
+   העצימות ביום גשם היא mm/rd, וממנה אותה dayLoss, משוקללת בשיעור
+   ימי הגשם בחלון. כך שני המסלולים מודדים את אותו גודל, והמספר על
+   המסך אינו מתחלף במשמעותו כשהתחזית נוחתת. */
+function climateLoad(c,days){
+  if(!c||!c.rd) return 0;
+  return (c.rd/(days||30))*dayLoss(c.mm/c.rd);
+}
+
 /* מזג האוויר של תחנה: תחזית חיה אם אפשר, אחרת נורמה אקלימית. */
 function weatherFor(st){
   var c=wxCache[st.id];
   if(c && (Date.now()-c.at)<WX_TTL_MS) return c.data;
   var norm=(typeof CLIMATE!=="undefined" && CLIMATE[st.id])||null;
-  var fallback=norm?{rainProb:Math.min(1,norm.rd/30),tmax:norm.tmax,tmin:norm.tmin,
+  var fallback=norm?{wetLoad:climateLoad(norm,30),rainDays:norm.rd,
+                     tmax:norm.tmax,tmin:norm.tmin,
                      mm:norm.mm,source:"climate",days:30}:null;
   /* המשיכה אסינכרונית. הקריאה הראשונה מחזירה נורמה, וכשהתחזית נוחתת
      הדף מצייר מחדש עם המספר האמיתי. תחת CSP של Artifact זה פשוט נכשל בשקט. */
@@ -519,18 +547,38 @@ function fetchForecast(st){
     fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){
       if(!j||!j.daily||!j.daily.time||!j.daily.time.length) return;
       var d=j.daily;
-      var probs=(d.precipitation_probability_max||[]).filter(function(v){return v!=null;});
-      var avgProb=probs.length?probs.reduce(function(a,b){return a+b;},0)/probs.length/100:null;
-      if(avgProb==null) return;
+      /* רק ימים שנופלים בתוך הטיול. בלי הגידור הזה הדף הציג "תחזית
+         חיה" על חלון שאינו חופף לטיול בכלל — נמדד ב-05/10/2026:
+         התחזית כיסתה 05/10 עד 20/10 והטיול מתחיל ב-26/10, כלומר אפס
+         ימי חפיפה בכל ארבע-עשרה התחנות. מספר אמיתי על תאריכים שאף
+         אחד לא נוסע בהם גרוע מנורמה, כי הוא נראה אמין יותר. */
+      var ds=TRIP.depart.getTime(), de=TRIP.back.getTime(), keep=[];
+      for(var i=0;i<d.time.length;i++){
+        var p=d.time[i].split("-"), ts=new Date(+p[0],+p[1]-1,+p[2]).getTime();
+        if(ts>=ds&&ts<=de) keep.push(i);
+      }
+      if(!keep.length) return;                 /* החלון טרם נפתח — הנורמה נשארת */
+      function pick(a){ return keep.map(function(i){return a?a[i]:null;}); }
+      var mmArr=pick(d.precipitation_sum).filter(function(v){return v!=null;});
+      if(!mmArr.length) return;
+      var losses=mmArr.map(dayLoss);
       wxCache[st.id]={at:Date.now(),data:{
-        rainProb:avgProb,
-        tmax:Math.round(avg(d.temperature_2m_max)*10)/10,
-        tmin:Math.round(avg(d.temperature_2m_min)*10)/10,
-        mm:Math.round(sum(d.precipitation_sum)),
-        source:"forecast", days:d.time.length, from:d.time[0], to:d.time[d.time.length-1]
+        wetLoad:losses.reduce(function(a,b){return a+b;},0)/losses.length,
+        rainDays:mmArr.filter(function(v){return v>2;}).length,
+        tmax:Math.round(avg(pick(d.temperature_2m_max))*10)/10,
+        tmin:Math.round(avg(pick(d.temperature_2m_min))*10)/10,
+        mm:Math.round(sum(mmArr)),
+        source:"forecast", days:keep.length,
+        from:d.time[keep[0]], to:d.time[keep[keep.length-1]]
       }};
       refreshWeatherStrip(st);
-    }).catch(function(){});
+    }).catch(function(err){
+      /* לא שקט מוחלט. ה-catch הריק שהיה כאן הסתיר ReferenceError
+         בעיבוד התשובה — באג תכנותי שנראה בדיוק כמו כשל רשת, ולכן
+         נשאר בלי שאף אחד ידע. כשל רשת צפוי ואינו שובר כלום; שגיאת
+         קוד צריכה להשאיר עקבות שאפשר למצוא. */
+      if(window.console&&console.warn) console.warn("forecast failed for "+st.id,err);
+    });
   }catch(e){}
 }
 /* מחליף את רצועת מזג האוויר בלבד.
@@ -540,19 +588,28 @@ function fetchForecast(st){
 function refreshWeatherStrip(st){
   var box=document.querySelector(".wx");
   if(!box||!box.parentNode) return;
-  if(currentStation() && currentStation().id!==st.id) return;   /* התחנה כבר הוחלפה */
+  /* currentSel ולא currentStation — הפונקציה בשם ההוא לא קיימת, וההפניה
+     אליה זרקה ReferenceError בכל פעם שתחזית נחתה. ה-catch הריק של
+     fetchForecast בלע אותו, ולכן רצועת מזג האוויר מעולם לא התרעננה
+     לתחזית חיה: הקאש כן התעדכן, הכרטיסים כן קראו ממנו ברינדור הבא,
+     והרצועה לבדה נשארה על הנורמה ומתויגת בהתאם. אובחן ב-05/10/2026
+     אחרי שהלוג שהוספתי עצמו קרס על אותה הפניה. */
+  var sel=currentSel();
+  if(sel && sel.id!==st.id) return;   /* התחנה כבר הוחלפה */
   box.parentNode.replaceChild(weatherStrip(st),box);
 }
 function avg(a){a=(a||[]).filter(function(v){return v!=null;});return a.length?a.reduce(function(x,y){return x+y;},0)/a.length:0;}
 function sum(a){a=(a||[]).filter(function(v){return v!=null;});return a.reduce(function(x,y){return x+y;},0);}
 
-/* הפונקציה עצמה: רגישות הפריט × הסיכוי לגשם. */
+/* הפונקציה עצמה: רגישות הפריט × כמה מהימים אובדים לגשם. */
+function feasScore(wetLoad,sens){
+  return Math.max(5,Math.min(99,Math.round(100-wetLoad*100*SENS_FACTOR[sens])));
+}
 function feasibility(rec,cat,st){
   var wx=weatherFor(st);
-  if(!wx) return null;
-  var f=SENS_FACTOR[sensOf(rec,cat)];
-  var pct=Math.max(5,Math.min(99,Math.round(100-wx.rainProb*100*f)));
-  return {pct:pct,sens:sensOf(rec,cat),source:wx.source,wx:wx};
+  if(!wx||wx.wetLoad==null) return null;
+  var s=sensOf(rec,cat);
+  return {pct:feasScore(wx.wetLoad,s),sens:s,source:wx.source,wx:wx};
 }
 function feasBand(p){ return p>=75?"good":(p>=50?"fair":"poor"); }
 
@@ -2005,7 +2062,9 @@ function weatherStrip(st){
 
   var stats=el("div","wx-stats");
   stats.appendChild(wxStat(Math.round(wx.tmin)+"–"+Math.round(wx.tmax)+"°",t("wxTemp")));
-  stats.appendChild(wxStat(Math.round(wx.rainProb*100)+"%",t("wxRainChance")));
+  /* ימים גשומים מתוך החלון, ולא "סיכוי לגשם": ההסתברות אינה הגודל
+     שמניע את הציון יותר, והצגתה לצידו הייתה מסבירה אותו לא נכון. */
+  stats.appendChild(wxStat(wx.rainDays+"/"+wx.days,t("wxWetDays")));
   stats.appendChild(wxStat(wx.mm+" mm",t("wxRainTotal")));
   box.appendChild(stats);
 
@@ -2014,7 +2073,7 @@ function weatherStrip(st){
   [["high",t("sensHigh"),t("sensHighEg")],
    ["medium",t("sensMed"),t("sensMedEg")],
    ["low",t("sensLow"),t("sensLowEg")]].forEach(function(r){
-    var p=Math.max(5,Math.min(99,Math.round(100-wx.rainProb*100*SENS_FACTOR[r[0]])));
+    var p=feasScore(wx.wetLoad,r[0]);
     var row=el("div","wx-row");
     var lab=el("div","wx-lab");
     lab.appendChild(el("b",null,r[1]));
