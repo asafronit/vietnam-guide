@@ -16,6 +16,9 @@ var ICONS={
   close:'<path d="M6 6l12 12M18 6L6 18"/>',
   copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15"/>',
   heart:'<path d="M12 20.3l-1.3-1.2C6 14.9 3 12.2 3 8.9 3 6.2 5.1 4 7.8 4c1.5 0 3 .7 4.2 2 1.2-1.3 2.7-2 4.2-2C18.9 4 21 6.2 21 8.9c0 3.3-3 6-7.7 10.2z"/>',
+  /* מסכת צלילה: מסגרת, מחיצה בין שתי העדשות, ושתי קצות רצועה. אותו
+     משקל קו ואותה גיאומטריה מעוגלת כמו שאר הסט, ונבדק שהוא נקרא ב-16px. */
+  dive:'<path d="M5.5 7h13A1.5 1.5 0 0 1 20 8.5v3.2a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8.5A1.5 1.5 0 0 1 5.5 7z"/><path d="M12 7v9.7"/><path d="M4 10H2.3M22 10h-1.7"/>',
   pin:'<path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/>',
   car:'<path d="M4 16.5V13l2-4.5h12L20 13v3.5"/><path d="M4 16.5h16"/><circle cx="7.6" cy="17" r="1.7"/><circle cx="16.4" cy="17" r="1.7"/>',
   play:'<path d="M8.5 5.6l9.5 6.4-9.5 6.4z"/>',
@@ -243,6 +246,7 @@ var CATS=[
   {id:"markets",    he:"שווקים",      en:"Markets",      ic:"basket"},
   {id:"nightlife",  he:"חיי לילה",    en:"Nightlife",    ic:"moon"},
   {id:"spa",        he:"ספא ומסאז'",  en:"Spa & massage",ic:"heart"},
+  {id:"diving",     he:"צלילה",       en:"Diving",       ic:"dive"},
   {id:"hotels",     he:"לינה",        en:"Stay",         ic:"bed"},
   {id:"logistics",  he:"לוגיסטיקה",   en:"Logistics",    ic:"van"},
   {id:"contacts",   he:"אנשי קשר",    en:"Contacts",     ic:"card"}
@@ -483,7 +487,7 @@ var wxCache={};
 var SENS_BY_CAT={
   must_see:"medium", attractions:"high", markets:"medium", street_food:"medium",
   food:"medium", restaurants:"low", hotels:"low", nightlife:"low",
-  spa:"low", logistics:"medium", contacts:"low"
+  spa:"low", diving:"high", logistics:"medium", contacts:"low"
 };
 var SENS_FACTOR={high:1.0, medium:0.55, low:0.12};
 function sensOf(rec,cat){
