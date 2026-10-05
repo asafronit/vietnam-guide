@@ -142,6 +142,26 @@ $sw = Get-Content $swSrc -Raw -Encoding UTF8
 $sw = $sw -replace 'const VERSION = "[^"]*";', 'const VERSION = "__ASSET_HASH__";'
 $fingerprint = (Get-ChildItem "$Dest\assets" -Recurse -File | Sort-Object FullName |
   ForEach-Object { (Get-FileHash $_.FullName -Algorithm SHA256).Hash }) -join ''
+# --- שער תחביר ---
+# הבנייה שלחה בשמחה app.js עם שגיאת פרסור — עריכה שעגנה על השורה
+# הראשונה של הערה והחליפה אותה השאירה את גוף ההערה תלוש. הדף עלה עם
+# ה-HTML הסטטי בלבד, בלי שום הודעה שמסבירה למה. אם node קיים, אף תוצר
+# לא ממשיך משם בלי שהתחביר שלו נבדק.
+$node = Get-Command node -ErrorAction SilentlyContinue
+if ($node) {
+  foreach ($js in @('app.js','climate.js','photos.js','poi-data.js')) {
+    $p = "$Dest\assets\$js"
+    if (-not (Test-Path $p)) { continue }
+    & node --check $p
+    if ($LASTEXITCODE -ne 0) { throw "syntax error in assets/$js — הבנייה נעצרה" }
+  }
+  & node --check "$Dest\sw.js"
+  if ($LASTEXITCODE -ne 0) { throw 'syntax error in sw.js — הבנייה נעצרה' }
+  Write-Host 'syntax: ok'
+} else {
+  Write-Host 'syntax: node לא נמצא, הבדיקה לא רצה'
+}
+
 $fingerprint += (Get-FileHash "$Dest\index.html" -Algorithm SHA256).Hash
 $stream = [IO.MemoryStream]::new([Text.Encoding]::UTF8.GetBytes($fingerprint))
 $hash = (Get-FileHash -InputStream $stream -Algorithm SHA256).Hash.Substring(0, 12).ToLower()

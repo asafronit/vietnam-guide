@@ -1379,6 +1379,14 @@ var T={
   wxClimate:{he:"לפי 6 שנים",en:"6-year normal"},
   wxTemp:{he:"טמפרטורה",en:"temperature"},
   wxWetDays:{he:"ימים גשומים",en:"wet days"},
+  wxWind:{he:"רוח",en:"wind"},
+  wxWave:{he:"גובה גל",en:"wave height"},
+  /* מה מגביל את הפעילות — נכנס לתווית הצ'יפ, כדי שמספר נמוך ביום
+     יפה יסביר את עצמו: לא הגשם, הים. */
+  lim_rain:{he:"לפי הגשם",en:"by rainfall"},
+  lim_flood:{he:"לפי הצפה",en:"by flooding"},
+  lim_wind:{he:"לפי הרוח",en:"by wind"},
+  lim_sea:{he:"לפי מצב הים",en:"by sea state"},
   wxRainTotal:{he:"משקעים בחלון",en:"rain in window"},
   wxFeasible:{he:"היתכנות",en:"feasible"},
   sensHigh:{he:"פעילות חוץ",en:"Outdoor"},
@@ -1679,19 +1687,42 @@ function sensOf(rec,cat){
    dayLoss היא כמה מהיום אובד לפעילות חוצות, לפי המשקעים בו:
    עד 2 מ"מ זניח, מעל 15 מ"מ אבוד, ולינארי ביניהם. בלי מדרגה חדה,
    כדי ששני מילימטרים של הפרש לא יקפיצו תחנה בין רצועות צבע. */
-function dayLoss(mm){
-  if(mm==null) return 0;
-  if(mm<=2) return 0;
-  if(mm>=15) return 1;
-  return (mm-2)/13;
+function ramp(v,lo,hi){
+  if(v==null) return null;
+  if(v<=lo) return 0;
+  if(v>=hi) return 1;
+  return (v-lo)/(hi-lo);
+}
+function dayLoss(mm){ return ramp(mm,2,15)||0; }
+/* מערה נסגרת לפני ששדה פתוח נסגר: מה שהוא מקלחת בחוץ הוא מפלס עולה
+   בתוך מערת נהר, ולכן אותה עקומה עם רף סגירה מוקדם יותר. */
+function floodLoss(mm){ return ramp(mm,2,8)||0; }
+/* רכבל נסגר ברוח. 30 קמ"ש עוד נוסעים, מעל 55 כבר לא. */
+function windLoss(k){ return ramp(k,30,55)||0; }
+/* צלילה ושיט מתבטלים על נחשול, ועל רוח שמייצרת אותו. הגרוע משניהם
+   קובע — ים שטוח ברוח 40 קמ"ש אינו יום צלילה, וכך גם רוח חלשה מול
+   נחשול שנשאר מסערה רחוקה. 0.5 מ' נוח, 1.5 מ' מבוטל. */
+function seaLoss(wave,wind){
+  var a=ramp(wave,0.5,1.5), b=ramp(wind,20,35);
+  if(a==null&&b==null) return null;
+  return Math.max(a==null?0:a, b==null?0:b);
 }
 /* מהנורמה האקלימית אין פילוח יומי — יש סך משקעים וספירת ימי גשם.
    העצימות ביום גשם היא mm/rd, וממנה אותה dayLoss, משוקללת בשיעור
    ימי הגשם בחלון. כך שני המסלולים מודדים את אותו גודל, והמספר על
    המסך אינו מתחלף במשמעותו כשהתחזית נוחתת. */
-function climateLoad(c,days){
-  if(!c||!c.rd) return 0;
-  return (c.rd/(days||30))*dayLoss(c.mm/c.rd);
+function climateLoad(c,days,limiter){
+  if(!c) return null;
+  if(limiter==="wind") return windLoss(c.wind);
+  if(limiter==="sea"){
+    /* אין נורמת גל לכל תחנה — היא נמדדת רק בשלוש שיש בהן פעילות ימית.
+       בלעדיה אין מה לחשב, ומחזירים null במקום להמציא מספר מגשם. */
+    if(c.wave==null) return null;
+    return seaLoss(c.wave,c.wind);
+  }
+  if(!c.rd) return 0;
+  var f=(limiter==="flood")?floodLoss:dayLoss;
+  return (c.rd/(days||30))*f(c.mm/c.rd);
 }
 
 /* מזג האוויר של תחנה: תחזית חיה אם אפשר, אחרת נורמה אקלימית. */
@@ -1699,7 +1730,9 @@ function weatherFor(st){
   var c=wxCache[st.id];
   if(c && (Date.now()-c.at)<WX_TTL_MS) return c.data;
   var norm=(typeof CLIMATE!=="undefined" && CLIMATE[st.id])||null;
-  var fallback=norm?{wetLoad:climateLoad(norm,30),rainDays:norm.rd,
+  /* הנתונים נוסעים גולמיים, והעומס מחושב בנקודת השימוש לפי המגביל של
+     אותה רשומה. קודם ה-wetLoad חושב כאן מראש — דבר שכפה גשם על כולם. */
+  var fallback=norm?{norm:norm,rainDays:norm.rd,wind:norm.wind,wave:norm.wave,
                      tmax:norm.tmax,tmin:norm.tmin,
                      mm:norm.mm,source:"climate",days:30}:null;
   /* המשיכה אסינכרונית. הקריאה הראשונה מחזירה נורמה, וכשהתחזית נוחתת
@@ -1712,8 +1745,10 @@ function weatherFor(st){
 }
 function fetchForecast(st){
   try{
+    /* wind_speed_10m_max נוסף לאותה בקשה — חינם, בלי מפתח, ובלי סבב
+       רשת שני. הוא מה שסוגר רכבל, והוא חצי מהתשובה לצלילה. */
     var u="https://api.open-meteo.com/v1/forecast?latitude="+st.lat+"&longitude="+st.lng+
-          "&daily=precipitation_sum,precipitation_probability_max,temperature_2m_max,temperature_2m_min"+
+          "&daily=precipitation_sum,temperature_2m_max,temperature_2m_min,wind_speed_10m_max"+
           "&forecast_days=16&timezone=Asia%2FBangkok";
     fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){
       if(!j||!j.daily||!j.daily.time||!j.daily.time.length) return;
@@ -1732,16 +1767,22 @@ function fetchForecast(st){
       function pick(a){ return keep.map(function(i){return a?a[i]:null;}); }
       var mmArr=pick(d.precipitation_sum).filter(function(v){return v!=null;});
       if(!mmArr.length) return;
-      var losses=mmArr.map(dayLoss);
+      var windArr=pick(d.wind_speed_10m_max).filter(function(v){return v!=null;});
       wxCache[st.id]={at:Date.now(),data:{
-        wetLoad:losses.reduce(function(a,b){return a+b;},0)/losses.length,
+        daily:{mm:mmArr,wind:windArr},
         rainDays:mmArr.filter(function(v){return v>2;}).length,
+        wind:windArr.length?Math.round(avg(windArr)*10)/10:null,
         tmax:Math.round(avg(pick(d.temperature_2m_max))*10)/10,
         tmin:Math.round(avg(pick(d.temperature_2m_min))*10)/10,
         mm:Math.round(sum(mmArr)),
         source:"forecast", days:keep.length,
-        from:d.time[keep[0]], to:d.time[keep[keep.length-1]]
+        from:d.time[keep[0]], to:d.time[keep[keep.length-1]],
+        /* הגל נמשך בנפרד, רק לתחנות שיש להן נורמת גל — כלומר רק שם
+           שבו יש פעילות ימית שהוא מגביל. עד שהוא נוחת, seaLoad נשען
+           על הרוח לבדה, וזה מוצהר ולא מוסתר. */
+        wave:(wxCache[st.id]&&wxCache[st.id].data&&wxCache[st.id].data.wave)||null
       }};
+      if(typeof CLIMATE!=="undefined"&&CLIMATE[st.id]&&CLIMATE[st.id].wave!=null) fetchWaves(st,keep.length);
       refreshWeatherStrip(st);
     }).catch(function(err){
       /* לא שקט מוחלט. ה-catch הריק שהיה כאן הסתיר ReferenceError
@@ -1751,6 +1792,60 @@ function fetchForecast(st){
       if(window.console&&console.warn) console.warn("forecast failed for "+st.id,err);
     });
   }catch(e){}
+}
+/* נקודת המדידה בים, ולא מרכז העיר. הגל נמדד היכן שהפעילות מתקיימת:
+   אן תוי ולא דואונג דונג, צ'אם ולא הוי אן. אותן קואורדינטות שבהן
+   חושבו נורמות הגל ב-climate.js, כדי שהנורמה והתחזית יתארו מקום אחד. */
+var SEA_POINT={"ha-long":[20.90,107.10],"hoi-an":[15.95,108.50],"phu-quoc":[10.05,104.02]};
+function fetchWaves(st,days){
+  var p=SEA_POINT[st.id]; if(!p) return;
+  try{
+    var u="https://marine-api.open-meteo.com/v1/marine?latitude="+p[0]+"&longitude="+p[1]+
+          "&daily=wave_height_max&forecast_days=16&timezone=Asia%2FBangkok";
+    fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+      if(!j||!j.daily||!j.daily.time) return;
+      var ds=TRIP.depart.getTime(), de=TRIP.back.getTime(), vals=[];
+      for(var i=0;i<j.daily.time.length;i++){
+        var q=j.daily.time[i].split("-"), ts=new Date(+q[0],+q[1]-1,+q[2]).getTime();
+        var v=j.daily.wave_height_max&&j.daily.wave_height_max[i];
+        if(ts>=ds&&ts<=de&&v!=null) vals.push(v);
+      }
+      if(!vals.length) return;
+      var cur=wxCache[st.id]&&wxCache[st.id].data;
+      if(!cur||cur.source!=="forecast") return;
+      cur.daily=cur.daily||{}; cur.daily.wave=vals;
+      cur.wave=Math.round((vals.reduce(function(a,b){return a+b;},0)/vals.length)*100)/100;
+      refreshWeatherStrip(st);
+    }).catch(function(err){
+      if(window.console&&console.warn) console.warn("waves failed for "+st.id,err);
+    });
+  }catch(e){}
+}
+
+/* העומס לפי המגביל. זו הנקודה שבה "מה מגביל" הופך למספר, והיא נקראת
+   פר-רשומה ולא פר-תחנה — שתי רשומות באותו מקום יכולות להיות מוגבלות
+   בדברים שונים, וזה בדיוק המצב בפו קוק בין רכבל לצלילה. */
+function loadFor(wx,limiter){
+  if(!wx) return null;
+  limiter=limiter||"rain";
+  if(wx.source==="forecast"&&wx.daily){
+    var a;
+    if(limiter==="wind") a=(wx.daily.wind||[]).map(windLoss);
+    else if(limiter==="sea"){
+      var w=wx.daily.wave, k=wx.daily.wind||[];
+      if(!w||!w.length){
+        if(!k.length) return null;
+        a=k.map(function(v){return seaLoss(null,v);});
+      }else{
+        a=w.map(function(v,i){return seaLoss(v,k[i]);});
+      }
+      a=a.filter(function(v){return v!=null;});
+    }
+    else a=(wx.daily.mm||[]).map(limiter==="flood"?floodLoss:dayLoss);
+    if(!a||!a.length) return null;
+    return a.reduce(function(x,y){return x+y;},0)/a.length;
+  }
+  return climateLoad(wx.norm,wx.days,limiter);
 }
 /* מחליף את רצועת מזג האוויר בלבד.
    קריאה ל-render() מכאן הייתה בונה מחדש את כל חלונית הפרטים כמה מאות
@@ -1776,11 +1871,18 @@ function sum(a){a=(a||[]).filter(function(v){return v!=null;});return a.reduce(f
 function feasScore(wetLoad,sens){
   return Math.max(5,Math.min(99,Math.round(100-wetLoad*100*SENS_FACTOR[sens])));
 }
+function limiterOf(rec,cat){
+  return (rec&&rec.limiter)||(cat==="diving"?"sea":"rain");
+}
 function feasibility(rec,cat,st){
   var wx=weatherFor(st);
-  if(!wx||wx.wetLoad==null) return null;
+  if(!wx) return null;
+  var lim=limiterOf(rec,cat), load=loadFor(wx,lim);
+  /* null ולא אפס: אין נתון לחשב ממנו, ומספר מומצא גרוע מהיעדר צ'יפ.
+     קורה לגל בתחנה שאין בה נורמה ימית. */
+  if(load==null) return null;
   var s=sensOf(rec,cat);
-  return {pct:feasScore(wx.wetLoad,s),sens:s,source:wx.source,wx:wx};
+  return {pct:feasScore(load,s),sens:s,limiter:lim,source:wx.source,wx:wx};
 }
 function feasBand(p){ return p>=75?"good":(p>=50?"fair":"poor"); }
 
@@ -2403,9 +2505,12 @@ function poiCard(item,cls){
   var fe=feasibility(r,item.cat,st);
   if(fe){
     var chip=el("span","feas "+feasBand(fe.pct),fe.pct+"%");
-    chip.title=t("feasTip",{"%s":t("sens_"+fe.sens)});
+    /* הרגישות *וגם* המגביל. בלי המגביל, 5% על צלילה ביום ללא גשם
+       נראה כשגיאה — ועם "לפי מצב הים" הוא הופך למידע. */
+    var why=t("sens_"+fe.sens)+" · "+t("lim_"+fe.limiter);
+    chip.title=t("feasTip",{"%s":why});
     chip.setAttribute("role","img");
-    chip.setAttribute("aria-label",t("feasAria",{"%p":fe.pct,"%s":t("sens_"+fe.sens)}));
+    chip.setAttribute("aria-label",t("feasAria",{"%p":fe.pct,"%s":why}));
     mt.appendChild(chip);
   }
   mt.appendChild(favBtn(item));
@@ -3237,6 +3342,10 @@ function weatherStrip(st){
      שמניע את הציון יותר, והצגתה לצידו הייתה מסבירה אותו לא נכון. */
   stats.appendChild(wxStat(wx.rainDays+"/"+wx.days,t("wxWetDays")));
   stats.appendChild(wxStat(wx.mm+" mm",t("wxRainTotal")));
+  /* רוח וגל מוצגים כי הם מגבילים רשומות בתחנה הזו, והצ'יפ שלהן יהיה
+     בלתי מוסבר בלי המספר שמאחוריו. הגל רק היכן שהוא נמדד. */
+  if(wx.wind!=null) stats.appendChild(wxStat(Math.round(wx.wind)+" km/h",t("wxWind")));
+  if(wx.wave!=null) stats.appendChild(wxStat(wx.wave.toFixed(1)+" m",t("wxWave")));
   box.appendChild(stats);
 
   /* שלוש רמות הרגישות, מחושבות עכשיו מאותו מזג אוויר */
@@ -3244,7 +3353,9 @@ function weatherStrip(st){
   [["high",t("sensHigh"),t("sensHighEg")],
    ["medium",t("sensMed"),t("sensMedEg")],
    ["low",t("sensLow"),t("sensLowEg")]].forEach(function(r){
-    var p=feasScore(wx.wetLoad,r[0]);
+    /* הרצועה היא תמונת הגשם של התחנה. שאר המגבילים הם לכל רשומה
+       בנפרד, ולכן הם חיים בצ'יפ שעל הכרטיס ולא בסיכום הזה. */
+    var p=feasScore(loadFor(wx,"rain")||0,r[0]);
     var row=el("div","wx-row");
     var lab=el("div","wx-lab");
     lab.appendChild(el("b",null,r[1]));
