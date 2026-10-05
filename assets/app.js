@@ -115,13 +115,15 @@ var T={
   areaMap:{he:"המפה של האזור",en:"Area map"},
   ride:{he:"הזמנת נסיעה",en:"Directions"},
   grab:{he:"Grab",en:"Grab"},
-  grabNote:{he:" (נפתח באפליקציית Grab, או באתר אם אינה מותקנת)",
-            en:" (opens the Grab app, or the website if it is not installed)"},
-  grabWeb:{he:"אתר Grab",en:"Grab website"},
-  grabMiss:{he:"Grab אינה מותקנת. קישור לאתר Grab נוסף אחרי הכפתור.",
-            en:"Grab is not installed. A link to the Grab website was added after the button."},
-  grabMissCopied:{he:"Grab אינה מותקנת. הכתובת של %s הועתקה. קישור לאתר Grab נוסף אחרי הכפתור.",
-                  en:"Grab is not installed. The address of %s was copied. A link to the Grab website was added after the button."},
+  grabNote:{he:" (מעתיק את הכתובת ופותח את אפליקציית Grab, או את האתר אם אינה מותקנת)",
+            en:" (copies the address and opens the Grab app, or the website if it is not installed)"},
+  /* Grab אינה מקבלת יעד מה-deep link — אין לסכמה שלה פרמטר יעד מתועד,
+     והאפליקציה נפתחת על מסך ההזמנה הריק. לכן ההעתקה אינה נוחות אלא
+     המנגנון עצמו, והפתק הוא מה שהופך אותה לשמישה. */
+  grabPaste:{he:"הכתובת הועתקה. ב-Grab, הדבק אותה בשדה היעד.",
+             en:"Address copied. In Grab, paste it into the destination field."},
+  grabNoCopy:{he:"ההעתקה נחסמה. סמן את הכתובת כאן והעתק אותה ידנית.",
+              en:"The copy was blocked. Select the address above and copy it by hand."},
   directions:{he:"הוראות הגעה",en:"Directions"},
   booking:{he:"Booking.com",en:"Booking.com"},
   actions:{he:"פעולות למקום הזה",en:"Actions for this place"},
@@ -1029,6 +1031,17 @@ function openDetail(item){
      פסק-זמן של 1200ms נדחית — כלומר הגיבוי היה נכשל בדיוק במקרה
      שבו הוא נחוץ. */
 var GRAB_WEB="https://www.grab.com/vn/";
+/* navigator.clipboard.writeText הוא המסלול היחיד שבאמת כותב כאן.
+   נבדק מול document.execCommand("copy") בשתי וריאציות — ממוקד ולא,
+   עם opacity:0 ובלעדיו — ושתיהן החזירו true בעוד הקליפבורד נשאר עם
+   התוכן הקודם. כלומר execCommand אינו "גיבוי סינכרוני" אלא מחולל
+   שקר: הוא היה גורם לפתק להצהיר "הועתק" על קליפבורד ריק, וזה גרוע
+   מלא להעתיק בכלל, כי המשתמש היה עובר ל-Grab ומדביק כלום.
+   נקרא בתוך הג'סטה ובלי await — ההמתנה היא מה שהניווט היה קוטע. */
+function grabCopy(text){
+  if(!(navigator.clipboard&&navigator.clipboard.writeText)) return null;
+  try{ return navigator.clipboard.writeText(text); }catch(err){ return null; }
+}
 function grabDeep(r){
   return "grab://open?screenType=BOOKING&drop_off_lat="+r.lat+"&drop_off_lng="+r.lng;
 }
@@ -1045,52 +1058,55 @@ function grabBtn(r,st){
   a.addEventListener("click",function(e){
     if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0) return;   /* לחיצה מותאמת */
     e.preventDefault();
-    /* 1. קליפבורד ראשון, בתוך הג'סטה */
-    var copied=null;
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      copied=navigator.clipboard.writeText(addr).then(function(){return true;},function(){return false;});
-    }
-    /* 2. ניסיון פתיחת האפליקציה */
-    var t0=Date.now(), gone=false;
-    function mark(){ gone=true; }
-    document.addEventListener("visibilitychange",mark,{once:true});
-    window.addEventListener("pagehide",mark,{once:true});
+    /* 1. העתקה ראשונה, בתוך הג'סטה ולפני כל דבר אחר. */
+    var p=grabCopy(addr);
+    /* 2. הפתק נכנס ל-DOM לפני הניווט, אחרת הוא לא היה מרונדר כשהמסך
+       מתחלף. הוא גם לא מוסר בחזרה: מי שחוזר מ-Grab בלי להדביק צריך
+       למצוא אותו מחכה. הכתובת מוצגת בו תמיד — גם אם ההעתקה נכשלה,
+       היא על המסך לסימון ידני, ולכן אין מצב שבו המשתמש תקוע. */
+    showGrabNote(a,p,addr);
+    /* 3. פתיחת האפליקציה. בלי זיהוי-כשל ובלי קישור נפילה:
+       הזיהוי היה מדידת זמן — "אם הדף עדיין נראה אחרי 1200ms, האפליקציה
+       לא תפסה" — והוא לא אמין באייפון. iOS אינו מבטיח visibilitychange
+       במעבר לסכמה מותאמת, ודף שהוקפא מריץ את הטיימר רק בחזרה, כשהדגל
+       עוד נקי. התוצאה הייתה קישור ירוק שני שהופיע דווקא כשהאפליקציה
+       כן נפתחה.
+       וממילא הוא כבר מיותר: ה-href של הכפתור עצמו מצביע לאתר Grab, כך
+       שגם בלי JS וגם בלי האפליקציה הלחיצה מגיעה ליעד אמיתי — והכתובת
+       מחכה בקליפבורד עם הפתק שמסביר מה לעשות בה. */
     window.location.href=a.getAttribute("data-grab-deep");
-    /* 3. נפילה — רק אם עדיין כאן */
-    setTimeout(function(){
-      document.removeEventListener("visibilitychange",mark);
-      if(gone||document.hidden||Date.now()-t0>2500) return;
-      showGrabFallback(a,copied,r.name);
-    },1200);
   });
   return a;
 }
-/* לא פותחים לשונית אוטומטית: window.open אחרי פסק-זמן מנותק מהג'סטה,
-   נחסם ב-iOS, ומעבר ההקשר קוטע את ההכרזה לפני שנאמרה. במקום זה —
-   קישור גלוי, ו-Tab אחד מגיע אליו. */
-function showGrabFallback(a,copied,name){
+/* הפתק שהופך את ההעתקה לשמישה. בלעדיו ההעתקה קרתה גם קודם — אבל שום
+   דבר לא אמר למשתמש שיש מה להדביק, וההכרזה היחידה רצה רק במסלול
+   שבו Grab אינה מותקנת, כלומר בדיוק לא במקרה הרגיל. */
+function showGrabNote(a,p,addr){
   var li=a.parentNode, ul=li&&li.parentNode;
   if(!ul) return;
-  var have=ul.querySelector(".grab-fb");
-  if(have){
-    /* לחיצה שנייה הייתה שקט מוחלט. מי שלא קלט את ההכרזה הראשונה
-       צריך לקבל אותה שוב, ועדיף — להגיע לקישור. */
-    say(t("grabMiss")); have.focus();
-    return;
+  var have=ul.querySelector(".grab-note");
+  if(!have){
+    var nli=el("li","grab-note-li"); nli.setAttribute("role","listitem");
+    have=el("div","grab-note");
+    nli.appendChild(have);
+    if(li.nextSibling) ul.insertBefore(nli,li.nextSibling); else ul.appendChild(nli);
   }
-  var web=el("a","lbtn act-ride grab-link grab-fb");
-  web.href=GRAB_WEB; web.target="_blank"; web.rel="noopener noreferrer";
-  web.appendChild(icon("car"));
-  web.appendChild(document.createTextNode(t("grabWeb")));
-  web.appendChild(el("span","sr"," — "+name+t("newTab")));
-  /* פריט משלו ברשימה. הזרקת <a> ישירות ל-<ul> אינה חוקית, והזרקתו
-     לתוך ה-<li> הקיים הייתה מסתירה אותו מספירת הפריטים. */
-  var nli=el("li"); nli.setAttribute("role","listitem"); nli.appendChild(web);
-  if(li.nextSibling) ul.insertBefore(nli,li.nextSibling); else ul.appendChild(nli);
-  function tell(ok){ say(t(ok?"grabMissCopied":"grabMiss",{"%s":name})); }
-  if(copied) copied.then(tell); else tell(false);
+  have.textContent="";
+  /* הכתובת קודם, תמיד, ובלי להתחייב שהועתקה. user-select:all כדי
+     שנגיעה אחת תסמן את כולה למי שצריך להעתיק ביד. */
+  var ad=el("div","grab-addr",addr);
+  var st=el("div","grab-stat");
+  have.appendChild(ad); have.appendChild(st);
+  /* השורה השנייה היא ההתחייבות, והיא מתמלאת רק כשה-Promise נפתר.
+     לא מצהירים "הועתק" לפני שהדפדפן אישר — זה בדיוק הבאג שהיה כאן. */
+  function settle(ok){
+    st.textContent = ok ? t("grabPaste") : t("grabNoCopy");
+    st.className = "grab-stat"+(ok?" is-ok":" is-warn");
+    say(st.textContent);
+  }
+  if(p&&p.then) p.then(function(){settle(true);},function(){settle(false);});
+  else settle(false);
 }
-
 function lbtn(cls,ic,label,href,name,noteKey){
   var a=el("a","lbtn "+cls);
   a.href=href; a.target="_blank"; a.rel="noopener noreferrer";

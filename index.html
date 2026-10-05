@@ -671,6 +671,27 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .act-src  {color:var(--ink-3)}
 .lbtn.is-primary{background:var(--c-map-fill);color:var(--c-map-on);border-color:var(--c-map-fill)}
 .lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}
+/* פתק ההדבקה של Grab. לא כפתור — אין בו פעולה. זו הוראה שצריכה לשרוד
+   את המעבר לאפליקציה ולהיות על המסך כשחוזרים ממנה, ולכן היא נשארת
+   ב-DOM ולא נעלמת. שורה שלמה, כדי שלא תיראה כפקד נוסף בשורת הפעולות:
+   ה-li של .linkrow הוא display:contents, ובלי העקיפה הפתק היה נדחס
+   כעוד פריט גמיש לצד הכפתורים. */
+.linkrow>li.grab-note-li{display:block;flex-basis:100%}
+/* הטקסט ב---ink ולא ב---c-ride: הירוק על הרקע המוטל ירוק נמדד 4.52,
+   כלומר עובר את 4.5 בשתי מאיות — בדיוק סוג המעבר-בשערה שכבר נתפס
+   כאן פעם. המסגרת והגוון נושאים את זיהוי הפעולה; הטקסט נושא קריאוּת. */
+.grab-note{
+  font-family:var(--f-ui);font-size:.8rem;line-height:1.45;color:var(--ink);
+  background:var(--c-ride-soft);border:1px solid var(--c-ride);
+  border-radius:var(--r-xs);padding:8px 11px;
+}
+/* הכתובת היא הגיבוי האמיתי: אם ההעתקה נכשלה היא עדיין על המסך,
+   ו-user-select:all הופך נגיעה אחת לסימון של כולה. dir=ltr כי
+   הכתובת לטינית ובתוך פתק עברי ה-bidi היה מזיז את הפסיקים. */
+.grab-addr{direction:ltr;text-align:start;unicode-bidi:isolate;font-weight:600;
+  user-select:all;-webkit-user-select:all;word-break:break-word}
+.grab-stat{margin-top:4px;font-weight:500}
+.grab-stat.is-warn{color:var(--rose)}
 .srcline{font-size:.8rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 .srcline a{text-decoration:underline;text-underline-offset:3px}
 
