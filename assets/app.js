@@ -108,6 +108,7 @@ var T={
   navInfo:{he:"מידע",en:"Trip info"},
   dark:{he:"מצב כהה",en:"Dark mode"},
   places:{he:"מקומות",en:"places"},
+  place1:{he:"מקום אחד",en:"1 place"},
   stations:{he:"תחנות",en:"stations"},
   back:{he:"חזרה לכל התחנות",en:"All stations"},
   backTopics:{he:"חזרה לנושאים",en:"Back to browse"},
@@ -292,6 +293,10 @@ var SCENE={
   "lak-lake":"lake","da-lat":"pines","saigon":"city","mekong":"delta","phu-quoc":"beach"
 };
 function catName(c){return isHe()?c.he:c.en;}
+/* ספירה עם יחידה, ביחיד כשצריך. "לוגיסטיקה, 1 מקומות" הוא מה שיצא
+   כשהוספתי את היחידה לשם הנגיש של הטאבים, וזו קטגוריה שבאמת מגיעה
+   לאחד. המספר נבלע במחרוזת היחיד בעברית ובאנגלית גם יחד. */
+function placesN(n){ return n===1?t("place1"):(n+" "+t("places")); }
 function regName(r){return isHe()?r.he:r.en;}
 /* התצוגה מקבצת לשלושה, בעוד שהנתונים מחזיקים ארבעה: highlands הוא
    "רמות המרכז" ונכנס למרכז, והקיפול שומר על רצף המסלול 1–5 / 6–11 / 12–14. */
@@ -1309,7 +1314,13 @@ function showGrabNote(a,p,addr){
   have.textContent="";
   /* הכתובת קודם, תמיד, ובלי להתחייב שהועתקה. user-select:all כדי
      שנגיעה אחת תסמן את כולה למי שצריך להעתיק ביד. */
-  var ad=el("div","grab-addr",addr);
+  /* vi2 ולא רק dir — הכתובת היא "Bánh Mì Phượng, Hội An, Vietnam" בתוך
+     מסמך lang="he", ובלי lang="vi" קורא מסך עברי הוגה אותה בפונמות
+     עבריות. זה שובר בדיוק את המסלול שהפתק נועד להציל: מי שההעתקה
+     נכשלה אצלו רוצה לאמת בשמיעה מה סימן לפני שהוא נותן את זה לנהג.
+     ה-CSS כבר טיפל בכיוון; זו השפה. אותה פונקציה שכבר עוטפת את שם
+     המקום בכותרת הגיליון, ו-classList.add אינו דורס את המחלקה. */
+  var ad=vi2(el("div","grab-addr",addr));
   var st=el("div","grab-stat");
   have.appendChild(ad); have.appendChild(st);
   /* השורה השנייה היא ההתחייבות, והיא מתמלאת רק כשה-Promise נפתר.
@@ -1529,7 +1540,7 @@ function buildMap(){
     var e=m.getElement();
     if(e){
       e.setAttribute("role","button");
-      e.setAttribute("aria-label",stName(st)+", "+total(st)+" "+t("places"));
+      e.setAttribute("aria-label",stName(st)+", "+placesN(total(st)));
       /* Leaflet מפעיל click על Enter בלבד; מי ששומע "לחצן" מצפה לרווח. */
       e.addEventListener("keydown",function(ev){
         if(ev.key===" "||ev.key==="Spacebar"){ ev.preventDefault(); location.hash="#s/"+st.id; }
@@ -1737,12 +1748,12 @@ function tileFor(st){
      בפונמות עבריות — ושמות ויאטנמיים עם דיאקריטיקה יוצאים בלתי מובנים. */
   var lat=el("span","tile-lat",st.name); lat.lang="vi"; lat.dir="ltr";
   tx.appendChild(lat);
-  tx.appendChild(el("div","tile-cnt",total(st)+" "+t("places")));
+  tx.appendChild(el("div","tile-cnt",placesN(total(st))));
   a.appendChild(tx);
   /* קישור אחד לכל ריבוע, עם שם נגיש מלא. שמות התחנות אינם כותרות:
      14 כותרות במסך אחד מציפות את הרוטור בלי להוסיף ניווט. */
   a.setAttribute("aria-label",String(st.seq).padStart(2,"0")+", "+stName(st)+", "+
-    st.name+", "+total(st)+" "+t("places")+(must?", "+must+" "+t("mustSee"):""));
+    st.name+", "+placesN(total(st))+(must?", "+must+" "+t("mustSee"):""));
   li.appendChild(a); return li;
 }
 function screenHome(){
@@ -1779,7 +1790,7 @@ function screenHome(){
     var hid="reg-"+g.id;
     var hd=el("h2","region-hd"); hd.id=hid;
     hd.appendChild(document.createTextNode(groupName(g)));
-    hd.appendChild(el("span","cnt",list.length+" "+t("stations")+" · "+places+" "+t("places")));
+    hd.appendChild(el("span","cnt",list.length+" "+t("stations")+" · "+placesN(places)));
     sec.setAttribute("aria-labelledby",hid);
     sec.appendChild(hd);
     var body=el("div","region-body");
@@ -2193,7 +2204,7 @@ function railItem(st){
   /* בלי זה השם המחושב נגמר ב-"42" בלי מילה שמסבירה מה זה */
   a.setAttribute("aria-label",stName(st)+", "+String(st.seq).padStart(2,"0")+", "+
     regName(REGIONS.filter(function(r){return r.id===st.region;})[0])+", "+
-    total(st)+" "+t("places"));
+    placesN(total(st)));
   return a;
 }
 
@@ -2315,7 +2326,7 @@ function renderStationDetail(st,pane){
      היה שגוי בשני הצדדים, והמילה "places" הייתה מקובעת. */
   var hs=el("div","hero-sub");
   hs.appendChild(vi2(el("span",null,st.name)));
-  hs.appendChild(document.createTextNode(" · "+total(st)+" "+t("places")));
+  hs.appendChild(document.createTextNode(" · "+placesN(total(st))));
   ht.appendChild(hs);
   hero.appendChild(ht);
   pane.appendChild(hero);
@@ -2366,7 +2377,13 @@ function renderStationDetail(st,pane){
     b.setAttribute("aria-controls","catPanel");
     b.appendChild(icon(c.ic));
     b.appendChild(document.createTextNode(catName(c)));
-    b.appendChild(el("span","n",String((st.poi[c.id]||[]).length)));
+    var n=(st.poi[c.id]||[]).length;
+    b.appendChild(el("span","n",String(n)));
+    /* המספר צריך יחידה. בלעדיה קורא מסך הכריז "צלילה 2, טאב, 7 מתוך 8"
+       — שלושה מספרים בהודעה אחת, ואין לדעת אם ה-2 הוא כמות אתרים,
+       מקומו של הטאב, או משהו אחר. אותה מחרוזת שמסך הנושאים כבר
+       מייצר. catName נשאר ראשון, ולכן 2.5.3 Label in Name נשמר. */
+    b.setAttribute("aria-label",catName(c)+", "+placesN(n));
     b.addEventListener("click",function(){show(c.id);});
     /* חצים מזיזים בין טאבים, כמו שתבנית tablist מצפה */
     /* ב-RTL אינדקס 0 יושב מימין, ולכן ArrowRight חייב להקטין את
@@ -2393,7 +2410,7 @@ function renderStationDetail(st,pane){
     g.appendChild(document.createTextNode(t("thinBody",{"%n":total(st)})));
     pane.appendChild(g);
   }
-  say(stName(st)+", "+total(st)+" "+t("places"));
+  say(stName(st)+", "+placesN(total(st)));
 }
 
 function qbtn(cls,ic,label,href){
@@ -2419,7 +2436,7 @@ function screenTopics(){
     b.appendChild(el("span","topic-l",catName(c)));
     b.disabled=!n;
     b.addEventListener("click",function(){location.hash="#c/"+c.id;});
-    b.setAttribute("aria-label",catName(c)+", "+n+" "+t("places"));
+    b.setAttribute("aria-label",catName(c)+", "+placesN(n));
     grid.appendChild(b);
   });
   main.appendChild(grid);
@@ -2494,7 +2511,7 @@ function screenInfo(){
   grid.appendChild(fact(t("returnTLV"),"24 Nov","Etihad EY431 · HAN 20:00 · AUH–TLV",true));
   grid.appendChild(fact(t("hotelNights"),"26",t("nightsSub")));
   grid.appendChild(fact(t("ownSpend"),conv(1550),t("ownSpendSub")));
-  grid.appendChild(fact(t("poolSize"),String(INDEX.length)+" "+t("places"),t("poolSub",{"%s":STATIONS.length})));
+  grid.appendChild(fact(t("poolSize"),placesN(INDEX.length),t("poolSub",{"%s":STATIONS.length})));
   grid.appendChild(fact(t("domFlights"),"3",t("domSub")));
 
   var fx=el("div","fact");

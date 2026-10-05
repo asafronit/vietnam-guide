@@ -114,7 +114,14 @@ try{
   --gold-ink:#7a5a00;
   --on-header:#ffffff;
   --on-header-2:#e2dbec;     /* אטום במקום opacity:.7 — 5.6 על הבהיר */
-  --jade:#0f7c5c;  --jade-on:#ffffff;
+  /* אותו פיצול כמו --gold ו---gold-ink, ומאותה סיבה. --jade הוא צבע
+     מילוי: הוא נכון כרקע בשורה 860 וכפס ב---wx-fill. כטקסט הוא עבר
+     בדיוק כל זמן שהרקע היה --surface הלבן — 5.18 — ונפל ברגע שאותה
+     מחלקה .good הגיעה אל --surface-2, שהוא בהיר אך לא לבן: 4.27 מול
+     דרישה של 4.5, על טקסט 16.32px bold שאינו "גדול" (הסף 18.66).
+     --jade-ink נותן 6.32 על --surface-2, 7.67 על לבן ו-6.81 על --bg.
+     אינו נוגע ב---c-ride של תקן הקישורים, שנשאר #0f7c5c בדיוק. */
+  --jade:#0f7c5c;  --jade-on:#ffffff;  --jade-ink:#0a5f46;
   --rose:#991b1b;
   /* ערכי תקן הקישורים של הפרויקט — אינם משתנים. הסגול המותגי חי
      בכרום בלבד ולעולם לא על כפתור פעולה, ולכן אין התנגשות בהקשר. */
@@ -150,7 +157,7 @@ try{
   --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
   --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
   --gold:#f5c542;--gold-ink:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
-  --jade:#3ddba0;  --jade-on:#06251a;  --rose:#e0806c;
+  --jade:#3ddba0;  --jade-on:#06251a;  --jade-ink:#3ddba0;  --rose:#e0806c;
   --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
   --c-map-fill:#7cc4ff; --c-map-on:#06121c;
   --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
@@ -173,7 +180,7 @@ try{
   --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
   --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
   --gold:#f5c542;--gold-ink:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
-  --jade:#3ddba0;  --jade-on:#06251a;  --rose:#e0806c;
+  --jade:#3ddba0;  --jade-on:#06251a;  --jade-ink:#3ddba0;  --rose:#e0806c;
   --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
   --c-map-fill:#7cc4ff; --c-map-on:#06121c;
   --c-ride:#3ddba0;  --c-ride-soft:rgba(61,219,160,.14);
@@ -532,7 +539,7 @@ main:focus,main:focus-visible{outline:none}
    --jade ולא --brand: משהחליף המותג לאדום לכה, "טוב" היה מרונדר אדום
    ונעשה כמעט זהה ל---rose של "גרוע". הירוק נשמר כאן בדיוק לשם כך —
    הוא נושא משמעות, לא זהות מותג. */
-.good{color:var(--jade)}       .wx-fill.good{background:var(--jade)}
+.good{color:var(--jade-ink)}   .wx-fill.good{background:var(--jade)}
 .fair{color:var(--gold-ink)}   .wx-fill.fair{background:var(--gold)}
 .poor{color:var(--rose)}       .wx-fill.poor{background:var(--rose)}
 .wx-note{font-size:.79rem;color:var(--ink-3);margin:12px 0 0;max-width:62ch}
@@ -699,6 +706,8 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .grab-addr{direction:ltr;text-align:start;unicode-bidi:isolate;font-weight:600;
   user-select:all;-webkit-user-select:all;word-break:break-word}
 .grab-stat{margin-top:4px;font-weight:500}
+/* 4.66 במצב כהה, לא מרווח נוח. כל הכהייה של --rose או כל העלאה של
+   האלפא ב---c-ride-soft מעל .14 מפילה את זה מתחת ל-4.5. */
 .grab-stat.is-warn{color:var(--rose)}
 .srcline{font-size:.8rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 .srcline a{text-decoration:underline;text-underline-offset:3px}
