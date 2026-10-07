@@ -11,7 +11,8 @@
 param(
   [string]$Scratch = '',
   [string]$Dest    = 'G:\CLAUDE\vietnam-guide',
-  [string]$Poi     = 'G:\CLAUDE\VIETNAM\kml\out\poi-data.js'
+  [string]$Poi     = 'G:\CLAUDE\VIETNAM\kml\out\poi-data.js',
+  [string]$Transfers = 'G:\CLAUDE\VIETNAM\kml\out\transfers-data.js'
 )
 $ErrorActionPreference = 'Stop'
 $utf8 = New-Object Text.UTF8Encoding($false)
@@ -20,6 +21,11 @@ New-Item -ItemType Directory -Force -Path "$Dest\assets\photos" | Out-Null
 
 # --- נתונים: תמיד מרעננים מהמקור ב-kml/out ---
 Copy-Item $Poi "$Dest\assets\poi-data.js" -Force
+# מעברים בין ערים — אותו צינור (kml web), קובץ נפרד. הדף טוען אותו רק מפאזה 9,
+# אבל הבנייה דורשת אותו כבר עכשיו: אם הייצוא לא רץ, עדיף ליפול כאן מאשר לשלוח
+# לאתר קובץ מעברים מיושן בשקט.
+if (-not (Test-Path $Transfers)) { throw "transfers-data.js חסר ב-$Transfers — להריץ קודם kmlpool.cli web" }
+Copy-Item $Transfers "$Dest\assets\transfers-data.js" -Force
 
 # --- אקלים: רק אם סופק מקור; אחרת הקובץ שבריפו הוא האמת ---
 if ($Scratch -and (Test-Path "$Scratch\weather.js")) {
@@ -149,7 +155,7 @@ $fingerprint = (Get-ChildItem "$Dest\assets" -Recurse -File | Sort-Object FullNa
 # לא ממשיך משם בלי שהתחביר שלו נבדק.
 $node = Get-Command node -ErrorAction SilentlyContinue
 if ($node) {
-  foreach ($js in @('app.js','climate.js','photos.js','poi-data.js')) {
+  foreach ($js in @('app.js','climate.js','photos.js','poi-data.js','transfers-data.js')) {
     $p = "$Dest\assets\$js"
     if (-not (Test-Path $p)) { continue }
     & node --check $p
