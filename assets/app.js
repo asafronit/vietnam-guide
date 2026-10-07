@@ -31,7 +31,15 @@ var ICONS={
   info:'<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.2"/><path d="M12 7.9v.1"/>',
   chat:'<path d="M20.5 11.6a8 8 0 0 1-11.7 7.1L4 20l1.4-4.6A8 8 0 1 1 20.5 11.6z"/>',
   chev:'<path d="M14.5 5.8L8.3 12l6.2 6.2"/>',
-  grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>'
+  grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
+  /* מעברים. אותו משקל קו ואותה גיאומטריה כמו שאר הסט. "route" הוא שתי
+     נקודות וקו מקווקו ביניהן — לא חץ, כי חץ מתהפך ב-RTL ומשקר על כיוון. */
+  route:'<circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="6" r="2.4"/><path d="M8.2 16.6c3-1.2 1.8-4.4 4.8-5.6s1.6-3.4 3.4-4.1" stroke-dasharray="2.2 2.2"/>',
+  plane:'<path d="M10.2 21l1.6-6.2-5.6-1.4-1.6 1.6-1.6-.5 1.5-3-1.5-3 1.6-.5 1.6 1.6 5.6-1.4L10.2 2h2.2l3.8 7.2 4.3-.2a1.6 1.6 0 0 1 0 3.2l-4.3-.2L12.4 21z"/>',
+  train:'<rect x="5.5" y="3" width="13" height="14" rx="3"/><path d="M5.5 10.5h13"/><circle cx="9" cy="13.8" r=".9"/><circle cx="15" cy="13.8" r=".9"/><path d="M8.5 17l-2 4M15.5 17l2 4"/>',
+  bus:'<rect x="4" y="3.5" width="16" height="14" rx="2.5"/><path d="M4 11h16M4 7h16"/><circle cx="8" cy="14.3" r="1"/><circle cx="16" cy="14.3" r="1"/><path d="M7 17.5V20M17 17.5V20"/>',
+  boat:'<path d="M3 15.5h18l-2.4 4H5.4z"/><path d="M12 3.5v12"/><path d="M12 5l6 8.5h-6"/>',
+  swap:'<path d="M8 4v16"/><path d="M4.5 7.5L8 4l3.5 3.5"/><path d="M16 20V4"/><path d="M12.5 16.5L16 20l3.5-3.5"/>'
 };
 function icon(name,cls){
   var s=document.createElementNS("http://www.w3.org/2000/svg","svg");
@@ -106,6 +114,61 @@ var T={
   navTopics:{he:"נושאים",en:"Browse"},
   navSaved:{he:"שמורים",en:"Saved"},
   navInfo:{he:"מידע",en:"Trip info"},
+  /* ---- מעברים ---- "Routes" ולא "Getting around": תווית קצרה, כי בניווט
+     התחתון יש עכשיו שישה פריטים ב-390px, והיא חייבת לשרוד גם 320px והגדלה. */
+  navTransfers:{he:"מעברים",en:"Routes"},
+  trTitle:{he:"מעברים",en:"Routes between stops"},
+  trIntro:{he:"בוחרים מאיפה ולאן, ומקבלים את כל הדרכים לעבור: טיסה, רכבת, אוטובוס, ואן או רכב פרטי — עם נקודת העלייה, המחיר ואיפה מזמינים.",
+           en:"Pick where from and where to, and get every way to make the trip: flight, train, bus, van or private car — with the boarding point, the price and where to book."},
+  trFrom:{he:"מאיפה",en:"From"},
+  trTo:{he:"לאן",en:"To"},
+  trPick:{he:"בחרו תחנה",en:"Choose a stop"},
+  trSwap:{he:"החלפת כיוון",en:"Swap direction"},
+  trShow:{he:"הצגת המעברים",en:"Show routes"},
+  trSwapped:{he:"מאיפה: {a}. לאן: {b}",en:"From: {a}. To: {b}"},
+  trSwapNothing:{he:"אין מה להחליף — שני השדות ריקים.",
+                 en:"Nothing to swap — both fields are empty."},
+  trErrTo:{he:"צריך לבחור לאן.",en:"Choose where to."},
+  trErrFrom:{he:"צריך לבחור מאיפה.",en:"Choose where from."},
+  trErrSame:{he:"המוצא והיעד זהים — בחרו יעד אחר.",en:"From and to are the same — choose another destination."},
+  trBadHash:{he:"הקישור הזה לא מוביל למעבר מוכר. אפשר לבחור מחדש.",en:"That link doesn't lead to a known route. Choose again below."},
+  trFromHere:{he:"יוצאים מ{st}",en:"Leaving {st}"},
+  trAll:{he:"כל המעברים במאגר",en:"All routes in the guide"},
+  trRoute:{he:"מ{a} ל{b}",en:"{a} to {b}"},
+  trReverseNote:{he:"המידע נאסף בכיוון ההפוך, מ{b} ל{a}. השעות בכיוון הזה עשויות להיות שונות; המחירים בדרך כלל דומים.",
+                 en:"This was researched in the opposite direction, {b} to {a}. Times this way may differ; prices are usually similar."},
+  trCount1:{he:"אפשרות אחת",en:"1 option"},
+  trCountN:{he:"{n} אפשרויות",en:"{n} options"},
+  trSortBy:{he:"מיון",en:"Sort"},
+  trSortData:{he:"מומלץ",en:"Suggested"},
+  trSortPrice:{he:"לפי מחיר",en:"By price"},
+  trSortTime:{he:"לפי משך",en:"By duration"},
+  trSortedData:{he:"בסדר המומלץ",en:"in suggested order"},
+  trSortedPrice:{he:"ממוין לפי המחיר הנמוך בטווח, אחרי המרה למטבע אחד (לאדם ולרכב יחד — לשים לב ליחידה)",
+                 en:"sorted by the lowest price in each range, converted to one currency (per person and per vehicle mixed — mind the unit)"},
+  trSortedTime:{he:"ממוין לפי המשך הקצר",en:"sorted by shortest duration"},
+  trFirst:{he:"ראשון: {x}",en:"First: {x}"},
+  trChange:{he:"שינוי בחירה",en:"Change selection"},
+  trReverse:{he:"הכיוון ההפוך",en:"The other direction"},
+  trBoard:{he:"נקודת עלייה",en:"Boarding point"},
+  trPickup:{he:"איסוף מהמלון",en:"Hotel pickup"},
+  trDepart:{he:"יציאות",en:"Departures"},
+  trDuration:{he:"משך",en:"Duration"},
+  trPrice:{he:"מחיר",en:"Price"},
+  trPros:{he:"יתרונות",en:"Pros"},
+  trCons:{he:"חסרונות",en:"Cons"},
+  trTip:{he:"טיפ",en:"Tip"},
+  trVerify:{he:"לאמת לפני הזמנה",en:"Check before booking"},
+  trChecked:{he:"נבדק",en:"Checked"},
+  trBook:{he:"הזמנה ב-{x}",en:"Book with {x}"},
+  trMaps:{he:"מפות",en:"Maps"},
+  trEmptyTitle:{he:"אין לנו עדיין מידע על המעבר הזה.",en:"We don't have this route in the guide yet."},
+  trEmptyHint:{he:"אפשר לחפש אותו חי באתרים האלה, או לבנות את הדרך משני מעברים שכן נמצאים במאגר.",
+               en:"You can look it up live on these sites, or build the trip from two routes that are in the guide."},
+  trBack:{he:"חזרה לבחירת מעבר",en:"Back to choosing a route"},
+  trLeaveHere:{he:"איך יוצאים מכאן",en:"Getting out of here"},
+  trMin:{he:"{n} דק'",en:"{n} min"},
+  trHr:{he:"{n} שע'",en:"{n} hr"},
   dark:{he:"מצב כהה",en:"Dark mode"},
   places:{he:"מקומות",en:"places"},
   place1:{he:"מקום אחד",en:"1 place"},
@@ -435,8 +498,18 @@ var UNIT={
   per_dish:  {he:"למנה",      en:"per dish"},
   entry:     {he:"כניסה",     en:"entry"},
   per_hour:  {he:"לשעה",      en:"per hour"},
-  free:      {he:"ללא תשלום", en:"free"}
+  free:      {he:"ללא תשלום", en:"free"},
+  /* מעברים: רכב פרטי מתומחר לרכב ותא שינה לתא. בלי היחידות האלה
+     $150 לרכב נקרא כמו $150 לאדם — פי ארבעה מהאמת לקבוצה. */
+  per_vehicle:{he:"לרכב",     en:"per vehicle"},
+  per_cabin:  {he:"לתא",      en:"per cabin"}
 };
+/* המעברים מתומחרים במטבע שבו נמצא המחיר (VND או USD). conv() מקבל USD,
+   ולכן ההמרה עוברת דרך אותם שערים — מקור אמת אחד, לא שני. */
+function usdOf(v,currency){
+  if(v==null) return null;
+  return currency==="VND"? v/RATES.VND : v;
+}
 function unitText(r){
   var u=UNIT[r.priceUnit];
   return u?(isHe()?u.he:u.en):"";
@@ -1266,11 +1339,14 @@ function grabDeep(r){
   return "grab://open?screenType=BOOKING&drop_off_lat="+r.lat+"&drop_off_lng="+r.lng;
 }
 function grabAddr(r,st){
+  /* נקודת עלייה של מעבר נושאת כתובת מלאה משלה (r.addr). מה שמועתק חייב
+     להיות בדיוק מה שכתוב על המסך — לא שם + אזור + תחנה מורכבים. */
+  if(r.addr) return r.addr+", Vietnam";
   return [r.name,r.area,st.name,"Vietnam"].filter(Boolean).join(", ");
 }
-function grabBtn(r,st){
+function grabBtn(r,st,nameLang){
   var addr=grabAddr(r,st);
-  var a=lbtn("act-ride","car",t("grab"),GRAB_WEB,r.name,"grabNote");
+  var a=lbtn("act-ride","car",t("grab"),GRAB_WEB,r.name,"grabNote",nameLang);
   a.classList.add("grab-link");
   a.setAttribute("data-grab-deep",grabDeep(r));
   a.setAttribute("data-grab-addr",addr);
@@ -1333,13 +1409,20 @@ function showGrabNote(a,p,addr){
   if(p&&p.then) p.then(function(){settle(true);},function(){settle(false);});
   else settle(false);
 }
-function lbtn(cls,ic,label,href,name,noteKey){
+function lbtn(cls,ic,label,href,name,noteKey,nameLang){
   var a=el("a","lbtn "+cls);
   a.href=href; a.target="_blank"; a.rel="noopener noreferrer";
   a.appendChild(icon(ic));
   a.appendChild(document.createTextNode(label));
   /* עבור Grab "נפתח בכרטיסייה חדשה" הוא פשוט לא נכון — נפתחת אפליקציה. */
-  a.appendChild(el("span","sr"," — "+name+t(noteKey||"newTab")));
+  /* השם בתוך ה-sr מקבל lang משלו כשהוא ידוע: "Ga Hà Nội" בתוך מסמך עברי
+     בלי lang="vi" נהגה בפונמות עבריות. בלי nameLang — ההתנהגות הקודמת. */
+  var sr=el("span","sr"," — ");
+  var nm=el("span",null,name);
+  if(nameLang) nm.lang=nameLang;
+  sr.appendChild(nm);
+  sr.appendChild(document.createTextNode(t(noteKey||"newTab")));
+  a.appendChild(sr);
   return a;
 }
 dlg.addEventListener("close",function(){ activeLive=null; if(lastFocus&&lastFocus.focus) lastFocus.focus(); });
@@ -2339,6 +2422,13 @@ function renderStationDetail(st,pane){
      סימון, יעד אחר, באותו מסך שבו הכרטיס כבר פותח grab://. */
   qb.appendChild(qbtn("act-map map-link","pin",t("directions"),"https://www.google.com/maps/dir/?api=1&destination="+st.lat+","+st.lng+"&travelmode=driving"));
   qb.appendChild(qbtn("act-video yt-link","play",t("videos"),"https://www.youtube.com/results?search_query="+encodeURIComponent(st.name+" Vietnam travel")));
+  /* קישור פנימי, ולכן לא qbtn: היא מוסיפה target=_blank ו"נפתח בכרטיסייה
+     חדשה", ושניהם שקר כאן. וגם לא בצבע מהתקן — חמשת הצבעים מקודדים
+     פעולה חיצונית, וזה ניווט בתוך המדריך. */
+  var leave=el("a","qbtn qbtn-int"); leave.href="#tr/"+st.id;
+  leave.appendChild(icon("route"));
+  leave.appendChild(document.createTextNode(t("trLeaveHere")));
+  qb.appendChild(leave);
   pane.appendChild(qb);
 
   var filled=CATS.filter(function(c){return (st.poi[c.id]||[]).length;});
@@ -2420,6 +2510,383 @@ function qbtn(cls,ic,label,href){
   a.appendChild(document.createTextNode(label));
   a.appendChild(el("span","sr",t("newTab")));
   return a;
+}
+
+/* ================= מעברים =================
+   נתונים מ-transfers-data.js (החוזה ב-07-01-SUMMARY.md). מסך אחד, שני מצבים:
+   בחירה (#tr או #tr/<from>) ותוצאה (#tr/<from>/<to>).
+   ההנחיות מייעוץ הנגישות (09-01) מצוטטות במספרן ליד הקוד שהן קובעות. */
+var TRANSFERS=(typeof TRANSFERS_DATA!=="undefined"&&Array.isArray(TRANSFERS_DATA))?TRANSFERS_DATA:[];
+/* מצב שחייב לשרוד render(): החלפת שפה או מטבע בונה את main מחדש,
+   ובלי זה הבחירות והמיון היו מתאפסים באמצע שימוש (הנחיה 9). */
+var trSort="data", trDraftFrom="", trDraftTo="";
+var TR_MODE={
+  flight:        {ic:"plane", he:"טיסה",           en:"Flight"},
+  train:         {ic:"train", he:"רכבת",           en:"Train"},
+  sleeper_train: {ic:"train", he:"רכבת לילה",      en:"Night train"},
+  sleeper_bus:   {ic:"bus",   he:"אוטובוס שינה",   en:"Sleeper bus"},
+  limousine_van: {ic:"van",   he:"ואן לימוזינה",   en:"Limousine van"},
+  bus:           {ic:"bus",   he:"אוטובוס",        en:"Bus"},
+  private_car:   {ic:"car",   he:"רכב פרטי",       en:"Private car"},
+  boat:          {ic:"boat",  he:"סירה",           en:"Boat"},
+  speedboat:     {ic:"boat",  he:"ספינה מהירה",    en:"Speedboat"},
+  combo:         {ic:"route", he:"משולב",          en:"Combined"}
+};
+function trMode(o){ var m=TR_MODE[o.mode]||TR_MODE.combo; return {ic:m.ic,name:isHe()?m.he:m.en}; }
+function stById(id){ return POI_DATA[id]||null; }
+/* מעבר ישיר, או הפוך כשהמאגר מתיר (reverseOk). אחרת null. */
+function trFind(a,b){
+  for(var i=0;i<TRANSFERS.length;i++){ var x=TRANSFERS[i]; if(x.from===a&&x.to===b) return {t:x,rev:false}; }
+  for(var j=0;j<TRANSFERS.length;j++){ var y=TRANSFERS[j]; if(y.reverseOk&&y.from===b&&y.to===a) return {t:y,rev:true}; }
+  return null;
+}
+/* טקסט בשפת הממשק, ואם אין תאום עברי — האנגלית עם lang/dir משלה (הנחיה 21). */
+function trText(tag,cls,o,key){
+  var he=isHe()&&o[key+"He"];
+  var n=el(tag,cls,he?o[key+"He"]:o[key]);
+  if(isHe()&&!he) en2(n);
+  return n;
+}
+/* מזהים ייחודיים לתוויות היתרונות והחסרונות. מונה גלובלי ולא אינדקס
+   האופציה, כי אותו כרטיס מרונדר גם מדפי קטע שונים. */
+var trLblSeq=0;
+function trList(o,key){
+  var he=isHe()&&o[key+"He"]&&o[key+"He"].length;
+  var arr=he?o[key+"He"]:(o[key]||[]);
+  var ul=el("ul","tr-points"); ul.setAttribute("role","list");
+  arr.forEach(function(s){ var li=el("li",null,s); li.setAttribute("role","listitem"); if(isHe()&&!he) en2(li); ul.appendChild(li); });
+  if(isHe()&&!he) en2(ul);
+  return ul;
+}
+/* טווח מספרי בתוך RTL: המספרים בבידוד LTR, מילת היחידה מחוצה לו (הנחיה 23). */
+function trBdi(txt){ var b=el("bdi",null,txt); b.dir="ltr"; return b; }
+function trDur(o){
+  var a=o.durationMin, b=o.durationMax;
+  var box=el("span");
+  if(a==null) return box;
+  var useMin=(b||a)<120;
+  function f(v){ return useMin?String(v):String(Math.round(v/30)/2); }
+  var range=(b&&b!==a)?f(a)+"–"+f(b):f(a);
+  box.appendChild(trBdi(range));
+  /* רק מילת היחידה ("דק'" / "שע'"), מחוץ לבידוד המספרי */
+  box.appendChild(document.createTextNode(" "+t(useMin?"trMin":"trHr",{"{n}":""}).trim()));
+  return box;
+}
+function trUsdLow(o){ return usdOf(o.priceLow,o.currency); }
+function trPrice(o){
+  var box=el("span","money");
+  if(o.priceLow==null) return box;
+  var lo=conv(usdOf(o.priceLow,o.currency));
+  var txt=(o.priceHigh!=null&&o.priceHigh!==o.priceLow)? lo+"–"+conv(usdOf(o.priceHigh,o.currency)).replace(SYM[cur],"") : lo;
+  box.appendChild(trBdi(txt));
+  var u=UNIT[o.priceUnit];
+  if(u) box.appendChild(document.createTextNode(" "+(isHe()?u.he:u.en)));
+  return box;
+}
+function trRouteText(a,b){ return t("trRoute",{"{a}":stName(a),"{b}":stName(b)}); }
+
+/* -------- כרטיס אפשרות -------- */
+function trCard(o,idx){
+  var m=trMode(o);
+  var li=el("li"); li.setAttribute("role","listitem");
+  li.dataset.idx=idx;
+  var art=el("article","tr-card");
+  var hid="trH-"+idx; art.setAttribute("aria-labelledby",hid);
+  /* כותרת ייחודית בדף: סוג + מפעיל (הנחיה 4). האייקון aria-hidden (29). */
+  var h=el("h2","tr-card-h"); h.id=hid;
+  var badge=el("span","tr-mode"); badge.appendChild(icon(m.ic)); h.appendChild(badge);
+  h.appendChild(document.createTextNode(m.name+" · "));
+  /* שפת שם המפעיל מוצהרת בנתונים (opLang, 09-02) ולא מנוחשת (הנחיה 21) */
+  var op=el("span","tr-op",o.operator);
+  h.appendChild(o.opLang==="vi"?vi2(op):en2(op));
+  art.appendChild(h);
+  /* "לאמת" מיד אחרי הכותרת, לפני כפתורי ההזמנה (הנחיה 19). */
+  if(o.confidence==="medium"){
+    var v=el("p","tr-verify"); v.appendChild(icon("info")); v.appendChild(document.createTextNode(t("trVerify")));
+    art.appendChild(v);
+  }
+  /* נקודת עלייה */
+  var bd=el("div","tr-board");
+  bd.appendChild(el("p","tr-lbl",t("trBoard")));
+  var b=o.board||{};
+  /* לפי השפה שהנתונים מצהירים, ולא vi גורף. הגרסה הקודמת הצמידה
+     lang="vi" לכל נקודת עלייה, והמחרוזות האלה הן ברובן אנגלית עם שם
+     מקום ויאטנמי בתוכן — "Dak Lak bus company yard (route 12
+     terminus)" — כך שקורא מסך עברי הגה משפט אנגלי שלם בפונמות
+     ויאטנמיות, ובדיוק במקום שאומר למשתמש לאן להגיע. */
+  var bLang=(b.lang==="vi")?vi2:en2;
+  if(b.pickupHotel){
+    bd.appendChild(el("p","tr-pickup",t("trPickup")));
+    if(b.address){ var pa=bLang(el("p","tr-addr is-soft",b.address)); bd.appendChild(pa); }
+  }else{
+    bd.appendChild(bLang(el("p","tr-bname",b.name)));
+    if(b.address) bd.appendChild(bLang(el("p","tr-addr",b.address)));
+  }
+  art.appendChild(bd);
+  /* עובדות: dl, תווית וערך (הנחיה 15) */
+  var dl=el("dl","tr-facts");
+  function row(k,valNode){ var d=el("div"); d.appendChild(el("dt",null,t(k))); var dd=el("dd"); dd.appendChild(valNode); d.appendChild(dd); dl.appendChild(d); }
+  /* משך ומחיר קצרים ויושבים זה לצד זה; היציאות הן משפט ("VN1911 13:20,
+     arrives 14:25 - Tuesday, Thursday and Saturday") ולכן שורה מלאה אחריהם —
+     בעמודה צרה הן נשברו לחמש שורות. */
+  if(o.durationMin!=null) row("trDuration",trDur(o));
+  if(o.priceLow!=null) row("trPrice",trPrice(o));
+  /* עברית מ-departuresHe (09-02); אנגלית מתויגת רק כשאין תאום */
+  if(o.departures){ row("trDepart",trText("span",null,o,"departures")); dl.lastChild.className="is-wide"; }
+  art.appendChild(dl);
+  /* יתרונות / חסרונות / טיפ — תוויות טקסט, לא כותרות (הנחיה 4) */
+  /* התוויות מקושרות לרשימות ב-aria-labelledby. בלי זה הקישור ויזואלי
+     בלבד — קירבה והצבע של .is-pro/.is-con — ומי שמנווט בין רשימות
+     בקורא מסך שומע "רשימה, 3 פריטים" ואחריה "רשימה, 2 פריטים" בלי
+     לדעת מי יתרון ומי חיסרון. בקריאה ליניארית זה עבד; בניווט מובנה לא. */
+  function labelled(key,list,cls){
+    var id="tr-"+key+"-"+trLblSeq++;
+    var p=el("p","tr-lbl",t(key)); p.id=id;
+    list.classList.add(cls); list.setAttribute("aria-labelledby",id);
+    art.appendChild(p); art.appendChild(list);
+  }
+  if((o.pros||[]).length) labelled("trPros",trList(o,"pros"),"is-pro");
+  if((o.cons||[]).length) labelled("trCons",trList(o,"cons"),"is-con");
+  if(o.tips){ art.appendChild(el("p","tr-lbl",t("trTip"))); art.appendChild(trText("p","tr-tip",o,"tips")); }
+  /* פעולות — ul.linkrow משלו לכל כרטיס, כי showGrabNote מניח a>li>ul ומחפש
+     .grab-note בתוך אותה רשימה (הנחיה 16). */
+  var lr=el("ul","linkrow"); lr.setAttribute("role","list"); lr.setAttribute("aria-label",t("actions"));
+  function act(node){ var x=el("li"); x.setAttribute("role","listitem"); x.appendChild(node); lr.appendChild(x); }
+  if(!b.pickupHotel&&b.lat!=null&&b.lng!=null){
+    act(lbtn("act-map map-link","pin",t("trMaps"),"https://www.google.com/maps/search/?api=1&query="+b.lat+","+b.lng,b.name,null,"vi"));
+    /* Grab רק כשיש נ"צ (הנחיה 18), והכתובת שמועתקת היא כתובת העלייה. */
+    act(grabBtn({name:b.name,addr:b.address,lat:b.lat,lng:b.lng},{name:""},"vi"));
+  }
+  (o.bookLinks||[]).forEach(function(l){
+    /* שם החברה בטקסט הגלוי, סוג התחבורה ב-sr (הנחיה 17) */
+    act(lbtn("act-book book-link","card",t("trBook",{"{x}":l.name}),l.url,m.name));
+  });
+  if(lr.childNodes.length) art.appendChild(lr);
+  /* מקורות ותאריך בדיקה */
+  var sl=el("div","srcline");
+  if(o.checked){
+    var tm=el("time",null,o.checked); tm.setAttribute("datetime",o.checked);
+    var cs=el("span",null,t("trChecked")+" "); cs.appendChild(tm); sl.appendChild(cs);
+  }
+  if((o.sources||[]).length){
+    sl.appendChild(el("span",null,t("sources")));
+    o.sources.forEach(function(u){
+      var a=el("a",null,brandOf(u)); a.href=u; a.target="_blank"; a.rel="noopener noreferrer";
+      a.appendChild(el("span","sr",t("newTab"))); sl.appendChild(a);
+    });
+  }
+  art.appendChild(sl);
+  li.appendChild(art);
+  return li;
+}
+
+/* -------- מיון: מסדרים את הצמתים עצמם, לא CSS order (הנחיה 9) -------- */
+function trSortNodes(list,opts){
+  var lis=Array.prototype.slice.call(list.children);
+  lis.sort(function(x,y){
+    var a=opts[+x.dataset.idx], b=opts[+y.dataset.idx];
+    if(trSort==="price"){ var pa=trUsdLow(a), pb=trUsdLow(b); return (pa==null?1e9:pa)-(pb==null?1e9:pb); }
+    if(trSort==="time"){ return (a.durationMin||1e9)-(b.durationMin||1e9); }
+    return (+x.dataset.idx)-(+y.dataset.idx);
+  });
+  lis.forEach(function(n){ list.appendChild(n); });
+  var first=opts[+lis[0].dataset.idx];
+  return first;
+}
+function trSortedKey(){ return trSort==="price"?"trSortedPrice":(trSort==="time"?"trSortedTime":"trSortedData"); }
+function trCountText(n){ return n===1?t("trCount1"):t("trCountN",{"{n}":String(n)}); }
+
+/* -------- מסך -------- */
+function screenTransfers(from,to){
+  exitMapMode();
+  main.textContent="";
+  var A=stById(from), B=stById(to);
+  if(A&&B&&from!==to){ trResult(A,B); return; }
+  /* hash שבור: מוצא לא מוכר, יעד לא מוכר, או מוצא=יעד. מציגים את מסך
+     הבחירה עם הסבר — אף פעם לא מסך בלי כותרת (הנחיה 1). */
+  var bad=(!!from&&!A)||(!!to&&!B)||(!!from&&from===to);
+  trChoose(A,bad);
+}
+
+function trChoose(A,bad){
+  if(A) trDraftFrom=A.id;
+  if(trDraftTo===trDraftFrom) trDraftTo="";
+  main.appendChild(screenTitle(t("trTitle")));
+  setDocTitle(t("trTitle"));
+  if(bad){ var be=el("p","tr-err",t("trBadHash")); main.appendChild(be); }
+  main.appendChild(el("p","tr-intro",t("trIntro")));
+
+  /* טופס עם כפתור שליחה: select לא מנווט בשינוי ערך (הנחיה 5, 3.2.2) */
+  var form=el("form","tr-form"); form.noValidate=true;
+  function field(id,labelKey,val){
+    var w=el("div","tr-field");
+    var lb=el("label","tr-flabel",t(labelKey)); lb.htmlFor=id;
+    var s=el("select","tr-select"); s.id=id;
+    /* שני השדות חובה בפועל — הוולידציה בשליחה דוחה ריק — אבל המשתמש
+       לא ידע את זה עד הכשל. form.noValidate כבר מוצב, ולכן required
+       כאן מוסיף סמנטיקה בלי להפעיל בלוני דפדפן. */
+    s.required=true;
+    var o0=el("option",null,t("trPick")); o0.value=""; s.appendChild(o0);
+    STATIONS.forEach(function(st){ var op=el("option",null,stName(st)); op.value=st.id; if(st.id===val) op.selected=true; s.appendChild(op); });
+    w.appendChild(lb); w.appendChild(s);
+    return {wrap:w,sel:s};
+  }
+  var fA=field("trFrom","trFrom",trDraftFrom), fB=field("trTo","trTo",trDraftTo);
+  var err=el("p","tr-ferr"); err.id="trErr"; err.hidden=true;
+  /* clearErr גם כאן, ולא רק ב-submit. בלעדיו המצב המתוכנת נתקע:
+     מי שקיבל "צריך לבחור לאן", ואז החליף כיוון, נשאר עם aria-invalid
+     על השדה שהתמלא ועם הודעה שמצביעה עליו — בעוד השדה הבעייתי
+     באמת, זה שהתרוקן, לא מסומן בכלום. גם בחירה פשוטה בשדה לא ניקתה
+     אותו, כך שחזרה אליו הכריזה "לא חוקי" על שדה מלא. */
+  fA.sel.addEventListener("change",function(){ clearErr(); trDraftFrom=fA.sel.value; });
+  fB.sel.addEventListener("change",function(){ clearErr(); trDraftTo=fB.sel.value; });
+  /* החלפה: רק מחליפה ערכים ומכריזה. הפוקוס נשאר (הנחיה 7). */
+  var sw=el("button","tr-swap"); sw.type="button";
+  sw.appendChild(icon("swap")); sw.appendChild(document.createTextNode(t("trSwap")));
+  sw.addEventListener("click",function(){
+    /* שני השדות ריקים: אין מה להחליף, וההכרזה הייתה "מאיפה: בחרו
+       תחנה. לאן: בחרו תחנה" — טקסט הפלייסהולדר פעמיים, בלי מידע. */
+    if(!fA.sel.value&&!fB.sel.value){ say(t("trSwapNothing")); return; }
+    clearErr();
+    var a=fA.sel.value; fA.sel.value=fB.sel.value; fB.sel.value=a;
+    trDraftFrom=fA.sel.value; trDraftTo=fB.sel.value;
+    function nm(v){ var s=stById(v); return s?stName(s):t("trPick"); }
+    say(t("trSwapped",{"{a}":nm(fA.sel.value),"{b}":nm(fB.sel.value)}));
+  });
+  var go=el("button","tr-go"); go.type="submit";
+  go.appendChild(icon("route")); go.appendChild(document.createTextNode(t("trShow")));
+  form.appendChild(fA.wrap); form.appendChild(sw); form.appendChild(fB.wrap); form.appendChild(err); form.appendChild(go);
+  function clearErr(){ err.hidden=true; err.textContent=""; [fA.sel,fB.sel].forEach(function(s){ s.removeAttribute("aria-invalid"); s.removeAttribute("aria-describedby"); }); }
+  form.addEventListener("submit",function(e){
+    e.preventDefault(); clearErr();
+    var a=fA.sel.value, b=fB.sel.value, target=null, k=null;
+    if(!a){ target=fA.sel; k="trErrFrom"; }
+    else if(!b){ target=fB.sel; k="trErrTo"; }
+    else if(a===b){ target=fB.sel; k="trErrSame"; }
+    if(target){
+      /* אימות בשליחה, הודעה גלויה ומקושרת, פוקוס לשדה (הנחיה 6) */
+      err.textContent=t(k); err.hidden=false;
+      target.setAttribute("aria-invalid","true"); target.setAttribute("aria-describedby","trErr");
+      target.focus(); say(t(k)); return;
+    }
+    trDraftFrom=a; trDraftTo=b;
+    location.hash="#tr/"+a+"/"+b;
+  });
+  main.appendChild(form);
+
+  /* מי שהגיע מ"איך יוצאים מכאן" רואה קודם את המעברים שלו (הנחיה 2) */
+  if(A){
+    var mine=[];
+    TRANSFERS.forEach(function(x){
+      if(x.from===A.id) mine.push([x.from,x.to]);
+      else if(x.to===A.id&&x.reverseOk) mine.push([x.to,x.from]);
+    });
+    if(mine.length){
+      main.appendChild(el("h2","tr-h2",t("trFromHere",{"{st}":stName(A)})));
+      main.appendChild(trLinkList(mine));
+    }
+  }
+  main.appendChild(el("h2","tr-h2",t("trAll")));
+  main.appendChild(trLinkList(TRANSFERS.map(function(x){return [x.from,x.to];})));
+}
+
+function trLinkList(pairs){
+  var ul=el("ul","tr-links"); ul.setAttribute("role","list");
+  pairs.forEach(function(p){
+    var a=stById(p[0]), b=stById(p[1]); if(!a||!b) return;
+    var li=el("li"); li.setAttribute("role","listitem");
+    var lk=el("a","tr-link"); lk.href="#tr/"+a.id+"/"+b.id;
+    var d1=el("span","dotc"); d1.style.setProperty("--stationcolor",stColor(a)); lk.appendChild(d1);
+    lk.appendChild(document.createTextNode(trRouteText(a,b)));
+    var d2=el("span","dotc"); d2.style.setProperty("--stationcolor",stColor(b)); lk.appendChild(d2);
+    li.appendChild(lk); ul.appendChild(li);
+  });
+  return ul;
+}
+
+function trResult(A,B){
+  trDraftFrom=A.id; trDraftTo=B.id;
+  var found=trFind(A.id,B.id);
+  var title=trRouteText(A,B);
+  main.appendChild(screenTitle(title));
+  setDocTitle(title+" — "+t("trTitle"));
+  /* הכרטיס-כרטיסייה: שתי נקודות בצבעי התחנות וקו מקווקו. קישוט בלבד —
+     הכותרת מעליו נושאת את הטקסט, ולכן aria-hidden. */
+  var tk=el("div","tr-ticket"); tk.setAttribute("aria-hidden","true");
+  [[A,"is-from"],[null,"line"],[B,"is-to"]].forEach(function(p){
+    if(!p[0]){ tk.appendChild(el("span","tr-ticket-line")); return; }
+    var s=el("span","tr-ticket-st "+p[1]); s.style.setProperty("--stationcolor",stColor(p[0]));
+    s.appendChild(el("span","tr-ticket-dot")); s.appendChild(document.createTextNode(stName(p[0])));
+    tk.appendChild(s);
+  });
+  main.appendChild(tk);
+
+  if(!found){
+    /* מצב ריק: ה-h1 נשאר שם המסלול, ההודעה בפסקה (הנחיה 1, 26) */
+    var em=el("div","tr-empty");
+    em.appendChild(el("p","tr-empty-t",t("trEmptyTitle")));
+    em.appendChild(el("p",null,t("trEmptyHint")));
+    var lr=el("ul","linkrow"); lr.setAttribute("role","list");
+    function act(n){ var x=el("li"); x.setAttribute("role","listitem"); x.appendChild(n); lr.appendChild(x); }
+    act(lbtn("act-map map-link","pin","Google Maps","https://www.google.com/maps/dir/?api=1&origin="+A.lat+","+A.lng+"&destination="+B.lat+","+B.lng,title));
+    act(lbtn("act-book book-link","card","12Go","https://12go.asia/en",title));
+    act(lbtn("act-book book-link","train",isHe()?"רכבות וייטנאם":"Vietnam Railways","https://dsvn.vn",title));
+    em.appendChild(lr);
+    main.appendChild(em);
+    var bk=el("a","backbtn"); bk.href="#tr/"+A.id;
+    bk.appendChild(icon("chev")); bk.appendChild(document.createTextNode(t("trBack")));
+    main.appendChild(bk);
+    say(t("trEmptyTitle"));
+    return;
+  }
+  var T0=found.t;
+  if(T0.note||T0.noteHe) main.appendChild(trText("p","tr-note",T0,"note"));
+  if(found.rev) main.appendChild(el("p","tr-rev",t("trReverseNote",{"{a}":stName(A),"{b}":stName(B)})));
+
+  var opts=T0.options||[];
+  var sum=el("p","tr-summary");
+  function sumText(){ return trCountText(opts.length)+" · "+t(trSortedKey()); }
+  sum.textContent=sumText();
+  main.appendChild(sum);
+
+  /* מיון: רדיו native ב-fieldset (הנחיה 25). change משנה תוכן, לא הקשר. */
+  var fs=el("fieldset","tr-sort");
+  fs.appendChild(el("legend",null,t("trSortBy")));
+  var list=el("ul","tr-list"); list.setAttribute("role","list");
+  [["data","trSortData"],["price","trSortPrice"],["time","trSortTime"]].forEach(function(p){
+    var lb=el("label","tr-sort-opt");
+    var r=el("input"); r.type="radio"; r.name="trSort"; r.value=p[0]; r.className="sr-input";
+    if(trSort===p[0]) r.checked=true;
+    r.addEventListener("change",function(){
+      if(!r.checked) return;
+      trSort=p[0];
+      var first=trSortNodes(list,opts);
+      sum.textContent=sumText();
+      /* האמצעי לבדו אינו מבדיל: במסלול האנוי—הא ז'יאנג שתי האפשרויות
+         הראשונות הן שתיהן אוטובוס שינה, כך שמעבר מ"לפי מחיר" ל"לפי
+         משך" הכריז פעמיים "ראשון: אוטובוס שינה" והמשתמש לא ידע אם
+         הפעולה עשתה משהו. מוסיפים את ערך מפתח המיון עצמו. */
+      var det="";
+      if(trSort==="price"&&first&&first.priceLow!=null) det=", "+trPrice(first).textContent;
+      else if(trSort==="time"&&first&&first.durationMin!=null) det=", "+trDur(first).textContent;
+      say(t(trSortedKey()).split(" (")[0]+". "+t("trFirst",{"{x}":trMode(first).name})+det);
+    });
+    lb.appendChild(r); lb.appendChild(el("span",null,t(p[1])));
+    fs.appendChild(lb);
+  });
+  if(opts.length>1) main.appendChild(fs);
+
+  opts.forEach(function(o,i){ list.appendChild(trCard(o,i)); });
+  if(trSort!=="data") trSortNodes(list,opts);
+  main.appendChild(list);
+
+  var nav=el("div","tr-after");
+  var ch=el("a","backbtn"); ch.href="#tr/"+A.id; ch.appendChild(icon("chev")); ch.appendChild(document.createTextNode(t("trChange")));
+  var rv=el("a","backbtn tr-revlink"); rv.href="#tr/"+B.id+"/"+A.id; rv.appendChild(icon("swap")); rv.appendChild(document.createTextNode(t("trReverse")));
+  nav.appendChild(ch); nav.appendChild(rv);
+  main.appendChild(nav);
+  /* ספירה בהכרזה, כמו בפתיחת תחנה (הנחיה 8). הערת הכיוון נקראת ברצף. */
+  say(title+". "+sumText().split(" (")[0]);
 }
 
 function screenTopics(){
@@ -2599,6 +3066,9 @@ function routeName(){
   if(hz==="topics") return "topics";
   if(hz==="saved") return "saved";
   if(hz==="info") return "info";
+  /* התאמה מדויקת או תחילית "tr/" — לא indexOf("tr") לבד, שהיה תופס
+     כל hash עתידי שמתחיל באותן אותיות. */
+  if(hz==="tr"||hz.indexOf("tr/")===0) return "transfers";
   return "home";
 }
 function render(){
@@ -2612,6 +3082,7 @@ function render(){
   else if(r==="topics")   screenTopics();
   else if(r==="saved")    screenSaved();
   else if(r==="info")     screenInfo();
+  else if(r==="transfers"){ var p=hz.split("/"); screenTransfers(p[1]||"",p[2]||""); }
   else                    screenHome();
   markNav(r);
 }
@@ -2619,6 +3090,8 @@ var NAV=[
   {id:"home",  hash:"#",       ic:"grid",   key:"navStations"},
   {id:"map",   hash:"#map",    ic:"pin",    key:"navMap"},
   {id:"topics",hash:"#topics", ic:"compass",key:"navTopics"},
+  /* אותו מקום בשני הסרגלים (3.2.3) — אחרי "נושאים", לפני "שמורים". */
+  {id:"transfers",hash:"#tr",  ic:"route",  key:"navTransfers"},
   {id:"saved", hash:"#saved",  ic:"heart",  key:"navSaved"},
   {id:"info",  hash:"#info",   ic:"info",   key:"navInfo"}
 ];
@@ -2964,6 +3437,20 @@ window.addEventListener("resize",syncStickyTop);
 window.addEventListener("resize",function(){ refreshSnaps(); if(lmap) frameMap(); });
 window.addEventListener("load",syncStickyTop);
 syncStickyTop();
+
+/* --navh נמדד ולא קבוע. עם שישה פריטים ובהגדלת טקסט (aA ב-Safari) התוויות
+   נעטפות והניווט התחתון גדל; 64px קבועים היו מסתירים מתחתיו תוכן ופוקוס
+   (1.4.4, 2.4.11). בדסקטופ הניווט מוסתר, הגובה 0, והערך הקבוע של המדיה
+   חוזר לשלוט. */
+(function(){
+  var bn=document.getElementById("botnav");
+  if(!bn||!("ResizeObserver" in window)) return;
+  new ResizeObserver(function(){
+    var h=Math.round(bn.getBoundingClientRect().height);
+    if(h>0) document.documentElement.style.setProperty("--navh",h+"px");
+    else document.documentElement.style.removeProperty("--navh");
+  }).observe(bn);
+})();
 
 renderChrome();
 render();

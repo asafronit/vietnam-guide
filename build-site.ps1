@@ -62,6 +62,7 @@ $map = @{
   '/*__CLIMATE__*/'  = 'assets/climate.js'
   '/*__PHOTOS__*/'   = 'assets/photos.js'
   '/*__POI_DATA__*/' = 'assets/poi-data.js'
+  '/*__TRANSFERS__*/' = 'assets/transfers-data.js'
 }
 foreach ($ph in $map.Keys) {
   $block = "<script>`n$ph`n</script>"

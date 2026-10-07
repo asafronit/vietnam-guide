@@ -10,7 +10,7 @@
  */
 // build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
 // גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
-const VERSION = "795c2e4e2564";
+const VERSION = "7f9febd2b8c3";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
@@ -19,6 +19,7 @@ const PRECACHE = [
   "./index.html",
   "./assets/app.js",
   "./assets/poi-data.js",
+  "./assets/transfers-data.js",
   "./assets/photos.js",
   "./assets/climate.js",
   /* הגופנים חייבים להיות כאן. הם הוטמעו מקומית בדיוק כדי לעבוד בלי

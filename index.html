@@ -93,7 +93,12 @@ try{
   --line:rgba(17,24,39,.12);
   /* גבול פקדים. חייב להיות מוגדר בכל שלושת מצבי הצבע: משתנה חסר הופך
      את border:1px solid var(--x) ללא-חוקי, והקיצור כולו נופל ל-border-style:none. */
-  --line-ctl:rgba(17,24,39,.42);
+  /* .50 ולא .42. הטוקן הזה הוא הגבול של כל פקד באתר, ועל --surface
+     הלבן הוא נמדד 2.69 מול דרישת 3:1 של 1.4.11. ב-select החדש זה
+     קריטי כי הגבול הוא כל האפורדנס — הטקסט שבתוכו הוא הערך, לא
+     זיהוי הפקד. .50 נותן 3.39. מכהה 24 גבולות בשמינית אלפא ואינו
+     מזיז אף צבע זהות. */
+  --line-ctl:rgba(17,24,39,.50);
   --line-soft:#e8e3f0;
   /* הסגול ממלא שני תפקידים מנוגדים — טקסט ומילוי — והם מתהפכים
      בכיוונים שונים במצב כהה. טוקן אחד לא יכול לעשות את שניהם; זה
@@ -712,6 +717,98 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .srcline{font-size:.8rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 .srcline a{text-decoration:underline;text-underline-offset:3px}
 
+/* ---------- מעברים (פאזה 9) ----------
+   שפת האתר הקיימת: כרטיסים לבנים על לבנדר, אותם טוקנים, אותו תקן קישורים.
+   הדבר החדש היחיד הוא "הכרטיסייה" בראש התוצאה — שתי נקודות בצבעי התחנות
+   וקו מקווקו ביניהן, כמו כרטיס נסיעה. אותם צבעי תחנה שמופיעים בכל המדריך. */
+.tr-intro{color:var(--ink-2);max-width:62ch;margin:0 0 16px}
+.tr-err,.tr-ferr{color:var(--rose);font-weight:500;margin:0 0 12px}
+.tr-ferr{margin:0}
+.tr-form{background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r);
+  padding:16px;display:flex;flex-direction:column;gap:12px;max-width:560px}
+.tr-field{display:flex;flex-direction:column;gap:5px}
+.tr-flabel{font-family:var(--f-ui);font-weight:600;font-size:.9rem;color:var(--ink)}
+/* 16px לפחות: מתחת לזה Safari ב-iOS מגדיל את הדף בפוקוס ולא חוזר */
+.tr-select{font:inherit;font-size:1rem;min-height:46px;padding:8px 12px;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r-xs);width:100%}
+.tr-select[aria-invalid="true"]{border-color:var(--rose);border-width:2px}
+.tr-swap{align-self:center;display:inline-flex;align-items:center;gap:7px;min-height:44px;
+  font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
+  border:1px solid var(--line-ctl);border-radius:999px;padding:6px 16px;background:var(--surface)}
+.tr-swap:hover{border-color:var(--brand);color:var(--ink)}
+.tr-go{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;
+  font-family:var(--f-ui);font-size:1rem;font-weight:600;border-radius:var(--r-xs);
+  background:var(--primary-fill);color:var(--primary-on)}
+.tr-go:hover{filter:brightness(1.12)}
+.tr-h2{font-family:var(--f-display);font-weight:700;font-size:1.15rem;margin:30px 0 10px}
+.tr-links{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.tr-link{display:flex;align-items:center;gap:9px;min-height:46px;padding:10px 13px;
+  background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r-xs);
+  font-family:var(--f-ui);font-weight:500;transition:border-color .13s}
+.tr-link:hover{border-color:var(--brand)}
+.tr-link .dotc:last-child{margin-inline-start:auto}
+
+.tr-ticket{display:flex;align-items:center;gap:10px;margin:-6px 0 16px;padding:12px 16px;
+  background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r);
+  font-family:var(--f-ui);font-weight:600;font-size:.95rem}
+.tr-ticket-st{display:inline-flex;align-items:center;gap:8px;flex:none}
+.tr-ticket-dot{width:13px;height:13px;border-radius:50%;background:var(--stationcolor);
+  box-shadow:0 0 0 3px var(--surface),0 0 0 4px var(--stationcolor)}
+.tr-ticket-line{flex:1;min-width:24px;border-top:2px dashed var(--line-ctl)}
+.tr-note{color:var(--ink-2);max-width:68ch;margin:0 0 10px}
+.tr-rev{background:var(--brand-soft);border-radius:var(--r-sm);padding:10px 14px;margin:0 0 12px;color:var(--ink);font-size:.9rem}
+.tr-summary{font-family:var(--f-ui);font-size:.9rem;color:var(--ink-3);margin:6px 0 10px}
+
+.tr-sort{border:none;margin:0 0 14px;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.tr-sort legend{float:inline-start;font-family:var(--f-ui);font-size:.85rem;font-weight:600;color:var(--ink-2);margin-inline-end:6px;padding:0}
+.tr-sort-opt{display:inline-flex;align-items:center;min-height:40px;padding:6px 14px;cursor:pointer;
+  font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
+  border:1px solid var(--line-ctl);border-radius:999px;background:var(--surface)}
+.tr-sort-opt:has(input:checked){background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.tr-sort-opt:has(:focus-visible){outline:2px solid var(--brand);outline-offset:2px}
+/* מוסתר בטכניקת sr ולא display:none — אחרת הרדיו יוצא מהמקלדת ומקורא המסך */
+.sr-input{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);border:0;opacity:0}
+
+.tr-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.tr-card{background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r-sm);
+  padding:15px 16px 13px;display:flex;flex-direction:column;gap:10px;height:100%}
+.tr-card-h{display:flex;align-items:center;flex-wrap:wrap;gap:4px 9px;margin:0;
+  font-family:var(--f-display);font-size:1.06rem;font-weight:700;line-height:1.3}
+.tr-mode{width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand);
+  display:inline-flex;align-items:center;justify-content:center;flex:none}
+.tr-mode svg{width:19px;height:19px}
+.tr-op{font-weight:600}
+.tr-verify{display:inline-flex;align-items:center;gap:6px;width:fit-content;margin:0;
+  font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--gold-ink);
+  border:1px solid var(--gold-ink);border-radius:999px;padding:3px 10px}
+.tr-verify svg{width:15px;height:15px}
+.tr-board{background:var(--surface-2);border-radius:var(--r-xs);padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.tr-lbl{margin:0;font-family:var(--f-ui);font-size:.76rem;font-weight:600;letter-spacing:.02em;color:var(--ink-3)}
+.tr-bname,.tr-pickup{margin:0;font-weight:600}
+.tr-addr{margin:0;font-size:.86rem;color:var(--ink-2);text-align:start;width:fit-content;max-width:100%;
+  overflow-wrap:anywhere;user-select:all;-webkit-user-select:all}
+.tr-addr.is-soft{user-select:text;-webkit-user-select:text}
+.tr-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px 12px;margin:0}
+.tr-facts dt{font-family:var(--f-ui);font-size:.74rem;font-weight:600;color:var(--ink-3-card)}
+.tr-facts dd{margin:0;font-family:var(--f-ui);font-size:.9rem;font-weight:600;color:var(--ink)}
+.tr-facts .is-wide{grid-column:1/-1}
+.tr-facts .is-wide dd{font-weight:500}
+.tr-facts .is-wide dd .en{display:block;width:fit-content;max-width:100%}
+.tr-points{margin:0;padding-inline-start:18px;font-size:.88rem;color:var(--ink-2);display:flex;flex-direction:column;gap:2px}
+.tr-tip{margin:0;font-size:.88rem;color:var(--ink-2)}
+.tr-card .linkrow{margin-top:2px}
+.tr-card .srcline{margin-top:auto;padding-top:6px;border-top:1px solid var(--line-soft)}
+.tr-after{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tr-revlink svg{transform:none!important}
+.tr-empty{background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r);padding:16px;
+  display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.tr-empty p{margin:0;color:var(--ink-2)}
+.tr-empty .tr-empty-t{font-weight:600;color:var(--ink)}
+@media (forced-colors:active){
+  .tr-ticket-dot{forced-color-adjust:none}
+  .tr-sort-opt:has(input:checked){outline:2px solid CanvasText}
+}
+
 /* ---------- דיאלוג ההגדרות ---------- */
 /* בדסקטופ הפקדים נשארים בשורה העליונה והכפתור מיותר. */
 #settingsBtn{display:none}
@@ -900,7 +997,9 @@ li.icard{list-style:none}
     background:var(--surface);border-top:1px solid var(--line);
     padding:5px 4px calc(5px + env(safe-area-inset-bottom));
   }
-  .bnav{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  /* שישה פריטים מאז פאזה 9. min-width:0 מאפשר לפריט להתכווץ ולעטוף במקום
+     לדחוק את השכן; בלי nowrap ובלי ellipsis — תווית חתוכה היא תווית אבודה. */
+  .bnav{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
     font-family:var(--f-ui);font-size:.68rem;font-weight:500;color:var(--ink-3);padding:6px 2px;border-radius:var(--r-xs)}
   .bnav{position:relative}
   .bnav[aria-current="page"]{color:var(--brand);font-weight:600}
@@ -1190,6 +1289,7 @@ html.splash-on #splash{display:flex}
 <script src="assets/climate.js" defer></script>
 <script src="assets/photos.js" defer></script>
 <script src="assets/poi-data.js" defer></script>
+<script src="assets/transfers-data.js" defer></script>
 <script src="assets/app.js" defer></script>
 
 <script>
