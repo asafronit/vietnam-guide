@@ -1157,7 +1157,26 @@ function favBtn(item){
     saveFavs(); sync();
     say((favs.has(item.key)?t("saved"):t("removed"))+": "+item.rec.name);
     renderChrome();
-    if(routeName()==="saved") render();
+    if(routeName()!=="saved") return;
+    /* במסך השמורים ההסרה מרנדרת מחדש ומוחקת את הכפתור שהמשתמש בדיוק
+       הפעיל, כך שהפוקוס נפל ל-body וה-Tab הבא התחיל מראש המסמך —
+       באמצע רשימה. אותו תיקון כבר קיים ב-rebuildSeg וב-refreshRail;
+       כאן הוא נשכח. חוזרים לפריט שתפס את המקום, או לאחרון אם הוסר
+       הפריט האחרון ברשימה. */
+    var all=[].slice.call(document.querySelectorAll("button.fav"));
+    var i=all.indexOf(b);
+    render();
+    var after=document.querySelectorAll("button.fav");
+    if(after.length){
+      var nx=after[Math.max(0,Math.min(i<0?0:i,after.length-1))];
+      if(nx&&nx.focus) nx.focus();
+      return;
+    }
+    /* הפריט האחרון הוסר והמסך התחלף למצב הריק. זה שינוי מצב שלא הוכרז
+       כלל — ההכרזה היחידה הייתה "הוסר: X", שאינה אומרת שהרשימה נגמרה. */
+    var h=document.getElementById("screenHeading")||main;
+    if(h&&h.focus) h.focus();
+    say(t("savedEmpty"));
   });
   return b;
 }
@@ -1604,7 +1623,11 @@ function buildMap(){
        מקלדת נכנס אליהם בלי לדעת שהוא במפה. */
     pane.setAttribute("role","region");
     pane.setAttribute("aria-label",t("mapRegion"));
-    document.querySelector(".wrap").appendChild(pane);
+    /* לפני הניווט התחתון, מאותו טעם שהגיליון נכנס לפניו: בסוף .wrap
+       המפה יושבת אחרי .botnav ודוחקת את כל התוכן בנייד מאחורי הניווט
+       בסדר ה-Tab. */
+    var wrapEl=document.querySelector(".wrap"), bn=document.getElementById("botnav");
+    if(bn) wrapEl.insertBefore(pane,bn); else wrapEl.appendChild(pane);
   }
   /* הגיליון מתחיל מתחת לסרגל העליון, אז המפה חייבת לדעת את גובהו */
   syncMapTop();
@@ -1963,9 +1986,18 @@ function screenMobileMap(sel){
     var body=el("div","sheet-body"); body.id="sheetBody";
     sh.appendChild(body);
     /* לפני המפה: אחרת משתמש מקלדת עובר את כפתורי הזום ו-14 סמנים —
-       שכל אחד מהם מפעיל panBy — לפני שהוא מגיע לתוכן העיקרי. */
-    var wrapEl=document.querySelector(".wrap"), mp=document.getElementById("mapPane");
-    if(mp) wrapEl.insertBefore(sh,mp); else wrapEl.appendChild(sh);
+       שכל אחד מהם מפעיל panBy — לפני שהוא מגיע לתוכן העיקרי.
+       וגם לפני הניווט התחתון. קודם שניהם נתלו בסוף .wrap, כלומר *אחרי*
+       .botnav, ולכן סדר ה-Tab בנייד היה main (שמכיל רק h1 סמוי) ואז
+       שישה פריטי ניווט ואז התוכן. קישור הדילוג, שכל תפקידו לעקוף את
+       הניווט, הניח את המשתמש לפניו. נוגע ב-15 מתוך 38 המסלולים.
+       הגיליון אינו עובר לתוך main בכוונה: הוא נבנה פעם אחת ונשמר כדי
+       לשמר את מצב הגרירה ואת מופע Leaflet, ו-main מתרוקן בשגרה. */
+    var wrapEl=document.querySelector(".wrap");
+    var mp=document.getElementById("mapPane"), bn=document.getElementById("botnav");
+    if(mp) wrapEl.insertBefore(sh,mp);
+    else if(bn) wrapEl.insertBefore(sh,bn);
+    else wrapEl.appendChild(sh);
     wireSheetDrag(sh,grip);
     refreshSnaps();
     setSheet(SNAP[1],false);
@@ -3341,6 +3373,17 @@ document.addEventListener("click",function(e){
   var t=e.target&&e.target.closest?e.target.closest("[data-nav]"):null;
   if(!t) return;
   qEl.value="";query="";xBtn.hidden=true;
+  /* החיפוש מרוקן את ה-hash בכוונה, ולכן פריט "תחנות" — שה-href שלו "#" —
+     אינו משנה את ה-fragment. בלי hashchange אין render, והתוצאה הייתה
+     שהתיבה התרוקנה, הכפתור נעלם, ומסך התוצאות נשאר על המסך עם הכותרת
+     "N תוצאות עבור…" ועם ההדגשות, בלי aria-current על שום פריט ובלי
+     שום הכרזה. היציאה היחידה הייתה פריט ניווט אחר או רענון, והבאג נגיש
+     מ-36 מתוך 38 המסלולים.
+     מרנדרים כאן רק כשה-hash לא עומד להשתנות; אחרת ה-hashchange עושה
+     את העבודה וזה היה רינדור כפול. */
+  var want=(t.getAttribute("href")||"").replace(/^#/,"");
+  var now=decodeURIComponent(location.hash.replace(/^#/,""));
+  if(want===now) render();
 });
 qEl.addEventListener("keydown",function(e){
   if(e.key==="Escape"&&qEl.value){qEl.value="";query="";xBtn.hidden=true;render();}
@@ -3359,8 +3402,13 @@ document.getElementById("themeBtn").addEventListener("click",function(){
    כלומר הוא זרק את משתמש המקלדת מהעמוד שבו היה. */
 document.getElementById("skipLink").addEventListener("click",function(e){
   e.preventDefault();
-  main.focus();
-  main.scrollIntoView({block:"start"});
+  /* בנייד התוכן יושב בגיליון ולא ב-main, ש-main מחזיק רק כותרת סמויה.
+     קישור דילוג שמניח את המשתמש על כותרת ריקה לא עוקף שום דבר. */
+  var sheet=document.getElementById("sheetBody");
+  var target=(sheet&&sheet.offsetParent!==null)?sheet:main;
+  if(target===sheet&&target.tabIndex<0) target.tabIndex=-1;
+  target.focus();
+  target.scrollIntoView({block:"start"});
 });
 
 /* החלפת ערכת נושא במערכת ההפעלה תוך כדי — הצבעים והתצלומים מחושבים מול הרקע */
