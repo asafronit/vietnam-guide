@@ -846,6 +846,13 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 @media (forced-colors:active){
   .tab[aria-current="page"]{border-block-end:3px solid Highlight}
   .bnav[aria-current="page"]::before{background:Highlight;forced-color-adjust:none}
+  /* הסימן היחיד ל-aria-pressed במתגי השפה, המטבע והמיון הוא רקע וצבע
+     טקסט, ושניהם נדרסים לצבעי מערכת — הכפתור הנבחר נעשה זהה ללא-נבחר.
+     ב-High Contrast שלושת כפתורי המטבע נראו אותו דבר, ואי אפשר היה לדעת
+     באיזה מטבע המחירים מוצגים. אותו טיפול שכבר קיים ל-.tab ול-.bnav
+     ממש למעלה, ול-.tr-sort-opt. */
+  .seg button[aria-pressed="true"]{outline:2px solid Highlight;outline-offset:-3px;
+    forced-color-adjust:none}
 }
 
 /* ---------- מצב "לפי מרחק" ---------- */
@@ -1146,6 +1153,13 @@ html.splash-on #splash{display:flex}
   /* גם תווית הקבוצה, ולא רק הכפתור: במצב אנגלית ה-<html lang> כבר "en",
      וקורא מסך ינסה להגות את המחרוזת העברית בקול אנגלי. */
   splash.setAttribute("aria-label", he ? "פתיח המדריך" : "Guide intro");
+  /* כותרת המשנה הייתה "ויאטנם 2026" קשיחה, ולכן במצב אנגלית הדבר הראשון
+     שמשתמש רואה בפתיח הוא שורה בעברית — מתחת למילה VIETNAM שכבר באנגלית.
+     באנגלית היא גם הייתה כפילות, ולכן שם היא החודש, כמו בכותרת המסטהד.
+     הסקריפט הזה רץ לפני האפליקציה ואין לו גישה למילון, ולכן מחרוזות
+     מוטבעות — אותו דפוס כמו כפתור הדילוג שמעל. */
+  var sub=titleEl&&titleEl.querySelector("small");
+  if(sub) sub.textContent = he ? "ויאטנם 2026" : "November 2026";
 
   var SVGNS="http://www.w3.org/2000/svg", XLINK="http://www.w3.org/1999/xlink";
   var GROUP_TF="translate(0,1024) scale(0.1,-0.1)", SAT="assets/splash/sat.webp";

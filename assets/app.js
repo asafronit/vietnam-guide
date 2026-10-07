@@ -63,6 +63,8 @@ var T={
   navStations:{he:"תחנות",en:"Stations"},
   navMap:{he:"מפה",en:"Map"},
   mapRegion:{he:"מפת התחנות",en:"Map of the stops"},
+  zoomIn:{he:"התקרבות",en:"Zoom in"},
+  zoomOut:{he:"התרחקות",en:"Zoom out"},
   homeTitle:{he:"ויאטנם 2026 — מסך הבית",en:"Vietnam 2026 — Home"},
   atAGlance:{he:"הטיול במבט",en:"Trip at a glance"},
   departs:{he:"יציאה",en:"Departs"},
@@ -1643,7 +1645,12 @@ function buildMap(){
        נפלה מיד — מפה ריקה עם פאנלים ובלי שום שכבה. frameMap מעדן
        אותו מיד אחר כך לפי הנתונים. */
     .setView([16.3,107.2],5);
-  L.control.zoom({position:"topleft"}).addTo(lmap);
+  /* Leaflet מייצר "Zoom in"/"Zoom out" כ-title וכ-aria-label, בלי lang,
+     בתוך מסמך lang="he" — שני הפקדים היחידים באפליקציה שלא עברו דרך
+     המילון, וקורא מסך עברי הגה אותם בפונמות עבריות. אותה בעיה שבגללה
+     קיימת vi2(). */
+  L.control.zoom({position:"topleft",
+    zoomInTitle:t("zoomIn"), zoomOutTitle:t("zoomOut")}).addTo(lmap);
   /* אריחי OSM הרשמיים: חינמיים, בלי מפתח וללא חותמת.
      CartoDB עברו לדרוש API key וצובעים את האריחים ב-"API KEY REQUIRED",
      ולכן הם לא שמישים כאן. הייחוס חובה לפי תנאי השימוש. */
@@ -1742,6 +1749,12 @@ function frameMap(){
                   .map(function(st){return [st.lat,st.lng];});
   if(!pts.length) return;
   requestAnimationFrame(function(){
+  /* נבדק שוב בתוך ה-rAF ולא רק מעליו. השומר שבראש הפונקציה נמצא בצד
+     הלא נכון של הגבול האסינכרוני: שינוי גודל חלון שחוצה את 900px קורא
+     ל-frameMap כשהמפה קיימת, מתזמן את ה-rAF, ואז exitMapMode מפרק את
+     המפה ומאפס lmap — וה-callback נופל על null. נתפס במדידה בסיבוב
+     מ-390 ל-1280: TypeError על invalidateSize. */
+  if(!lmap) return;
   lmap.invalidateSize();
   /* הגיליון מכסה את תחתית המפה. בלי הריפוד הזה המסגור "נכון" אך חציו
      יושב מתחת לגיליון, כלומר הפינים הדרומיים אינם נראים. */
@@ -3241,6 +3254,11 @@ function renderChrome(){
   }
   var sdt=document.getElementById("setDlgTitle");
   if(sdt) sdt.textContent=t("settings");
+  /* תוויות השורות בדיאלוג, אם הוא פתוח ברגע זה. בלי זה הן התרגמו רק
+     בפתיחה הבאה: מי שהחליף שפה כשהדיאלוג פתוח ראה כפתורים אנגליים
+     מתחת ל"שפה", "מטבע" ו"מצב כהה" בעברית. */
+  var sdl=document.getElementById("setDlg");
+  if(relabelSettings&&sdl&&sdl.open) relabelSettings();
   var sc=document.getElementById("setClose");
   if(sc){
     sc.textContent=""; sc.appendChild(icon("close"));
@@ -3420,6 +3438,10 @@ if(mq.addEventListener){
   });
 }
 
+/* labelRows חיה בבלוק הדיאלוג, שמוגדר אחרי renderChrome. ההוק הזה הוא
+   הדרך היחידה לתת ל-renderChrome לרענן את התוויות בלי להזיז את הבלוק. */
+var relabelSettings=null;
+
 /* ============ דיאלוג ההגדרות ============
    הפקדים עצמם עוברים פיזית לדיאלוג ובחזרה. עותק שני היה יוצר מזהים
    כפולים, ו-rebuildSeg עובד לפי getElementById — כלומר הוא ימשיך
@@ -3435,6 +3457,15 @@ if(mq.addEventListener){
      נכשלה בפועל: סגירה דרך הכפתור השאירה את הפקדים בתוך דיאלוג סגור,
      כלומר בדסקטופ שפה, מטבע ונושא היו נעלמים מהמסך. */
   function restoreTools(){
+    /* התוויות מוסרות לפני שהפקדים חוזרים לכותרת. הן הוזרקו *לתוך* tools
+       (ההורה של langSeg, curSeg ו-themeBtn), ולכן restoreTools לקח אותן
+       איתו אל .tb-row.r1 — הכותרת הסגולה. מתחת ל-880px ה-tools מוסתר
+       ולא רואים אותן, אבל ברגע שהרוחב חוצה 880 (סיבוב iPad, שינוי גודל
+       חלון) הן נחשפות שם ב---ink-3 על הגרדיאנט הסגול: 1.59:1.
+       ההסרה כאן גם פותרת את התרגום — labelRows בונה אותן מחדש בכל
+       פתיחה, ולכן הן תמיד בשפה הנוכחית. */
+    var old=setBody.querySelectorAll(".set-row-lbl");
+    Array.prototype.forEach.call(old,function(n){ if(n.parentNode) n.parentNode.removeChild(n); });
     if(tools.parentNode===setBody){
       var r1=document.querySelector(".tb-row.r1");
       var btn=document.getElementById("settingsBtn");
@@ -3446,7 +3477,12 @@ if(mq.addEventListener){
      חוברו. בדיאלוג יש מקום בשפע, ואייקון ירח בודד ברוחב מלא הוא
      עומס קוגניטיבי מיותר. */
   function labelRows(){
-    if(setBody.querySelector(".set-row-lbl")) return;
+    /* בלי early return: הוא קיבע את התוויות בשפה שבה הדיאלוג נפתח
+       לראשונה, ולכן מעבר ל-EN השאיר "שפה", "מטבע" ו"מצב כהה" בעברית
+       מעל פקדים אנגליים, לכל אורך הסשן. restoreTools מסיר אותן בסגירה,
+       ולכן כל פתיחה בונה אותן מחדש בשפה הנוכחית. */
+    var old=setBody.querySelectorAll(".set-row-lbl");
+    Array.prototype.forEach.call(old,function(n){ if(n.parentNode) n.parentNode.removeChild(n); });
     var lbl=function(target,key){
       var n=document.getElementById(target);
       if(!n||!n.parentNode) return;
@@ -3455,6 +3491,7 @@ if(mq.addEventListener){
     };
     lbl("langSeg","langLabel"); lbl("curSeg","curLabel"); lbl("themeBtn","dark");
   }
+  relabelSettings=labelRows;
   function openSet(){
     setBody.appendChild(tools);
     labelRows();

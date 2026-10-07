@@ -10,7 +10,7 @@
  */
 // build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
 // גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
-const VERSION = "b1e5a2d90e43";
+const VERSION = "07b3870ce551";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
