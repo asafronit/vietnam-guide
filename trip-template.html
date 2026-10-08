@@ -1570,7 +1570,10 @@ var T={
   checked:{he:"נבדק",en:"checked"},
   avoid:{he:"מומלץ להימנע",en:"Avoid"},
   approx:{he:"מיקום מקורב",en:"approximate location"},
-  noCoords:{he:"אין מיקום מדויק — הקישור יחפש לפי שם",en:"No exact location — the link searches by name"},
+  /* אחרי שה-Grab ניתן גם בלי נ"צ, ההסתייגות מכסה שתי פעולות ולא אחת:
+     גם החיפוש במפה וגם הכתובת שתועתק מבוססים על שם המקום. */
+  noCoords:{he:"אין מיקום מדויק — החיפוש במפה והכתובת שתועתק מבוססים על שם המקום",
+            en:"No exact location — the map search and the copied address both use the place name"},
   stars5:{he:"%n מתוך 5 כוכבים",en:"%n out of 5 stars"},
   evisa:{he:"הגשת בקשה ל-E-Visa",en:"Apply for E-Visa"},
   prearrival:{he:"כרטיס טרום-הגעה",en:"Pre-Arrival Card"},
@@ -2483,10 +2486,10 @@ function mapsUrl(r,st){
   return r.lat!=null?"https://www.google.com/maps/search/?api=1&query="+r.lat+","+r.lng
     :"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(r.name+", "+st.name+", Vietnam");
 }
-function rideUrl(r,st){
-  return r.lat!=null?"https://www.google.com/maps/dir/?api=1&destination="+r.lat+","+r.lng+"&travelmode=driving"
-    :"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(r.name+", "+st.name)+"&travelmode=driving";
-}
+/* rideUrl הוסרה יחד עם התנאי שהיה הקורא היחיד שלה. מסלול נהיגה לתחנה
+   עצמה עדיין קיים ב-quickbar (הוא בונה את ה-URL בעצמו), ולמקום בודד
+   כפתור המפה פותח אותו ב-Google Maps ומשם "Directions" היא הקשה אחת —
+   באפליקציה שמטפלת בזה טוב יותר מכל קישור שנבנה כאן. */
 /* 20 רשומות נושאות מקור booking.com. הקישור נגזר ממנו ואינו מומצא. */
 function bookingUrl(r){
   var u=(r.sources||[]).filter(function(x){return /(^|\.)booking\.com\//.test(String(x));})[0];
@@ -2724,11 +2727,17 @@ function openDetail(item){
      הצבע לעולם אינו לבדו — לכל פעולה יש גם אייקון וגם מילה. */
   act(lbtn("act-map is-primary map-link","pin",t("openMap"),mapsUrl(r,st),r.name));
 
-  /* אותה תווית לשני יעדים שונים היא כשל 2.4.4: ל-134 רשומות יש נ"צ
-     ולכן Grab אפשרי, ול-117 אין — ושם זה פשוט Google Maps. תווית
-     וצבע נפרדים לכל אחד, לפי מה שהקישור באמת עושה. */
-  if(r.lat!=null) act(grabBtn(r,st));
-  else act(lbtn("act-map map-link","pin",t("directions"),rideUrl(r,st),r.name));
+  /* Grab לכל מה שאפשר להסיע אליך, ולא רק למה שהגיאוקודר הצליח למקם.
+     התנאי הקודם היה על נ"צ, והוא נכתב כשחשבנו שה-deep link מעביר יעד.
+     הוא לא: לסכמה של Grab אין פרמטר יעד מתועד (ראו ההערה מעל GRAB_WEB),
+     והמנגנון שבאמת עובד הוא העתקת grabAddr לקליפבורד — והיא מורכבת
+     מ-r.name + r.area + st.name בלי שום תלות בנ"צ. התוצאה הייתה
+     ש-121 מתוך 277 רשומות קיבלו קישור "הוראות הגעה" תכלת במקום את
+     הכפתור הירוק, כלומר אותה משבצת בשורה נראתה אחרת ב-44% מהכרטיסים.
+     ההסתייגות על היעדר הנ"צ כבר נאמרת ב-noCoords בשורת העובדות שמעל.
+     המנה והאיש-קשר נשארים בחוץ: אין נסיעה לקערת פו ולא לאדם שעובד
+     מרחוק. זו אותה הפרדה ש-is_placeless עושה בצינור. */
+  if(!r.isDish && item.cat!=="contacts") act(grabBtn(r,st));
 
   var bk=bookingUrl(r);
   if(bk) act(lbtn("act-book book-link","bed",t("booking"),bk,r.name));
@@ -2782,6 +2791,11 @@ function grabCopy(text){
   try{ return navigator.clipboard.writeText(text); }catch(err){ return null; }
 }
 function grabDeep(r){
+  /* בלי הגדר, שרשור של null מפיק את הטקסט "null" ושולח
+     drop_off_lat=null — פרמטר פגום שה-handler של הסכמה עלול לדחות,
+     ואז הכפתור נראה כאילו לא עשה כלום. ממילא Grab מתעלמת מהיעד,
+     ולכן כשאין נ"צ פשוט פותחים את מסך ההזמנה. */
+  if(r.lat==null||r.lng==null) return "grab://open?screenType=BOOKING";
   return "grab://open?screenType=BOOKING&drop_off_lat="+r.lat+"&drop_off_lng="+r.lng;
 }
 function grabAddr(r,st){
