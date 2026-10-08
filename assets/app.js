@@ -806,7 +806,15 @@ function refreshWeatherStrip(st){
      אחרי שהלוג שהוספתי עצמו קרס על אותה הפניה. */
   var sel=currentSel();
   if(sel && sel.id!==st.id) return;   /* התחנה כבר הוחלפה */
-  box.parentNode.replaceChild(weatherStrip(st),box);
+  /* ההחלפה החליפה את כל הרצועה בשקט: התג עבר מ"לפי 6 שנים" ל"תחזית
+     חיה", חמישה מספרים השתנו, ושורות "היום/מחר" נולדו מהאוויר. מכריזים
+     פעם אחת ורק בהיפוך המקור — fetchWaves מרענן שוב באותה תחנה בלי
+     לשנות מקור, ושתי הכרזות זהות ברצף הן רעש. */
+  var was=box.getAttribute("data-wx-source");
+  var fresh=weatherStrip(st);
+  box.parentNode.replaceChild(fresh,box);
+  if(fresh.getAttribute("data-wx-source")==="forecast" && was!=="forecast")
+    say(t("wxTitle")+": "+t("wxLive"));
 }
 function avg(a){a=(a||[]).filter(function(v){return v!=null;});return a.length?a.reduce(function(x,y){return x+y;},0)/a.length:0;}
 function sum(a){a=(a||[]).filter(function(v){return v!=null;});return a.reduce(function(x,y){return x+y;},0);}
@@ -1371,6 +1379,10 @@ function grabBtn(r,st,nameLang){
   a.classList.add("grab-link");
   a.setAttribute("data-grab-deep",grabDeep(r));
   a.setAttribute("data-grab-addr",addr);
+  /* השפה נוסעת עם הכפתור: showGrabNote מרונדר רק אחרי הלחיצה ואין לו
+     גישה לנתון שממנו הכתובת באה. ברירת המחדל vi — במסלול כרטיס המקום
+     הכתובת נבנית מ-r.name + r.area + st.name, ואלה שמות ויאטנמיים. */
+  a.setAttribute("data-grab-lang",nameLang==="en"?"en":"vi");
   a.removeAttribute("target");          /* deep link ב-_blank משאיר לשונית ריקה */
   a.addEventListener("click",function(e){
     if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0) return;   /* לחיצה מותאמת */
@@ -1400,24 +1412,30 @@ function grabBtn(r,st,nameLang){
    שבו Grab אינה מותקנת, כלומר בדיוק לא במקרה הרגיל. */
 function showGrabNote(a,p,addr){
   var li=a.parentNode, ul=li&&li.parentNode;
-  if(!ul) return;
-  var have=ul.querySelector(".grab-note");
+  if(!ul||!ul.parentNode) return;
+  /* אחרי רשימת הפעולות ולא בתוכה. הפתק אינו פעולה, ובתוך ה-ul שמוכרז
+     "פעולות למקום הזה" הוא נספר כפריט נוסף — קורא מסך שמע "רשימה, 6
+     פריטים" כשהשישי פסקת טקסט. כל כרטיס מחזיק ul משלו, ולכן חיפוש באב
+     מוצא את הפתק של אותו כרטיס בלבד. */
+  var host=ul.parentNode;
+  var have=host.querySelector(".grab-note");
   if(!have){
-    var nli=el("li","grab-note-li"); nli.setAttribute("role","listitem");
     have=el("div","grab-note");
-    nli.appendChild(have);
-    if(li.nextSibling) ul.insertBefore(nli,li.nextSibling); else ul.appendChild(nli);
+    if(ul.nextSibling) host.insertBefore(have,ul.nextSibling); else host.appendChild(have);
   }
   have.textContent="";
   /* הכתובת קודם, תמיד, ובלי להתחייב שהועתקה. user-select:all כדי
      שנגיעה אחת תסמן את כולה למי שצריך להעתיק ביד. */
-  /* vi2 ולא רק dir — הכתובת היא "Bánh Mì Phượng, Hội An, Vietnam" בתוך
-     מסמך lang="he", ובלי lang="vi" קורא מסך עברי הוגה אותה בפונמות
-     עבריות. זה שובר בדיוק את המסלול שהפתק נועד להציל: מי שההעתקה
-     נכשלה אצלו רוצה לאמת בשמיעה מה סימן לפני שהוא נותן את זה לנהג.
-     ה-CSS כבר טיפל בכיוון; זו השפה. אותה פונקציה שכבר עוטפת את שם
-     המקום בכותרת הגיליון, ו-classList.add אינו דורס את המחלקה. */
-  var ad=vi2(el("div","grab-addr",addr));
+  /* lang ולא רק dir — הכתובת היא "Bánh Mì Phượng, Hội An, Vietnam" בתוך
+     מסמך lang="he", ובלעדיו קורא מסך עברי הוגה אותה בפונמות עבריות.
+     זה שובר בדיוק את המסלול שהפתק נועד להציל: מי שההעתקה נכשלה אצלו
+     רוצה לאמת בשמיעה מה סימן לפני שהוא נותן את זה לנהג.
+     השפה מגיעה מהכפתור ואינה מקובעת: כל 50 נקודות העלייה במאגר
+     המעברים מצהירות lang="en" ("100 Tran Phu, Ha Giang"), והכרטיס שמעל
+     הפתק כבר הגה אותן נכון דרך bLang. vi2 גורף כאן הגה אותן ויאטנמית
+     והעמיד את הפתק בסתירה לכרטיס שמעליו.
+     ה-CSS כבר טיפל בכיוון; זו השפה. */
+  var ad=(a.getAttribute("data-grab-lang")==="en"?en2:vi2)(el("div","grab-addr",addr));
   var st=el("div","grab-stat");
   have.appendChild(ad); have.appendChild(st);
   /* השורה השנייה היא ההתחייבות, והיא מתמלאת רק כשה-Promise נפתר.
@@ -1425,7 +1443,10 @@ function showGrabNote(a,p,addr){
   function settle(ok){
     st.textContent = ok ? t("grabPaste") : t("grabNoCopy");
     st.className = "grab-stat"+(ok?" is-ok":" is-warn");
-    say(st.textContent);
+    /* במסלול הכשל ההוראה היא "סמן את הכתובת כאן" — ובלי הכתובת בהכרזה
+       עצמה, קורא מסך שומע הוראה לסמן משהו שלא הוקרא לו, וצריך לנווט
+       אחורה עם הסמן הווירטואלי כדי למצוא אותו. */
+    say(ok ? st.textContent : st.textContent+" "+addr);
   }
   if(p&&p.then) p.then(function(){settle(true);},function(){settle(false);});
   else settle(false);
@@ -2378,11 +2399,20 @@ function weatherStrip(st){
   var box=el("section","wx");
   if(!wx){ return box; }
   var live=wx.source==="forecast";
-  box.setAttribute("aria-label",t("wxTitle"));
+  /* refreshWeatherStrip משווה את זה לפני ואחרי ההחלפה, כדי להכריז רק
+     בהיפוך המקור ולא בכל רענון. */
+  box.setAttribute("data-wx-source",wx.source||"");
 
   var hd=el("div","wx-hd");
   var tag=el("span","wx-tag"+(live?" is-live":""),live?t("wxLive"):t("wxClimate"));
-  hd.appendChild(el("span","wx-t",t("wxTitle")));
+  /* h3 ולא span: הטקסט נשא משקל של כותרת בלי להיות כותרת, ובמקביל אותה
+     מחרוזת שימשה aria-label ל-section — כך שהשם נקרא פעמיים, "התאמה
+     למזג האוויר, אזור" ואז שוב. עכשיו הכותרת היא השם, והיא גם היעד
+     היחיד לניווט-לפי-כותרות בתוך חלונית התחנה. */
+  var ttl=el("h3","wx-t",t("wxTitle"));
+  ttl.id="wxHeading";
+  box.setAttribute("aria-labelledby","wxHeading");
+  hd.appendChild(ttl);
   hd.appendChild(tag);
   box.appendChild(hd);
 
@@ -2685,7 +2715,12 @@ function trCard(o,idx){
   }
   /* נקודת עלייה */
   var bd=el("div","tr-board");
-  bd.appendChild(el("p","tr-lbl",t("trBoard")));
+  /* group + aria-labelledby: "נקודת עלייה" היה קישור חזותי בלבד מול שם
+     וכתובת. בקריאה ליניארית זה עבד, אבל מי שקופץ בין אזורים לא ידע מה
+     הוא קורא. אותו דפוס כמו ביתרונות/חסרונות. */
+  var bdl=el("p","tr-lbl",t("trBoard")); bdl.id="tr-board-"+trLblSeq++;
+  bd.setAttribute("role","group"); bd.setAttribute("aria-labelledby",bdl.id);
+  bd.appendChild(bdl);
   var b=o.board||{};
   /* לפי השפה שהנתונים מצהירים, ולא vi גורף. הגרסה הקודמת הצמידה
      lang="vi" לכל נקודת עלייה, והמחרוזות האלה הן ברובן אנגלית עם שם
@@ -2693,6 +2728,9 @@ function trCard(o,idx){
      terminus)" — כך שקורא מסך עברי הגה משפט אנגלי שלם בפונמות
      ויאטנמיות, ובדיוק במקום שאומר למשתמש לאן להגיע. */
   var bLang=(b.lang==="vi")?vi2:en2;
+  /* אותה הצהרה גם לכפתורי הפעולה למטה, כמחרוזת. בלעדיה הם קיבעו "vi"
+     בזמן שהכרטיס שמעליהם כבר הגה את אותה מחרוזת כאנגלית. */
+  var bLangTag=(b.lang==="vi")?"vi":"en";
   if(b.pickupHotel){
     bd.appendChild(el("p","tr-pickup",t("trPickup")));
     if(b.address){ var pa=bLang(el("p","tr-addr is-soft",b.address)); bd.appendChild(pa); }
@@ -2725,15 +2763,21 @@ function trCard(o,idx){
   }
   if((o.pros||[]).length) labelled("trPros",trList(o,"pros"),"is-pro");
   if((o.cons||[]).length) labelled("trCons",trList(o,"cons"),"is-con");
-  if(o.tips){ art.appendChild(el("p","tr-lbl",t("trTip"))); art.appendChild(trText("p","tr-tip",o,"tips")); }
-  /* פעולות — ul.linkrow משלו לכל כרטיס, כי showGrabNote מניח a>li>ul ומחפש
-     .grab-note בתוך אותה רשימה (הנחיה 16). */
+  if(o.tips){
+    var tg=el("div","tr-tipwrap"); tg.setAttribute("role","group");
+    var tl=el("p","tr-lbl",t("trTip")); tl.id="tr-tip-"+trLblSeq++;
+    tg.setAttribute("aria-labelledby",tl.id);
+    tg.appendChild(tl); tg.appendChild(trText("p","tr-tip",o,"tips"));
+    art.appendChild(tg);
+  }
+  /* פעולות — ul.linkrow משלו לכל כרטיס, כי showGrabNote מניח a>li>ul, מציב
+     את הפתק כאח של אותה רשימה ומחפש אותו באב שלה (הנחיה 16). */
   var lr=el("ul","linkrow"); lr.setAttribute("role","list"); lr.setAttribute("aria-label",t("actions"));
   function act(node){ var x=el("li"); x.setAttribute("role","listitem"); x.appendChild(node); lr.appendChild(x); }
   if(!b.pickupHotel&&b.lat!=null&&b.lng!=null){
-    act(lbtn("act-map map-link","pin",t("trMaps"),"https://www.google.com/maps/search/?api=1&query="+b.lat+","+b.lng,b.name,null,"vi"));
+    act(lbtn("act-map map-link","pin",t("trMaps"),"https://www.google.com/maps/search/?api=1&query="+b.lat+","+b.lng,b.name,null,bLangTag));
     /* Grab רק כשיש נ"צ (הנחיה 18), והכתובת שמועתקת היא כתובת העלייה. */
-    act(grabBtn({name:b.name,addr:b.address,lat:b.lat,lng:b.lng},{name:""},"vi"));
+    act(grabBtn({name:b.name,addr:b.address,lat:b.lat,lng:b.lng},{name:""},bLangTag));
   }
   (o.bookLinks||[]).forEach(function(l){
     /* שם החברה בטקסט הגלוי, סוג התחבורה ב-sr (הנחיה 17) */
@@ -2923,6 +2967,7 @@ function trResult(A,B){
 
   var opts=T0.options||[];
   var sum=el("p","tr-summary");
+  sum.id="trSummary";
   function sumText(){ return trCountText(opts.length)+" · "+t(trSortedKey()); }
   sum.textContent=sumText();
   main.appendChild(sum);
@@ -2931,6 +2976,10 @@ function trResult(A,B){
   var fs=el("fieldset","tr-sort");
   fs.appendChild(el("legend",null,t("trSortBy")));
   var list=el("ul","tr-list"); list.setAttribute("role","list");
+  /* "4 אפשרויות · בסדר המומלץ" היה פסקה נפרדת ולא שם, כך שבניווט-לפי-
+     רשימות נשמע "רשימה, 4 פריטים" בלי שום הקשר. הקישור גם מחזיק את השם
+     מעודכן במיון, כי sum.textContent מתחלף שם. */
+  list.setAttribute("aria-labelledby","trSummary");
   [["data","trSortData"],["price","trSortPrice"],["time","trSortTime"]].forEach(function(p){
     var lb=el("label","tr-sort-opt");
     var r=el("input"); r.type="radio"; r.name="trSort"; r.value=p[0]; r.className="sr-input";
@@ -2963,8 +3012,10 @@ function trResult(A,B){
   var rv=el("a","backbtn tr-revlink"); rv.href="#tr/"+B.id+"/"+A.id; rv.appendChild(icon("swap")); rv.appendChild(document.createTextNode(t("trReverse")));
   nav.appendChild(ch); nav.appendChild(rv);
   main.appendChild(nav);
-  /* ספירה בהכרזה, כמו בפתיחת תחנה (הנחיה 8). הערת הכיוון נקראת ברצף. */
-  say(title+". "+sumText().split(" (")[0]);
+  /* רק הדלתא. מאזין ה-hashchange מעביר פוקוס ל-h1 מיד אחרי render, כך
+     ששם המסלול נקרא ממילא — והכרזה שחזרה עליו השמיעה אותו פעמיים תוך
+     פחות מ-100ms. המידע החדש הוא הספירה. */
+  say(sumText().split(" (")[0]);
 }
 
 function screenTopics(){
@@ -3003,7 +3054,8 @@ function screenCategory(cat){
   main.appendChild(h);
   main.appendChild(cardsByStation(items));
   setDocTitle(catName(c));
-  say(catName(c)+", "+items.length);
+  /* אין say: ה-h1 נושא את שם הקטגוריה וגם את הספירה (span.cnt), והפוקוס
+     שעובר אליו מקריא את שניהם. אותו כפל שתוקן ב-trResult. */
 }
 
 function cardsByStation(items){

@@ -518,7 +518,9 @@ main:focus,main:focus-visible{outline:none}
 /* ---------- מזג אוויר והיתכנות ---------- */
 .wx{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:15px 17px 14px;margin-top:14px}
 .wx-hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.wx-t{font-family:var(--f-ui);font-weight:600;font-size:.98rem}
+/* h3 מאז תיקון הכפילות בשם: ה-margin של ה-UA חייב לרדת כדי שהרצועה
+   תיראה בדיוק כמו קודם. */
+.wx-t{margin:0;font-family:var(--f-ui);font-weight:600;font-size:.98rem}
 .wx-tag{font-family:var(--f-ui);font-size:.72rem;font-weight:500;color:var(--ink-2);
   border:1px solid var(--line-ctl);border-radius:var(--r-xs);padding:2px 8px}
 .wx-tag.is-live{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
@@ -693,14 +695,14 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}
 /* פתק ההדבקה של Grab. לא כפתור — אין בו פעולה. זו הוראה שצריכה לשרוד
    את המעבר לאפליקציה ולהיות על המסך כשחוזרים ממנה, ולכן היא נשארת
-   ב-DOM ולא נעלמת. שורה שלמה, כדי שלא תיראה כפקד נוסף בשורת הפעולות:
-   ה-li של .linkrow הוא display:contents, ובלי העקיפה הפתק היה נדחס
-   כעוד פריט גמיש לצד הכפתורים. */
-.linkrow>li.grab-note-li{display:block;flex-basis:100%}
+   ב-DOM ולא נעלמת. הוא יושב כאח של .linkrow ולא בתוכה — קודם הוא היה
+   li עם עקיפת display:contents, וזה גם דחס אותו כפריט גמיש לצד
+   הכפתורים וגם ספר אותו כפעולה שישית בקורא מסך. */
 /* הטקסט ב---ink ולא ב---c-ride: הירוק על הרקע המוטל ירוק נמדד 4.52,
    כלומר עובר את 4.5 בשתי מאיות — בדיוק סוג המעבר-בשערה שכבר נתפס
    כאן פעם. המסגרת והגוון נושאים את זיהוי הפעולה; הטקסט נושא קריאוּת. */
 .grab-note{
+  margin-top:9px;
   font-family:var(--f-ui);font-size:.8rem;line-height:1.45;color:var(--ink);
   background:var(--c-ride-soft);border:1px solid var(--c-ride);
   border-radius:var(--r-xs);padding:8px 11px;
@@ -795,6 +797,9 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .tr-facts .is-wide dd{font-weight:500}
 .tr-facts .is-wide dd .en{display:block;width:fit-content;max-width:100%}
 .tr-points{margin:0;padding-inline-start:18px;font-size:.88rem;color:var(--ink-2);display:flex;flex-direction:column;gap:2px}
+/* העוטף שומר על אותו מרווח שהיה בין התווית לטקסט כששניהם היו אחים
+   ישירים ב-.tr-card (gap:10px). */
+.tr-tipwrap{display:flex;flex-direction:column;gap:10px}
 .tr-tip{margin:0;font-size:.88rem;color:var(--ink-2)}
 .tr-card .linkrow{margin-top:2px}
 .tr-card .srcline{margin-top:auto;padding-top:6px;border-top:1px solid var(--line-soft)}
@@ -1006,7 +1011,11 @@ li.icard{list-style:none}
   }
   /* שישה פריטים מאז פאזה 9. min-width:0 מאפשר לפריט להתכווץ ולעטוף במקום
      לדחוק את השכן; בלי nowrap ובלי ellipsis — תווית חתוכה היא תווית אבודה. */
+  /* overflow-wrap: כל שש התוויות הן מילה אחת בשתי השפות ("תחנות",
+     "Stations"), ומילה בודדת שרחבה מהתא אינה נעטפת — היא גולשת. ב-320px
+     יש ~52px לפריט, ועם הגדלת הטקסט של Safari זה נחרג. */
   .bnav{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
+    overflow-wrap:anywhere;
     font-family:var(--f-ui);font-size:.68rem;font-weight:500;color:var(--ink-3);padding:6px 2px;border-radius:var(--r-xs)}
   .bnav{position:relative}
   .bnav[aria-current="page"]{color:var(--brand);font-weight:600}
