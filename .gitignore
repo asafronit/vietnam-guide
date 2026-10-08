@@ -5,3 +5,6 @@ Thumbs.db
 
 # PAUL project state — internal, never published
 .paul/
+
+# תוצרי עבודה של Impeccable: לוגים של דפי החלטה ומצב בנייה, לא תוכן הפרויקט
+.impeccable/
