@@ -661,6 +661,19 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .whybox{background:var(--brand-soft);border-radius:var(--r-sm);padding:12px 14px}
 .whybox b{display:block;font-family:var(--f-ui);font-size:.77rem;font-weight:600;color:var(--brand);margin-bottom:2px}
 .factrow{display:flex;flex-wrap:wrap;gap:9px;font-family:var(--f-ui);font-size:.85rem;color:var(--ink-2);align-items:center}
+/* שעות פתיחה. אין p{margin:0} גלובלי בקובץ והאיפוס הוא לפי מחלקה, כמו
+   ב-.tr-lbl; .sheet-bd הוא flex container ולכן שוליים אינם מתמוטטים,
+   ובלי האיפוס ה-<p> מקבל את שולי ה-UA בנוסף ל-gap. */
+.sheet-hours{margin:0;display:flex;align-items:flex-start;gap:6px;
+  font-family:var(--f-ui);font-size:.85rem;color:var(--ink-2)}
+/* flex-start ולא center: "17:00-23:00, שבת-חמישי" נשבר לשתי שורות בעמודה
+   צרה, ו-center היה ממרכז את השעון מול הרווח שביניהן. baseline לא מתאים,
+   כי קו הבסיס של svg הוא קצהו התחתון והאייקון היה יורד מתחת לשורה. */
+.sheet-hours .ic{margin-block-start:.18em}
+.hours-v{font-variant-numeric:tabular-nums}
+/* ל-bdi יש unicode-bidi:isolate מה-UA; ההצהרה כאן מגנה מפני reset עתידי
+   שיאפס אותו, כי היפוך טווח הוא כשל שקט שאי אפשר לראות בלי למדוד. */
+.hours-v bdi,.money bdi{unicode-bidi:isolate}
 .map-attr{margin:14px 10px 4px;font-size:.72rem;color:var(--ink-3)}
 .map-attr a{text-decoration:underline;text-underline-offset:2px}
 .linkrow{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
@@ -1342,6 +1355,12 @@ var ICONS={
   passport:'<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="9.8" r="3"/><path d="M9.3 17h5.4"/>',
   doc:'<path d="M13.8 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.2z"/><path d="M13.8 3v5.2H19"/><path d="M8.6 13h6.8M8.6 16.4h4.8"/>',
   info:'<circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.2"/><path d="M12 7.9v.1"/>',
+  /* שעון. אותו רדיוס פנים כמו info, ושני מחוגים בנתיב אחד שנפגש במרכז.
+     בלי נקודת ציר מלאה: presentation attribute על צומת ילד מנצח את
+     fill:none שמוגדר ב-svg.ic, וצורה מלאה הופכת לכתם בצבע מערכת במצב
+     forced-colors. אורכי המחוגים 4.4 ו-3.1 — ב-17px עם stroke-linecap
+     מעוגל, כל מה שקצר מזה נבלע בקצה המעוגל עצמו. */
+  clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.6V12h3.1"/>',
   chat:'<path d="M20.5 11.6a8 8 0 0 1-11.7 7.1L4 20l1.4-4.6A8 8 0 1 1 20.5 11.6z"/>',
   chev:'<path d="M14.5 5.8L8.3 12l6.2 6.2"/>',
   grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
@@ -1508,6 +1527,10 @@ var T={
   actions:{he:"פעולות למקום הזה",en:"Actions for this place"},
   videos:{he:"סרטונים",en:"Videos"},
   whyHere:{he:"למה זה נכנס למאגר",en:"Why it made the list"},
+  hoursLabel:{he:"שעות פתיחה",en:"Opening hours"},
+  /* המקף נראה אבל אינו נשמע: ברמת הפיסוק שהיא ברירת המחדל, קוראי מסך
+     מדלגים עליו, והטווח מוכרז "08:00 17:00" — שתי שעות בלי קשר מוצהר. */
+  hoursTo:{he:"עד",en:"to"},
   whatsapp:{he:"וואטסאפ",en:"WhatsApp"},
   pickStation:{he:"בחרו תחנה מהרשימה",en:"Pick a station from the list"},
   pickHint:{he:"או חפשו מקום מסוים בשדה החיפוש למעלה.",en:"Or search for a specific place above."},
@@ -1829,10 +1852,19 @@ function unitText(r){
   var u=UNIT[r.priceUnit];
   return u?(isHe()?u.he:u.en):"";
 }
-function costText(r){
-  if(r.priceUnit==="free") return unitText(r);
+/* המחיר כצמתים ולא כמחרוזת. priceText בונה את הטווח עם U+2013, ו-.money
+   קיבל אותו כ-textContent בתוך כרטיס RTL — כלומר הטווח הוצג הפוך בכל 77
+   הרשומות שיש בהן priceHigh. נמדד: הכרטיס של Peridot Grand הציג את 137
+   שמאלית ל-$80, כך שקורא עברי ראה "$137–80" על מלון שעולה 80 עד 137.
+   מבודדים את החלק המספרי ומשאירים את מילת היחידה בחוץ, כמו ב-trDur. */
+function costNodes(r){
+  if(r.priceUnit==="free") return document.createTextNode(unitText(r));
   var p=priceText(r);
-  return p?p+" "+unitText(r):null;
+  if(!p) return null;
+  var frag=document.createDocumentFragment();
+  frag.appendChild(trBdi(p));
+  frag.appendChild(document.createTextNode(" "+unitText(r)));
+  return frag;
 }
 
 /* ============ תוכן דו-לשוני ============
@@ -1843,6 +1875,53 @@ function recWhat(r){ return heField(r,"what") || r.what; }
 function recWhy(r){  return heField(r,"why")  || r.why; }
 function recArea(r){ return heField(r,"area") || r.area; }
 function recName(r){ return heField(r,"name") || r.name; }
+function recHours(r){ return heField(r,"hours") || r.hours || null; }
+
+/* ---------- בידוד טווחים מפני ה-bidi ----------
+   נמדד בברייב לפני שנכתבה כאן שורה: בתוך dir="rtl", "08:00-17:00" עם
+   מקף ASCII מוצג בסדר הנכון, אבל "08:00–17:00" עם U+2013 מציג את 17:00
+   שמאלית ל-08:00 — כלומר הפוך לקורא עברי, והספרות בתוך כל קבוצה תקינות
+   ולכן אין שום סימן שמשהו נשבר.
+   הסיבה: U+2013 הוא ON בטבלת ה-bidi, לא ES ולא CS, ולכן W4 לא הופך אותו
+   ל-EN כמו שהוא עושה למקף ASCII. N1 הופך אותו ל-R בין שני מספרים, I2
+   מעלה את שני רצפי הספרות לרמה שמעליו, ו-L2 מחליף את מקומן.
+   כל 106 המקפים בנתוני השעות הם ASCII, כך שהשעות תקינות היום. הבידוד
+   כאן הוא מבני ולא תלוי-תו: הוא מחסן את השדה מפני en dash אחד שיוקלד.
+   מבודדים את טוקן הזמן לבדו ולא את המחרוזת כולה — בידוד של מחרוזת
+   מעורבת מוציא את הגליפים נכון אבל מהפך את סדר הפסוקיות, כך שהזנב
+   העברי נוחת לפני השעות. אותו דפוס כמו trDur/trPrice (הנחיה 23). */
+function timeRange(txt){
+  var b=el("bdi"); b.dir="ltr";
+  var parts=txt.split(/\s*[\u2013\u2014-]\s*/);
+  b.appendChild(document.createTextNode(parts[0]));
+  if(parts.length>1){
+    var dash=el("span",null,"\u2013"); dash.setAttribute("aria-hidden","true");
+    b.appendChild(dash);
+    /* מילת הקישור בתוך אותו bdi, כדי שהבידוד יישאר יחידה אחת. .sr הוא
+       position:absolute ולכן מחוץ לזרימה האינלינית, ואינו מפצל את הריצה. */
+    var to=el("span","sr"," "+t("hoursTo")+" ");
+    to.lang=isHe()?"he":"en";
+    b.appendChild(to);
+    b.appendChild(document.createTextNode(parts[1]));
+  }
+  return b;
+}
+/* רק תבנית HH:MM מבודדת. מספר שלם בודד ("24 שעות") אינו נשבר — רצף
+   ספרות אחד בלי מפריד פנימי חוזר לסדרו אחרי ההיפוך הכפול — ו"שבת-חמישי"
+   הוא מקף בין שתי מילים עבריות שצריך להישאר RTL. זיהוי לפי תבנית ולא
+   לפי "האם יש כאן עברית": זיהוי תוכן הוא מה ש-dir="auto" עושה, והוא
+   נכשל בדיוק במחרוזת המעורבת. */
+function hoursNodes(s){
+  var re=/\d{1,2}:\d{2}(?:\s*[\u2013\u2014-]\s*\d{1,2}:\d{2})?/g;
+  var frag=document.createDocumentFragment(), last=0, m;
+  while((m=re.exec(s))!==null){
+    if(m.index>last) frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+    frag.appendChild(timeRange(m[0]));
+    last=m.index+m[0].length;
+  }
+  if(last<s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+  return frag;
+}
 /* האם הכרטיס הזה נקרא עברית בפועל */
 function cardIsHe(r){ return isHe() && !!r.whatHe; }
 
@@ -2577,6 +2656,29 @@ function openDetail(item){
   if(he){ bd.dir="rtl"; bd.lang="he"; }
   function txt(tag,cls,s){ var n=el(tag,cls,s); if(!he) en2(n); return n; }
   if(recArea(r)) bd.appendChild(txt("div","sheet-where",recArea(r)));
+  /* שעות פתיחה. שורה משלה ולא צ'יפ ב-.factrow: המחרוזת מגיעה ל-40 תווים
+     והיא משפט, לא תג, ובשורת הצ'יפים היא הייתה נדחסת בין הכוכבים למחיר.
+     היא יושבת עם עובדות ההתמצאות (איפה זה, מתי זה) ולפני התיאור.
+     התווית ב-.sr ולא ב-aria-label: ל-<p> אין role, הוא ממופה ל-generic,
+     ו-aria-label אסור על generic — חלק מהמנועים מתעלמים וחלק מחליפים בו
+     את תוכן הטקסט. המפריד נכנס לתוך ה-.sr עצמו, כי .sr הוא
+     position:absolute ואין רווח מרונדר בין התווית לערך. */
+  var hoursStr=recHours(r);
+  if(hoursStr){
+    var hrow=el("p","sheet-hours");
+    hrow.appendChild(icon("clock"));
+    /* lang מפורש: cardIsHe תלוי ב-whatHe, ולכן יש כרטיסים שבהם הממשק
+       עברי אבל bd נושא lang="en" — ושם תווית עברית בלי תיוג נהגית
+       בפונמות אנגליות. */
+    var hlbl=el("span","sr",t("hoursLabel")+": ");
+    hlbl.lang=isHe()?"he":"en";
+    hrow.appendChild(hlbl);
+    var hval=el("span","hours-v");
+    hval.appendChild(hoursNodes(hoursStr));
+    if(!heField(r,"hours")) en2(hval);   /* אין תאום — המחרוזת אנגלית */
+    hrow.appendChild(hval);
+    bd.appendChild(hrow);
+  }
   bd.appendChild(txt("p","sheet-what",recWhat(r)));
   if(recWhy(r)){
     var wb=el("div","whybox");
@@ -2594,9 +2696,11 @@ function openDetail(item){
     facts.appendChild(s);
     if(r.tierOfficial===false) facts.appendChild(el("span",null,t("selfRated")));
   }
-  var ct2=costText(r);
+  var ct2=costNodes(r);
   if(ct2){
-    facts.appendChild(el("span","money"+(r.priceUnit==="free"?" is-free":""),ct2));
+    var mny=el("span","money"+(r.priceUnit==="free"?" is-free":""));
+    mny.appendChild(ct2);
+    facts.appendChild(mny);
     if(r.priceChecked) facts.appendChild(el("span",null,t("checked")+" "+r.priceChecked));
   }
   if(r.avoid) facts.appendChild(el("span","warn",t("avoid")));
@@ -2833,8 +2937,12 @@ function poiCard(item,cls){
     s.setAttribute("role","img"); s.setAttribute("aria-label",t("stars5",{"%n":r.tier}));
     mt.appendChild(s);
   }
-  var ct=costText(r);
-  if(ct) mt.appendChild(el("span","money"+(r.priceUnit==="free"?" is-free":""),ct));
+  var ct=costNodes(r);
+  if(ct){
+    var mnc=el("span","money"+(r.priceUnit==="free"?" is-free":""));
+    mnc.appendChild(ct);
+    mt.appendChild(mnc);
+  }
   if(r.avoid) mt.appendChild(el("span","warn",t("avoid")));
   var fe=feasibility(r,item.cat,st);
   if(fe){

@@ -671,6 +671,19 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .whybox{background:var(--brand-soft);border-radius:var(--r-sm);padding:12px 14px}
 .whybox b{display:block;font-family:var(--f-ui);font-size:.77rem;font-weight:600;color:var(--brand);margin-bottom:2px}
 .factrow{display:flex;flex-wrap:wrap;gap:9px;font-family:var(--f-ui);font-size:.85rem;color:var(--ink-2);align-items:center}
+/* שעות פתיחה. אין p{margin:0} גלובלי בקובץ והאיפוס הוא לפי מחלקה, כמו
+   ב-.tr-lbl; .sheet-bd הוא flex container ולכן שוליים אינם מתמוטטים,
+   ובלי האיפוס ה-<p> מקבל את שולי ה-UA בנוסף ל-gap. */
+.sheet-hours{margin:0;display:flex;align-items:flex-start;gap:6px;
+  font-family:var(--f-ui);font-size:.85rem;color:var(--ink-2)}
+/* flex-start ולא center: "17:00-23:00, שבת-חמישי" נשבר לשתי שורות בעמודה
+   צרה, ו-center היה ממרכז את השעון מול הרווח שביניהן. baseline לא מתאים,
+   כי קו הבסיס של svg הוא קצהו התחתון והאייקון היה יורד מתחת לשורה. */
+.sheet-hours .ic{margin-block-start:.18em}
+.hours-v{font-variant-numeric:tabular-nums}
+/* ל-bdi יש unicode-bidi:isolate מה-UA; ההצהרה כאן מגנה מפני reset עתידי
+   שיאפס אותו, כי היפוך טווח הוא כשל שקט שאי אפשר לראות בלי למדוד. */
+.hours-v bdi,.money bdi{unicode-bidi:isolate}
 .map-attr{margin:14px 10px 4px;font-size:.72rem;color:var(--ink-3)}
 .map-attr a{text-decoration:underline;text-underline-offset:2px}
 .linkrow{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}

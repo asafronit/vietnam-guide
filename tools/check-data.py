@@ -87,6 +87,18 @@ def check_pool(poi):
                 if (r.get("priceLow") is not None and r.get("priceHigh") is not None
                         and r["priceHigh"] < r["priceLow"]):
                     fail(f"{where}: priceHigh below priceLow")
+                # שעות: תאום עברי חובה, אחרת הכרטיס נופל ללטינית בשקט;
+                # ומנה או איש קשר עם שעות הוא שדה שמולא בקטגוריה הלא נכונה.
+                if r.get("hours") and not (r.get("hoursHe") or "").strip():
+                    fail(f"{where}: hours without hoursHe")
+                if r.get("hoursHe") and not (r.get("hours") or "").strip():
+                    fail(f"{where}: hoursHe without hours")
+                if r.get("hours") and (r.get("isDish") or cat == "contacts"):
+                    fail(f"{where}: hours on a dish or a contact")
+                # איש קשר עם נ"צ מקבל פין שמשקר, והוא גם דוחף את ה-KML
+                # לשכבה אחת-עשרה שחורגת ממה ש-My Maps מקבלת
+                if cat == "contacts" and r.get("lat") is not None:
+                    fail(f"{where}: a contact carries coordinates")
                 # המגביל מניע את הצ'יפ; ערך לא מוכר שולח אותו לנוסחת הגשם בשקט
                 if r.get("limiter") not in LIMITERS:
                     fail(f"{where}: limiter {r.get('limiter')!r} not in {LIMITERS}")
@@ -119,7 +131,9 @@ def check_pool(poi):
             real = len(st.get("poi", {}).get(cat) or [])
             if n != real:
                 fail(f"{sid}: counts[{cat}]={n} but poi has {real}")
-    print(f"pool: {total} records across {len(poi)} stations")
+    hours = sum(1 for st in poi.values() for recs in st.get("poi", {}).values()
+                for r in recs if r.get("hours"))
+    print(f"pool: {total} records across {len(poi)} stations, {hours} with opening hours")
     return total
 
 
