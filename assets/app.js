@@ -2009,7 +2009,13 @@ function tileFor(st){
   var a=el("a","tile"); a.href="#s/"+st.id;
   var ph=el("div","tile-ph");
   if(hasPhoto(st)){
-    var img=el("img"); img.src=STATION_PHOTO[st.id]; img.alt=""; img.setAttribute("aria-hidden","true");
+    /* החיתוך הייעודי ל-4:3 ולא הגיבור הפנורמי. קובץ אחד לשתי התיבות
+       אילץ את האריח לזרוק 38% מרוחבו בחיתוך מרכזי, ושם זה חתך את
+       הנושא כמעט תמיד. נפילה חזרה לגיבור אם אין קובץ אריח. */
+    var img=el("img");
+    img.src=(typeof STATION_PHOTO_TILE!=="undefined" && STATION_PHOTO_TILE[st.id])||STATION_PHOTO[st.id];
+    img.width=440; img.height=330;   /* יחס ידוע מראש, בלי קפיצת פריסה */
+    img.alt=""; img.setAttribute("aria-hidden","true");
     if(st.seq>4) img.loading="lazy";   /* lazy על הראשונים פוגע ב-LCP */
     ph.appendChild(img);
   }
@@ -2613,6 +2619,10 @@ function renderStationDetail(st,pane){
   hero.style.setProperty("--stationcolor",stColor(st));
   var img=el("img","scene");
   img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,1140,380);
+  /* בלי width/height מפורשים כאן. הגובה נקבע ב-style למטה, והרוחב
+     נגזר מיחס התמונה — כך התיבה מתאימה את עצמה לכל רוחב מסך. רמז
+     width מפורש כפה 900 פיקסל בתוך מסך של 390 ומעך את התמונה, כי
+     הגובה נעול במקביל. */
   img.alt=hasPhoto(st)?photoAlt(st):"";
   img.style.height="clamp(180px,28vw,320px)";
   hero.appendChild(img);

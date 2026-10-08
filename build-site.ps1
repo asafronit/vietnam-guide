@@ -37,10 +37,16 @@ if ($Scratch -and (Test-Path "$Scratch\weather.js")) {
 # --- תצלומים: נגזרים מ-manifest, שקיים רק במקור. בלעדיו assets/photos.js נשאר ---
 if ($Scratch -and (Test-Path "$Scratch\photos\manifest.json")) {
   $man = Get-Content "$Scratch\photos\manifest.json" -Raw -Encoding UTF8 | ConvertFrom-Json
-  $rows = @(); $credits = @()
+  $rows = @(); $credits = @(); $tiles = @()
   foreach ($m in ($man | Sort-Object id)) {
     Copy-Item "$Scratch\photos\$($m.id).jpg" "$Dest\assets\photos\$($m.id).jpg" -Force
-    $rows += '  "{0}":"assets/photos/{0}.jpg"' -f $m.id
+    # חיתוך האריח הוא קובץ נפרד: תיבת 4:3 בבית מול גיבור 2.14 בתחנה,
+    # וקובץ אחד לשתיהן הכריח את האריח לזרוק 38% מרוחבו.
+    if (Test-Path "$Scratch\photos\$($m.id)-tile.jpg") {
+      Copy-Item "$Scratch\photos\$($m.id)-tile.jpg" "$Dest\assets\photos\$($m.id)-tile.jpg" -Force
+    }
+    $rows  += '  "{0}":"assets/photos/{0}.jpg"' -f $m.id
+    $tiles += '  "{0}":"assets/photos/{0}-tile.jpg"' -f $m.id
     $t = ($m.title -replace '^File:','') -replace '"','\"'
     $credits += '  "{0}":{{"t":"{1}","a":"{2}","l":"{3}","u":"{4}"}}' -f `
       $m.id, $t, ($m.artist -replace '"','\"'), ($m.license -replace '"','\"'), $m.page
@@ -48,6 +54,7 @@ if ($Scratch -and (Test-Path "$Scratch\photos\manifest.json")) {
   $photosJs = "/* התצלומים כקבצים ולא כ-data URI: נטענים במקביל, נשמרים בקאש,`n" +
               "   וה-HTML נשאר קטן. Wikimedia Commons, רישיון חופשי. */`n" +
               "const STATION_PHOTO={`n" + ($rows -join ",`n") + "`n};`n" +
+              "const STATION_PHOTO_TILE={`n" + ($tiles -join ",`n") + "`n};`n" +
               "const PHOTO_CREDIT={`n" + ($credits -join ",`n") + "`n};`n"
   [IO.File]::WriteAllText("$Dest\assets\photos.js", $photosJs, $utf8)
 } elseif (-not (Test-Path "$Dest\assets\photos.js")) {
