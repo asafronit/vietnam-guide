@@ -426,11 +426,48 @@ main:focus,main:focus-visible{outline:none}
 .detail-empty b{font-family:var(--f-ui);font-weight:600;font-size:1.05rem;color:var(--ink)}
 
 /* טאבי קטגוריה בתוך חלונית הפרטים */
+/* נמדד בהאנוי: 10 טאבים, רוחב רצועה 349px, scrollWidth 1,237px —
+   8 מתוך 10 מחוץ למסך בלי שום רמז שהם קיימים. קורא מסך דווקא שמע
+   "טאב, 3 מתוך 10" מתוך ה-tablist עצמו, כלומר הוא ידע יותר מהמשתמש
+   הרואה. הדהייה והמחוון סוגרים את הפער הזה. */
+.cat-tabswrap{position:relative}
 .cat-tabs{
   display:flex;gap:4px;overflow-x:auto;padding:4px 0 10px;margin-top:18px;
   border-bottom:1px solid var(--line);scrollbar-width:none;
+  /* חצי צ'יפ גלוי בקצה הוא האפורדנס. הצ'יפ החתוך נשאר נגיש במלואו —
+     חיתוך חזותי אינו מקטין את שטח ההקשה. */
+  scroll-padding-inline-end:2.25rem;
 }
 .cat-tabs::-webkit-scrollbar{display:none}
+/* דהיית הקצה היא קישוט: היא רומזת שיש עוד ואינה נושאת מידע, ולכן
+   pseudo-element שאינו בעץ הנגישות הוא הכלי הנכון. והיא יושבת על
+   עוטף חיצוני ולא בתוך ה-tablist — ילד ישיר של role=tablist חייב
+   להיות role=tab, אחרת זו אי-התאמת הורה-ילד ב-ARIA. */
+.cat-tabswrap::after{
+  content:"";position:absolute;pointer-events:none;
+  inset-block:0;inset-inline-end:0;width:2.25rem;
+  background-image:linear-gradient(to left,var(--bg) 20%,transparent 100%);
+}
+/* inset-inline-end מתהפך לבד; ל-linear-gradient צריך כיוון פיזי. */
+html[dir="ltr"] .cat-tabswrap::after{
+  background-image:linear-gradient(to right,var(--bg) 20%,transparent 100%);
+}
+.cat-pos{
+  font-family:var(--f-ui);font-size:.72rem;font-weight:600;
+  color:var(--ink-3);font-variant-numeric:tabular-nums;
+  padding:5px 2px 0;text-align:center;
+}
+/* דהיית קצה יכולה להסתיר טאב שקיבל פוקוס — אותו 2.4.11 ששורה
+   scroll-margin-top על .tile מטפלת בו. focus() גולל את המינימום
+   ומצמיד את הטאב לקצה החתוך, כלומר מתחת לדהייה. */
+.cat-tab{scroll-margin-inline:2.25rem}
+@media (forced-colors:active){
+  /* גרדיאנט CSS מושלך במצב הזה, וה-pseudo נשאר מלבן ברקע Canvas אטום
+     מעל הטאב שבקצה — הקישוט הופך לחוסם תוכן. mask-image דווקא **אינו**
+     מבוטל כאן, ולכן הוא היה ממשיך לחתוך את התווית לשקיפות בלי שום
+     הסבר חזותי; לכן גרדיאנט, ולכן כיבוי מלא. */
+  .cat-tabswrap::after{display:none}
+}
 .cat-tab{
   font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
   padding:8px 13px;border-radius:var(--r-xs);white-space:nowrap;
@@ -948,39 +985,70 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 /* חלוקת האזורים הייתה תווית אפורה דקה בין 14 ריבועי תצלום, ונבלעה
    בגלילה. סרגל מלא וצמוד לראש הופך את הגבול לחד, וגם עונה על
    "באיזה אזור אני עכשיו" בלי לגלול בחזרה. */
-.region{margin-top:20px}
+.region{margin-top:14px}
+/* הסרגל נשאר דביק — הוא מה שעונה "באיזה אזור אני עכשיו" בלי לגלול
+   בחזרה, וזו הסיבה שהוא הוחלף בתווית האפורה הדקה מלכתחילה. מה שירד
+   הוא המשקל: הצל, הריפוד העבה והגופן הגדול. שלושה סרגלים כאלה ועוד
+   שלושה גושים מוגוונים הם מה שיצר את תחושת העומס. */
 .region-hd{
   position:sticky;top:0;z-index:12;
-  margin-inline:calc(-1 * var(--gutter));padding:11px var(--gutter);
+  margin-inline:calc(-1 * var(--gutter));padding:7px var(--gutter);
   display:flex;align-items:center;gap:10px;
   background:var(--primary-fill);color:var(--primary-on);
-  font-family:var(--f-ui);font-weight:800;font-size:1.02rem;letter-spacing:-.01em;
-  box-shadow:0 2px 8px rgba(66,39,111,.25);
+  font-family:var(--f-ui);font-weight:800;font-size:.82rem;letter-spacing:.04em;
 }
 .region-hd .cnt{
   margin-inline-start:auto;font-size:.74rem;font-weight:700;
   background:rgba(255,255,255,.2);border-radius:999px;padding:3px 10px;white-space:nowrap;
 }
 /* הרצועה עצמה מקבלת גוון, כך שהקבוצה נקראת כגוש אחד ולא כרצף. */
+/* בלי גוון רקע: הסרגל הדביק כבר מסמן את הגבול, והגוש המוגוון הוסיף
+   משטח שלישי מתחת לאריחים הלבנים בלי להוסיף מידע. */
 .region-body{
-  margin-inline:calc(-1 * var(--gutter));padding:14px var(--gutter) 22px;
-  background:var(--surface-2);
+  margin-inline:calc(-1 * var(--gutter));padding:12px var(--gutter) 18px;
 }
 /* סרגל דביק יכול להסתיר ריבוע שמקבל פוקוס — 2.4.11. */
 .tile{scroll-margin-top:60px}
 
-.infogrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;list-style:none;margin:0;padding:0}
+/* חמש עובדות היו חמישה כרטיסים עם מסגרת, צל וריפוד, 334 פיקסל בשתי
+   עמודות — והחמישית יתומה בשורה שלישית. נמדד: 670 פיקסל, 79% מהמסך
+   הראשון, נבלעו לפני שנראתה תחנה אחת, במדריך שכל הבטחתו היא למצוא
+   משהו בשתי שניות. עכשיו זו רצועה אחת על משטח אחד.
+   **נעטפת ולא נגללת.** גוללן אופקי כאן היה כשל 2.1.1: אין ברצועה אף
+   צומת שמקבל פוקוס, ולכן ב-WebKit — פלטפורמת היעד — המכולה עצמה אינה
+   ממוקדת ואי אפשר לגלול אותה במקלדת כלל. בטאבים זה דווקא עובד, אבל רק
+   מפני ששם הטאב עצמו מקבל פוקוס ו-focus() גורר אותו פנימה.
+   נשארת על --surface הלבן בכוונה: --ink-3-card נמדד 4.83 שם, ועל
+   --bg או --surface-2 הוא נופל. ראה ההערה בשורות 79–82. */
+.infogrid{
+  display:flex;flex-wrap:wrap;align-items:stretch;gap:4px 0;
+  list-style:none;margin:0;padding:2px 0;
+  background:var(--surface);border:1px solid var(--card-edge);
+  border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;
+}
 li.icard{list-style:none}
-.icard{background:var(--surface);border:1px solid var(--card-edge);border-radius:var(--r);
-  box-shadow:var(--shadow);padding:13px 14px 14px;display:flex;flex-direction:column;min-height:104px}
-.icard.wide{grid-column:1 / -1;min-height:0}
-.icard .k{font-family:var(--f-ui);font-size:.7rem;font-weight:700;letter-spacing:.05em;color:var(--ink-3-card)}
-.icard .v{font-size:1.5rem;font-weight:800;color:var(--primary-ink);line-height:1.12;margin-top:5px;
+/* min-height ב-rem ולא גובה קבוע ב-px: בהגדלת הטקסט של Safari רצועה
+   בגובה קבוע גוזרת את הטקסט (1.4.4). flex:1 1 auto עם min-width:0
+   נותן לעובדות להתחלק, ו-overflow-wrap שובר מילה בודדת שרחבה מהתא
+   במקום לתת לה לגלוש — אותו באג שתועד על .bnav. */
+.icard{
+  flex:1 1 auto;min-width:0;min-height:3.9rem;
+  display:flex;flex-direction:column;justify-content:center;gap:2px;
+  padding:9px 13px;overflow-wrap:anywhere;
+  border-inline-start:1px solid var(--line-soft);
+}
+.icard:first-child{border-inline-start:0}
+.icard.wide{flex-basis:100%;border-inline-start:0;border-top:1px solid var(--line-soft)}
+.icard .k{font-family:var(--f-ui);font-size:.68rem;font-weight:700;letter-spacing:.04em;
+  color:var(--ink-3-card);line-height:1.2}
+.icard .v{font-size:1.12rem;font-weight:800;color:var(--primary-ink);line-height:1.1;
   font-variant-numeric:tabular-nums}
-.icard .t{margin-top:auto;padding-top:6px;font-size:.76rem;color:var(--ink-3-card);line-height:1.38}
-.icard .t .en{display:block;width:fit-content}
-.fxrow{display:flex;gap:18px;flex-wrap:wrap;margin-top:4px}
-.fxrow bdi{direction:ltr;unicode-bidi:isolate;font-size:1.02rem;font-weight:800;
+/* קודי הטיסות ירדו מכאן. הם לא החלטה שמקבלים כל שנייה, והם כבר יושבים
+   במסך "מידע" — אותו שיקול שבשורה 438 כבר הוציא משם את .tripbar
+   ואת .official. */
+.icard .t{display:none}
+.fxrow{display:flex;gap:14px;flex-wrap:wrap}
+.fxrow bdi{direction:ltr;unicode-bidi:isolate;font-size:.95rem;font-weight:800;
   color:var(--primary-ink);font-variant-numeric:tabular-nums}
 
 /* ריבוע תחנה. הטקסט **מחוץ** לתצלום, על כרטיס אטום: טקסט לבן מעל
@@ -992,21 +1060,29 @@ li.icard{list-style:none}
   border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;text-decoration:none;color:inherit;height:100%}
 .tile-ph{position:relative;aspect-ratio:4/3;background:var(--surface-2)}
 .tile-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.tile-idx{position:absolute;top:8px;inset-inline-end:8px;min-width:26px;height:26px;padding:0 6px;
-  border-radius:8px;background:var(--surface);color:var(--primary-ink);font-weight:800;font-size:.8rem;
+/* מספר התחנה הוא עכשיו הסימן הגרפי של האריח, והוא **טקסט על לוחית
+   אטומה** ולא טקסט על תצלום. ההערה מעל .tilegrid כבר מדדה שלבן מעל 14
+   תצלומים שונים אי אפשר להבטיח ל-4.5:1, ושהצללה שכן מבטיחה דורשת 54%
+   אטימות שמכבה את התצלום. הלוחית נותנת 10.64 באור וכ-7.8 בכהה בלי
+   למדוד שום פיקסל של תצלום — ו-object-fit:cover משנה את החיתוך לפי
+   רוחב האריח, כך ששכבה חלקית לא הייתה ניתנת לאימות בכלל.
+   rem ו-min-height ולא px וגובה קבוע: הלוחית גדלה עם הגדלת הטקסט
+   במקום לגזור את המספר (1.4.4). */
+.tile-idx{position:absolute;top:7px;inset-inline-end:7px;
+  min-width:2.3rem;min-height:2.3rem;padding:.1rem .35rem;
+  border-radius:10px;background:var(--surface);color:var(--primary-ink);
+  font-family:var(--f-ui);font-weight:800;font-size:1.3rem;line-height:1;
   display:grid;place-items:center;font-variant-numeric:tabular-nums;box-shadow:var(--shadow)}
-/* הטקסט נגזר מהטוקן ולא מקובע: --jade מתהפך למנטה בהירה במצב כהה,
-   ולבן עליה נותן 1.77. אותו באג שכבר נתפס על .sig-bib. */
-.tile-flag{position:absolute;top:9px;inset-inline-start:8px;font-size:.66rem;font-weight:800;
-  border-radius:7px;padding:3px 8px;color:var(--jade-on);background:var(--jade)}
-.tile-txt{padding:10px 11px 12px;display:flex;flex-direction:column;flex:1}
-.tile-nm{font-family:var(--f-ui);font-size:1.02rem;font-weight:800;line-height:1.16;color:var(--ink)}
-.tile-lat{direction:ltr;unicode-bidi:isolate;display:block;width:fit-content;
-  font-size:.72rem;font-weight:600;color:var(--ink-3-card);margin-top:2px}
-.tile-cnt{margin-top:auto;padding-top:8px;font-size:.74rem;font-weight:700;color:var(--primary-ink)}
+.tile-txt{padding:9px 11px 11px;display:flex;flex-direction:column;flex:1;gap:5px}
+/* 1.25 ולא 1.16: בהגדלת טקסט של 200% תיבת הטקסט יצאה 38px בעוד
+   שתיבת הגליפים רצתה 40, ו-overflow:hidden על האריח גזר את ההפרש. */
+.tile-nm{font-family:var(--f-ui);font-size:1.02rem;font-weight:800;line-height:1.25;color:var(--ink)}
+.tile-cnt{margin-top:auto;font-size:.74rem;font-weight:700;color:var(--primary-ink)}
 .tile:hover{border-color:var(--primary-2)}
 @media (forced-colors:active){
-  .tile-idx,.tile-flag{border:1px solid CanvasText}
+  /* הגבול הוא הדבר היחיד שמפריד את הלוחית מהתצלום כשהרקעים נכפים,
+     וככל שהלוחית גדלה הוא נחוץ יותר. */
+  .tile-idx{border:1px solid CanvasText}
 }
 
 /* ---------- ניווט תחתון ---------- */

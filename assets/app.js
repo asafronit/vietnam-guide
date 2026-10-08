@@ -2014,21 +2014,28 @@ function tileFor(st){
     ph.appendChild(img);
   }
   ph.appendChild(el("span","tile-idx",String(st.seq).padStart(2,"0")));
-  var must=(st.counts&&st.counts.must_see)||0;
-  if(must) ph.appendChild(el("span","tile-flag",must+" "+t("mustSee")));
+  /* תג "חובה לראות" ירד. הוא היה ספירה שנייה שמתחרה ב"47 מקומות" על
+     אותו אריח של 168 פיקסל, וזה מה שהפך אותו לעמוס. */
   a.appendChild(ph);
   var tx=el("div","tile-txt");
   tx.appendChild(el("div","tile-nm",stName(st)));
-  /* שם לועזי במסמך עברי חייב lang, אחרת VoiceOver קורא אותו
-     בפונמות עבריות — ושמות ויאטנמיים עם דיאקריטיקה יוצאים בלתי מובנים. */
-  var lat=el("span","tile-lat",st.name); lat.lang="vi"; lat.dir="ltr";
-  tx.appendChild(lat);
+  /* השם הלועזי יורד מהתצוגה ונשאר ל-sr בלבד. הוא נתון תפקודי — זה מה
+     שמראים לנהג מונית — ולכן אינו נמחק, אבל באריח הוא היה השורה
+     החמישית, ובמצב אנגלית stName מחזיר בדיוק אותו דבר ולכן הוא הודפס
+     פעמיים. lang ולא רק dir: שם ויאטנמי במסמך עברי בלי lang נהגה
+     בפונמות עבריות. */
+  if(st.name!==stName(st)){
+    var lat=el("span","sr",st.name); lat.lang="vi"; lat.dir="ltr";
+    tx.appendChild(lat);
+  }
   tx.appendChild(el("div","tile-cnt",placesN(total(st))));
   a.appendChild(tx);
-  /* קישור אחד לכל ריבוע, עם שם נגיש מלא. שמות התחנות אינם כותרות:
-     14 כותרות במסך אחד מציפות את הרוטור בלי להוסיף ניווט. */
-  a.setAttribute("aria-label",String(st.seq).padStart(2,"0")+", "+stName(st)+", "+
-    st.name+", "+placesN(total(st))+(must?", "+must+" "+t("mustSee"):""));
+  /* **בלי aria-label.** הוא היה מחרוזת שטוחה שדרסה את ה-span בעל
+     lang="vi", כך שקורא מסך הגה "Hội An" בפונמות עבריות — בדיוק הבאג
+     שההערה מעל ה-span מתיימרת למנוע, והוא שרד בייצור. השם הנגיש נגזר
+     עכשיו מהתוכן: "01, האנוי, 47 מקומות", עם המספר ראשון כך ש-2.5.3
+     Label in Name נשמר ו-Voice Control ממשיך לעבוד על "הקש אפס אחת".
+     שמות התחנות אינם כותרות: 14 כותרות במסך אחד מציפות את הרוטור. */
   li.appendChild(a); return li;
 }
 function screenHome(){
@@ -2656,6 +2663,13 @@ function renderStationDetail(st,pane){
   var panel=el("div","cat-panel");
   panel.id="catPanel";
   panel.setAttribute("role","tabpanel");
+  /* aria-hidden: ה-tablist עצמו כבר מכריז "טאב, 3 מתוך 10", ולכן טקסט
+     נוסף הוא כפילות שתישמע פעמיים. ולא aria-live — הכרזת מיקום על
+     מחווה רציפה מציפה את הקורא בדבר שהוא כבר יודע. */
+  var pos=el("div","cat-pos");
+  pos.setAttribute("aria-hidden","true");
+  /* "3 / 10" במכולה RTL מתרנדר "10 / 3". */
+  pos.dir="ltr";
 
   function show(cat){
     catChoice[st.id]=cat;
@@ -2667,6 +2681,12 @@ function renderStationDetail(st,pane){
       b.setAttribute("aria-selected",b.getAttribute("data-cat")===cat?"true":"false");
       b.tabIndex=b.getAttribute("data-cat")===cat?0:-1;
     });
+    /* נגזר מהטאב **הנבחר** ולא ממצב הגלילה: בלי מאזין scroll, ולכן בלי
+       הצפה, ובלי מספר שסותר את מה שקורא המסך מכריז. מצב גלילה היה מראה
+       "3 / 10" בעוד שהנבחר הוא השביעי. */
+    var kids=Array.prototype.slice.call(tabs.children), at=0;
+    kids.forEach(function(b,i){ if(b.getAttribute("data-cat")===cat) at=i+1; });
+    pos.textContent=at+" / "+kids.length;
     panel.removeAttribute("aria-label");
     panel.setAttribute("aria-labelledby","catTab-"+cat);
   }
@@ -2701,7 +2721,10 @@ function renderStationDetail(st,pane){
     });
     tabs.appendChild(b);
   });
-  pane.appendChild(tabs);
+  var tabsWrap=el("div","cat-tabswrap");
+  tabsWrap.appendChild(tabs);
+  pane.appendChild(tabsWrap);
+  pane.appendChild(pos);
   pane.appendChild(panel);
   /* הטאב שנבחר, אם הוא עוד קיים בתחנה הזו. החלפת מטבע, נושא או שפה
      קוראת ל-render() שבונה את החלונית מאפס, ועד כה היא החזירה תמיד
