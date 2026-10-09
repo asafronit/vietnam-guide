@@ -231,6 +231,8 @@ var T={
   sources:{he:"מקורות:",en:"Sources:"},
   newTab:{he:" (נפתח בכרטיסייה חדשה)",en:" (opens in a new tab)"},
   photos:{he:"תמונות",en:"Photos"},
+  photoBy:{he:"צילום",en:"Photo"},
+  dishHere:{he:"המנה שמגישים כאן",en:"The dish served here"},
   /* מצהיר שזו חיפוש ולא גלריה של המקום עצמו — מי שלוחץ ונוחת בדף
      תוצאות צריך רגע להבין איפה הוא. אותו טעם כמו grabNote. */
   photosNote:{he:" (חיפוש בגוגל, נפתח בכרטיסייה חדשה)",
@@ -1189,6 +1191,43 @@ function bookingUrl(r){
   var u=(r.sources||[]).filter(function(x){return /(^|\.)booking\.com\//.test(String(x));})[0];
   return u||null;
 }
+/* תצלום הרשומה, ומתחתיו הייחוס. figure ו-figcaption ולא קרבה חזותית
+   בלבד: עם alt="" אין טקסט חלופי שיישא את הקרדיט, והוא חייב להיות טקסט
+   בדף — וה-figcaption קושר אותו לתמונה ברמת הסמנטיקה.
+   שם הצלם הוא טקסט הקישור ולא המילה "מקור": 49 קישורי "מקור" זהים
+   בכרטיסים שונים הם טקסט עמום, ואותו שיקול כבר הכריע את brandOf
+   בשורת המקורות.
+   width/height מפורשים כי .sheet-bd הוא flex column, ותמונה שנטענת
+   מאוחר דוחפת את שורת הפעולות אחרי שהאצבע כבר עליה. */
+function figureFor(p,altHe,altEn){
+  var fig=el("figure","poi-fig");
+  var img=el("img","poi-shot");
+  img.src=p.src; img.width=560; img.height=316; img.loading="lazy";
+  var d=isHe()?altHe:altEn;
+  /* תיאור שנכתב ביד לתמונה הזו, או כלום. alt תבניתי ("תצלום של <שם>")
+     מכריז שוב את הכותרת בלי מידע חדש, וזה הדפוס שכל בדיקה פוסלת. */
+  if(d){ img.alt=d; } else { img.alt=""; img.setAttribute("aria-hidden","true"); }
+  fig.appendChild(img);
+  var cap=el("figcaption","poi-cred");
+  cap.appendChild(document.createTextNode(t("photoBy")+": "+(p.by||"?")+" · "));
+  var a=el("a",null,p.lic||"Wikimedia Commons");
+  a.href=p.page; a.target="_blank"; a.rel="noopener noreferrer";
+  a.lang="en"; a.dir="ltr";
+  a.appendChild(el("span","sr",t("newTab")));
+  cap.appendChild(a);
+  fig.appendChild(cap);
+  return fig;
+}
+/* המנה שהמקום מוכר. מנה אחת משרתת כמה רשומות — ארבעה דוכני פו מצביעים
+   לאותו תצלום ולאותו הסבר — ולכן היא נתון נפרד ולא שדה ברשומה. */
+function dishFor(r){
+  if(typeof SELLS==="undefined"||typeof DISH_PHOTO==="undefined") return null;
+  var id=SELLS[r.name]; return id?DISH_PHOTO[id]:null;
+}
+function poiPhotoFor(r,st,cat){
+  if(typeof POI_PHOTO==="undefined") return null;
+  return POI_PHOTO[st.id+"|"+cat+"|"+r.name]||null;
+}
 function vidUrl(r,st){return r.video||"https://www.youtube.com/results?search_query="+encodeURIComponent(r.name+" "+st.name);}
 /* r.name ולא recName: recName מחזיר את nameHe כשהממשק עברי, שהוא מצב
    ברירת המחדל, ותעתיק עברי של מסעדה בהוי אן מחזיר בחיפוש תמונות מקום
@@ -1387,6 +1426,30 @@ function openDetail(item){
     bd.appendChild(hrow);
   }
   bd.appendChild(txt("p","sheet-what",recWhat(r)));
+
+  /* תצלום של המקום עצמו, היכן שנמצא אחד חופשי שבאמת מראה אותו. */
+  var pp=poiPhotoFor(r,st,item.cat);
+  if(pp) bd.appendChild(figureFor(pp,pp.altHe,pp.altEn));
+
+  /* ובאוכל רחוב — המנה. תצלום של דוכן אי אפשר להשיג חופשי, ותצלום של
+     המנה דווקא כן; וההסבר על המאכל הוא מה שקורא שלא אכל ויאטנמית
+     מעולם באמת צריך. */
+  var dd=dishFor(r);
+  if(dd){
+    var box=el("div","dishbox");
+    var hdd=el("p","dish-hd");
+    hdd.appendChild(document.createTextNode(t("dishHere")+": "));
+    var nm=el("strong",null,isHe()?dd.he:dd.en);
+    hdd.appendChild(nm);
+    /* השם הויאטנמי עם הדיאקריטיקה, מתויג — בלי lang הוא נהגה בפונמות
+       עבריות, וזה שם שמראים למוכר. */
+    var vi=el("span","dish-vi"," "+dd.vi); vi.lang="vi"; vi.dir="ltr";
+    hdd.appendChild(vi);
+    box.appendChild(hdd);
+    box.appendChild(txt("p","dish-txt",isHe()?dd.txtHe:dd.txtEn));
+    box.appendChild(figureFor(dd,dd.altHe,dd.altEn));
+    bd.appendChild(box);
+  }
   if(recWhy(r)){
     var wb=el("div","whybox");
     wb.appendChild(el("b",null,t("whyHere")));

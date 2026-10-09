@@ -10,7 +10,7 @@
  */
 // build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
 // גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
-const VERSION = "b5cd23198d16";
+const VERSION = "46dbe6e0b448";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
@@ -21,6 +21,7 @@ const PRECACHE = [
   "./assets/poi-data.js",
   "./assets/transfers-data.js",
   "./assets/photos.js",
+  "./assets/poi-photos.js",
   "./assets/climate.js",
   /* הגופנים חייבים להיות כאן. הם הוטמעו מקומית בדיוק כדי לעבוד בלי
      רשת, ובלי precache הטעינה הראשונה אופליין הייתה נופלת ל-fallback

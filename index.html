@@ -770,6 +770,22 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 /* 4.66 במצב כהה, לא מרווח נוח. כל הכהייה של --rose או כל העלאה של
    האלפא ב---c-ride-soft מעל .14 מפילה את זה מתחת ל-4.5. */
 .grab-stat.is-warn{color:var(--rose)}
+/* תצלום רשומה והייחוס שלו. --ink-3 ולא --ink-3-card: הקרדיט יושב על
+   --surface הלבן, ושם --ink-3 נמדד 7.56 — בנוחות מעל 4.5 גם ב-.72rem. */
+.poi-fig{margin:0;display:flex;flex-direction:column;gap:5px}
+.poi-shot{width:100%;height:auto;border-radius:var(--r-xs);
+  border:1px solid var(--line);display:block}
+.poi-cred{font-family:var(--f-ui);font-size:.72rem;color:var(--ink-3)}
+.poi-cred a{text-decoration:underline;text-underline-offset:2px;color:var(--ink-3)}
+/* קופסת המנה. גוון רקע כדי שתיקרא כגוש אחד — היא נתון על המאכל ולא
+   על המקום, והיא משותפת לכמה רשומות. */
+.dishbox{background:var(--surface-2);border-radius:var(--r-xs);
+  padding:11px 12px;display:flex;flex-direction:column;gap:7px}
+.dish-hd{margin:0;font-family:var(--f-ui);font-size:.82rem;color:var(--ink-2)}
+.dish-vi{direction:ltr;unicode-bidi:isolate;font-weight:600}
+.dish-txt{margin:0;font-size:.88rem;color:var(--ink-2);line-height:1.5}
+/* הקרדיט בתוך הקופסה יושב על --surface-2, ושם --ink-3 אינו מספיק. */
+.dishbox .poi-cred,.dishbox .poi-cred a{color:var(--ink-2)}
 .srcline{font-size:.8rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 .srcline a{text-decoration:underline;text-underline-offset:3px}
 
@@ -1404,6 +1420,7 @@ html.splash-on #splash{display:flex}
 </script>
 <script src="assets/climate.js" defer></script>
 <script src="assets/photos.js" defer></script>
+<script src="assets/poi-photos.js" defer></script>
 <script src="assets/poi-data.js" defer></script>
 <script src="assets/transfers-data.js" defer></script>
 <script src="assets/app.js" defer></script>

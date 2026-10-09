@@ -68,6 +68,7 @@ $html = Get-Content $tpl -Raw -Encoding UTF8
 $map = @{
   '/*__CLIMATE__*/'  = 'assets/climate.js'
   '/*__PHOTOS__*/'   = 'assets/photos.js'
+  '/*__POI_PHOTOS__*/' = 'assets/poi-photos.js'
   '/*__POI_DATA__*/' = 'assets/poi-data.js'
   '/*__TRANSFERS__*/' = 'assets/transfers-data.js'
 }
