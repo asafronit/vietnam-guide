@@ -730,7 +730,11 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .act-video{color:var(--c-video);--tint:var(--c-video-soft)}
 .act-chat {color:var(--c-chat); --tint:var(--c-chat-soft)}
 .act-book {color:var(--c-book); --tint:var(--c-book-soft)}
-.act-src  {color:var(--ink-3)}
+/* הפעולה הניטרלית. היה כאן .act-src שמעולם לא נקרא — התקן תכנן
+   משבצת לפעולה שאין לה יעד מחמשת הצבעים, והיא פשוט לא מומשה.
+   בלי opacity ובלי הבהרה: אלה מה שהופך ניטרל ל"מושבת" לעין, לא
+   היעדר הגוון. */
+.act-neutral{color:var(--ink-2); --tint:var(--surface-2)}
 .lbtn.is-primary{background:var(--c-map-fill);color:var(--c-map-on);border-color:var(--c-map-fill)}
 .lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}
 /* פתק ההדבקה של Grab. לא כפתור — אין בו פעולה. זו הוראה שצריכה לשרוד
@@ -1415,6 +1419,11 @@ var ICONS={
   van:'<path d="M2.5 16.5V8h11l4 4h4v4.5"/><circle cx="7.5" cy="17" r="1.9"/><circle cx="17" cy="17" r="1.9"/><path d="M9.4 17h5.7"/>',
   card:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16.2c.6-1.5 1.7-2.2 3-2.2s2.4.7 3 2.2"/><path d="M14.8 10h4.2M14.8 13.5h4.2"/>',
   search:'<circle cx="11" cy="11" r="6.5"/><path d="M15.8 15.8l4.7 4.7"/>',
+  /* קו בלבד ובלי מילוי, כמו שאר הסט: presentation attribute על צומת
+     ילד מנצח את fill:none של svg.ic, וצורה מלאה הופכת לכתם בצבע מערכת
+     ב-forced-colors. הפעולה הזאת היא היחידה בשורה בלי צבע תקן, ולכן
+     האייקון הוא חצי מהזיהוי שלה ולא קישוט. */
+  image:'<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.6" cy="9.6" r="1.7"/><path d="M3.4 17.4l4.6-4.3 3.2 2.9 3.6-3.9 5.8 5.6"/>',
   close:'<path d="M6 6l12 12M18 6L6 18"/>',
   copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15"/>',
   heart:'<path d="M12 20.3l-1.3-1.2C6 14.9 3 12.2 3 8.9 3 6.2 5.1 4 7.8 4c1.5 0 3 .7 4.2 2 1.2-1.3 2.7-2 4.2-2C18.9 4 21 6.2 21 8.9c0 3.3-3 6-7.7 10.2z"/>',
@@ -1622,6 +1631,16 @@ var T={
   video:{he:"וידאו",en:"Video"},
   sources:{he:"מקורות:",en:"Sources:"},
   newTab:{he:" (נפתח בכרטיסייה חדשה)",en:" (opens in a new tab)"},
+  photos:{he:"תמונות",en:"Photos"},
+  /* מצהיר שזו חיפוש ולא גלריה של המקום עצמו — מי שלוחץ ונוחת בדף
+     תוצאות צריך רגע להבין איפה הוא. אותו טעם כמו grabNote. */
+  photosNote:{he:" (חיפוש בגוגל, נפתח בכרטיסייה חדשה)",
+              en:" (Google search, opens in a new tab)"},
+  /* "וידאו" הוא סרטון מסוים כשיש r.video, וחיפוש ביוטיוב כשאין —
+     ואותה תווית לשני היעדים השאירה את המשתמש בלי לדעת לאן הגיע. זה
+     בלט דווקא כשנוספה לידו פעולה שכן מצהירה שהיא חיפוש. */
+  videoSearchNote:{he:" (חיפוש ביוטיוב, נפתח בכרטיסייה חדשה)",
+                   en:" (YouTube search, opens in a new tab)"},
   close:{he:"סגור",en:"Close"},
   copyName:{he:"העתק שם באנגלית",en:"Copy English name"},
   copied:{he:"הועתק",en:"Copied"},
@@ -2572,6 +2591,16 @@ function bookingUrl(r){
   return u||null;
 }
 function vidUrl(r,st){return r.video||"https://www.youtube.com/results?search_query="+encodeURIComponent(r.name+" "+st.name);}
+/* r.name ולא recName: recName מחזיר את nameHe כשהממשק עברי, שהוא מצב
+   ברירת המחדל, ותעתיק עברי של מסעדה בהוי אן מחזיר בחיפוש תמונות מקום
+   אחר או כלום — כלומר קישור שמצהיר יעד אחד ומוביל לאחר. כל בוני ה-URL
+   בקובץ שולחים את הלטיני, וזה גם מה שמראים לנהג.
+   udm=2 הוא האנך של התמונות בגוגל; tbm=isch עדיין נפתר, אבל udm הוא
+   מה שמתוחזק. */
+function picsUrl(r,st){
+  return "https://www.google.com/search?udm=2&q="+
+    encodeURIComponent([r.name,r.area,st.name,"Vietnam"].filter(Boolean).join(", "));
+}
 /* wa.me רוצה ספרות בלבד, בלי פלוס, מקפים או רווחים */
 function waUrl(num){return "https://wa.me/"+String(num).replace(/[^\d]/g,"");}
 function brandOf(u){
@@ -2818,7 +2847,22 @@ function openDetail(item){
   var bk=bookingUrl(r);
   if(bk) act(lbtn("act-book book-link","bed",t("booking"),bk,r.name));
 
-  act(lbtn("act-video yt-link","play",t("video"),vidUrl(r,st),r.name));
+  act(lbtn("act-video yt-link","play",t("video"),vidUrl(r,st),r.name,
+           r.video?null:"videoSearchNote"));
+
+  /* ניטרלית ולא צבע שישי: חמשת צבעי התקן מקודדים יעד חיצוני מוכר
+     שהמשתמש מזהה — מפות, Grab, Booking, יוטיוב, וואטסאפ — וחיפוש
+     תמונות אינו אחד מהם. אותו היגיון שכבר הוכרע ל-qbtn-int בשורת
+     הפעולות של התחנה, ואותה משבצת ניטרלית ש-.act-src תכנן ולא מומשה.
+     הניטרל אינו "חלש": --ink-2 נמדד 10.31 על המשטח הבהיר ו-10.34 על
+     הכהה, כלומר הצ'יפ הניגודי ביותר בשורה.
+     אנשי קשר בחוץ. חיפוש תמונות של אדם פרטי לפי שמו ואזורו אינו
+     פעולת מקום — אותו שער בדיוק כמו Grab למעלה. מנות דווקא כן:
+     "איך נראה באן מי" הוא מידע שימושי. */
+  if(item.cat!=="contacts"){
+    act(lbtn("act-neutral pics-link","image",t("photos"),picsUrl(r,st),r.name,"photosNote"));
+  }
+
   if(r.whatsapp) act(lbtn("act-chat wa-link","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
   bd.appendChild(lr);
 
@@ -2967,6 +3011,11 @@ function lbtn(cls,ic,label,href,name,noteKey,nameLang){
   /* השם בתוך ה-sr מקבל lang משלו כשהוא ידוע: "Ga Hà Nội" בתוך מסמך עברי
      בלי lang="vi" נהגה בפונמות עבריות. בלי nameLang — ההתנהגות הקודמת. */
   var sr=el("span","sr"," — ");
+  /* lang מפורש: ה-span הזה נושא טקסט ממשק עברי, והוא יושב בתוך
+     .sheet-bd שמקבל lang="en" בכרטיס בלי whatHe — ושם עברית בלי תיוג
+     נהגית בפונמות אנגליות. אותו תיקון כמו בשורת שעות הפתיחה.
+     nm הפנימי מקבל lang משלו ולכן השם הוויאטנמי אינו נפגע. */
+  sr.lang=isHe()?"he":"en";
   var nm=el("span",null,name);
   if(nameLang) nm.lang=nameLang;
   sr.appendChild(nm);

@@ -740,7 +740,11 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .act-video{color:var(--c-video);--tint:var(--c-video-soft)}
 .act-chat {color:var(--c-chat); --tint:var(--c-chat-soft)}
 .act-book {color:var(--c-book); --tint:var(--c-book-soft)}
-.act-src  {color:var(--ink-3)}
+/* הפעולה הניטרלית. היה כאן .act-src שמעולם לא נקרא — התקן תכנן
+   משבצת לפעולה שאין לה יעד מחמשת הצבעים, והיא פשוט לא מומשה.
+   בלי opacity ובלי הבהרה: אלה מה שהופך ניטרל ל"מושבת" לעין, לא
+   היעדר הגוון. */
+.act-neutral{color:var(--ink-2); --tint:var(--surface-2)}
 .lbtn.is-primary{background:var(--c-map-fill);color:var(--c-map-on);border-color:var(--c-map-fill)}
 .lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}
 /* פתק ההדבקה של Grab. לא כפתור — אין בו פעולה. זו הוראה שצריכה לשרוד
