@@ -221,7 +221,12 @@ var T={
   sheetGrip:{he:"גרירה לשינוי גובה החלונית. חצים מעלה ומטה, או Enter להחלפה.",
              en:"Drag to resize the panel. Arrow up and down, or Enter to toggle."},
   backToList:{he:"לרשימה",en:"Back to list"},
-  openMap:{he:"פתח במפה",en:"Open in Maps"},
+  /* "מפה" ולא "פתח במפה": התווית הארוכה תפסה 121 פיקסל משורת פעולות
+     שרוחבה 325, והפעולה השישית דחפה אותה לשלוש שורות ו-138 פיקסל
+     בכרטיס מלון. האייקון הוא פין והרשימה כבר מוכרזת "פעולות למקום
+     הזה", כך שהפועל היה יתירות. 2.5.3 נשמר — התווית הנראית נשארת
+     הטוקן הראשון בשם הנגיש. */
+  openMap:{he:"מפה",en:"Map"},
   video:{he:"וידאו",en:"Video"},
   sources:{he:"מקורות:",en:"Sources:"},
   newTab:{he:" (נפתח בכרטיסייה חדשה)",en:" (opens in a new tab)"},
