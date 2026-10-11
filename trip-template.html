@@ -57,6 +57,13 @@ try{
    והסיבה שהריפו הופרד; פונט שנטען מהרשת היה נעלם בדיוק בהרים שבהם אין
    קליטה. שני קבצים משתנים לכל משפחה (עברית ולטינית) — 90KB בסך הכול,
    כי Google מגישה variable fonts וכל המשקלים יושבים באותו קובץ. */
+/* פאזה 10: Heebo הוא הפנים של שפת האריחים — משקל משתנה 100–900 בקובץ אחד
+   לכל טווח, והמשקלים הדקים (100–300) הם הכותרות הענקיות. לטיני-מורחב נדרש
+   לסימני הטעם של שמות לועזיים. אין ל-Heebo תת-קבוצה וייטנאמית; תווים כמו
+   ơ ư ạ נופלים למחסנית המערכת, בדיוק כמו עם Assistant לפני כן. */
+@font-face{font-family:"Heebo";font-style:normal;font-weight:100 900;font-display:swap;src:url("assets/fonts/Heebo-hebrew.woff2") format("woff2");unicode-range:U+0307-0308,U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
+@font-face{font-family:"Heebo";font-style:normal;font-weight:100 900;font-display:swap;src:url("assets/fonts/Heebo-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Heebo";font-style:normal;font-weight:100 900;font-display:swap;src:url("assets/fonts/Heebo-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Assistant";font-style:normal;font-weight:400 700;font-display:swap;src:url("assets/fonts/Assistant-hebrew.woff2") format("woff2");unicode-range:U+0590-05FF,U+200C-2010,U+20AA,U+25CC,U+FB1D-FB4F}
 @font-face{font-family:"Assistant";font-style:normal;font-weight:400 700;font-display:swap;src:url("assets/fonts/Assistant-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 </style>
@@ -71,16 +78,31 @@ try{
      מערכת קיימת ומוכחת — סגול מלכותי, לבנדר בהיר, כרטיסים לבנים.
      הסיבה: כיוון D הוכרע על מוקאפ ונסחף פעמיים במימוש; אתר חי אפשר
      למדוד ממנו במקום לפרש אותו. */
-  --bg:#f3f0f8;
-  --surface:#ffffff;
-  --surface-2:#ece7f4;
-  --ink:#111827;
-  --ink-2:#374151;
+  /* פאזה 10 (11/10): אריחי מטרו בסגול פסטל. הקרקע לבנה, וה"כרטיסים" הם
+     אריחי לילך שטוחים — בלי פינות, בלי צל, בלי מסגרת. המספרים בהערות נמדדו
+     בסקריפט luminance לפני הכתיבה. חוזה הכיוון:
+     .impeccable/surfaces/trip-template-html.md */
+  --bg:#ffffff;
+  --surface:#efeafc;         /* אריח לילך · דיו עליו 15.68 */
+  --surface-2:#e2d9f8;
+  /* 11/10 (בקשת אסף): הסגול הוכהה ונוספה מסגרת כהה. על הגוון הכהה
+     --ink-3/jade/gold/rose הרגילים נופלים מתחת ל-4.5, ולכן בתוך אריח
+     הם מוחלפים בגרסאות -tile (ראו .mt,.tile,… בשכבת המטרו). */
+  --tile:#b5a1ec;            /* אריח פסטל · דיו 8.15 · --ink-3-tile 5.77 */
+  --tile-pale:#e8e0fa;       /* דיו 14.2 · --ink-3-tile 10.25 */
+  --tile-edge:#2b2147;       /* מסגרת: 14.88 מול לבן, 6.57 מול הפסטל */
+  --ink-3-tile:#332d47;  --jade-tile:#04402f;  --gold-tile:#453200;  --rose-tile:#6b1111;
+  --tile-dark:#2b2147;       /* חציל · לבן עליו 14.88 · ענבר 7.41 */
+  --on-tile-dark:#ffffff;
+  --amber:#e2b01c;           /* סיכון בלבד, ורק על חציל או על הקרקע הכהה */
+  --peek:#6f6889;            /* מילת הפיבוט המציצה · 5.23 על לבן (היה 3.57: גבולי במשקל 200 ובשמש) */
+  --ink:#15121f;
+  --ink-2:#3b3550;
   /* --muted של המקור (#6b7280) נותן 4.83 על לבן אבל רק **4.29** על
      הלבנדר — ושם יושבות כל תוויות המקטע. שני טוקנים, לא אחד. */
-  --ink-3:#4b5563;           /* על --bg: 6.71 */
-  --ink-3-card:#6b7280;      /* על --surface: 4.83 */
-  --line:rgba(17,24,39,.12);
+  --ink-3:#4a4560;           /* לבן 9.09 · לילך 7.72 · פסטל 5.20 */
+  --ink-3-card:#4a4560;
+  --line:rgba(21,18,31,.12);
   /* גבול פקדים. חייב להיות מוגדר בכל שלושת מצבי הצבע: משתנה חסר הופך
      את border:1px solid var(--x) ללא-חוקי, והקיצור כולו נופל ל-border-style:none. */
   /* .50 ולא .42. הטוקן הזה הוא הגבול של כל פקד באתר, ועל --surface
@@ -88,25 +110,25 @@ try{
      קריטי כי הגבול הוא כל האפורדנס — הטקסט שבתוכו הוא הערך, לא
      זיהוי הפקד. .50 נותן 3.39. מכהה 24 גבולות בשמינית אלפא ואינו
      מזיז אף צבע זהות. */
-  --line-ctl:rgba(17,24,39,.50);
-  --line-soft:#e8e3f0;
+  --line-ctl:rgba(21,18,31,.55);
+  --line-soft:#e2d9f8;
   /* הסגול ממלא שני תפקידים מנוגדים — טקסט ומילוי — והם מתהפכים
      בכיוונים שונים במצב כהה. טוקן אחד לא יכול לעשות את שניהם; זה
      בדיוק הבאג שתועד כאן על --c-map. */
-  --primary-ink:#42276f;     /* טקסט/מספרים · על --bg: 10.64 */
-  --primary-fill:#42276f;    /* מילוי · לבן מעליו: 11.99 */
+  --primary-ink:#2b2147;
+  --primary-fill:#2b2147;
   --primary-on:#ffffff;
-  --primary-2:#6c479c;       /* הקצה הבהיר של הגרדיאנט */
-  --brand:#42276f;
+  --primary-2:#2b2147;       /* אין גרדיאנט בשפת האריחים — שני הקצוות זהים */
+  --brand:#2b2147;
   --brand-ink:#ffffff;
-  --brand-soft:#ece7f4;
+  --brand-soft:#efeafc;
   /* זהב: 7.39 על הקצה הכהה, אך רק 4.29 על הבהיר — כלומר תקף שם
      ורק ב-bold מעל 18.66px. לא להשתמש בו בטיפוגרפיה קטנה.
      --gold הוא צבע מילוי. לטקסט ולקווי מתאר יש --gold-ink: הזהב
      עצמו נותן 1.62 על לבן, ולכן כל שימוש טיפוגרפי בו נכשל במצב
      הבהיר. אותה משפחת ענבר, ניגודיות תקפה: 6.38 על --surface. */
   --gold:#f5c542;
-  --gold-ink:#7a5a00;
+  --gold-ink:#5c4300;        /* פאזה 10: 5.33 על אריח הפסטל (היה 3.66) */
   --on-header:#ffffff;
   --on-header-2:#e2dbec;     /* אטום במקום opacity:.7 — 5.6 על הבהיר */
   /* אותו פיצול כמו --gold ו---gold-ink, ומאותה סיבה. --jade הוא צבע
@@ -116,7 +138,7 @@ try{
      דרישה של 4.5, על טקסט 16.32px bold שאינו "גדול" (הסף 18.66).
      --jade-ink נותן 6.32 על --surface-2, 7.67 על לבן ו-6.81 על --bg.
      אינו נוגע ב---c-ride של תקן הקישורים, שנשאר #0f7c5c בדיוק. */
-  --jade:#0f7c5c;  --jade-on:#ffffff;  --jade-ink:#0a5f46;
+  --jade:#0f7c5c;  --jade-on:#ffffff;  --jade-ink:#07523c;   /* פאזה 10: 5.27 על אריח הפסטל (היה 4.39) */
   --rose:#991b1b;
   /* ערכי תקן הקישורים של הפרויקט — אינם משתנים. הסגול המותגי חי
      בכרום בלבד ולעולם לא על כפתור פעולה, ולכן אין התנגשות בהקשר. */
@@ -126,31 +148,35 @@ try{
   --c-chat:#6d28d9;  --c-chat-soft:rgba(109,40,217,.10);
   --c-video:#cc0000; --c-video-soft:rgba(204,0,0,.10);
   --c-book:#1e3a5f;  --c-book-soft:rgba(30,58,95,.10);
-  --card-edge:var(--line-soft);
-  --shadow:0 2px 10px rgba(66,39,111,.10);
-  --shadow-lg:0 10px 30px rgba(66,39,111,.20);
-  --r:12px;
-  --r-sm:10px;
-  --r-xs:8px;
+  --card-edge:transparent;
+  --shadow:none;
+  /* דיאלוג צף צריך קצה כלשהו מעל הקרקע הלבנה; קו ולא צל. */
+  --shadow-lg:0 0 0 1px rgba(21,18,31,.18);
+  --r:0;
+  --r-sm:0;
+  --r-xs:0;
   /* מחסנית המערכת כמו באתר הראשי. באייפון זה SF Hebrew — מצוין לעברית
      ועולה אפס. Assistant המוטמע נשאר אחריה כרשת ביטחון אופליין למי
      שאינו אפל. Frank Ruhl Libre ירד. */
-  --f-display:-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
-  --f-ui:-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
-  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
+  /* Heebo מוטמע ראשון; המחסנית הקודמת אחריו כרשת ביטחון ולתווים וייטנאמיים. */
+  --f-display:"Heebo",-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
+  --f-ui:"Heebo",-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
+  --f-body:"Heebo",-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif;
   --gutter:clamp(15px,4vw,28px);
   --navh:0px;
   --sticky-top:0px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-  --bg:#14101c;--surface:#1d1828;--surface-2:#272036;
-  --ink:#f2effa;--ink-2:#cdc4de;--ink-3:#a79fb8;--ink-3-card:#a79fb8;
+  --bg:#120e1c;--surface:#1f1830;--surface-2:#2a2140;
+  --tile:#3a2d63;--tile-pale:#1f1830;--tile-dark:#cbbcf3;--on-tile-dark:#15121f;--amber:#e2b01c;--peek:#6f6889;
+  --tile-edge:#8a7cc4;--ink-3-tile:#b3abc6;--jade-tile:#3ddba0;--gold-tile:#f5c542;--rose-tile:#ec9a8a;
+  --ink:#f2effa;--ink-2:#cdc4de;--ink-3:#b3abc6;--ink-3-card:#b3abc6;
   --line:rgba(242,239,250,.14);--line-soft:rgba(242,239,250,.10);--line-ctl:rgba(242,239,250,.46);
   /* הכותרת הסגולה היא הזהות ולכן אינה מתהפכת: הלבן עליה כבר נותן
      11.99 בקצה הכהה ו-6.95 בבהיר. רק הטקסט הסגול על הרקע מתבהר. */
-  --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
-  --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
+  --primary-ink:#cbbcf3;--primary-fill:#cbbcf3;--primary-on:#15121f;--primary-2:#cbbcf3;
+  --brand:#cbbcf3;--brand-ink:#15121f;--brand-soft:#2a2140;
   --gold:#f5c542;--gold-ink:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
   --jade:#3ddba0;  --jade-on:#06251a;  --jade-ink:#3ddba0;  --rose:#e0806c;
   --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
@@ -161,19 +187,21 @@ try{
   --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
   /* צל שחור על רקע כהה בלתי נראה, והצל הוא הגבול היחיד של כרטיס —
      בלי קצה מפורש כל הפריסה מתמוטטת לגוש אחיד. */
-  --card-edge:rgba(242,239,250,.14);
-  --shadow:0 1px 2px rgba(0,0,0,.45);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.6);
+  --card-edge:transparent;
+  --shadow:none;
+  --shadow-lg:0 0 0 1px rgba(242,239,250,.22);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#14101c;--surface:#1d1828;--surface-2:#272036;
-  --ink:#f2effa;--ink-2:#cdc4de;--ink-3:#a79fb8;--ink-3-card:#a79fb8;
+  --bg:#120e1c;--surface:#1f1830;--surface-2:#2a2140;
+  --tile:#3a2d63;--tile-pale:#1f1830;--tile-dark:#cbbcf3;--on-tile-dark:#15121f;--amber:#e2b01c;--peek:#6f6889;
+  --tile-edge:#8a7cc4;--ink-3-tile:#b3abc6;--jade-tile:#3ddba0;--gold-tile:#f5c542;--rose-tile:#ec9a8a;
+  --ink:#f2effa;--ink-2:#cdc4de;--ink-3:#b3abc6;--ink-3-card:#b3abc6;
   --line:rgba(242,239,250,.14);--line-soft:rgba(242,239,250,.10);--line-ctl:rgba(242,239,250,.46);
   /* הכותרת הסגולה היא הזהות ולכן אינה מתהפכת: הלבן עליה כבר נותן
      11.99 בקצה הכהה ו-6.95 בבהיר. רק הטקסט הסגול על הרקע מתבהר. */
-  --primary-ink:#b9a3e3;--primary-fill:#42276f;--primary-on:#ffffff;--primary-2:#6c479c;
-  --brand:#b9a3e3;--brand-ink:#14101c;--brand-soft:#2b2340;
+  --primary-ink:#cbbcf3;--primary-fill:#cbbcf3;--primary-on:#15121f;--primary-2:#cbbcf3;
+  --brand:#cbbcf3;--brand-ink:#15121f;--brand-soft:#2a2140;
   --gold:#f5c542;--gold-ink:#f5c542;--on-header:#ffffff;--on-header-2:#e2dbec;
   --jade:#3ddba0;  --jade-on:#06251a;  --jade-ink:#3ddba0;  --rose:#e0806c;
   --c-map:#7cc4ff;   --c-map-soft:rgba(124,196,255,.14);
@@ -184,9 +212,9 @@ try{
   --c-book:#8fb6e8;  --c-book-soft:rgba(143,182,232,.14);
   /* צל שחור על רקע כהה בלתי נראה, והצל הוא הגבול היחיד של כרטיס —
      בלי קצה מפורש כל הפריסה מתמוטטת לגוש אחיד. */
-  --card-edge:rgba(242,239,250,.14);
-  --shadow:0 1px 2px rgba(0,0,0,.45);
-  --shadow-lg:0 12px 40px rgba(0,0,0,.6);
+  --card-edge:transparent;
+  --shadow:none;
+  --shadow-lg:0 0 0 1px rgba(242,239,250,.22);
 }
 
 
@@ -1146,6 +1174,440 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
   *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
 }
 </style>
+<style id="metro">
+/* ==========================================================
+   פאזה 10 — שפת האריחים (Metro). שכבה אחת מעל הגיליון הראשי:
+   טיפוגרפיה היא הממשק, משטחי צבע שטוחים הם הדלתות, בלי מסגרות,
+   בלי פינות, בלי צל. הטוקנים עצמם הוחלפו ב-:root למעלה.
+   הספלאש לא נוגע בכלום כאן, חוץ מהשורה הבאה ששומרת עליו כמו שהיה.
+   ========================================================== */
+/* Heebo נכנס דרך --f-body והספלאש היה יורש אותו. הוא נשאר על המחסנית
+   הקודמת כדי שייראה בדיוק כפי שהיה (החלטת אסף: לשמור על הספלאש). */
+#splash{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Assistant",Arial,sans-serif}
+
+/* ---------- כרום ---------- */
+.tb-row.r1{background:var(--bg);color:var(--ink);padding-top:10px;padding-bottom:4px}
+.brand{font-weight:500;font-size:.95rem;color:var(--ink-2);border:0;background:none;border-radius:0;padding:4px 2px;gap:6px}
+.brand span{font-weight:500;color:var(--ink-2);font-size:inherit}
+.brand:hover{background:var(--surface);border:0}
+.brand:active{background:var(--surface-2)}
+.tb-row.r1 .iconbtn{border:0;color:var(--ink);background:transparent;border-radius:0}
+.tb-row.r1 .iconbtn:hover{background:var(--surface)}
+.tb-row.r1 .seg{border:1px solid var(--line-ctl);background:transparent;border-radius:0}
+.tb-row.r1 .seg button{color:var(--ink);border-inline-start-color:var(--line-ctl)}
+.tb-row.r1 .seg button[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
+.tb-row.r1 .seg button:hover:not([aria-pressed="true"]){background:var(--surface);color:var(--ink)}
+.tb-row.r1 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.countdown{color:var(--ink-3);font-weight:300;margin-top:2px}
+.countdown b{color:var(--ink);font-weight:300;font-size:1.7rem}
+/* בבית הספירה היא האריח הגדול, ולכן הכרום מסתיר את העותק שלו שם. */
+html[data-route="home"] .countdown{display:none}
+/* בדסקטופ פס הטיול ושורת הקישורים הרשמיים מכפילים בבית את אריחי הספירה,
+   "הטיול במבט" והקישורים. בשאר המסכים הם נשארים. */
+html[data-route="home"] .tripbar,html[data-route="home"] .official{display:none}
+.searchbox{border:0;border-bottom:2px solid var(--ink);border-radius:0;background:transparent;padding-inline:2px}
+.searchbox:focus-within{border-color:var(--ink);box-shadow:0 2px 0 var(--ink)}
+.searchbox input{font-weight:300;font-size:1.05rem}
+/* min-width:0 — בלעדיו הרוחב הפנימי של ה-input בהגדלת טקסט 200% דחף את
+   התיבה 57px מעבר למסך ב-320px. קיים גם באתר החי (400px); נסגר כאן. */
+.searchbox{min-width:0}
+.tab{border-radius:0}
+.tab:hover{background:var(--surface)}
+.tab[aria-current="page"]{background:var(--tile);color:var(--ink)}
+.botnav{background:var(--bg);border-top:1px solid var(--line)}
+.bnav{border-radius:0}
+.bnav[aria-current="page"]{color:var(--ink);font-weight:700}
+
+/* ---------- כותרת פיבוט ---------- */
+/* המילה הפעילה מתחילה בשוליים הרגילים ויכולה לגלוש רק לצד הסוף, ושם
+   נחתכת יחד עם המילה המציצה. margin-inline-end שלילי מותח את
+   הקונטיינר עד קצה המסך בצד הסוף בלבד. */
+.pivot{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 .32em;white-space:nowrap;overflow:hidden;
+  margin-block:2px 14px;margin-inline:0 calc(-1 * var(--gutter));padding-block:2px}
+.pivot-on{margin:0;flex:none;font-family:var(--f-display);font-weight:200;
+  font-size:clamp(2.4rem,18vw,6rem);line-height:.98;letter-spacing:-.02em;color:var(--ink)}
+.pivot-on:focus{outline:none}
+.pivot-on:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+/* כשאין מקום ל-1.6em ממנה, המילה יורדת שלמה לשורה שנייה במקום להיחתך
+   עד שאזור הלחיצה וטבעת הפוקוס נעלמים (סקירת נגישות 11/10, ממצא 1). */
+.pivot-peek{flex:0 1 auto;min-width:1.6em;overflow:hidden;padding:0;font-family:var(--f-display);font-weight:200;
+  font-size:clamp(2.4rem,18vw,6rem);line-height:.98;letter-spacing:-.02em;color:var(--peek);min-height:44px;text-align:start}
+.pivot-peek:hover{color:var(--ink-3)}
+.pivot-peek:focus-visible{outline:3px solid var(--ink);outline-offset:-3px}
+
+/* ---------- אריחים ---------- */
+.mgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
+.mt{background:var(--tile);color:var(--ink);padding:10px 12px;display:flex;flex-direction:column;
+  justify-content:space-between;gap:6px;min-height:5.25rem;min-width:0}
+.mt-pale{background:var(--tile-pale)}
+.mt-dark{background:var(--tile-dark);color:var(--on-tile-dark)}
+.mt-s2{grid-column:span 2}
+.mt-s4{grid-column:1 / -1}
+.mt-li{display:flex}
+.mt-li>.mt{flex:1}
+.mt-k{font-family:var(--f-ui);font-size:.8rem;font-weight:500}
+.mt-v{font-weight:300;font-size:clamp(1.45rem,7vw,2rem);line-height:1.05;font-variant-numeric:tabular-nums;overflow-wrap:break-word}
+/* break-word ולא anywhere: anywhere שבר את "באוק׳" לפני הגרש. */
+.mt-count{min-height:9.25rem;margin-bottom:4px}
+.mt-countrow{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:6px 12px}
+.mt-side{min-width:0}
+.mt-big{font-weight:100;font-size:clamp(4.6rem,25vw,7rem);line-height:.8;font-variant-numeric:tabular-nums}
+.mt-side{display:flex;flex-direction:column;align-items:flex-end;font-size:.92rem;font-weight:300;text-align:end}
+.mt-fx{display:flex;gap:.9em;flex-wrap:wrap;font-size:clamp(1.2rem,5.6vw,1.6rem)}
+.mt-fx bdi{direction:ltr;unicode-bidi:isolate}
+.mt-link{text-decoration:none;min-height:5.75rem;justify-content:space-between}
+.mt-link .ic{width:22px;height:22px}
+.mt-linkt{display:flex;flex-direction:column;font-weight:500;font-size:.98rem;line-height:1.3}
+.mt-dom{font-weight:400;font-size:.78rem;opacity:.9}
+.mt-link:hover .mt-linkt{text-decoration:underline;text-underline-offset:3px}
+a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+/* 320px עם הגדלת טקסט: ארבע עמודות נעשות שתיים, ואריח s2 נמתח לכל הרוחב. */
+@media (max-width:24rem){
+  .mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mt-s2{grid-column:1 / -1}
+}
+
+/* ---------- כותרות מקטע ---------- */
+.sec-label{font-family:var(--f-display);font-size:1.85rem;font-weight:300;letter-spacing:0;
+  color:var(--ink);margin:26px 0 10px;gap:12px;align-items:baseline}
+.sec-label .ln{display:none}
+.sec-label .cnt{background:none;color:var(--ink-3);font-family:var(--f-ui);font-size:.86rem;font-weight:500;padding:0}
+.region{margin-top:22px}
+.region-hd{position:static;margin:0 0 8px;padding:0;background:none;color:var(--ink);
+  font-family:var(--f-display);font-weight:300;font-size:1.85rem;letter-spacing:0;align-items:baseline}
+.region-hd .cnt{background:none;color:var(--ink-3);border-radius:0;padding:0;font-family:var(--f-ui);font-size:.84rem;font-weight:500;white-space:normal}
+.region-hd,.sec-label{flex-wrap:wrap}
+
+/* ---------- אריחי תחנה (מצב תכנון) ---------- */
+.tilegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.tilegrid>li:nth-child(4n+3) .tile,.tilegrid>li:nth-child(4n+4) .tile{background:var(--tile-pale)}
+.tile{background:var(--tile);border:0;border-radius:0;box-shadow:none;min-height:8.5rem;padding:10px 12px;justify-content:space-between}
+.tile:hover{border:0;outline:2px solid var(--ink);outline-offset:-2px}
+.tile:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.tile-ph{position:static;aspect-ratio:auto;background:none}
+.tile-ph img{display:none}
+.tile-idx{position:static;min-width:0;min-height:0;padding:0;border-radius:0;background:none;
+  color:var(--ink);font-family:var(--f-display);font-weight:100;font-size:clamp(2.4rem,11vw,3rem);line-height:.85}
+.tile-txt{padding:0}
+.tile-nm{font-family:var(--f-display);font-weight:300;font-size:1.3rem;line-height:1.1;color:var(--ink)}
+.tile-cnt{font-family:var(--f-ui);font-size:.8rem;font-weight:500;color:var(--ink-2)}
+
+/* ---------- קרוב אליך בבית ---------- */
+.home-near .btn-near{border-radius:0;background:var(--tile-dark);color:var(--on-tile-dark);border:0;min-height:48px;font-weight:500}
+.home-near .near-list{display:grid;gap:6px}
+.home-near .near-row{background:var(--tile-pale);border:0;border-radius:0;padding:10px 12px;align-items:center}
+.home-near [role="listitem"]:first-child .near-row{background:var(--tile)}
+.home-near .near-dist{font-weight:300;font-size:1.6rem;color:var(--ink)}
+.home-near .near-name{font-weight:400;font-size:1.05rem}
+/* בחירת תחנה: רשימה גלויה מצפון לדרום, אריח לכל תחנה. */
+.near-reg{margin:10px 0 4px;font-family:var(--f-ui);font-size:.82rem;font-weight:600;color:var(--ink-3)}
+.near-stlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
+.near-st{display:flex;align-items:baseline;gap:8px;width:100%;min-height:48px;padding:8px 10px;text-align:start;
+  background:var(--tile-pale);color:var(--ink);border:0;border-radius:0}
+.near-st:hover{background:var(--surface-2)}
+.near-st[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
+.near-st:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.near-st-n{font-family:var(--f-display);font-weight:300;font-size:1.25rem;line-height:1;font-variant-numeric:tabular-nums}
+.near-st-nm{font-weight:500;font-size:.95rem;line-height:1.25;overflow-wrap:anywhere}
+@media (forced-colors:active){.near-st{border:1px solid CanvasText}.near-st[aria-pressed="true"]{outline:3px solid Highlight}}
+
+/* ---------- מסך תחנה ---------- */
+.backbtn{border:0;background:none;border-radius:0;padding:6px 0;color:var(--ink-2);font-weight:500}
+.backbtn:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+/* הגיבור: התצלום נשאר, הטקסט יורד ממנו לקרקע. כך הכותרת הדקה והענקית
+   יושבת על לבן ולא על שכבת הצללה, וטבעת הפוקוס הכפולה מתייתרת. */
+.hero{border:0;border-radius:0}
+.hero-txt{position:static;padding:12px 0 0;color:var(--ink);background:none}
+.hero-name{font-weight:200;font-size:clamp(2.6rem,13vw,4.4rem);line-height:.98;text-shadow:none;letter-spacing:-.02em}
+.hero-name:focus-visible{outline:3px solid var(--ink);outline-offset:4px;box-shadow:none;border-radius:0}
+.hero-sub{color:var(--ink-3);opacity:1;font-weight:300;font-size:1rem}
+/* מזג האוויר: אריח לילך. הבר עצמו נשאר צבוע לפי הרצועה, בלי עיגול. */
+.wx{background:var(--tile-pale);border:0;border-radius:0}
+.wx-bar{border-radius:0;background:var(--bg)}
+.wx-fill{border-radius:0}
+.wx-tag{border-radius:0}
+/* פעולות: אריחים מלאים בצבעי התקן, תמיד אייקון ומילה. טקסט בצבע התקן
+   על אריח לילך נכשל (ירוק Grab: 4.40), ולכן הצבע עבר למילוי והטקסט
+   לבן: 5.18 ומעלה בבהיר, ובכהה הטקסט כהה: 6.92 ומעלה. */
+:root{--act-on:#ffffff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--act-on:#12101a}}
+:root[data-theme="dark"]{--act-on:#12101a}
+.act-map  {--act-fill:var(--c-map)}
+.act-ride {--act-fill:var(--c-ride)}
+.act-video{--act-fill:var(--c-video)}
+.act-chat {--act-fill:var(--c-chat)}
+.act-book {--act-fill:var(--c-book)}
+.act-neutral{--act-fill:var(--tile-dark)}
+.lbtn,.qbtn{border-radius:0;border:0;min-height:48px;padding:10px 14px;font-weight:500}
+.lbtn[class*="act-"],.qbtn[class*="act-"]{background:var(--act-fill);color:var(--act-on)}
+.lbtn.act-neutral,.qbtn.act-neutral{color:var(--on-tile-dark)}
+.lbtn[class*="act-"]:hover,.qbtn[class*="act-"]:hover{background:var(--act-fill);text-decoration:underline;text-underline-offset:3px}
+.qbtn-int{background:var(--tile-dark);color:var(--on-tile-dark)}
+.qbtn-int:hover{text-decoration:underline;text-underline-offset:3px}
+.lbtn:focus-visible,.qbtn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.quickbar{gap:6px}
+.quickbar .qbtn{flex:1 1 9.5rem}
+/* לשוניות קטגוריה: אריחים; הפעילה בחציל. */
+.cat-tab{border-radius:0;border:0;background:var(--tile-pale);color:var(--ink);min-height:44px}
+.cat-tab:hover{background:var(--surface-2);color:var(--ink)}
+.cat-tab[aria-selected="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
+/* רשומות: אריחים שטוחים, לסירוגין פסטל ולילך. */
+.pcard,.rcard{border:0;border-radius:0;background:var(--tile-pale)}
+.cat-panel>.rcard:nth-child(odd),.reslist>.rcard:nth-child(odd){background:var(--tile)}
+.pcard:hover,.rcard:hover{border:0;outline:2px solid var(--ink);outline-offset:-2px}
+.pcard-open::after{border-radius:0}
+.pcard-open:focus-visible::after{outline:3px solid var(--ink);outline-offset:-3px}
+.pcard-name{font-family:var(--f-display);font-weight:300;font-size:1.32rem;line-height:1.2}
+.pcard-why{color:var(--ink-2)}
+.fav{border-radius:0;width:44px;height:44px}
+.fav:hover{background:var(--bg)}
+.dotc{border-radius:0}
+.cat-panel{display:grid;gap:6px}
+/* סימן מצב בתא קבוע לפני האחוז: מלא = מתאים, חצי = בינוני, חלול = לא
+   מתאים. הצורה נושאת את המידע ולא הצבע; האחוז והמילה נשארים ב-aria. */
+.feas{border-radius:0;display:inline-flex;align-items:center;gap:6px}
+.feas::before{content:"";width:.7em;height:.7em;border:2px solid currentColor;flex:none}
+.feas.good::before{background:currentColor}
+.feas.fair::before{background:linear-gradient(to top,currentColor 50%,transparent 50%)}
+.sig{border-radius:0}
+
+/* ---------- גיליון נייד, פס הטיול ושורת הקישורים (דסקטופ) ---------- */
+/* הגיליון היה --surface, שהוא עכשיו לילך: כל אריח לילך בתוכו נבלע. */
+.mob-sheet{background:var(--bg);border-radius:0}
+.tripbar{background:var(--bg);border-top:1px solid var(--line)}
+.tb-count b{color:var(--ink);font-weight:300;font-size:1.25rem}
+.official{background:var(--bg);border-top:0}
+.oflink{border-radius:0;border:0;background:var(--tile-dark);color:var(--on-tile-dark);min-height:44px}
+.oflink svg{color:currentColor}
+.oflink:hover{color:var(--on-tile-dark);text-decoration:underline;text-underline-offset:3px}
+.rail-tab{border-radius:0}
+.rail-tab[aria-selected="true"]{background:var(--tile-dark);color:var(--on-tile-dark);box-shadow:none}
+.rail-item{border-radius:0}
+.rail-item[aria-current="page"]{background:var(--tile-pale);box-shadow:none}
+
+/* ---------- ניגודיות מוגברת וצבעים כפויים ---------- */
+/* ---------- מסגרת כהה וצבעי טקסט בתוך אריח (11/10, בקשת אסף) ---------- */
+.mt,.tile,.pcard,.rcard,.near-st,.home-near .near-row,.wx,.cat-tab{
+  border:1.5px solid var(--tile-edge);
+  --ink-3:var(--ink-3-tile);--ink-3-card:var(--ink-3-tile);
+  --jade-ink:var(--jade-tile);--gold-ink:var(--gold-tile);--rose:var(--rose-tile)}
+.pcard:hover,.rcard:hover,.tile:hover,.near-st:hover{border:1.5px solid var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}
+/* במצב צבעים כפוי הרקע נעלם, והאריח היה מאבד את גבולו. */
+@media (forced-colors:active){
+  .mt,.tile,.pcard,.rcard,.cat-tab{border:1px solid CanvasText}
+  .cat-tab[aria-selected="true"]{outline:3px solid Highlight}
+}
+
+/* ---------- פירוט מקום (10-02) ---------- */
+/* הגיליון הוא קרקע לבנה ולא לילך: האריחים בתוכו הם הצבע. */
+.sheet{background:var(--bg);border:1.5px solid var(--tile-edge);border-radius:0}
+.sheet-hd{padding:16px 18px 0}
+.sheet-ttl{font-weight:200;font-size:clamp(2rem,9vw,2.75rem);line-height:1.02;letter-spacing:-.015em}
+.ttl-en{font-family:var(--f-ui);font-weight:300;font-size:1rem;color:var(--ink-3);margin-top:6px}
+.sheet-where{color:var(--ink-3)}
+.closebtn,.ttl-copy{width:44px;height:44px;border-radius:0;border:1.5px solid var(--tile-edge);background:var(--bg)}
+.closebtn:hover,.ttl-copy:hover{background:var(--tile-pale)}
+.sheet-bd{padding:12px 18px 18px;gap:10px}
+.sheet-what{font-size:1.02rem;font-weight:300;line-height:1.65;color:var(--ink-2)}
+.poi-shot{border-radius:0}
+/* רשת העובדות: שני טורים, אריח לכל עובדה. */
+.dfacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
+.dfacts .mt{min-height:4.75rem}
+.mt-v-sm{font-size:1.25rem;font-weight:300;line-height:1.25}
+.mt-v-sm .stars{font-size:1.05rem;letter-spacing:.06em}
+.mt-note{font-family:var(--f-ui);font-size:.76rem;font-weight:400;color:var(--ink-3)}
+.dfacts .feas{font-size:1.25rem;font-weight:300;border:0;padding:0}
+@media (max-width:22rem){.dfacts{grid-template-columns:1fr}}
+/* למה כאן: אריח פסטל ממוסגר (בלי פס צד). */
+.whybox{background:var(--tile);border:1.5px solid var(--tile-edge);border-radius:0;padding:12px 14px;
+  --ink-3:var(--ink-3-tile)}
+.whybox b{color:var(--ink);font-weight:600}
+.whybox div{font-size:1.05rem;font-weight:300;line-height:1.5}
+/* המנה: אריח חציל, הטקסט בצבע האריח. */
+.dishbox{background:var(--tile-dark);color:var(--on-tile-dark);border:1.5px solid var(--tile-edge);border-radius:0}
+.dishbox .dish-hd,.dishbox .dish-txt,.dishbox .poi-cred,.dishbox .poi-cred a{color:var(--on-tile-dark)}
+.dishbox .dish-hd strong{font-weight:300;font-size:1.35rem;display:block;margin-top:2px}
+/* פעולות: רשת שני טורים, אייקון מעל המילה. */
+.linkrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.linkrow>li{display:flex}
+.linkrow .lbtn{flex:1;min-height:64px;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:6px;font-size:1rem}
+.linkrow .lbtn .ic{width:22px;height:22px}
+/* יומן סקר */
+.dlog{background:var(--tile-pale);border:1.5px solid var(--tile-edge);padding:10px 12px;
+  --ink-3:var(--ink-3-tile)}
+.dlog-k{margin:0 0 4px;font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--ink-2)}
+.dlog-loc{margin:4px 0 0;font-size:.82rem;color:var(--ink-3)}
+.dlog .srcline{color:var(--ink-3)}
+.dlog .srcline a{color:var(--ink)}
+
+/* ---------- מסכים פנימיים (10-02) ---------- */
+/* ה-h1 של נושאים, קטגוריה, מעברים, שמורים, מידע וחיפוש: שפת הפיבוט, בלי מתג. */
+.sec-head{font-family:var(--f-display);font-weight:200;font-size:clamp(2.2rem,11vw,3.6rem);line-height:1.02;
+  letter-spacing:-.015em;color:var(--ink);border-bottom:0;padding-bottom:0;margin-bottom:14px;flex-wrap:wrap;align-items:baseline}
+.sec-head .cnt{font-family:var(--f-ui);font-size:.86rem;font-weight:500;color:var(--ink-3);background:none;border:0;padding:0;border-radius:0}
+/* אריחים ממוסגרים: נושאים, עובדות המידע, כרטיסי מעבר, כרטיס הטיול, מצבים ריקים. */
+.topic,.fact,.tr-card,.tr-ticket,.tr-empty,.notecard,.empty,.detail-empty,.tr-link{
+  border:1.5px solid var(--tile-edge);border-radius:0;box-shadow:none;
+  --ink-3:var(--ink-3-tile);--ink-3-card:var(--ink-3-tile);--jade-ink:var(--jade-tile);--gold-ink:var(--gold-tile);--rose:var(--rose-tile)}
+.topics,.facts{gap:6px}
+.topic{background:var(--tile-pale)}
+.topics>:nth-child(4n+1) .topic,.topics>.topic:nth-child(4n+1),
+.topics>:nth-child(4n+4) .topic,.topics>.topic:nth-child(4n+4){background:var(--tile)}
+.topic:hover:not(:disabled){border-color:var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}
+.topic-n{font-family:var(--f-display);font-weight:300;font-size:2rem;line-height:1}
+.fact{background:var(--tile-pale)}
+.fact b,.fact .fact-v{font-weight:300}
+.fxline{font-weight:300;font-size:1.15rem}
+.tr-card{background:var(--tile-pale);min-width:0}
+/* min-width:0 — כתובת לטינית ארוכה בלי רווחים דחפה את הכרטיס 5px מעבר
+   ל-320px@200% (באתר החי: 400px). */
+.tr-card *{min-width:0;overflow-wrap:anywhere}
+/* minmax(310px) קבוע ב-px: ב-320px נשארים 290px, והעמודה גלשה. min() מקטין אותה לרוחב הזמין. */
+.tr-list{grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr));gap:6px}
+.tr-list>li{min-width:0}
+.tr-ticket{background:var(--tile)}
+.tr-ticket-dot{border-radius:0}
+.tr-link{background:var(--tile-pale)}
+.tr-link:hover{border-color:var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}
+/* גלולות → אריחים מרובעים */
+.tr-select{border-radius:0;border:1.5px solid var(--tile-edge)}
+.tr-swap{border-radius:0;border:1.5px solid var(--tile-edge);background:var(--bg)}
+.tr-go{border-radius:0}
+.tr-sort-opt{border-radius:0;border:1.5px solid var(--tile-edge);background:var(--bg)}
+.tr-sort-opt:has(input:checked){background:var(--tile-dark);color:var(--on-tile-dark);border-color:var(--tile-edge)}
+.tr-sort-opt:has(:focus-visible){outline:3px solid var(--ink);outline-offset:2px}
+.tr-mode{border-radius:0;background:var(--tile-dark);color:var(--on-tile-dark)}
+.tr-verify{border-radius:0}
+.tr-card .srcline{border-top-color:var(--tile-edge)}
+.info-official .oflink{flex:1 1 12rem}
+/* מצב ריק: אריח לילך עם הסבר. */
+.empty,.detail-empty{background:var(--tile-pale);padding:28px 16px}
+.empty svg,.detail-empty svg{width:36px;height:36px;stroke-width:1.2}
+
+/* ---------- הגדרות ומפה (10-02) ---------- */
+.set-hd{background:var(--bg);border:1.5px solid var(--tile-edge);border-bottom:0;border-radius:0}
+.set-ttl{font-weight:200;font-size:2.2rem;line-height:1}
+.set-body{background:var(--bg);border:1.5px solid var(--tile-edge);border-top:0;border-radius:0}
+.seg{border-radius:0;border:1.5px solid var(--tile-edge);background:var(--bg)}
+.seg button[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
+.seg button:hover:not([aria-pressed="true"]){background:var(--tile-pale)}
+.set-body #themeBtn{border:1.5px solid var(--tile-edge);border-radius:0;background:var(--tile-pale);color:var(--ink)}
+.set-body #themeBtn[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
+.set-row-lbl{color:var(--ink-2)}
+/* המפה: הידית של הגיליון נשארת (אפורדנס גרירה); תמונות הרשימה מרובעות.
+   סמני Leaflet ועיגולי הפוקוס שלהם נשארים עגולים — הם מידע גיאוגרפי. */
+.rail-thumb{border-radius:0}
+
+/* ---------- תיקוני finish review (10-03) ---------- */
+/* "הטיול במבט": בטלפון 2×2, כך שתאריך ותווית לא נשברים; ארבע עמודות רק
+   כשיש רוחב. קישורי הממשלה זה לצד זה בטלפון, רבע-רבע בדסקטופ. */
+.mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.mgrid .mt-s2{grid-column:span 1}
+.mgrid .mt-v{white-space:nowrap}
+@media (min-width:40rem){
+  .mgrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .mgrid .mt-s2{grid-column:span 2}
+}
+@media (max-width:20rem){.mgrid .mt-s2{grid-column:1 / -1}.mgrid .mt-v{white-space:normal}}
+/* פיבוט: רווח ברור בין המילים, ומילה מציצה שנחתכת בקצה. */
+/* הרווח נמדד מגודל המילים עצמן (em של ה-h1), לא מגודל הטקסט של הקונטיינר;
+   והגודל גבוה מספיק כדי שבטלפון המילה המציצה תיחתך בקצה המסך. */
+.pivot{gap:0}
+.pivot-on{margin-inline-end:.45em}
+/* 1.1em ולא 1.6em: בטלפון נשארים ~110px למילה המציצה — מספיק לאזור לחיצה
+   ולטבעת, והיא נחתכת בקצה במקום לרדת לשורה שנייה. */
+.pivot-peek{flex:1 1 0;min-width:1.1em;max-width:max-content}  /* basis 0: ההחלטה לשבור שורה נמדדת מ-min-width ולא מרוחב המילה */
+/* position:relative — אחרת ה-span הסמוי (absolute) בכפתור בורח מה-overflow של הפיבוט ויוצר גלילה אופקית. */
+.pivot,.pivot-peek{position:relative}
+.pivot-on,.pivot-peek{font-size:clamp(2.4rem,24vw,7rem)}
+/* דגל "גשם כבד צפוי": אריח חציל וטקסט ענבר (7.41). במצב כהה האריח
+   לבנדר, והטקסט עובר לחום כהה. */
+:root{--risk-ink:#e2b01c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--risk-ink:#453200}}
+:root[data-theme="dark"]{--risk-ink:#453200}
+.tilegrid>li .tile.tile--risk{background:var(--tile-dark);color:var(--on-tile-dark)}
+.tile--risk .tile-idx,.tile--risk .tile-nm,.tile--risk .tile-cnt{color:var(--on-tile-dark)}
+.tile-risk{margin-top:4px;font-family:var(--f-ui);font-size:.8rem;font-weight:700;color:var(--risk-ink)}
+/* אריח אחרון בודד ברשת דו-טורית נמתח לרוחב מלא — היררכיית גדלים, כמו
+   "05" במוקאפ. */
+.tilegrid>li:last-child:nth-child(odd){grid-column:1 / -1}
+.topics>.topic:last-child:nth-child(odd){grid-column:1 / -1}
+/* רצועת מזג האוויר בתחנה: אריחים עם אחוז גדול במקום פסי התקדמות ירוקים. */
+.wx-rows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.wx-row{display:flex;flex-direction:column;justify-content:space-between;gap:6px;padding:10px 12px;
+  background:var(--tile);border:1.5px solid var(--tile-edge);min-height:6.5rem}
+.wx-row .wx-bar{display:none}
+.wx-row .wx-pct{order:-1;font-family:var(--f-display);font-size:2rem;font-weight:300;line-height:1}
+.wx-row .wx-lab b{font-weight:600}
+@media (max-width:24rem){.wx-rows{grid-template-columns:1fr}}
+/* ההתאמה: בלי ירוק/חום/אדום מחוץ לעולם. הצורה (מלא / חצי / חלול) והאחוז
+   נושאים את המידע; הצבע הוא דיו. */
+.feas,.feas.good,.feas.fair,.feas.poor,.wx-row .wx-pct{color:var(--ink)}
+.tile--risk .feas{color:var(--on-tile-dark)}
+/* אריח תחנה רחב: המספר מיושר להתחלה כמו בשאר האריחים. */
+.tile-ph{display:block;text-align:start}
+.tr-ticket-dot{border-color:var(--tile-edge);box-shadow:0 0 0 3px var(--tile),0 0 0 4.5px var(--tile-edge)}
+/* .tile-idx הוא display:grid במקור (place-items:center), ולכן באריח רחב
+   המספר מורכז. block + fit-content מצמידים אותו להתחלה בכל רוחב. */
+.tile-idx{display:block;width:fit-content}
+/* צבע תחנה נשאר במפה. בכרטיסים ובמעברים הריבוע הוא שזיף — בלי אדום
+   וזית מחוץ לעולם. */
+.dotc,.tr-ticket-dot{background:var(--tile-edge)}
+.tr-verify{background:var(--tile-dark);color:var(--on-tile-dark);border:0}
+/* בתוך תחנה ההקשר (תחנה + קטגוריה) כבר ידוע מהלשונית. */
+.cat-panel .rcard-where{display:none}
+/* רשימת התחנות בדסקטופ: מסגרת במקום פס צד צבעוני. */
+.rail-item[aria-current="page"]::before{display:none}
+.rail-item[aria-current="page"]{border:1.5px solid var(--tile-edge)}
+/* מעברים: נקודת העלייה היא קטע בתוך הכרטיס, לא כרטיס בתוך כרטיס. */
+.tr-board{background:none;border-top:1.5px solid var(--tile-edge);border-radius:0;padding:8px 0 0}
+/* דסקטופ: ספירה אחת בכותרת; פס הטיול לא מכפיל אותה. */
+.tb-count{display:none}
+/* "קרוב אליך" בבית: מיושר לעמודת האריחים, בלי קו מפריד ועזרה דהויה. */
+.home-near .near-body{padding:0;overflow:visible}
+.home-near .near-pick{border-top:0;padding-top:0}
+.home-near .near-hint{color:var(--ink-2)}
+/* ---------- ניגודיות מוגברת (בסוף השכבה בכוונה) ---------- */
+/* משקלים 100–300 הם זהות השפה, אבל למי שביקש ניגודיות מוגברת הם עולים
+   ל-400; Bold Text של iOS אינו חל על גופני רשת, וזה הפיצוי היחיד. הבלוק
+   חייב להיות אחרון: כלל באותה ספציפיות שמופיע אחריו דורס אותו (סקירת
+   נגישות 10-02, ממצא 1). */
+@media (prefers-contrast:more){
+  :root{--peek:var(--ink-3)}
+  .mt-v,.mt-v-sm,.mt-big,.near-dist,.countdown b,.tile-idx,.pivot-on,.pivot-peek,.hero-name,.tile-nm,.pcard-name,
+  .sec-label,.region-hd,.sec-head,.sheet-ttl,.set-ttl,.ttl-en,.sheet-what,.whybox div,.dishbox .dish-hd strong,
+  .fxline,.fact b,.fact .fact-v,.topic-n,.near-st-n,.dfacts .feas,.wx-row .wx-pct{font-weight:400}
+}
+/* ---------- טבעת פוקוס אחידה (גוברת על ריחוף) ---------- */
+.tile:focus-visible,.near-st:focus-visible,.topic:focus-visible,.tr-link:focus-visible,
+.seg button:focus-visible,.set-body #themeBtn:focus-visible,.pcard:focus-visible,.rcard:focus-visible{
+  outline:3px solid var(--ink);outline-offset:2px;border-radius:0}
+.seg button:focus-visible{position:relative;z-index:1;outline-offset:-3px}
+/* כפתור מקטע לחוץ: הטבעת בצבע הדיו נבלעה ברקע החציל (1.2:1). כאן היא
+   בצבע הטקסט של האריח הכהה — 14.88 (סקירה מלאה 10-03, ממצא 2). */
+.seg button[aria-pressed="true"]:focus-visible{outline-color:var(--on-tile-dark);outline-offset:-5px}
+.home-near .near-row:focus-visible,.btn-near:focus-visible,.cat-tab:focus-visible,.backbtn:focus-visible,
+.oflink:focus-visible,.closebtn:focus-visible,.ttl-copy:focus-visible,.fav:focus-visible,.tab:focus-visible,
+.bnav:focus-visible,.pivot-peek:focus-visible{outline:3px solid var(--ink);border-radius:0}
+.tab:focus-visible,.bnav:focus-visible,.cat-tab:focus-visible{outline-offset:-3px}
+/* ה-h1 של הפיבוט יושב בקונטיינר עם overflow:hidden — הטבעת פנימה. */
+.pivot-on:focus-visible{outline-offset:-3px}
+/* כותרות המקטע בדיאלוג הן h3 (ניווט לפי כותרות), באותו מראה. */
+.whybox-h,.dlog-k,.dish-hd{margin:0;font-family:var(--f-ui);font-size:.8rem;font-weight:600;line-height:1.4}
+.whybox-h{color:var(--ink);margin-bottom:2px}
+.near-status{margin:0 0 6px;font-size:.9rem;color:var(--ink-2)}
+.near-status:empty{display:none}
+.near-status:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+/* ניגודיות גבוהה של Windows: כפתורים בלי מסגרת ומילת הפיבוט מקבלים גבול
+   וקו תחתון, אחרת הם נראים כטקסט (ממצאים 5, 11). */
+@media (forced-colors:active){
+  .btn-near,.lbtn,.qbtn,.oflink,.backbtn,.pivot-peek,.mt-link{border:1px solid ButtonText}
+  .pivot-peek{text-decoration:underline}
+  .set-body #themeBtn[aria-pressed="true"],.seg button[aria-pressed="true"]{outline:3px solid Highlight}
+}
+/* 320px@200%: שורת הפעולות בפירוט יורדת לעמודה אחת, כמו רשת העובדות. */
+@media (max-width:22rem){.linkrow{grid-template-columns:1fr}}
+</style>
 <style>
 html.splash-on,html.splash-on body{overflow:hidden}
 #splash{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;overflow:hidden;opacity:1;transition:opacity .5s ease}
@@ -1497,12 +1959,22 @@ var T={
   searchPh:{he:"מה מחפשים? מסעדה, שוק, פעילות, מלון…",en:"Restaurant, market, activity, hotel…"},
   clear:{he:"נקה חיפוש",en:"Clear search"},
   navStations:{he:"תחנות",en:"Stations"},
+  navHome:{he:"בית",en:"Home"},
   navMap:{he:"מפה",en:"Map"},
   mapRegion:{he:"מפת התחנות",en:"Map of the stops"},
   zoomIn:{he:"התקרבות",en:"Zoom in"},
   zoomOut:{he:"התרחקות",en:"Zoom out"},
   homeTitle:{he:"ויאטנם 2026 — מסך הבית",en:"Vietnam 2026 — Home"},
   atAGlance:{he:"הטיול במבט",en:"Trip at a glance"},
+  modeNow:{he:"עכשיו",en:"Now"},
+  modePlan:{he:"תכנון",en:"Plan"},
+  modeGo:{he:" — מעבר למצב",en:" — switch view"},
+  modeSaid:{he:"עברת למצב %s",en:"Switched to %s"},
+  nearYou:{he:"קרוב אליך",en:"Near you"},
+  countdownK:{he:"ספירה לאחור",en:"Countdown"},
+  fxSpoken:{he:"דולר אחד שווה %i שקלים. שקל אחד שווה %v דונג.",en:"One dollar is %i shekels. One shekel is %v dong."},
+  officialK:{he:"לפני הטיסה",en:"Before you fly"},
+  planSub:{he:"%n תחנות · %p",en:"%n stations · %p"},
   departs:{he:"יציאה",en:"Departs"},
   returns:{he:"חזרה",en:"Returns"},
   nights:{he:"לילות",en:"Nights"},
@@ -1631,6 +2103,18 @@ var T={
   actions:{he:"פעולות למקום הזה",en:"Actions for this place"},
   videos:{he:"סרטונים",en:"Videos"},
   whyHere:{he:"למה זה נכנס למאגר",en:"Why it made the list"},
+  dPrice:{he:"מחיר",en:"Price"},
+  keyFacts:{he:"עובדות",en:"Key facts"},
+  wxRisk:{he:"גשם כבד צפוי",en:"Heavy rain likely"},
+  nowK:{he:"מצב עכשיו",en:"Right now"},
+  openUntil:{he:"פתוח עד %s",en:"Open until %s"},
+  closedOpens:{he:"סגור · נפתח ב-%s",en:"Closed · opens %s"},
+  distK:{he:"מרחק",en:"Distance"},
+  dTier:{he:"דירוג",en:"Rating"},
+  dFit:{he:"התאמה למזג האוויר",en:"Weather fit"},
+  dLimit:{he:"מגבלה: %s",en:"Limited by: %s"},
+  surveyLog:{he:"יומן סקר",en:"Survey log"},
+  locExact:{he:"מיקום מדויק",en:"Exact location"},
   hoursLabel:{he:"שעות פתיחה",en:"Opening hours"},
   /* המקף נראה אבל אינו נשמע: ברמת הפיסוק שהיא ברירת המחדל, קוראי מסך
      מדלגים עליו, והטווח מוכרז "08:00 17:00" — שתי שעות בלי קשר מוצהר. */
@@ -2000,6 +2484,21 @@ function recWhy(r){  return heField(r,"why")  || r.why; }
 function recArea(r){ return heField(r,"area") || r.area; }
 function recName(r){ return heField(r,"name") || r.name; }
 function recHours(r){ return heField(r,"hours") || r.hours || null; }
+/* "פתוח עכשיו" רק כשהשעות הן טווח יומי יחיד וחד-משמעי ("07:00-22:00 daily").
+   השעות במאגר הן טקסט חופשי — עונות, ימים סגורים, הפסקות — ולכן כל מחרוזת
+   אחרת מחזירה null והמסך מציג את השעות עצמן בלי לנחש. זמן מקומי של
+   ויאטנם (UTC+7), כי הבדיקה רלוונטית שם ולא בשעון של המכשיר. */
+function openNow(r){
+  var h=r.hours; if(!h) return null;
+  var m=/^\s*(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})\s*(daily|every day)?\s*$/i.exec(h);
+  if(!m) return null;
+  var a=(+m[1])*60+(+m[2]), b=(+m[3])*60+(+m[4]);
+  if(b<=a) return null;                       /* חצות ומעבר לה — לא מנחשים */
+  var d=new Date(), vn=(d.getUTCHours()*60+d.getUTCMinutes()+7*60)%1440;
+  var pad=function(x){return String(x).padStart(2,"0");};
+  var open=pad(m[1])+":"+m[2], close=pad(m[3])+":"+m[4];
+  return (vn>=a&&vn<b)?{open:true,txt:t("openUntil",{"%s":close})}:{open:false,txt:t("closedOpens",{"%s":open})};
+}
 
 /* ---------- בידוד טווחים מפני ה-bidi ----------
    נמדד בברייב לפני שנכתבה כאן שורה: בתוך dir="rtl", "08:00-17:00" עם
@@ -2827,42 +3326,77 @@ function openDetail(item){
   if(he){ bd.dir="rtl"; bd.lang="he"; }
   function txt(tag,cls,s){ var n=el(tag,cls,s); if(!he) en2(n); return n; }
   if(recArea(r)) bd.appendChild(txt("div","sheet-where",recArea(r)));
-  /* שעות פתיחה. שורה משלה ולא צ'יפ ב-.factrow: המחרוזת מגיעה ל-40 תווים
-     והיא משפט, לא תג, ובשורת הצ'יפים היא הייתה נדחסת בין הכוכבים למחיר.
-     היא יושבת עם עובדות ההתמצאות (איפה זה, מתי זה) ולפני התיאור.
-     התווית ב-.sr ולא ב-aria-label: ל-<p> אין role, הוא ממופה ל-generic,
-     ו-aria-label אסור על generic — חלק מהמנועים מתעלמים וחלק מחליפים בו
-     את תוכן הטקסט. המפריד נכנס לתוך ה-.sr עצמו, כי .sr הוא
-     position:absolute ואין רווח מרונדר בין התווית לערך. */
-  var hoursStr=recHours(r);
-  if(hoursStr){
-    var hrow=el("p","sheet-hours");
-    hrow.appendChild(icon("clock"));
-    /* lang מפורש: cardIsHe תלוי ב-whatHe, ולכן יש כרטיסים שבהם הממשק
-       עברי אבל bd נושא lang="en" — ושם תווית עברית בלי תיוג נהגית
-       בפונמות אנגליות. */
-    var hlbl=el("span","sr",t("hoursLabel")+": ");
-    hlbl.lang=isHe()?"he":"en";
-    hrow.appendChild(hlbl);
-    var hval=el("span","hours-v");
-    hval.appendChild(hoursNodes(hoursStr));
-    if(!heField(r,"hours")) en2(hval);   /* אין תאום — המחרוזת אנגלית */
-    hrow.appendChild(hval);
-    bd.appendChild(hrow);
-  }
-  bd.appendChild(txt("p","sheet-what",recWhat(r)));
-
-  /* תצלום של המקום עצמו, היכן שנמצא אחד חופשי שבאמת מראה אותו. */
+  /* פאזה 10: התמונה ראשונה, אחריה רשת אריחי עובדות — שעות, מחיר, דירוג,
+     התאמה — ורק אז הטקסט. בשטח העובדות הן מה שמחפשים; התיאור לערב. */
   var pp=poiPhotoFor(r,st,item.cat);
   if(pp) bd.appendChild(figureFor(pp,pp.altHe,pp.altEn));
 
-  /* ובאוכל רחוב — המנה. תצלום של דוכן אי אפשר להשיג חופשי, ותצלום של
-     המנה דווקא כן; וההסבר על המאכל הוא מה שקורא שלא אכל ויאטנמית
-     מעולם באמת צריך. */
+  var df=el("ul","dfacts"); df.setAttribute("role","list");
+  df.setAttribute("aria-label",t("keyFacts"));
+  function fact(k,valNode,note,cls){
+    var li=el("li","mt"+(cls?" "+cls:"")); li.setAttribute("role","listitem");
+    var kk=el("span","mt-k",k); kk.lang=isHe()?"he":"en"; li.appendChild(kk);
+    var v=el("span","mt-v mt-v-sm"); v.appendChild(valNode); li.appendChild(v);
+    if(note){ var nn=el("span","mt-note",note); nn.lang=isHe()?"he":"en"; li.appendChild(nn); }
+    df.appendChild(li); return li;
+  }
+  var on=openNow(r);
+  if(on){
+    var sv=el("span","now-v");
+    var mk=el("i","mark"+(on.open?" mark--on":"")); mk.setAttribute("aria-hidden","true");
+    sv.appendChild(mk); sv.appendChild(document.createTextNode(on.txt));
+    var nowLi=fact(t("nowK"),sv,null,"mt-dark");
+  }
+  if(geo&&(geo.state==="ok"||geo.state==="manual")&&r.lat!=null){
+    var og=geo.state==="manual"&&POI_DATA[geo.manual]?POI_DATA[geo.manual]:geo;
+    if(og&&og.lat!=null){
+      var km=haversine(og.lat,og.lng,r.lat,r.lng);
+      var dv=document.createElement("bdi"); dv.textContent=fmtDist(km,false);
+      fact(t("distK"),dv,null,"mt-pale");
+    }
+  }
+  /* בלי אריח מרחק לצדו, "מצב עכשיו" היה נשאר חצי שורה יתומה. */
+  if(typeof nowLi!=="undefined"&&nowLi&&df.childNodes.length===1) nowLi.classList.add("mt-s4");
+  var hoursStr=recHours(r);
+  if(hoursStr){
+    var hv=el("span","hours-v");
+    hv.appendChild(hoursNodes(hoursStr));
+    if(!heField(r,"hours")) en2(hv);   /* אין תאום — המחרוזת אנגלית */
+    /* מחרוזת שעות ארוכה (חורף/קיץ) נדחסת בחצי רוחב — אז היא לוקחת שורה שלמה. */
+    fact(t("hoursLabel"),hv,null,"mt-pale"+(hoursStr.length>16?" mt-s4":""));
+  }
+  var ct2=costNodes(r);
+  if(ct2){
+    var mny=el("span","money"+(r.priceUnit==="free"?" is-free":""));
+    mny.appendChild(ct2);
+    fact(t("dPrice"),mny,r.priceChecked?t("checked")+" "+r.priceChecked:null);
+  }
+  if(r.tier){
+    var s5=el("span","stars","★".repeat(r.tier)+"☆".repeat(5-r.tier));
+    s5.setAttribute("role","img");
+    /* "דירוג עצמי" מוצג כהערה גלויה באותו אריח — בלי כפילות בתווית. */
+    s5.setAttribute("aria-label",t("stars5",{"%n":r.tier}));
+    fact(t("dTier"),s5,r.tierOfficial===false?t("selfRated"):null,"mt-pale");
+  }
+  var fe2=feasibility(r,item.cat,st);
+  if(fe2){
+    var fv=el("span","feas "+feasBand(fe2.pct),fe2.pct+"%");
+    fact(t("dFit"),fv,t("dLimit",{"%s":t("lim_"+fe2.limiter)}));
+  }
+  var sg2=SIGNAL[r.signal];
+  if(sg2||r.avoid){
+    var fr2=el("div","factrow");
+    if(sg2) fr2.appendChild(el("span","sig "+sg2.cls,isHe()?sg2.he:sg2.en));
+    if(r.avoid) fr2.appendChild(el("span","warn",t("avoid")));
+    bd.appendChild(fr2);
+  }
+  if(df.childNodes.length) bd.appendChild(df);
+  bd.appendChild(txt("p","sheet-what",recWhat(r)));
+
   var dd=dishFor(r);
   if(dd){
     var box=el("div","dishbox");
-    var hdd=el("p","dish-hd");
+    var hdd=el("h3","dish-hd");
     hdd.appendChild(document.createTextNode(t("dishHere")+": "));
     var nm=el("strong",null,isHe()?dd.he:dd.en);
     hdd.appendChild(nm);
@@ -2877,34 +3411,10 @@ function openDetail(item){
   }
   if(recWhy(r)){
     var wb=el("div","whybox");
-    wb.appendChild(el("b",null,t("whyHere")));
+    wb.appendChild(el("h3","whybox-h",t("whyHere")));
     wb.appendChild(txt("div",null,recWhy(r)));
     bd.appendChild(wb);
   }
-  var facts=el("div","factrow");
-  var sg2=SIGNAL[r.signal];
-  if(sg2) facts.appendChild(el("span","sig "+sg2.cls,isHe()?sg2.he:sg2.en));
-  if(r.tier){
-    var s=el("span","stars","★".repeat(r.tier)+"☆".repeat(5-r.tier));
-    s.setAttribute("role","img");
-    s.setAttribute("aria-label",t("stars5",{"%n":r.tier})+(r.tierOfficial===false?", "+t("selfRated"):""));
-    facts.appendChild(s);
-    if(r.tierOfficial===false) facts.appendChild(el("span",null,t("selfRated")));
-  }
-  var ct2=costNodes(r);
-  if(ct2){
-    var mny=el("span","money"+(r.priceUnit==="free"?" is-free":""));
-    mny.appendChild(ct2);
-    facts.appendChild(mny);
-    if(r.priceChecked) facts.appendChild(el("span",null,t("checked")+" "+r.priceChecked));
-  }
-  if(r.avoid) facts.appendChild(el("span","warn",t("avoid")));
-  if(r.approx) facts.appendChild(el("span",null,t("approx")));
-  if(r.lat==null) facts.appendChild(el("span",null,t("noCoords")));
-  if(facts.childNodes.length) bd.appendChild(facts);
-
-  /* רשימה ולא div שטוחה: עם Grab ו-Booking יש כאן עד חמש פעולות,
-     וקורא מסך צריך לדעת כמה הן וגם לדלג עליהן. */
   var lr=el("ul","linkrow");
   lr.setAttribute("aria-label",t("actions"));
   /* list-style:none גורם ל-WebKit להפסיק להכריז רשימה ולספור פריטים.
@@ -2953,6 +3463,10 @@ function openDetail(item){
   if(r.whatsapp) act(lbtn("act-chat wa-link","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
   bd.appendChild(lr);
 
+  /* יומן סקר: מאיפה זה בא ועד כמה המיקום אמין — המנגנון שמבדיל את
+     המדריך מפיד המלצות (PRODUCT.md), באריח אחד בסוף. */
+  var lg=el("div","dlog");
+  lg.appendChild(el("h3","dlog-k",t("surveyLog")));
   if((r.sources||[]).length){
     var sl=el("div","srcline");
     sl.appendChild(el("span",null,t("sources")));
@@ -2965,8 +3479,11 @@ function openDetail(item){
       a.appendChild(el("span","sr",t("newTab")));
       sl.appendChild(a);
     });
-    bd.appendChild(sl);
+    lg.appendChild(sl);
   }
+  var locNote=r.lat==null?t("noCoords"):(r.approx?t("approx"):t("locExact"));
+  lg.appendChild(el("p","dlog-loc",locNote));
+  bd.appendChild(lg);
   sh.appendChild(bd);
   dlg.appendChild(sh);
   dlg.showModal();
@@ -3127,12 +3644,12 @@ function poiCard(item,cls){
   var card=el("div",cls||"pcard");
   card.style.setProperty("--stationcolor",stColor(st));
 
+  var wr=null;
   if(cls==="rcard"){
-    var wr=el("div","rcard-where");
+    wr=el("div","rcard-where");
     var dt=el("span","dotc"); dt.style.setProperty("--stationcolor",stColor(st));
     wr.appendChild(dt);
     wr.appendChild(document.createTextNode(stName(st)+" · "+catName(CAT_BY[item.cat])));
-    card.appendChild(wr);
   }
   /* הכרטיס עוקב אחרי שפת התוכן שלו, לא אחרי שפת הממשק —
      טקסט אנגלי בכרטיס RTL שובר את הפיסוק. */
@@ -3149,6 +3666,8 @@ function poiCard(item,cls){
   open.appendChild(nm);
   open.addEventListener("click",function(){openDetail(item);});
   h.appendChild(open); card.appendChild(h);
+  /* שורת ההקשר (תחנה · קטגוריה) מתחת לשם ולא מעליו (finish review 10-03). */
+  if(wr) card.appendChild(wr);
 
   var why=el("div","pcard-why");
   if(!he) en2(why);
@@ -3573,6 +4092,13 @@ function tileFor(st){
     tx.appendChild(lat);
   }
   tx.appendChild(el("div","tile-cnt",placesN(total(st))));
+  /* דגל ענבר רק מנתון אמיתי: התאמה לפעילות חוץ "גרועה" לפי הגשם בחלון הטיול
+     (אותו feasScore כמו רצועת מזג האוויר בתחנה). */
+  var wxs=(typeof weatherFor==="function")?weatherFor(st):null;
+  if(wxs&&feasBand(feasScore(loadFor(wxs,"rain")||0,"high"))==="poor"){
+    a.classList.add("tile--risk");
+    tx.appendChild(el("div","tile-risk",t("wxRisk")));
+  }
   a.appendChild(tx);
   /* **בלי aria-label.** הוא היה מחרוזת שטוחה שדרסה את ה-span בעל
      lang="vi", כך שקורא מסך הגה "Hội An" בפונמות עבריות — בדיוק הבאג
@@ -3582,50 +4108,163 @@ function tileFor(st){
      שמות התחנות אינם כותרות: 14 כותרות במסך אחד מציפות את הרוטור. */
   li.appendChild(a); return li;
 }
-function screenHome(){
-  exitMapMode();
-  main.textContent="";
-  /* h1 סמוי: הכותרת הסגולה נושאת מותג וספירה, לא שם מסך — ובלי
-     screenHeading מתויג כל ניווט הביתה נוחת ב-main בלי הקשר. */
-  main.appendChild(screenTitle(t("homeTitle"),"sr"));
-  setDocTitle(null);
-
-  main.appendChild(secLabel(t("atAGlance")));
-  var ig=el("ul","infogrid"); ig.setAttribute("role","list");
+/* ============ מסך הבית: "עכשיו" ו"תכנון" ============
+   פאזה 10. שני מצבים לשתי הסצנות של PRODUCT.md: ברחוב (מה קרוב, מתי
+   יוצאים, שערים, קישורי ויזה) ובערב (כל התחנות לפי אזור). המצב נשמר
+   ב-localStorage; בלי גישה אליו נופלים בשקט ל"עכשיו". */
+var HOME_MODE_KEY="homeMode";
+function homeMode(){
+  try{ return localStorage.getItem(HOME_MODE_KEY)==="plan"?"plan":"now"; }catch(e){ return "now"; }
+}
+function setHomeMode(m){
+  try{ localStorage.setItem(HOME_MODE_KEY,m); }catch(e){}
+}
+/* כותרת פיבוט: המילה הפעילה היא ה-h1 של המסך, והשנייה מציצה בסופה
+   ככפתור. החיתוך בצד הסוף בלבד, כך שתחילת המילה הפעילה תמיד שלמה. */
+function pivotHead(active,other,onOther,refocus){
+  var w=el("div","pivot");
+  w.appendChild(screenTitle(active,"pivot-on"));
+  if(other){
+    /* השם הנגיש מתחיל בטקסט הגלוי (2.5.3): Voice Control באייפון מזהה
+       את תחילת התווית. ההקשר נשמע לקורא מסך בלבד. */
+    var b=el("button","pivot-peek",other); b.type="button";
+    b.appendChild(el("span","sr",t("modeGo")));
+    if(refocus) b.setAttribute("data-refocus",refocus);
+    b.addEventListener("click",onOther);
+    w.appendChild(b);
+  }
+  return w;
+}
+function tileEl(tag,cls,k,v){
+  var d=el(tag,"mt"+(cls?" "+cls:""));
+  if(k) d.appendChild(el("span","mt-k",k));
+  if(v!=null) d.appendChild(el("span","mt-v",v));
+  return d;
+}
+function homeNow(){
   var loc=isHe()?"he-IL":"en-GB", dMY={day:"numeric",month:"short"};
   var nights=Math.round((TRIP.back-TRIP.depart)/864e5);
-  ig.appendChild(infoCard(t("departs"),TRIP.depart.toLocaleDateString(loc,dMY),
-    (function(){var d=el("div","t");var e=el("span","en","TLV → AUH → HAN");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("Etihad EY600"));return d;})()));
-  ig.appendChild(infoCard(t("returns"),TRIP.back.toLocaleDateString(loc,dMY),
-    (function(){var d=el("div","t");var e=el("span","en","HAN → AUH → TLV");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("EY431"));return d;})()));
-  ig.appendChild(infoCard(t("nights"),String(nights),el("div","t",t("nightsNote"))));
-  ig.appendChild(infoCard(t("poolCount"),String(INDEX.length),el("div","t",t("poolNote",{"%n":String(STATIONS.length)}))));
-  var fx=el("div","fxrow");
-  ["$1 = ₪"+RATES.ILS.toFixed(2),"₪1 = ₫"+Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US")]
-    .forEach(function(x){var b=document.createElement("bdi");b.textContent=x;fx.appendChild(b);});
-  ig.appendChild(infoCard(t("fxRate"),null,fx,true));
+
+  /* ספירה לאחור — אותו חישוב כמו הכרום, בלי id שני */
+  var cd=countdownLeft();
+  var cdt=el("div","mt mt-dark mt-count");
+  cdt.appendChild(el("span","mt-k",t("countdownK")));
+  var row=el("div","mt-countrow");
+  if(cd.left>0){
+    /* ההכרזה המלאה מיד אחרי התווית, לפני טווח התאריכים (1.3.2). */
+    cdt.appendChild(el("span","sr",t("daysToGoSr",{"%n":String(cd.left)})));
+    var n=el("span","mt-big",String(cd.left)); n.setAttribute("aria-hidden","true");
+    row.appendChild(n);
+    var side=el("span","mt-side");
+    var sv=el("span",null,t("daysToGo")); sv.setAttribute("aria-hidden","true"); side.appendChild(sv);
+    var dr=document.createElement("bdi"); dr.textContent=TRIP.depart.toLocaleDateString(loc,dMY)+" – "+TRIP.back.toLocaleDateString(loc,dMY);
+    side.appendChild(dr);
+    row.appendChild(side);
+  }else{
+    row.appendChild(el("span","mt-side",cd.today>TRIP.back?t("tripDone"):t("tripNow")));
+  }
+  cdt.appendChild(row);
+  main.appendChild(cdt);
+
+  main.appendChild(secLabel(t("atAGlance")));
+  var ig=el("ul","mgrid"); ig.setAttribute("role","list");
+  /* תאריך מספרי באריח: "26 באוק׳" לא נכנס לרבע רוחב בלי להישבר באמצע
+     מילה. הטווח המילולי נשאר באריח הספירה. */
+  var dNum={day:"numeric",month:"numeric"};
+  [[t("departs"),TRIP.depart.toLocaleDateString(loc,dNum)],
+   [t("returns"),TRIP.back.toLocaleDateString(loc,dNum)],
+   [t("nights"),String(nights)],
+   [t("poolCount"),String(INDEX.length)]].forEach(function(p){
+    var li=tileEl("li","mt-pale",p[0],p[1]); li.setAttribute("role","listitem"); ig.appendChild(li);
+  });
+  var fx=tileEl("li","mt-s4",t("fxRate"),null); fx.setAttribute("role","listitem");
+  var fr=el("span","mt-v mt-fx"); fr.setAttribute("aria-hidden","true");
+  var vndPerIls=Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US");
+  ["$1 = ₪"+RATES.ILS.toFixed(2),"₪1 = ₫"+vndPerIls]
+    .forEach(function(x){var b=document.createElement("bdi");b.textContent=x;fr.appendChild(b);});
+  fx.appendChild(fr);
+  /* VoiceOver בעברית מקריא את $ ₪ ₫ = בחוסר עקביות; הנוסחה הגלויה מוסתרת
+     ממנו והוא שומע משפט. */
+  fx.appendChild(el("span","sr",t("fxSpoken",{"%i":RATES.ILS.toFixed(2),"%v":vndPerIls})));
+  ig.appendChild(fx);
+  /* קישורי הממשלה היו מוסתרים בנייד (רק במסך "מידע"). בשטח צריך אותם
+     לפני הטיסה, ולכן הם עלו לבית כאריחים. */
+  [["passport",t("evisa"),"https://evisa.gov.vn","evisa.gov.vn"],
+   ["doc",t("prearrival"),"https://prearrival.immigration.gov.vn","immigration.gov.vn"]].forEach(function(o){
+    var li=el("li","mt-li mt-s2"); li.setAttribute("role","listitem");
+    var a=el("a","mt mt-dark mt-link"); a.href=o[2]; a.target="_blank"; a.rel="noopener noreferrer";
+    a.appendChild(icon(o[0]));
+    var tx=el("span","mt-linkt",o[1]);
+    var dom=el("span","mt-dom",o[3]); dom.lang="en"; dom.dir="ltr";
+    tx.appendChild(dom);
+    a.appendChild(tx);
+    a.appendChild(el("span","sr",t("newTab")));
+    li.appendChild(a); ig.appendChild(li);
+  });
   main.appendChild(ig);
 
+  /* "קרוב אליי" — אותו מנגנון כמו ברשימה הצדדית, על כל מצביו */
+  main.appendChild(secLabel(t("nearYou")));
+  var nb=el("div","home-near");
+  /* אותו דפוס כמו ב-rail: פסקת סטטוס גלויה היא יעד הפוקוס היציב. בין
+     "מאתר…" לתוצאה יש שתי בניות מחדש, ובלעדיה הפוקוס נפל ל-body
+     (סקירה מלאה 10-03, ממצא 1). */
+  var nst=el("p","near-status"); nst.setAttribute("data-refocus","status"); nst.tabIndex=-1;
+  function rerender(){
+    /* המשתמש עזב את הבית בזמן האיתור — לא מכריזים במסך אחר. */
+    if(!nb.isConnected) return;
+    var act=document.activeElement;
+    var tag=(act&&nb.contains(act)&&act.getAttribute)?act.getAttribute("data-refocus"):null;
+    var r=buildNearBody(rerender,"h3");
+    nb.textContent=""; nb.appendChild(nst); nb.appendChild(r.node);
+    nst.textContent=r.say||"";
+    if(r.say) say(r.say);
+    /* אותו דפוס כמו refreshRail: הפקד שנלחץ נבנה מחדש, ולכן הפוקוס חוזר
+       לפקד עם אותו תג — אחרת הוא נופל ל-body. */
+    var back=tag&&nb.querySelector('[data-refocus="'+tag+'"]');
+    if(!back&&tag) back=nst;
+    if(back) back.focus();
+  }
+  main.appendChild(nb);
+  var first=buildNearBody(rerender,"h3");
+  nb.appendChild(nst); nb.appendChild(first.node);
+  nst.textContent=first.say||"";
+}
+function homePlan(){
   GROUPS.forEach(function(g){
     var list=stationsIn(g);
     if(!list.length) return;
     var places=list.reduce(function(a,st){return a+total(st);},0);
     var sec=el("section","region");
-    /* הכותרת היא גם השם הנגיש של המקטע, ולכן aria-labelledby ולא
-       תווית כפולה. */
     var hid="reg-"+g.id;
     var hd=el("h2","region-hd"); hd.id=hid;
     hd.appendChild(document.createTextNode(groupName(g)));
     hd.appendChild(el("span","cnt",list.length+" "+t("stations")+" · "+placesN(places)));
     sec.setAttribute("aria-labelledby",hid);
     sec.appendChild(hd);
-    var body=el("div","region-body");
     var ul=el("ul","tilegrid"); ul.setAttribute("role","list");
     list.forEach(function(st){ ul.appendChild(tileFor(st)); });
-    body.appendChild(ul);
-    sec.appendChild(body);
+    sec.appendChild(ul);
     main.appendChild(sec);
   });
+}
+function screenHome(){
+  exitMapMode();
+  main.textContent="";
+  setDocTitle(null);
+  var mode=homeMode();
+  var other=mode==="now"?"plan":"now";
+  var label={now:t("modeNow"),plan:t("modePlan")};
+  main.appendChild(pivotHead(label[mode],label[other],function(){
+    setHomeMode(other);
+    screenHome();
+    var b=main.querySelector(".pivot-peek"); if(b) b.focus();
+    say(t("modeSaid",{"%s":label[other]}));
+  },"pivot"));
+  /* ה-h1 הגלוי הוא שם המצב; ההקשר (מסך הבית) נשמע לקורא מסך בלבד. */
+  var h1=main.querySelector(".pivot-on");
+  if(h1) h1.appendChild(el("span","sr"," · "+t("homeTitle")));
+  if(mode==="now") homeNow(); else homePlan();
 }
 
 function screenSplit(sel){
@@ -3664,7 +4303,7 @@ function screenMobileMap(sel){
   var sh=document.getElementById("mobSheet");
   if(!sh){
     main.textContent="";
-    main.appendChild(screenTitle(t("navStations"),"sr"));
+    main.appendChild(screenTitle(t(sel?"navStations":"navMap"),"sr"));
     sh=el("div","mob-sheet"); sh.id="mobSheet";
     sh.setAttribute("role","region");
     sh.setAttribute("aria-label",t("allStations"));
@@ -3796,28 +4435,40 @@ function nearRow(hit){
   return a;
 }
 function nearStationPicker(onPick){
+  /* פאזה 10 (בקשת אסף 11/10): רשימה גלויה של התחנות, מצפון לדרום לפי
+     אזור, במקום תפריט נפתח. בשטח זה הקשה אחת במקום שתיים, ורואים את
+     כל המסלול בבת אחת. כל אריח הוא כפתור עם aria-pressed; data-refocus
+     ייחודי לכל תחנה מחזיר את הפוקוס לאותו אריח אחרי הבנייה מחדש. */
   var box=el("div","near-pick");
-  box.appendChild(el("p","near-pick-t",t("nearPick")));
-  var lbl=el("label","sr",t("nearPickLbl")); lbl.setAttribute("for","nearSel");
-  box.appendChild(lbl);
-  var sel=document.createElement("select");
-  sel.className="near-sel"; sel.id="nearSel";
-  sel.setAttribute("data-refocus","pick");
-  var ph=document.createElement("option");
-  /* "—" מוקרא "מינוס" או מדולג. אופציית ברירת המחדל צריכה להיות מילים. */
-  ph.value=""; ph.textContent=t("nearPickLbl"); sel.appendChild(ph);
-  /* אותה הגנה כמו ב-nearestStation: תחנה בלי נ"צ הייתה מחזירה NaN,
-     והמסך היה מציג ומכריז "NaN ק״מ". */
-  STATIONS.filter(function(st){return st.lat!=null;}).forEach(function(st){
-    var o=document.createElement("option");
-    o.value=st.id; o.textContent=stName(st);
-    sel.appendChild(o);
+  var pid="nearPickT"+(++nearPickSeq);
+  var pt=el("p","near-pick-t",t("nearPick")); pt.id=pid;
+  box.appendChild(pt);
+  GROUPS.forEach(function(g){
+    /* אותה הגנה כמו ב-nearestStation: תחנה בלי נ"צ הייתה מחזירה NaN. */
+    var list=stationsIn(g).filter(function(st){return st.lat!=null;});
+    if(!list.length) return;
+    var gid=pid+"-"+g.id;
+    var lab=el("p","near-reg",groupName(g)); lab.id=gid;
+    box.appendChild(lab);
+    var ul=el("ul","near-stlist"); ul.setAttribute("role","list");
+    ul.setAttribute("aria-labelledby",gid);
+    list.forEach(function(st){
+      var li=el("li"); li.setAttribute("role","listitem");
+      var b=el("button","near-st"); b.type="button";
+      b.setAttribute("data-refocus","pick-"+st.id);
+      b.setAttribute("aria-pressed",geo.manual===st.id?"true":"false");
+      /* המספר נשאר בשם הנגיש: Voice Control באייפון — "הקש 03". */
+      var n=el("span","near-st-n",String(st.seq).padStart(2,"0")+" ");
+      b.appendChild(n);
+      b.appendChild(el("span","near-st-nm",stName(st)));
+      b.addEventListener("click",function(){ onPick(st.id); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    box.appendChild(ul);
   });
-  if(geo.manual) sel.value=geo.manual;
-  sel.addEventListener("change",function(){ if(sel.value) onPick(sel.value); });
-  box.appendChild(sel);
   return box;
 }
+var nearPickSeq=0;
 function nearButton(label,onClick,refocus){
   var b=el("button","btn-near",label);
   b.type="button";
@@ -3829,7 +4480,7 @@ function nearButton(label,onClick,refocus){
 }
 /* בונה את גוף המצב. מחזיר גם את הטקסט שיוכרז, כדי שיהיה מקור אמת
    אחד — אזור ה-live הוא אותו אלמנט גלוי, ולא #live הסמוי במקביל. */
-function buildNearBody(rerender){
+function buildNearBody(rerender,headTag){
   var box=el("div","near-body"), spoken="";
   function fallback(){
     box.appendChild(nearStationPicker(function(id){
@@ -3838,8 +4489,11 @@ function buildNearBody(rerender){
   }
   if(geo.state==="idle"){
     if(geoSupported()){
-      box.appendChild(nearButton(t("findNear"),function(){ requestGeo(rerender); },"find"));
-      box.appendChild(el("p","near-hint",t("nearHint")));
+      var fb=nearButton(t("findNear"),function(){ requestGeo(rerender); },"find");
+      var hint=el("p","near-hint",t("nearHint")); hint.id="nearHint"+(++nearPickSeq);
+      fb.setAttribute("aria-describedby",hint.id);
+      box.appendChild(fb);
+      box.appendChild(hint);
     }else{
       /* אין geolocation בהקשר הזה — בלי כפתור מת */
       box.appendChild(el("p","near-err",t("errUnavail")));
@@ -3875,7 +4529,7 @@ function buildNearBody(rerender){
   }
   if(geo.state==="manual"){
     var st=POI_DATA[geo.manual];
-    if(!st){ geo.state="idle"; return buildNearBody(rerender); }
+    if(!st){ geo.state="idle"; return buildNearBody(rerender,headTag); }
     origin={lat:st.lat,lng:st.lng};
     head=t("nearStation",{"%s":stName(st)});
   }else{
@@ -3887,7 +4541,8 @@ function buildNearBody(rerender){
     return {node:box,say:t("nearNone")};
   }
   /* היה <p> בקול התצוגה של כותרת — ניווט לפי כותרות דילג עליו. */
-  if(head) box.appendChild(el("h2","near-head",head));
+  /* בבית הכותרת היא תת-כותרת של "קרוב אליך" (h2), ולכן h3; ב-rail h2. */
+  if(head) box.appendChild(el(headTag||"h2","near-head",head));
   var list=el("div","near-list");
   list.setAttribute("role","list");
   hits.forEach(function(h){
@@ -4706,6 +5361,9 @@ function screenTopics(){
   var grid=el("div","topics");
   CATS.forEach(function(c){
     var n=INDEX.filter(function(x){return x.cat===c.id;}).length;
+    /* קטגוריה ריקה (למשל "אוכל" הוותיק, שהוחלף באוכל רחוב ומסעדות) לא
+       מוצגת: אריח מעומעם של 0 הוא רעש, לא מידע. */
+    if(!n) return;
     var b=el("button","topic"); b.type="button";
     b.appendChild(icon(c.ic,"ic-lg"));
     b.appendChild(el("span","topic-n",String(n)));
@@ -4894,10 +5552,14 @@ function render(){
   else if(r==="info")     screenInfo();
   else if(r==="transfers"){ var p=hz.split("/"); screenTransfers(p[1]||"",p[2]||""); }
   else                    screenHome();
+  /* הבית מציג את הספירה כאריח גדול, ולכן הכרום מסתיר את שלו שם בלבד. */
+  /* גם החיפוש נחשב "בית" לכרום: אחרת הקלדה ראשונה הקפיצה את פס הטיול
+     והספירה מעל השדה שבו הפוקוס (סקירה מלאה 10-03, ממצא 3). */
+  document.documentElement.setAttribute("data-route",(r==="home"||r==="search"||!r)?"home":r);
   markNav(r);
 }
 var NAV=[
-  {id:"home",  hash:"#",       ic:"grid",   key:"navStations"},
+  {id:"home",  hash:"#",       ic:"grid",   key:"navHome"},
   {id:"map",   hash:"#map",    ic:"pin",    key:"navMap"},
   {id:"topics",hash:"#topics", ic:"compass",key:"navTopics"},
   /* אותו מקום בשני הסרגלים (3.2.3) — אחרי "נושאים", לפני "שמורים". */
@@ -5040,12 +5702,16 @@ function renderChrome(){
 var TRIP={depart:new Date(2026,9,26), back:new Date(2026,10,24)};
 /* המספר לבדו קורא "34". המשפט המלא יושב ב-sr, והמונה **אינו** אזור
    live — כותרת שמכריזה בכל עדכון היא בלתי נסבלת. */
+/* מקור אמת אחד לספירה: הכרום והאריח בבית קוראים את אותו חישוב. */
+function countdownLeft(){
+  var today=new Date(); today.setHours(0,0,0,0);
+  return {left:Math.round((TRIP.depart-today)/864e5),today:today};
+}
 function renderCountdown(){
   var box=document.getElementById("countdown");
   if(!box) return;
   box.textContent="";
-  var today=new Date(); today.setHours(0,0,0,0);
-  var left=Math.round((TRIP.depart-today)/864e5);
+  var cd=countdownLeft(), today=cd.today, left=cd.left;
   if(left>0){
     var vis=el("span"); vis.setAttribute("aria-hidden","true");
     vis.appendChild(el("b",null,String(left)));

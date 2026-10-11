@@ -72,12 +72,22 @@ var T={
   searchPh:{he:"מה מחפשים? מסעדה, שוק, פעילות, מלון…",en:"Restaurant, market, activity, hotel…"},
   clear:{he:"נקה חיפוש",en:"Clear search"},
   navStations:{he:"תחנות",en:"Stations"},
+  navHome:{he:"בית",en:"Home"},
   navMap:{he:"מפה",en:"Map"},
   mapRegion:{he:"מפת התחנות",en:"Map of the stops"},
   zoomIn:{he:"התקרבות",en:"Zoom in"},
   zoomOut:{he:"התרחקות",en:"Zoom out"},
   homeTitle:{he:"ויאטנם 2026 — מסך הבית",en:"Vietnam 2026 — Home"},
   atAGlance:{he:"הטיול במבט",en:"Trip at a glance"},
+  modeNow:{he:"עכשיו",en:"Now"},
+  modePlan:{he:"תכנון",en:"Plan"},
+  modeGo:{he:" — מעבר למצב",en:" — switch view"},
+  modeSaid:{he:"עברת למצב %s",en:"Switched to %s"},
+  nearYou:{he:"קרוב אליך",en:"Near you"},
+  countdownK:{he:"ספירה לאחור",en:"Countdown"},
+  fxSpoken:{he:"דולר אחד שווה %i שקלים. שקל אחד שווה %v דונג.",en:"One dollar is %i shekels. One shekel is %v dong."},
+  officialK:{he:"לפני הטיסה",en:"Before you fly"},
+  planSub:{he:"%n תחנות · %p",en:"%n stations · %p"},
   departs:{he:"יציאה",en:"Departs"},
   returns:{he:"חזרה",en:"Returns"},
   nights:{he:"לילות",en:"Nights"},
@@ -206,6 +216,18 @@ var T={
   actions:{he:"פעולות למקום הזה",en:"Actions for this place"},
   videos:{he:"סרטונים",en:"Videos"},
   whyHere:{he:"למה זה נכנס למאגר",en:"Why it made the list"},
+  dPrice:{he:"מחיר",en:"Price"},
+  keyFacts:{he:"עובדות",en:"Key facts"},
+  wxRisk:{he:"גשם כבד צפוי",en:"Heavy rain likely"},
+  nowK:{he:"מצב עכשיו",en:"Right now"},
+  openUntil:{he:"פתוח עד %s",en:"Open until %s"},
+  closedOpens:{he:"סגור · נפתח ב-%s",en:"Closed · opens %s"},
+  distK:{he:"מרחק",en:"Distance"},
+  dTier:{he:"דירוג",en:"Rating"},
+  dFit:{he:"התאמה למזג האוויר",en:"Weather fit"},
+  dLimit:{he:"מגבלה: %s",en:"Limited by: %s"},
+  surveyLog:{he:"יומן סקר",en:"Survey log"},
+  locExact:{he:"מיקום מדויק",en:"Exact location"},
   hoursLabel:{he:"שעות פתיחה",en:"Opening hours"},
   /* המקף נראה אבל אינו נשמע: ברמת הפיסוק שהיא ברירת המחדל, קוראי מסך
      מדלגים עליו, והטווח מוכרז "08:00 17:00" — שתי שעות בלי קשר מוצהר. */
@@ -575,6 +597,21 @@ function recWhy(r){  return heField(r,"why")  || r.why; }
 function recArea(r){ return heField(r,"area") || r.area; }
 function recName(r){ return heField(r,"name") || r.name; }
 function recHours(r){ return heField(r,"hours") || r.hours || null; }
+/* "פתוח עכשיו" רק כשהשעות הן טווח יומי יחיד וחד-משמעי ("07:00-22:00 daily").
+   השעות במאגר הן טקסט חופשי — עונות, ימים סגורים, הפסקות — ולכן כל מחרוזת
+   אחרת מחזירה null והמסך מציג את השעות עצמן בלי לנחש. זמן מקומי של
+   ויאטנם (UTC+7), כי הבדיקה רלוונטית שם ולא בשעון של המכשיר. */
+function openNow(r){
+  var h=r.hours; if(!h) return null;
+  var m=/^\s*(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})\s*(daily|every day)?\s*$/i.exec(h);
+  if(!m) return null;
+  var a=(+m[1])*60+(+m[2]), b=(+m[3])*60+(+m[4]);
+  if(b<=a) return null;                       /* חצות ומעבר לה — לא מנחשים */
+  var d=new Date(), vn=(d.getUTCHours()*60+d.getUTCMinutes()+7*60)%1440;
+  var pad=function(x){return String(x).padStart(2,"0");};
+  var open=pad(m[1])+":"+m[2], close=pad(m[3])+":"+m[4];
+  return (vn>=a&&vn<b)?{open:true,txt:t("openUntil",{"%s":close})}:{open:false,txt:t("closedOpens",{"%s":open})};
+}
 
 /* ---------- בידוד טווחים מפני ה-bidi ----------
    נמדד בברייב לפני שנכתבה כאן שורה: בתוך dir="rtl", "08:00-17:00" עם
@@ -1402,42 +1439,77 @@ function openDetail(item){
   if(he){ bd.dir="rtl"; bd.lang="he"; }
   function txt(tag,cls,s){ var n=el(tag,cls,s); if(!he) en2(n); return n; }
   if(recArea(r)) bd.appendChild(txt("div","sheet-where",recArea(r)));
-  /* שעות פתיחה. שורה משלה ולא צ'יפ ב-.factrow: המחרוזת מגיעה ל-40 תווים
-     והיא משפט, לא תג, ובשורת הצ'יפים היא הייתה נדחסת בין הכוכבים למחיר.
-     היא יושבת עם עובדות ההתמצאות (איפה זה, מתי זה) ולפני התיאור.
-     התווית ב-.sr ולא ב-aria-label: ל-<p> אין role, הוא ממופה ל-generic,
-     ו-aria-label אסור על generic — חלק מהמנועים מתעלמים וחלק מחליפים בו
-     את תוכן הטקסט. המפריד נכנס לתוך ה-.sr עצמו, כי .sr הוא
-     position:absolute ואין רווח מרונדר בין התווית לערך. */
-  var hoursStr=recHours(r);
-  if(hoursStr){
-    var hrow=el("p","sheet-hours");
-    hrow.appendChild(icon("clock"));
-    /* lang מפורש: cardIsHe תלוי ב-whatHe, ולכן יש כרטיסים שבהם הממשק
-       עברי אבל bd נושא lang="en" — ושם תווית עברית בלי תיוג נהגית
-       בפונמות אנגליות. */
-    var hlbl=el("span","sr",t("hoursLabel")+": ");
-    hlbl.lang=isHe()?"he":"en";
-    hrow.appendChild(hlbl);
-    var hval=el("span","hours-v");
-    hval.appendChild(hoursNodes(hoursStr));
-    if(!heField(r,"hours")) en2(hval);   /* אין תאום — המחרוזת אנגלית */
-    hrow.appendChild(hval);
-    bd.appendChild(hrow);
-  }
-  bd.appendChild(txt("p","sheet-what",recWhat(r)));
-
-  /* תצלום של המקום עצמו, היכן שנמצא אחד חופשי שבאמת מראה אותו. */
+  /* פאזה 10: התמונה ראשונה, אחריה רשת אריחי עובדות — שעות, מחיר, דירוג,
+     התאמה — ורק אז הטקסט. בשטח העובדות הן מה שמחפשים; התיאור לערב. */
   var pp=poiPhotoFor(r,st,item.cat);
   if(pp) bd.appendChild(figureFor(pp,pp.altHe,pp.altEn));
 
-  /* ובאוכל רחוב — המנה. תצלום של דוכן אי אפשר להשיג חופשי, ותצלום של
-     המנה דווקא כן; וההסבר על המאכל הוא מה שקורא שלא אכל ויאטנמית
-     מעולם באמת צריך. */
+  var df=el("ul","dfacts"); df.setAttribute("role","list");
+  df.setAttribute("aria-label",t("keyFacts"));
+  function fact(k,valNode,note,cls){
+    var li=el("li","mt"+(cls?" "+cls:"")); li.setAttribute("role","listitem");
+    var kk=el("span","mt-k",k); kk.lang=isHe()?"he":"en"; li.appendChild(kk);
+    var v=el("span","mt-v mt-v-sm"); v.appendChild(valNode); li.appendChild(v);
+    if(note){ var nn=el("span","mt-note",note); nn.lang=isHe()?"he":"en"; li.appendChild(nn); }
+    df.appendChild(li); return li;
+  }
+  var on=openNow(r);
+  if(on){
+    var sv=el("span","now-v");
+    var mk=el("i","mark"+(on.open?" mark--on":"")); mk.setAttribute("aria-hidden","true");
+    sv.appendChild(mk); sv.appendChild(document.createTextNode(on.txt));
+    var nowLi=fact(t("nowK"),sv,null,"mt-dark");
+  }
+  if(geo&&(geo.state==="ok"||geo.state==="manual")&&r.lat!=null){
+    var og=geo.state==="manual"&&POI_DATA[geo.manual]?POI_DATA[geo.manual]:geo;
+    if(og&&og.lat!=null){
+      var km=haversine(og.lat,og.lng,r.lat,r.lng);
+      var dv=document.createElement("bdi"); dv.textContent=fmtDist(km,false);
+      fact(t("distK"),dv,null,"mt-pale");
+    }
+  }
+  /* בלי אריח מרחק לצדו, "מצב עכשיו" היה נשאר חצי שורה יתומה. */
+  if(typeof nowLi!=="undefined"&&nowLi&&df.childNodes.length===1) nowLi.classList.add("mt-s4");
+  var hoursStr=recHours(r);
+  if(hoursStr){
+    var hv=el("span","hours-v");
+    hv.appendChild(hoursNodes(hoursStr));
+    if(!heField(r,"hours")) en2(hv);   /* אין תאום — המחרוזת אנגלית */
+    /* מחרוזת שעות ארוכה (חורף/קיץ) נדחסת בחצי רוחב — אז היא לוקחת שורה שלמה. */
+    fact(t("hoursLabel"),hv,null,"mt-pale"+(hoursStr.length>16?" mt-s4":""));
+  }
+  var ct2=costNodes(r);
+  if(ct2){
+    var mny=el("span","money"+(r.priceUnit==="free"?" is-free":""));
+    mny.appendChild(ct2);
+    fact(t("dPrice"),mny,r.priceChecked?t("checked")+" "+r.priceChecked:null);
+  }
+  if(r.tier){
+    var s5=el("span","stars","★".repeat(r.tier)+"☆".repeat(5-r.tier));
+    s5.setAttribute("role","img");
+    /* "דירוג עצמי" מוצג כהערה גלויה באותו אריח — בלי כפילות בתווית. */
+    s5.setAttribute("aria-label",t("stars5",{"%n":r.tier}));
+    fact(t("dTier"),s5,r.tierOfficial===false?t("selfRated"):null,"mt-pale");
+  }
+  var fe2=feasibility(r,item.cat,st);
+  if(fe2){
+    var fv=el("span","feas "+feasBand(fe2.pct),fe2.pct+"%");
+    fact(t("dFit"),fv,t("dLimit",{"%s":t("lim_"+fe2.limiter)}));
+  }
+  var sg2=SIGNAL[r.signal];
+  if(sg2||r.avoid){
+    var fr2=el("div","factrow");
+    if(sg2) fr2.appendChild(el("span","sig "+sg2.cls,isHe()?sg2.he:sg2.en));
+    if(r.avoid) fr2.appendChild(el("span","warn",t("avoid")));
+    bd.appendChild(fr2);
+  }
+  if(df.childNodes.length) bd.appendChild(df);
+  bd.appendChild(txt("p","sheet-what",recWhat(r)));
+
   var dd=dishFor(r);
   if(dd){
     var box=el("div","dishbox");
-    var hdd=el("p","dish-hd");
+    var hdd=el("h3","dish-hd");
     hdd.appendChild(document.createTextNode(t("dishHere")+": "));
     var nm=el("strong",null,isHe()?dd.he:dd.en);
     hdd.appendChild(nm);
@@ -1452,34 +1524,10 @@ function openDetail(item){
   }
   if(recWhy(r)){
     var wb=el("div","whybox");
-    wb.appendChild(el("b",null,t("whyHere")));
+    wb.appendChild(el("h3","whybox-h",t("whyHere")));
     wb.appendChild(txt("div",null,recWhy(r)));
     bd.appendChild(wb);
   }
-  var facts=el("div","factrow");
-  var sg2=SIGNAL[r.signal];
-  if(sg2) facts.appendChild(el("span","sig "+sg2.cls,isHe()?sg2.he:sg2.en));
-  if(r.tier){
-    var s=el("span","stars","★".repeat(r.tier)+"☆".repeat(5-r.tier));
-    s.setAttribute("role","img");
-    s.setAttribute("aria-label",t("stars5",{"%n":r.tier})+(r.tierOfficial===false?", "+t("selfRated"):""));
-    facts.appendChild(s);
-    if(r.tierOfficial===false) facts.appendChild(el("span",null,t("selfRated")));
-  }
-  var ct2=costNodes(r);
-  if(ct2){
-    var mny=el("span","money"+(r.priceUnit==="free"?" is-free":""));
-    mny.appendChild(ct2);
-    facts.appendChild(mny);
-    if(r.priceChecked) facts.appendChild(el("span",null,t("checked")+" "+r.priceChecked));
-  }
-  if(r.avoid) facts.appendChild(el("span","warn",t("avoid")));
-  if(r.approx) facts.appendChild(el("span",null,t("approx")));
-  if(r.lat==null) facts.appendChild(el("span",null,t("noCoords")));
-  if(facts.childNodes.length) bd.appendChild(facts);
-
-  /* רשימה ולא div שטוחה: עם Grab ו-Booking יש כאן עד חמש פעולות,
-     וקורא מסך צריך לדעת כמה הן וגם לדלג עליהן. */
   var lr=el("ul","linkrow");
   lr.setAttribute("aria-label",t("actions"));
   /* list-style:none גורם ל-WebKit להפסיק להכריז רשימה ולספור פריטים.
@@ -1528,6 +1576,10 @@ function openDetail(item){
   if(r.whatsapp) act(lbtn("act-chat wa-link","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
   bd.appendChild(lr);
 
+  /* יומן סקר: מאיפה זה בא ועד כמה המיקום אמין — המנגנון שמבדיל את
+     המדריך מפיד המלצות (PRODUCT.md), באריח אחד בסוף. */
+  var lg=el("div","dlog");
+  lg.appendChild(el("h3","dlog-k",t("surveyLog")));
   if((r.sources||[]).length){
     var sl=el("div","srcline");
     sl.appendChild(el("span",null,t("sources")));
@@ -1540,8 +1592,11 @@ function openDetail(item){
       a.appendChild(el("span","sr",t("newTab")));
       sl.appendChild(a);
     });
-    bd.appendChild(sl);
+    lg.appendChild(sl);
   }
+  var locNote=r.lat==null?t("noCoords"):(r.approx?t("approx"):t("locExact"));
+  lg.appendChild(el("p","dlog-loc",locNote));
+  bd.appendChild(lg);
   sh.appendChild(bd);
   dlg.appendChild(sh);
   dlg.showModal();
@@ -1702,12 +1757,12 @@ function poiCard(item,cls){
   var card=el("div",cls||"pcard");
   card.style.setProperty("--stationcolor",stColor(st));
 
+  var wr=null;
   if(cls==="rcard"){
-    var wr=el("div","rcard-where");
+    wr=el("div","rcard-where");
     var dt=el("span","dotc"); dt.style.setProperty("--stationcolor",stColor(st));
     wr.appendChild(dt);
     wr.appendChild(document.createTextNode(stName(st)+" · "+catName(CAT_BY[item.cat])));
-    card.appendChild(wr);
   }
   /* הכרטיס עוקב אחרי שפת התוכן שלו, לא אחרי שפת הממשק —
      טקסט אנגלי בכרטיס RTL שובר את הפיסוק. */
@@ -1724,6 +1779,8 @@ function poiCard(item,cls){
   open.appendChild(nm);
   open.addEventListener("click",function(){openDetail(item);});
   h.appendChild(open); card.appendChild(h);
+  /* שורת ההקשר (תחנה · קטגוריה) מתחת לשם ולא מעליו (finish review 10-03). */
+  if(wr) card.appendChild(wr);
 
   var why=el("div","pcard-why");
   if(!he) en2(why);
@@ -2148,6 +2205,13 @@ function tileFor(st){
     tx.appendChild(lat);
   }
   tx.appendChild(el("div","tile-cnt",placesN(total(st))));
+  /* דגל ענבר רק מנתון אמיתי: התאמה לפעילות חוץ "גרועה" לפי הגשם בחלון הטיול
+     (אותו feasScore כמו רצועת מזג האוויר בתחנה). */
+  var wxs=(typeof weatherFor==="function")?weatherFor(st):null;
+  if(wxs&&feasBand(feasScore(loadFor(wxs,"rain")||0,"high"))==="poor"){
+    a.classList.add("tile--risk");
+    tx.appendChild(el("div","tile-risk",t("wxRisk")));
+  }
   a.appendChild(tx);
   /* **בלי aria-label.** הוא היה מחרוזת שטוחה שדרסה את ה-span בעל
      lang="vi", כך שקורא מסך הגה "Hội An" בפונמות עבריות — בדיוק הבאג
@@ -2157,50 +2221,163 @@ function tileFor(st){
      שמות התחנות אינם כותרות: 14 כותרות במסך אחד מציפות את הרוטור. */
   li.appendChild(a); return li;
 }
-function screenHome(){
-  exitMapMode();
-  main.textContent="";
-  /* h1 סמוי: הכותרת הסגולה נושאת מותג וספירה, לא שם מסך — ובלי
-     screenHeading מתויג כל ניווט הביתה נוחת ב-main בלי הקשר. */
-  main.appendChild(screenTitle(t("homeTitle"),"sr"));
-  setDocTitle(null);
-
-  main.appendChild(secLabel(t("atAGlance")));
-  var ig=el("ul","infogrid"); ig.setAttribute("role","list");
+/* ============ מסך הבית: "עכשיו" ו"תכנון" ============
+   פאזה 10. שני מצבים לשתי הסצנות של PRODUCT.md: ברחוב (מה קרוב, מתי
+   יוצאים, שערים, קישורי ויזה) ובערב (כל התחנות לפי אזור). המצב נשמר
+   ב-localStorage; בלי גישה אליו נופלים בשקט ל"עכשיו". */
+var HOME_MODE_KEY="homeMode";
+function homeMode(){
+  try{ return localStorage.getItem(HOME_MODE_KEY)==="plan"?"plan":"now"; }catch(e){ return "now"; }
+}
+function setHomeMode(m){
+  try{ localStorage.setItem(HOME_MODE_KEY,m); }catch(e){}
+}
+/* כותרת פיבוט: המילה הפעילה היא ה-h1 של המסך, והשנייה מציצה בסופה
+   ככפתור. החיתוך בצד הסוף בלבד, כך שתחילת המילה הפעילה תמיד שלמה. */
+function pivotHead(active,other,onOther,refocus){
+  var w=el("div","pivot");
+  w.appendChild(screenTitle(active,"pivot-on"));
+  if(other){
+    /* השם הנגיש מתחיל בטקסט הגלוי (2.5.3): Voice Control באייפון מזהה
+       את תחילת התווית. ההקשר נשמע לקורא מסך בלבד. */
+    var b=el("button","pivot-peek",other); b.type="button";
+    b.appendChild(el("span","sr",t("modeGo")));
+    if(refocus) b.setAttribute("data-refocus",refocus);
+    b.addEventListener("click",onOther);
+    w.appendChild(b);
+  }
+  return w;
+}
+function tileEl(tag,cls,k,v){
+  var d=el(tag,"mt"+(cls?" "+cls:""));
+  if(k) d.appendChild(el("span","mt-k",k));
+  if(v!=null) d.appendChild(el("span","mt-v",v));
+  return d;
+}
+function homeNow(){
   var loc=isHe()?"he-IL":"en-GB", dMY={day:"numeric",month:"short"};
   var nights=Math.round((TRIP.back-TRIP.depart)/864e5);
-  ig.appendChild(infoCard(t("departs"),TRIP.depart.toLocaleDateString(loc,dMY),
-    (function(){var d=el("div","t");var e=el("span","en","TLV → AUH → HAN");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("Etihad EY600"));return d;})()));
-  ig.appendChild(infoCard(t("returns"),TRIP.back.toLocaleDateString(loc,dMY),
-    (function(){var d=el("div","t");var e=el("span","en","HAN → AUH → TLV");e.lang="en";e.dir="ltr";d.appendChild(e);d.appendChild(document.createTextNode("EY431"));return d;})()));
-  ig.appendChild(infoCard(t("nights"),String(nights),el("div","t",t("nightsNote"))));
-  ig.appendChild(infoCard(t("poolCount"),String(INDEX.length),el("div","t",t("poolNote",{"%n":String(STATIONS.length)}))));
-  var fx=el("div","fxrow");
-  ["$1 = ₪"+RATES.ILS.toFixed(2),"₪1 = ₫"+Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US")]
-    .forEach(function(x){var b=document.createElement("bdi");b.textContent=x;fx.appendChild(b);});
-  ig.appendChild(infoCard(t("fxRate"),null,fx,true));
+
+  /* ספירה לאחור — אותו חישוב כמו הכרום, בלי id שני */
+  var cd=countdownLeft();
+  var cdt=el("div","mt mt-dark mt-count");
+  cdt.appendChild(el("span","mt-k",t("countdownK")));
+  var row=el("div","mt-countrow");
+  if(cd.left>0){
+    /* ההכרזה המלאה מיד אחרי התווית, לפני טווח התאריכים (1.3.2). */
+    cdt.appendChild(el("span","sr",t("daysToGoSr",{"%n":String(cd.left)})));
+    var n=el("span","mt-big",String(cd.left)); n.setAttribute("aria-hidden","true");
+    row.appendChild(n);
+    var side=el("span","mt-side");
+    var sv=el("span",null,t("daysToGo")); sv.setAttribute("aria-hidden","true"); side.appendChild(sv);
+    var dr=document.createElement("bdi"); dr.textContent=TRIP.depart.toLocaleDateString(loc,dMY)+" – "+TRIP.back.toLocaleDateString(loc,dMY);
+    side.appendChild(dr);
+    row.appendChild(side);
+  }else{
+    row.appendChild(el("span","mt-side",cd.today>TRIP.back?t("tripDone"):t("tripNow")));
+  }
+  cdt.appendChild(row);
+  main.appendChild(cdt);
+
+  main.appendChild(secLabel(t("atAGlance")));
+  var ig=el("ul","mgrid"); ig.setAttribute("role","list");
+  /* תאריך מספרי באריח: "26 באוק׳" לא נכנס לרבע רוחב בלי להישבר באמצע
+     מילה. הטווח המילולי נשאר באריח הספירה. */
+  var dNum={day:"numeric",month:"numeric"};
+  [[t("departs"),TRIP.depart.toLocaleDateString(loc,dNum)],
+   [t("returns"),TRIP.back.toLocaleDateString(loc,dNum)],
+   [t("nights"),String(nights)],
+   [t("poolCount"),String(INDEX.length)]].forEach(function(p){
+    var li=tileEl("li","mt-pale",p[0],p[1]); li.setAttribute("role","listitem"); ig.appendChild(li);
+  });
+  var fx=tileEl("li","mt-s4",t("fxRate"),null); fx.setAttribute("role","listitem");
+  var fr=el("span","mt-v mt-fx"); fr.setAttribute("aria-hidden","true");
+  var vndPerIls=Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US");
+  ["$1 = ₪"+RATES.ILS.toFixed(2),"₪1 = ₫"+vndPerIls]
+    .forEach(function(x){var b=document.createElement("bdi");b.textContent=x;fr.appendChild(b);});
+  fx.appendChild(fr);
+  /* VoiceOver בעברית מקריא את $ ₪ ₫ = בחוסר עקביות; הנוסחה הגלויה מוסתרת
+     ממנו והוא שומע משפט. */
+  fx.appendChild(el("span","sr",t("fxSpoken",{"%i":RATES.ILS.toFixed(2),"%v":vndPerIls})));
+  ig.appendChild(fx);
+  /* קישורי הממשלה היו מוסתרים בנייד (רק במסך "מידע"). בשטח צריך אותם
+     לפני הטיסה, ולכן הם עלו לבית כאריחים. */
+  [["passport",t("evisa"),"https://evisa.gov.vn","evisa.gov.vn"],
+   ["doc",t("prearrival"),"https://prearrival.immigration.gov.vn","immigration.gov.vn"]].forEach(function(o){
+    var li=el("li","mt-li mt-s2"); li.setAttribute("role","listitem");
+    var a=el("a","mt mt-dark mt-link"); a.href=o[2]; a.target="_blank"; a.rel="noopener noreferrer";
+    a.appendChild(icon(o[0]));
+    var tx=el("span","mt-linkt",o[1]);
+    var dom=el("span","mt-dom",o[3]); dom.lang="en"; dom.dir="ltr";
+    tx.appendChild(dom);
+    a.appendChild(tx);
+    a.appendChild(el("span","sr",t("newTab")));
+    li.appendChild(a); ig.appendChild(li);
+  });
   main.appendChild(ig);
 
+  /* "קרוב אליי" — אותו מנגנון כמו ברשימה הצדדית, על כל מצביו */
+  main.appendChild(secLabel(t("nearYou")));
+  var nb=el("div","home-near");
+  /* אותו דפוס כמו ב-rail: פסקת סטטוס גלויה היא יעד הפוקוס היציב. בין
+     "מאתר…" לתוצאה יש שתי בניות מחדש, ובלעדיה הפוקוס נפל ל-body
+     (סקירה מלאה 10-03, ממצא 1). */
+  var nst=el("p","near-status"); nst.setAttribute("data-refocus","status"); nst.tabIndex=-1;
+  function rerender(){
+    /* המשתמש עזב את הבית בזמן האיתור — לא מכריזים במסך אחר. */
+    if(!nb.isConnected) return;
+    var act=document.activeElement;
+    var tag=(act&&nb.contains(act)&&act.getAttribute)?act.getAttribute("data-refocus"):null;
+    var r=buildNearBody(rerender,"h3");
+    nb.textContent=""; nb.appendChild(nst); nb.appendChild(r.node);
+    nst.textContent=r.say||"";
+    if(r.say) say(r.say);
+    /* אותו דפוס כמו refreshRail: הפקד שנלחץ נבנה מחדש, ולכן הפוקוס חוזר
+       לפקד עם אותו תג — אחרת הוא נופל ל-body. */
+    var back=tag&&nb.querySelector('[data-refocus="'+tag+'"]');
+    if(!back&&tag) back=nst;
+    if(back) back.focus();
+  }
+  main.appendChild(nb);
+  var first=buildNearBody(rerender,"h3");
+  nb.appendChild(nst); nb.appendChild(first.node);
+  nst.textContent=first.say||"";
+}
+function homePlan(){
   GROUPS.forEach(function(g){
     var list=stationsIn(g);
     if(!list.length) return;
     var places=list.reduce(function(a,st){return a+total(st);},0);
     var sec=el("section","region");
-    /* הכותרת היא גם השם הנגיש של המקטע, ולכן aria-labelledby ולא
-       תווית כפולה. */
     var hid="reg-"+g.id;
     var hd=el("h2","region-hd"); hd.id=hid;
     hd.appendChild(document.createTextNode(groupName(g)));
     hd.appendChild(el("span","cnt",list.length+" "+t("stations")+" · "+placesN(places)));
     sec.setAttribute("aria-labelledby",hid);
     sec.appendChild(hd);
-    var body=el("div","region-body");
     var ul=el("ul","tilegrid"); ul.setAttribute("role","list");
     list.forEach(function(st){ ul.appendChild(tileFor(st)); });
-    body.appendChild(ul);
-    sec.appendChild(body);
+    sec.appendChild(ul);
     main.appendChild(sec);
   });
+}
+function screenHome(){
+  exitMapMode();
+  main.textContent="";
+  setDocTitle(null);
+  var mode=homeMode();
+  var other=mode==="now"?"plan":"now";
+  var label={now:t("modeNow"),plan:t("modePlan")};
+  main.appendChild(pivotHead(label[mode],label[other],function(){
+    setHomeMode(other);
+    screenHome();
+    var b=main.querySelector(".pivot-peek"); if(b) b.focus();
+    say(t("modeSaid",{"%s":label[other]}));
+  },"pivot"));
+  /* ה-h1 הגלוי הוא שם המצב; ההקשר (מסך הבית) נשמע לקורא מסך בלבד. */
+  var h1=main.querySelector(".pivot-on");
+  if(h1) h1.appendChild(el("span","sr"," · "+t("homeTitle")));
+  if(mode==="now") homeNow(); else homePlan();
 }
 
 function screenSplit(sel){
@@ -2239,7 +2416,7 @@ function screenMobileMap(sel){
   var sh=document.getElementById("mobSheet");
   if(!sh){
     main.textContent="";
-    main.appendChild(screenTitle(t("navStations"),"sr"));
+    main.appendChild(screenTitle(t(sel?"navStations":"navMap"),"sr"));
     sh=el("div","mob-sheet"); sh.id="mobSheet";
     sh.setAttribute("role","region");
     sh.setAttribute("aria-label",t("allStations"));
@@ -2371,28 +2548,40 @@ function nearRow(hit){
   return a;
 }
 function nearStationPicker(onPick){
+  /* פאזה 10 (בקשת אסף 11/10): רשימה גלויה של התחנות, מצפון לדרום לפי
+     אזור, במקום תפריט נפתח. בשטח זה הקשה אחת במקום שתיים, ורואים את
+     כל המסלול בבת אחת. כל אריח הוא כפתור עם aria-pressed; data-refocus
+     ייחודי לכל תחנה מחזיר את הפוקוס לאותו אריח אחרי הבנייה מחדש. */
   var box=el("div","near-pick");
-  box.appendChild(el("p","near-pick-t",t("nearPick")));
-  var lbl=el("label","sr",t("nearPickLbl")); lbl.setAttribute("for","nearSel");
-  box.appendChild(lbl);
-  var sel=document.createElement("select");
-  sel.className="near-sel"; sel.id="nearSel";
-  sel.setAttribute("data-refocus","pick");
-  var ph=document.createElement("option");
-  /* "—" מוקרא "מינוס" או מדולג. אופציית ברירת המחדל צריכה להיות מילים. */
-  ph.value=""; ph.textContent=t("nearPickLbl"); sel.appendChild(ph);
-  /* אותה הגנה כמו ב-nearestStation: תחנה בלי נ"צ הייתה מחזירה NaN,
-     והמסך היה מציג ומכריז "NaN ק״מ". */
-  STATIONS.filter(function(st){return st.lat!=null;}).forEach(function(st){
-    var o=document.createElement("option");
-    o.value=st.id; o.textContent=stName(st);
-    sel.appendChild(o);
+  var pid="nearPickT"+(++nearPickSeq);
+  var pt=el("p","near-pick-t",t("nearPick")); pt.id=pid;
+  box.appendChild(pt);
+  GROUPS.forEach(function(g){
+    /* אותה הגנה כמו ב-nearestStation: תחנה בלי נ"צ הייתה מחזירה NaN. */
+    var list=stationsIn(g).filter(function(st){return st.lat!=null;});
+    if(!list.length) return;
+    var gid=pid+"-"+g.id;
+    var lab=el("p","near-reg",groupName(g)); lab.id=gid;
+    box.appendChild(lab);
+    var ul=el("ul","near-stlist"); ul.setAttribute("role","list");
+    ul.setAttribute("aria-labelledby",gid);
+    list.forEach(function(st){
+      var li=el("li"); li.setAttribute("role","listitem");
+      var b=el("button","near-st"); b.type="button";
+      b.setAttribute("data-refocus","pick-"+st.id);
+      b.setAttribute("aria-pressed",geo.manual===st.id?"true":"false");
+      /* המספר נשאר בשם הנגיש: Voice Control באייפון — "הקש 03". */
+      var n=el("span","near-st-n",String(st.seq).padStart(2,"0")+" ");
+      b.appendChild(n);
+      b.appendChild(el("span","near-st-nm",stName(st)));
+      b.addEventListener("click",function(){ onPick(st.id); });
+      li.appendChild(b); ul.appendChild(li);
+    });
+    box.appendChild(ul);
   });
-  if(geo.manual) sel.value=geo.manual;
-  sel.addEventListener("change",function(){ if(sel.value) onPick(sel.value); });
-  box.appendChild(sel);
   return box;
 }
+var nearPickSeq=0;
 function nearButton(label,onClick,refocus){
   var b=el("button","btn-near",label);
   b.type="button";
@@ -2404,7 +2593,7 @@ function nearButton(label,onClick,refocus){
 }
 /* בונה את גוף המצב. מחזיר גם את הטקסט שיוכרז, כדי שיהיה מקור אמת
    אחד — אזור ה-live הוא אותו אלמנט גלוי, ולא #live הסמוי במקביל. */
-function buildNearBody(rerender){
+function buildNearBody(rerender,headTag){
   var box=el("div","near-body"), spoken="";
   function fallback(){
     box.appendChild(nearStationPicker(function(id){
@@ -2413,8 +2602,11 @@ function buildNearBody(rerender){
   }
   if(geo.state==="idle"){
     if(geoSupported()){
-      box.appendChild(nearButton(t("findNear"),function(){ requestGeo(rerender); },"find"));
-      box.appendChild(el("p","near-hint",t("nearHint")));
+      var fb=nearButton(t("findNear"),function(){ requestGeo(rerender); },"find");
+      var hint=el("p","near-hint",t("nearHint")); hint.id="nearHint"+(++nearPickSeq);
+      fb.setAttribute("aria-describedby",hint.id);
+      box.appendChild(fb);
+      box.appendChild(hint);
     }else{
       /* אין geolocation בהקשר הזה — בלי כפתור מת */
       box.appendChild(el("p","near-err",t("errUnavail")));
@@ -2450,7 +2642,7 @@ function buildNearBody(rerender){
   }
   if(geo.state==="manual"){
     var st=POI_DATA[geo.manual];
-    if(!st){ geo.state="idle"; return buildNearBody(rerender); }
+    if(!st){ geo.state="idle"; return buildNearBody(rerender,headTag); }
     origin={lat:st.lat,lng:st.lng};
     head=t("nearStation",{"%s":stName(st)});
   }else{
@@ -2462,7 +2654,8 @@ function buildNearBody(rerender){
     return {node:box,say:t("nearNone")};
   }
   /* היה <p> בקול התצוגה של כותרת — ניווט לפי כותרות דילג עליו. */
-  if(head) box.appendChild(el("h2","near-head",head));
+  /* בבית הכותרת היא תת-כותרת של "קרוב אליך" (h2), ולכן h3; ב-rail h2. */
+  if(head) box.appendChild(el(headTag||"h2","near-head",head));
   var list=el("div","near-list");
   list.setAttribute("role","list");
   hits.forEach(function(h){
@@ -3281,6 +3474,9 @@ function screenTopics(){
   var grid=el("div","topics");
   CATS.forEach(function(c){
     var n=INDEX.filter(function(x){return x.cat===c.id;}).length;
+    /* קטגוריה ריקה (למשל "אוכל" הוותיק, שהוחלף באוכל רחוב ומסעדות) לא
+       מוצגת: אריח מעומעם של 0 הוא רעש, לא מידע. */
+    if(!n) return;
     var b=el("button","topic"); b.type="button";
     b.appendChild(icon(c.ic,"ic-lg"));
     b.appendChild(el("span","topic-n",String(n)));
@@ -3469,10 +3665,14 @@ function render(){
   else if(r==="info")     screenInfo();
   else if(r==="transfers"){ var p=hz.split("/"); screenTransfers(p[1]||"",p[2]||""); }
   else                    screenHome();
+  /* הבית מציג את הספירה כאריח גדול, ולכן הכרום מסתיר את שלו שם בלבד. */
+  /* גם החיפוש נחשב "בית" לכרום: אחרת הקלדה ראשונה הקפיצה את פס הטיול
+     והספירה מעל השדה שבו הפוקוס (סקירה מלאה 10-03, ממצא 3). */
+  document.documentElement.setAttribute("data-route",(r==="home"||r==="search"||!r)?"home":r);
   markNav(r);
 }
 var NAV=[
-  {id:"home",  hash:"#",       ic:"grid",   key:"navStations"},
+  {id:"home",  hash:"#",       ic:"grid",   key:"navHome"},
   {id:"map",   hash:"#map",    ic:"pin",    key:"navMap"},
   {id:"topics",hash:"#topics", ic:"compass",key:"navTopics"},
   /* אותו מקום בשני הסרגלים (3.2.3) — אחרי "נושאים", לפני "שמורים". */
@@ -3615,12 +3815,16 @@ function renderChrome(){
 var TRIP={depart:new Date(2026,9,26), back:new Date(2026,10,24)};
 /* המספר לבדו קורא "34". המשפט המלא יושב ב-sr, והמונה **אינו** אזור
    live — כותרת שמכריזה בכל עדכון היא בלתי נסבלת. */
+/* מקור אמת אחד לספירה: הכרום והאריח בבית קוראים את אותו חישוב. */
+function countdownLeft(){
+  var today=new Date(); today.setHours(0,0,0,0);
+  return {left:Math.round((TRIP.depart-today)/864e5),today:today};
+}
 function renderCountdown(){
   var box=document.getElementById("countdown");
   if(!box) return;
   box.textContent="";
-  var today=new Date(); today.setHours(0,0,0,0);
-  var left=Math.round((TRIP.depart-today)/864e5);
+  var cd=countdownLeft(), today=cd.today, left=cd.left;
   if(left>0){
     var vis=el("span"); vis.setAttribute("aria-hidden","true");
     vis.appendChild(el("b",null,String(left)));

@@ -10,7 +10,7 @@
  */
 // build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
 // גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
-const VERSION = "8f2907412922";
+const VERSION = "10e0ece36f7d";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
@@ -27,6 +27,9 @@ const PRECACHE = [
      רשת, ובלי precache הטעינה הראשונה אופליין הייתה נופלת ל-fallback
      של המערכת — כלומר ההטמעה לא הייתה שווה דבר. העבריים ראשונים:
      הם אלה שנטענים בפועל בממשק עברי. */
+  "./assets/fonts/Heebo-hebrew.woff2",
+  "./assets/fonts/Heebo-latin.woff2",
+  "./assets/fonts/Heebo-latin-ext.woff2",
   "./assets/fonts/Assistant-hebrew.woff2",
   "./assets/fonts/Assistant-latin.woff2",
   /* הספלאש חייב להיות בקאש, אחרת הטעינה הראשונה אופליין מציגה
