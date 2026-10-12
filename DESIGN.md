@@ -163,14 +163,14 @@ Source of truth: `trip-template.html` (the `:root` token blocks and the `<style 
 
 **Creative North Star: "The Survey Ledger in Metro Tiles"**
 
-The interface is type and flat colour, nothing else. A white ground carries giant, very thin Heebo words; content lives in flat lilac and purple tiles, each framed by a 1.5px plum edge, packed on a tight 6px grid. There are no photographs-as-cards, no rounded corners, no shadows and no gradients: the tile is the door, the word is the label, and the frame is the only boundary. It is built for the street first (one hand, tropical sun, an answer in two seconds) and holds up for the evening read, where the place dialog opens into a stack of fact tiles ending in the survey log that makes each record trustworthy.
+The interface is type and flat colour, nothing else. A white ground carries giant, very thin Heebo words; content lives in flat lilac and purple tiles, each framed by a 3px plum edge, packed on a tight 6px grid. There are no photographs-as-cards, no rounded corners, no shadows and no gradients: the tile is the door, the word is the label, and the frame is the only boundary. It is built for the street first (one hand, tropical sun, an answer in two seconds) and holds up for the evening read, where the place dialog opens into a stack of fact tiles ending in the survey log that makes each record trustworthy.
 
 Density is high but quiet: few colours, one family, big numerals with small key labels, and status carried by shape rather than hue. Colour is reserved for meaning. Plum marks the active or pressed state and the strongest tile; the five locked link colours appear only as filled action tiles; amber appears only for the data-backed heavy-rain flag. Everything else is ink on white or ink on lilac.
 
-The home screen is a pivot between two modes, "עכשיו" (Now) and "תכנון" (Plan): the active word is giant, the other peeks in grey at the end edge and is cropped by the screen. The global underline search stays in the sticky chrome above the pivot on every screen.
+The home screen is one page (10-04, 12/10): the plum countdown tile, trip-at-a-glance tiles, FX and official-link tiles, "קרוב אליך" (button only), then every station as a large tile grouped by region. The Now/Plan pivot was removed: on the iPhone it read as text overflowing the page. The h1 is visually hidden. The global underline search stays in the sticky chrome.
 
 **Key Characteristics:**
-- White ground, ink #15121f, flat lilac/purple/plum tiles framed 1.5px plum.
+- White ground, ink #15121f, flat lilac/purple/plum tiles framed 3px plum.
 - Heebo only, ultra-thin (100–200) at display sizes, never thinner than 300 below ~32px.
 - Zero radius and zero shadow everywhere in the system.
 - 6px tile gap; 2-up grids on phones, 4-up from 40rem.
@@ -183,7 +183,7 @@ The home screen is a pivot between two modes, "עכשיו" (Now) and "תכנון
 A restrained lilac-to-plum tile family on white, ink for all text, with colour reserved for state (plum), action (the locked five) and risk (amber).
 
 ### Primary
-- **Plum Aubergine** (`tile-dark` / `tile-edge`): the system's anchor. Fills the strongest tile (the countdown, the dish tile, the heavy-rain station tile), every pressed or selected state (segmented buttons, category tabs, station picker, sort options, rail tabs), the neutral action tile and the official-link tiles; and, as `tile-edge`, frames every tile at 1.5px. Text on it is `on-tile-dark` (white, 14.88:1).
+- **Plum Aubergine** (`tile-dark` / `tile-edge`): the system's anchor. Fills the strongest tile (the countdown, the dish tile, the heavy-rain station tile), every pressed or selected state (segmented buttons, category tabs, station picker, sort options, rail tabs), the neutral action tile and the official-link tiles; and, as `tile-edge`, frames every tile at 3px (`--edge`). Text on it is `on-tile-dark` (white, 14.88:1).
 
 ### Secondary
 - **Metro Purple** (`tile`): the default tile fill and the active-tab fill. Ink on it is 8.15:1. Grids alternate it with Pale Lilac.
@@ -200,7 +200,6 @@ A restrained lilac-to-plum tile family on white, ink for all text, with colour r
 - **Slate Violet** (`ink-2`): secondary text, back button, record "why" lines, survey-log key.
 - **Muted Violet** (`ink-3`): counts, captions, subtitles on the ground.
 - **Inside-tile ink set** (`ink-3-tile`, `jade-tile`, `gold-tile`, `rose-tile`): darker variants that every framed tile remaps onto `--ink-3`, `--ink-3-card`, `--jade-ink`, `--gold-ink` and `--rose` locally, because the regular values drop below 4.5:1 on Metro Purple.
-- **Peek Grey** (`peek`): the inactive pivot word only (5.23:1 on white). Under `prefers-contrast:more` it becomes `--ink-3`.
 - **Lilac Surface** (`surface`, `surface-2`): hover fills for chrome buttons, tabs and pickers; not a tile colour.
 - **Hairline** (`line`): the stuck-topbar rule and bottom-nav top rule. **Control Line** (`line-ctl`): the border of form controls (3.39:1).
 
@@ -224,7 +223,6 @@ Both dark blocks are identical (one under `prefers-color-scheme:dark` scoped to 
 **Character:** One family doing everything, split by weight: hairline-thin giants for words and numerals, regular for reading, medium/semibold for small keys. Vietnamese diacritics outside Heebo's subsets fall back to the system stack by design.
 
 ### Hierarchy
-- **Display** (200, `clamp(2.4rem,24vw,7rem)`, 0.98, -0.02em): the pivot words on home. Sized so the peek word is cropped at the screen edge on phones.
 - **Numeral** (100, `clamp(4.6rem,25vw,7rem)`, 0.8, tabular): the countdown number in its plum tile. Station index numbers use 100 at `clamp(2.4rem,11vw,3rem)`.
 - **Headline** (200, `clamp(2.2rem,11vw,3.6rem)`, 1.02, -0.015em): the h1 of inner screens (topics, category, transfers, saved, info, search). Station hero name uses 200 at `clamp(2.6rem,13vw,4.4rem)`; dialog title 200 at `clamp(2rem,9vw,2.75rem)`; settings title 200 at 2.2rem.
 - **Title** (300, 1.85rem): section and region headings on the ground. Tile names 300 at 1.3rem; record card names 300 at 1.32rem; topic numbers 300 at 2rem; weather percentages 300 at 2rem.
@@ -235,7 +233,7 @@ Both dark blocks are identical (one under `prefers-color-scheme:dark` scoped to 
 ### Named Rules
 **The Thin Is Big Rule.** Weights 100 and 200 appear only at roughly 32px and above. Below that the floor is 300 for anything set light; small keys and labels go up to 500–700, never down.
 
-**The Contrast-More Rule.** Under `prefers-contrast:more` every thin-set role (pivot, numerals, headlines, titles, tile values, reading body) rises to 400 and the peek turns `--ink-3`. That block must remain the last rule set in the metro layer; a later rule at equal specificity silently defeats it.
+**The Contrast-More Rule.** Under `prefers-contrast:more` every thin-set role (numerals, headlines, titles, tile values, reading body) rises to 400. That block must remain the last rule set in the metro layer; a later rule at equal specificity silently defeats it.
 
 **The Tabular Numbers Rule.** Every numeral in a tile (values, countdown, station index, picker numbers) uses `font-variant-numeric: tabular-nums`. Numeric ranges are bidi-isolated (`bdi` / `.en`).
 
@@ -245,7 +243,6 @@ Mobile first at 390px, surviving 320px with 200% text. Page gutter `clamp(15px,4
 
 Tiles sit on CSS grids with a single 6px gap everywhere: trip-at-a-glance (`.mgrid`) is 2x2 on phones and 4 columns from 40rem, with span-2 tiles returning to full span only at 40rem and up (and to full width below 20rem); station tiles (`.tilegrid`), station picker, dialog facts (`.dfacts`) and dialog actions (`.linkrow`) are two columns, collapsing to one at 22rem; weather rows are three columns, one at 24rem; transfer cards use `repeat(auto-fill, minmax(min(100%,310px),1fr))`. Tile padding is 10px 12px; section headings take 26px above, 10px below.
 
-The pivot head breaks out to the end edge only: `margin-inline-end: calc(-1 * var(--gutter))` with `overflow:hidden`, so the active word starts at the normal margin and the peek word is cut by the screen edge.
 
 Breakpoints observed in the system layer: 20rem, 22rem, 24rem, 40rem.
 
@@ -256,7 +253,7 @@ Breakpoints observed in the system layer: 20rem, 22rem, 24rem, 40rem.
 
 ## Elevation & Depth
 
-The system is completely flat: `--shadow:none`, no gradients (`--primary-2` equals `--primary-fill` on purpose), no blur. Depth is expressed by fill value (ground, pale lilac, purple, plum) and by the 1.5px plum frame. The floating dialog gets a frame, not a shadow: `.sheet` uses a 1.5px `tile-edge` border, and `--shadow-lg` is a 1px line ring (`0 0 0 1px rgba(21,18,31,.18)`), never a blur. Hover on framed tiles thickens the frame with a 2px `tile-edge` outline at offset 0.
+The system is completely flat: `--shadow:none`, no gradients (`--primary-2` equals `--primary-fill` on purpose), no blur. Depth is expressed by fill value (ground, pale lilac, purple, plum) and by the 3px plum frame. The floating dialog gets a frame, not a shadow: `.sheet` uses a 3px `tile-edge` border, and `--shadow-lg` is a 1px line ring (`0 0 0 1px rgba(21,18,31,.18)`), never a blur. Hover on framed tiles thickens the frame with a 2px `tile-edge` outline at offset 0.
 
 ### Named Rules
 **The Line Not Shadow Rule.** Anything that needs separation from the ground gets a hairline or the plum frame. No `box-shadow` with blur or offset exists in the system.
@@ -265,15 +262,13 @@ The system is completely flat: `--shadow:none`, no gradients (`--primary-2` equa
 
 Square everything: `--r`, `--r-sm` and `--r-xs` are all 0, and every metro component restates `border-radius:0`. Tiles, buttons, tabs, dialog, inputs, search, thumbnails, status marks and station dots are rectangles. The one sanctioned exception is the map: Leaflet markers and their focus circles stay round because they are geographic information.
 
-Every content tile carries `border:1.5px solid var(--tile-edge)`: `.mt`, `.tile`, `.pcard`, `.rcard`, `.near-st`, the home near rows, `.wx`, `.cat-tab`, topics, facts, transfer cards and tickets, empty states, the why tile, the dish tile and the survey log. Side stripes are not used; where the old design had a coloured side bar (rail current item, why box) the frame replaced it.
+Every content tile carries `border:var(--edge) solid var(--tile-edge)` (3px): `.mt`, `.tile`, `.pcard`, `.rcard`, `.near-st`, the home near rows, `.wx`, `.cat-tab`, topics, facts, transfer cards and tickets, empty states, the why tile, the dish tile and the survey log. Side stripes are not used; where the old design had a coloured side bar (rail current item, why box) the frame replaced it.
 
 ## Components
 
-### Pivot head (signature)
-Giant thin word plus a cropped grey toggle. `.pivot` is a nowrap flex row with `overflow:hidden` and `position:relative`. `.pivot-on` is the h1 (focusable, ring inset at -3px because of the overflow). `.pivot-peek` is a real button in `--peek`, `flex:1 1 0; min-width:1.1em; max-width:max-content`: the zero basis means the line-break decision is measured from `min-width`, not from the word's width, so the peek is cropped at the edge rather than wrapping. It keeps a 44px minimum height and gains an underline and border in forced colours. Inner screens reuse the pivot type as `.sec-head` without the toggle.
 
 ### Tiles
-- **Shape:** square, framed 1.5px `tile-edge`, padding 10px 12px, content spaced between top and bottom.
+- **Shape:** square, framed 3px `tile-edge`, padding 10px 12px, content spaced between top and bottom.
 - **Fills:** `tile` (default), `tile-pale` (alternate), `tile-dark` (strongest / state). Inside any tile the ink set is remapped to the `*-tile` variants.
 - **Metro tile (`.mt`):** key label (0.8rem 500) and a big thin value; min height 5.25rem (4.75rem in dialog facts). Variants: countdown (`.mt-count`, plum, 9.25rem, the numeral), FX (`.mt-fx`, LTR-isolated amounts), link tile (`.mt-link`, 22px icon, title plus domain, underline on hover).
 - **Station tile (`.tile`):** index numeral 100 weight, name 300, count 500; min height 8.5rem; photos hidden. Heavy-rain variant `.tile--risk` turns plum with the amber flag line.
@@ -288,14 +283,14 @@ Giant thin word plus a cropped grey toggle. `.pivot` is a nowrap flex row with `
 - **Official links (`.oflink`):** plum tiles, 44px min, underline on hover.
 
 ### Chips / Segmented controls / Tabs
-- **Segmented (`.seg`):** framed 1.5px plum on ground; pressed option plum with white text; unpressed hover pale lilac. The pressed option's focus ring switches to `on-tile-dark` at offset -5px so it stays visible on plum.
+- **Segmented (`.seg`):** framed 3px plum on ground; pressed option plum with white text; unpressed hover pale lilac. The pressed option's focus ring switches to `on-tile-dark` at offset -5px so it stays visible on plum.
 - **Category tabs (`.cat-tab`):** framed pale lilac tiles, 44px; selected is plum.
 - **Transfer sort options:** framed ground tiles; checked is plum.
 - **Route tabs (`.tab`):** square, hover lilac surface, current page filled `tile`.
 
 ### Inputs / Fields
 - **Search (`.searchbox`):** no box. A 2px ink underline on transparent, input at 300 weight 1.05rem; on focus the underline doubles via `box-shadow: 0 2px 0 var(--ink)`. It lives in the sticky chrome on every screen.
-- **Selects and swap (transfers):** square, framed 1.5px plum, ground fill.
+- **Selects and swap (transfers):** square, framed 3px plum, ground fill.
 
 ### Station picker (signature)
 `.near-stlist` is a visible two-column list ordered north to south, grouped by region labels (0.82rem 600, `ink-3`). Each `.near-st` is a pale-lilac framed tile at 48px minimum with a thin numeral (300, 1.25rem, tabular) and the station name (500); hover `surface-2`; pressed (`aria-pressed="true"`) plum. In forced colours it gets a CanvasText border and a Highlight outline when pressed.
@@ -304,7 +299,7 @@ Giant thin word plus a cropped grey toggle. `.pivot` is a nowrap flex row with `
 `.feas::before` is a 0.7em square with a 2px border in `currentColor`: filled for good, bottom-half filled for fair, hollow for poor. The colour is ink (on-tile-dark inside a risk tile). The percentage and word remain in the accessible name.
 
 ### Place detail dialog (signature)
-White ground framed 1.5px plum, square. Order is fixed: header (thin title 200, Latin name 300 in `ink-3`, 44px square framed close and copy buttons) then photo, fact tiles (`.dfacts`, 2 columns), the "what" paragraph (reading body), the why tile (purple, h3 key at 600 0.8rem, text 300 1.05rem), the dish tile (plum, white text, dish name 300 1.35rem), the action grid (`.linkrow`, 2 columns, icon over word), then the survey log (`.dlog`, pale lilac, sources and checked date). The survey log closes every record.
+White ground framed 3px plum, square. Order is fixed: header (thin title 200, Latin name 300 in `ink-3`, 44px square framed close and copy buttons) then photo, fact tiles (`.dfacts`, 2 columns), the "what" paragraph (reading body), the why tile (purple, h3 key at 600 0.8rem, text 300 1.05rem), the dish tile (plum, white text, dish name 300 1.35rem), the action grid (`.linkrow`, 2 columns, icon over word), then the survey log (`.dlog`, pale lilac, sources and checked date). The survey log closes every record.
 
 ### Navigation
 - **Top chrome:** ground fill (the old purple header is gone); brand link 500 0.95rem in `ink-2`, square, lilac on hover; icon buttons square and borderless; theme/language segmented control framed in `line-ctl`, pressed plum. A hairline appears under the bar when it is stuck.
@@ -312,12 +307,12 @@ White ground framed 1.5px plum, square. Order is fixed: header (thin title 200, 
 - **Desktop rail:** current item pale lilac with a plum frame; selected rail tab plum.
 
 ### Focus and forced colours
-One ring for the whole system: `outline: 3px solid var(--ink)`, offset 2px, radius 0; inset (-3px) where the element sits in an overflow container or a tight tab row. Under `forced-colors:active`, tiles get a 1px CanvasText border, borderless buttons (`.btn-near`, `.lbtn`, `.qbtn`, `.oflink`, `.backbtn`, `.pivot-peek`, `.mt-link`) get a 1px ButtonText border, and selected/pressed controls get a 3px Highlight outline.
+One ring for the whole system: `outline: 3px solid var(--ink)`, offset 2px, radius 0; inset (-3px) where the element sits in an overflow container or a tight tab row. Under `forced-colors:active`, tiles get a 1px CanvasText border, borderless buttons (`.btn-near`, `.lbtn`, `.qbtn`, `.oflink`, `.backbtn`, `.mt-link`) get a 1px ButtonText border, and selected/pressed controls get a 3px Highlight outline.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** put new content in framed tiles: `tile` or `tile-pale` fill, `border:1.5px solid var(--tile-edge)`, padding 10px 12px, 6px grid gap, radius 0.
+- **Do** put new content in framed tiles: `tile` or `tile-pale` fill, `border:var(--edge) solid var(--tile-edge)` (3px), padding 10px 12px, 6px grid gap, radius 0.
 - **Do** remap the inside-tile ink set (`--ink-3`, `--jade-ink`, `--gold-ink`, `--rose` onto the `*-tile` tokens) on any new tile class.
 - **Do** use plum (`tile-dark` with `on-tile-dark`) for the pressed or selected option in any set.
 - **Do** build every action as a filled tile from `--act-fill`/`--act-on` with an SVG icon and a word.

@@ -73,16 +73,13 @@ var T={
   clear:{he:"נקה חיפוש",en:"Clear search"},
   navStations:{he:"תחנות",en:"Stations"},
   navHome:{he:"בית",en:"Home"},
+  nearPickHome:{he:"אפשר גם לבחור תחנה מהרשימה שלמטה.",en:"You can also pick a stop from the list below."},
   navMap:{he:"מפה",en:"Map"},
   mapRegion:{he:"מפת התחנות",en:"Map of the stops"},
   zoomIn:{he:"התקרבות",en:"Zoom in"},
   zoomOut:{he:"התרחקות",en:"Zoom out"},
   homeTitle:{he:"ויאטנם 2026 — מסך הבית",en:"Vietnam 2026 — Home"},
   atAGlance:{he:"הטיול במבט",en:"Trip at a glance"},
-  modeNow:{he:"עכשיו",en:"Now"},
-  modePlan:{he:"תכנון",en:"Plan"},
-  modeGo:{he:" — מעבר למצב",en:" — switch view"},
-  modeSaid:{he:"עברת למצב %s",en:"Switched to %s"},
   nearYou:{he:"קרוב אליך",en:"Near you"},
   countdownK:{he:"ספירה לאחור",en:"Countdown"},
   fxSpoken:{he:"דולר אחד שווה %i שקלים. שקל אחד שווה %v דונג.",en:"One dollar is %i shekels. One shekel is %v dong."},
@@ -2221,33 +2218,10 @@ function tileFor(st){
      שמות התחנות אינם כותרות: 14 כותרות במסך אחד מציפות את הרוטור. */
   li.appendChild(a); return li;
 }
-/* ============ מסך הבית: "עכשיו" ו"תכנון" ============
-   פאזה 10. שני מצבים לשתי הסצנות של PRODUCT.md: ברחוב (מה קרוב, מתי
-   יוצאים, שערים, קישורי ויזה) ובערב (כל התחנות לפי אזור). המצב נשמר
-   ב-localStorage; בלי גישה אליו נופלים בשקט ל"עכשיו". */
-var HOME_MODE_KEY="homeMode";
-function homeMode(){
-  try{ return localStorage.getItem(HOME_MODE_KEY)==="plan"?"plan":"now"; }catch(e){ return "now"; }
-}
-function setHomeMode(m){
-  try{ localStorage.setItem(HOME_MODE_KEY,m); }catch(e){}
-}
-/* כותרת פיבוט: המילה הפעילה היא ה-h1 של המסך, והשנייה מציצה בסופה
-   ככפתור. החיתוך בצד הסוף בלבד, כך שתחילת המילה הפעילה תמיד שלמה. */
-function pivotHead(active,other,onOther,refocus){
-  var w=el("div","pivot");
-  w.appendChild(screenTitle(active,"pivot-on"));
-  if(other){
-    /* השם הנגיש מתחיל בטקסט הגלוי (2.5.3): Voice Control באייפון מזהה
-       את תחילת התווית. ההקשר נשמע לקורא מסך בלבד. */
-    var b=el("button","pivot-peek",other); b.type="button";
-    b.appendChild(el("span","sr",t("modeGo")));
-    if(refocus) b.setAttribute("data-refocus",refocus);
-    b.addEventListener("click",onOther);
-    w.appendChild(b);
-  }
-  return w;
-}
+/* ============ מסך הבית ============
+   10-04 (בקשת אסף 12/10): דף אחד. קודם המידע הכללי (ספירה, הטיול במבט,
+   שערים, קישורים, "קרוב אליך"), ואחריו כל התחנות באריחים הגדולים לפי
+   אזור. הפיבוט "עכשיו/תכנון" בוטל: באייפון הוא נקרא כטקסט שחורג מהדף. */
 function tileEl(tag,cls,k,v){
   var d=el(tag,"mt"+(cls?" "+cls:""));
   if(k) d.appendChild(el("span","mt-k",k));
@@ -2328,7 +2302,7 @@ function homeNow(){
     if(!nb.isConnected) return;
     var act=document.activeElement;
     var tag=(act&&nb.contains(act)&&act.getAttribute)?act.getAttribute("data-refocus"):null;
-    var r=buildNearBody(rerender,"h3");
+    var r=buildNearBody(rerender,"h3",true);
     nb.textContent=""; nb.appendChild(nst); nb.appendChild(r.node);
     nst.textContent=r.say||"";
     if(r.say) say(r.say);
@@ -2339,7 +2313,7 @@ function homeNow(){
     if(back) back.focus();
   }
   main.appendChild(nb);
-  var first=buildNearBody(rerender,"h3");
+  var first=buildNearBody(rerender,"h3",true);
   nb.appendChild(nst); nb.appendChild(first.node);
   nst.textContent=first.say||"";
 }
@@ -2365,19 +2339,10 @@ function screenHome(){
   exitMapMode();
   main.textContent="";
   setDocTitle(null);
-  var mode=homeMode();
-  var other=mode==="now"?"plan":"now";
-  var label={now:t("modeNow"),plan:t("modePlan")};
-  main.appendChild(pivotHead(label[mode],label[other],function(){
-    setHomeMode(other);
-    screenHome();
-    var b=main.querySelector(".pivot-peek"); if(b) b.focus();
-    say(t("modeSaid",{"%s":label[other]}));
-  },"pivot"));
-  /* ה-h1 הגלוי הוא שם המצב; ההקשר (מסך הבית) נשמע לקורא מסך בלבד. */
-  var h1=main.querySelector(".pivot-on");
-  if(h1) h1.appendChild(el("span","sr"," · "+t("homeTitle")));
-  if(mode==="now") homeNow(); else homePlan();
+  /* האריח הראשון (הספירה) פותח את המסך; הכותרת לקורא מסך בלבד. */
+  main.appendChild(screenTitle(t("homeTitle"),"sr"));
+  homeNow();
+  homePlan();
 }
 
 function screenSplit(sel){
@@ -2593,9 +2558,12 @@ function nearButton(label,onClick,refocus){
 }
 /* בונה את גוף המצב. מחזיר גם את הטקסט שיוכרז, כדי שיהיה מקור אמת
    אחד — אזור ה-live הוא אותו אלמנט גלוי, ולא #live הסמוי במקביל. */
-function buildNearBody(rerender,headTag){
-  var box=el("div","near-body"), spoken="";
+function buildNearBody(rerender,headTag,noPick){
+  var box=el("div","near-body"), spoken="", pickNote="";
   function fallback(){
+    /* בבית אריחי התחנות הגדולים מופיעים מתחת, ולכן בלי רשימת בחירה כפולה —
+       אבל עם הפניה אליהם, שמוכרזת יחד עם ההודעה (סקירת נגישות 10-04). */
+    if(noPick){ pickNote=t("nearPickHome"); box.appendChild(el("p","near-hint",pickNote)); return; }
     box.appendChild(nearStationPicker(function(id){
       geo.manual=id; geo.state="manual"; railAnnounce=true; rerender();
     }));
@@ -2627,7 +2595,7 @@ function buildNearBody(rerender,headTag){
     if(geo.state!=="denied"&&geoSupported())
       box.appendChild(nearButton(t("retryNear"),function(){ requestGeo(rerender); },"retry"));
     fallback();
-    return {node:box,say:msg};
+    return {node:box,say:msg+(pickNote?" "+pickNote:"")};
   }
   var origin=null, head="";
   if(geo.state==="far"){
@@ -2638,11 +2606,11 @@ function buildNearBody(rerender,headTag){
     if(geoSupported())
       box.appendChild(nearButton(t("refreshLoc"),function(){ requestGeo(rerender); },"refresh"));
     fallback();
-    return {node:box,say:t("farAway",{"%d":fmtDist(f.km,true),"%s":stName(f.st)})};
+    return {node:box,say:t("farAway",{"%d":fmtDist(f.km,true),"%s":stName(f.st)})+(pickNote?" "+pickNote:"")};
   }
   if(geo.state==="manual"){
     var st=POI_DATA[geo.manual];
-    if(!st){ geo.state="idle"; return buildNearBody(rerender,headTag); }
+    if(!st){ geo.state="idle"; return buildNearBody(rerender,headTag,noPick); }
     origin={lat:st.lat,lng:st.lng};
     head=t("nearStation",{"%s":stName(st)});
   }else{
