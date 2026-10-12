@@ -296,19 +296,17 @@ var T={
   tripInfo:{he:"על הטיול",en:"About the trip"},
   departTLV:{he:"יציאה מ-TLV",en:"Depart TLV"},
   returnTLV:{he:"חזרה ל-TLV",en:"Return TLV"},
-  hotelNights:{he:"לילות מלון",en:"Hotel nights"},
-  nightsSub:{he:"בתוספת 2 רכבות לילה ושייט בהא לונג",en:"plus 2 night trains and the Ha Long cruise"},
-  ownSpend:{he:"אומדן הוצאה עצמית",en:"Own spend estimate"},
-  ownSpendSub:{he:"מעבר לחבילת הסוכן ולטיסות",en:"on top of the agent package and flights"},
   fxTitle:{he:"שער חליפין",en:"Exchange rate"},
-  fxSub:{he:"נבדק 6/9/2026",en:"checked 6 Sep 2026"},
+  fxSub:{he:"שער מ-%s",en:"rate of %s"},
   poolSize:{he:"גודל המאגר",en:"Pool size"},
-  poolSub:{he:"על פני %s תחנות בארבעה אזורים",en:"across %s stations in four regions"},
+  poolSub:{he:"על פני %s תחנות בשלושה אזורים",en:"across %s stations in three regions"},
   domFlights:{he:"טיסות פנים",en:"Domestic flights"},
-  domSub:{he:"Vietnam Airlines בלבד",en:"Vietnam Airlines only"},
+  domSub:{he:"בלי Vietjet",en:"no Vietjet"},
+  tripNightsK:{he:"לילות בויאטנם",en:"Nights in Vietnam"},
+  tripNightsSub:{he:"נחיתה והמראה בהאנוי",en:"in and out of Hanoi"},
   rateNote:{he:"על השערים",en:"About the rates"},
-  rateNoteBody:{he:"נבדקו ב-6/9/2026 מול open.er-api.com ו-frankfurter.app. קבועים בקוד כי משיכת רשת חסומה כאן; באתר האמיתי הם נמשכים אונליין.",
-                en:"Checked on 6 Sep 2026 against open.er-api.com and frankfurter.app. Hard-coded here because network calls are blocked; the real site fetches them live."},
+  rateNoteBody:{he:" השערים מתעדכנים לבד מ-open.er-api.com בכל פעם שיש אינטרנט. בלי רשת מוצג השער האחרון שנשמר. לפני המרה גדולה כדאי לבדוק את השער בנקודת ההמרה.",
+                en:" Rates refresh on their own from open.er-api.com whenever there is internet. Offline, the last saved rate is shown. Before a large exchange, check the rate at the counter."},
   langLabel:{he:"בחירת שפה",en:"Choose language"},
   curLabel:{he:"מטבע לתצוגת מחירים",en:"Currency for prices"},
   docTitle:{he:"ויאטנם במבט אחד",en:"Vietnam at a glance"},
@@ -529,6 +527,44 @@ var query="", favs=loadFavs();
    ה-CSP כאן חוסם משיכת רשת, אז אין רענון חי — באתר האמיתי הקוד החי כבר קיים. */
 var RATES={USD:1,ILS:3.03,VND:26016};
 var RATE_DATE="2026-09-06";
+/* 10-05: שער חי. open.er-api.com — חינם, בלי מפתח. התוצאה נשמרת, ובלי רשת
+   מוצג השער האחרון שנשמר (או 6/9 כברירת מחדל). ערך מחוץ לטווח סביר נזרק. */
+var RATE_KEY="vn.rates";
+try{
+  var _rs=JSON.parse(localStorage.getItem(RATE_KEY)||"null");
+  if(_rs&&_rs.ILS>0&&_rs.VND>0&&_rs.date){RATES.ILS=_rs.ILS;RATES.VND=_rs.VND;RATE_DATE=_rs.date;}
+}catch(e){}
+function fxTexts(){
+  var vpi=Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US");
+  return {usd:"$1 = ₪"+RATES.ILS.toFixed(2), ils:"₪1 = ₫"+vpi,
+    spoken:t("fxSpoken",{"%i":RATES.ILS.toFixed(2),"%v":vpi}), date:t("fxSub",{"%s":rateDateText()})};
+}
+function fxMark(node,key){ node.setAttribute("data-fx",key); node.textContent=fxTexts()[key]; return node; }
+function updateFx(){
+  var x=fxTexts();
+  Array.prototype.forEach.call(document.querySelectorAll("[data-fx]"),function(n){
+    var v=x[n.getAttribute("data-fx")]; if(v!=null&&n.textContent!==v) n.textContent=v;
+  });
+}
+function rateDateText(){
+  var d=RATE_DATE.split("-");
+  return (+d[2])+"."+(+d[1])+"."+d[0];
+}
+function fetchRates(){
+  if(!window.fetch) return;
+  fetch("https://open.er-api.com/v6/latest/USD",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||j.result!=="success"||!j.rates) return;
+    var ils=+j.rates.ILS, vnd=+j.rates.VND;
+    if(!(ils>2&&ils<6&&vnd>15000&&vnd<40000)) return;
+    var day=new Date((j.time_last_update_unix||Date.now()/1000)*1000).toISOString().slice(0,10);
+    var changed=Math.abs(ils-RATES.ILS)>=0.005||Math.abs(vnd-RATES.VND)>=1||day!==RATE_DATE;
+    RATES.ILS=Math.round(ils*100)/100; RATES.VND=Math.round(vnd); RATE_DATE=day;
+    try{localStorage.setItem(RATE_KEY,JSON.stringify({ILS:RATES.ILS,VND:RATES.VND,date:day}));}catch(e){}
+    /* עדכון הטקסטים במקום, בלי render(): בנייה מחדש זרקה את סמן VoiceOver
+       ואת נקודת החזרה של דיאלוג פתוח (סקירת נגישות 10-05, ממצאים 1–2). */
+    if(changed) updateFx();
+  }).catch(function(){});
+}
 var SYM={USD:"$",ILS:"₪",VND:"₫"};
 var cur="USD";
 try{cur=localStorage.getItem("vn.cur")||"USD";}catch(e){}
@@ -2266,13 +2302,12 @@ function homeNow(){
   });
   var fx=tileEl("li","mt-s4",t("fxRate"),null); fx.setAttribute("role","listitem");
   var fr=el("span","mt-v mt-fx"); fr.setAttribute("aria-hidden","true");
-  var vndPerIls=Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US");
-  ["$1 = ₪"+RATES.ILS.toFixed(2),"₪1 = ₫"+vndPerIls]
-    .forEach(function(x){var b=document.createElement("bdi");b.textContent=x;fr.appendChild(b);});
+  ["usd","ils"].forEach(function(k){fr.appendChild(fxMark(document.createElement("bdi"),k));});
   fx.appendChild(fr);
   /* VoiceOver בעברית מקריא את $ ₪ ₫ = בחוסר עקביות; הנוסחה הגלויה מוסתרת
      ממנו והוא שומע משפט. */
-  fx.appendChild(el("span","sr",t("fxSpoken",{"%i":RATES.ILS.toFixed(2),"%v":vndPerIls})));
+  fx.appendChild(fxMark(el("span","sr"),"spoken"));
+  fx.appendChild(fxMark(el("span","mt-sub"),"date"));
   ig.appendChild(fx);
   /* קישורי הממשלה היו מוסתרים בנייד (רק במסך "מידע"). בשטח צריך אותם
      לפני הטיסה, ולכן הם עלו לבית כאריחים. */
@@ -3523,18 +3558,29 @@ function screenInfo(){
   of.appendChild(oflink("doc",t("prearrival"),"https://prearrival.immigration.gov.vn"));
   main.appendChild(of);
   var grid=el("div","facts");
-  grid.appendChild(fact(t("departTLV"),"26 Oct","Etihad EY600 · TLV–AUH–HAN",true));
-  grid.appendChild(fact(t("returnTLV"),"24 Nov","Etihad EY431 · HAN 20:00 · AUH–TLV",true));
-  grid.appendChild(fact(t("hotelNights"),"26",t("nightsSub")));
-  grid.appendChild(fact(t("ownSpend"),conv(1550),t("ownSpendSub")));
+  /* 10-05: נשאר רק מה שסגור. הלילות, ההוצאה העצמית ומספר טיסות הפנים
+     באו מהצעת סוכן שלא נסגרה — ההחלטה נדחתה לימים הראשונים בהאנוי. */
+  /* המספר הגלוי מוסתר מקורא המסך, שהיה מקריא "עשרים ושש נקודה עשר"; הוא
+     שומע את התאריך במילים (סקירת נגישות 10-05, ממצא 4). */
+  [[t("departTLV"),TRIP.depart,"Etihad EY600 · TLV–AUH–HAN"],
+   [t("returnTLV"),TRIP.back,"Etihad EY431 · HAN 20:00 · AUH–TLV"]].forEach(function(f){
+    var loc=isHe()?"he-IL":"en-GB";
+    var d=fact(f[0],f[1].toLocaleDateString(loc,{day:"numeric",month:"numeric"}),f[2]);
+    var v=d.querySelector(".fact-v"); v.dir="ltr"; v.setAttribute("aria-hidden","true");
+    v.parentNode.insertBefore(el("span","sr",f[1].toLocaleDateString(loc,{day:"numeric",month:"long"})),v);
+    grid.appendChild(d);
+  });
+  grid.appendChild(fact(t("tripNightsK"),String(Math.round((TRIP.back-TRIP.depart)/864e5)),t("tripNightsSub")));
   grid.appendChild(fact(t("poolSize"),placesN(INDEX.length),t("poolSub",{"%s":STATIONS.length})));
-  grid.appendChild(fact(t("domFlights"),"3",t("domSub")));
+  grid.appendChild(fact(t("domFlights"),"Vietnam Airlines",t("domSub"),true));
 
   var fx=el("div","fact");
   fx.appendChild(el("div","fact-l",t("fxTitle")));
-  fx.appendChild(el("div","fxline","$1 = ₪"+RATES.ILS));
-  fx.appendChild(el("div","fxline","₪1 = ₫"+Math.round(RATES.VND/RATES.ILS).toLocaleString("en-US")));
-  fx.appendChild(el("div","fact-s",t("fxSub")));
+  var fxv=el("div","fxlines"); fxv.setAttribute("aria-hidden","true");
+  ["usd","ils"].forEach(function(k){ var b=fxMark(el("bdi","fxline"),k); b.dir="ltr"; fxv.appendChild(b); });
+  fx.appendChild(fxv);
+  fx.appendChild(fxMark(el("span","sr"),"spoken"));
+  fx.appendChild(fxMark(el("div","fact-s"),"date"));
   grid.appendChild(fx);
   main.appendChild(grid);
 
@@ -3637,7 +3683,68 @@ function render(){
   /* גם החיפוש נחשב "בית" לכרום: אחרת הקלדה ראשונה הקפיצה את פס הטיול
      והספירה מעל השדה שבו הפוקוס (סקירה מלאה 10-03, ממצא 3). */
   document.documentElement.setAttribute("data-route",(r==="home"||r==="search"||!r)?"home":r);
+  decorate(r,hz);
   markNav(r);
+}
+/* ============ סמלים ויאטנמיים (10-05) ============
+   איורי הספלאש עצמם (כבר ב-PRECACHE, ולכן עובדים בלי רשת), סמל או שניים
+   בכל מסך. דקורטיביים בלבד: alt ריק ו-aria-hidden, בלי אירועי מצביע, ותמיד
+   בשוליים שפונו להם — לעולם לא מעל טקסט. */
+var MOTIF={hat:[360,204],lantern:[226,360],boat:[360,345],lotus:[360,328],pho:[360,307]};
+var ST_MOTIF={"hanoi":"pho","ha-giang":"hat","sapa":"hat","ha-long":"boat","ninh-binh":"boat",
+  "phong-nha":"boat","hue":"hat","hoi-an":"lantern","buon-ma-thuot":"hat","lak-lake":"boat",
+  "da-lat":"lotus","saigon":"pho","mekong":"lotus","phu-quoc":"boat"};
+function stick(host,name,cls){
+  if(!host||!MOTIF[name]||host.querySelector(":scope > .sticker")) return;
+  var i=document.createElement("img");
+  i.src="assets/splash/"+name+".webp"; i.width=MOTIF[name][0]; i.height=MOTIF[name][1];
+  i.alt=""; i.setAttribute("aria-hidden","true"); i.decoding="async"; i.draggable=false;
+  i.className="sticker sticker-"+name+(cls?" "+cls:"");
+  host.classList.add("has-sticker"); host.appendChild(i);
+  stickerFit(i);
+  /* ResizeObserver תופס גם שינוי ריווח טקסט וגודל גופן מערכת, שלא יורים
+     resize; fonts.ready תופס את החלפת הגופן (ממצא 3). */
+  if(window.ResizeObserver) new ResizeObserver(function(){ stickerFit(i); }).observe(host);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){ stickerFit(i); });
+}
+/* כלל: קישוט לעולם לא על טקסט. בטקסט מוגדל או במסך צר במיוחד אין לו
+   מקום — אז הוא מסתתר, ולא הטקסט נדחק. נבדק שוב בשינוי גודל. */
+function stickerFit(i){
+  var host=i.parentElement;
+  if(!host||!i.isConnected) return;
+  i.hidden=false;
+  var a=i.getBoundingClientRect();
+  if(!a.width) return;
+  var w=document.createTreeWalker(host,NodeFilter.SHOW_TEXT), n, rg=document.createRange();
+  while((n=w.nextNode())){
+    if(!n.textContent.trim()||(n.parentElement&&n.parentElement.closest(".sr"))) continue;
+    rg.selectNodeContents(n);
+    var rs=rg.getClientRects();
+    for(var k=0;k<rs.length;k++){
+      var r=rs[k];
+      if(r.width&&r.right>a.left&&r.left<a.right&&r.bottom>a.top&&r.top<a.bottom){
+        /* הריווח השמור נשאר גם כשהיא מוסתרת: הסרתו משנה את גובה המארח,
+           וה-ResizeObserver היה נכנס ללולאה. */
+        i.hidden=true; return;
+      }
+    }
+  }
+}
+var stickerTimer=0;
+window.addEventListener("resize",function(){
+  clearTimeout(stickerTimer);
+  stickerTimer=setTimeout(function(){
+    Array.prototype.forEach.call(document.querySelectorAll(".sticker"),stickerFit);
+  },150);
+});
+function decorate(r,hz){
+  function q(sel){return main.querySelector(sel)||document.querySelector(sel);}
+  if(r==="home"){ stick(q(".mt-count"),"lantern","stk-hang"); stick(q("h2.sec-label"),"hat","stk-head"); }
+  else if(r==="station") stick(q(".hero-txt"),ST_MOTIF[hz.slice(2)]||"hat","stk-hero");
+  else if(r==="topics"||r==="category") stick(q("h1.sec-head"),"pho","stk-head");
+  else if(r==="transfers") stick(q("h1.sec-head"),"boat","stk-head");
+  else if(r==="saved") stick(q("h1.sec-head"),"lotus","stk-head");
+  else if(r==="info") stick(q("h1.sec-head"),"hat","stk-head");
 }
 var NAV=[
   {id:"home",  hash:"#",       ic:"grid",   key:"navHome"},
@@ -4051,4 +4158,5 @@ syncStickyTop();
 
 renderChrome();
 render();
+fetchRates();
 })();

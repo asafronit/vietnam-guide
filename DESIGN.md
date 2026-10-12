@@ -331,3 +331,6 @@ One ring for the whole system: `outline: 3px solid var(--ink)`, offset 2px, radi
 - **Don't** move the search out of the sticky chrome.
 - **Don't** touch the splash (`#splash`, `.sp-*`) or derive styles from it.
 - **Don't** treat the dark-mode `peek` value (`#6f6889` on `#120e1c`, about 3.6:1) as settled; it was never retuned for dark and should be lifted rather than copied.
+
+### Vietnamese stickers (10-05)
+The splash illustrations (`assets/splash/hat|lantern|boat|lotus|pho.webp`, already precached) reappear as stickers, one or two per screen: home gets the lantern hanging from the countdown tile and the hat beside "הטיול במבט"; each station gets its own motif crossing the bottom edge of the hero photo (Hoi An lantern, Ha Long boat, Hanoi pho, Hue hat, Da Lat lotus…); topics/category pho, transfers boat, saved lotus, info hat. They are the only full-colour illustration in the system and stay decoration: `alt=""` plus `aria-hidden`, `pointer-events:none`, absolute in reserved inline-end padding sized in px (they must not grow with text zoom). Rule: a sticker never sits on text. `stickerFit` hides any sticker whose box meets a text line, re-checked by ResizeObserver, `document.fonts.ready` and resize. No shadow, matching the flat system.

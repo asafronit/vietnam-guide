@@ -1553,6 +1553,36 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
    ל-400; Bold Text של iOS אינו חל על גופני רשת, וזה הפיצוי היחיד. הבלוק
    חייב להיות אחרון: כלל באותה ספציפיות שמופיע אחריו דורס אותו (סקירת
    נגישות 10-02, ממצא 1). */
+/* ---------- סמלים ויאטנמיים (10-05, בקשת אסף) ----------
+   איורי הספלאש כמדבקות. המארח מפנה להם שוליים בצד הסוף, כך שהאיור לעולם
+   לא יושב על טקסט; pointer-events:none כדי שלא יבלע לחיצה. */
+.has-sticker{position:relative}
+/* גדלים בפיקסלים ולא ב-rem: הגדלת טקסט מגדילה את הטקסט, לא את הקישוט. */
+.sticker{position:absolute;pointer-events:none;user-select:none;width:auto;height:64px;max-width:none}
+.stk-head{inset-inline-end:0;bottom:2px;height:58px}
+h1.has-sticker,h2.has-sticker{padding-inline-end:88px}
+/* פנס תלוי מקצה האריח העליון, באמצע — בין הספרה לתאריכים. */
+.stk-hang{top:calc(-1 * var(--edge));inset-inline-start:44%;height:74px}
+/* תחנה: המדבקה חוצה את קצה התצלום, והכותרת מפנה לה מקום. */
+.stk-hero{inset-inline-end:6px;top:-42px;height:77px}
+.hero-txt.has-sticker .hero-name,.hero-txt.has-sticker .hero-sub{padding-inline-end:90px}
+@media (min-width:60rem){
+  .stk-head{height:70px}
+  h1.has-sticker,h2.has-sticker{padding-inline-end:104px}
+  .stk-hang{height:86px}
+  .stk-hero{height:93px;top:-51px}
+  .hero-txt.has-sticker .hero-name,.hero-txt.has-sticker .hero-sub{padding-inline-end:110px}
+}
+@media (max-width:22rem){
+  .stk-head{height:44px}
+  h1.has-sticker,h2.has-sticker,.hero-txt.has-sticker .hero-name,.hero-txt.has-sticker .hero-sub{padding-inline-end:60px}
+  .stk-hang{height:56px}
+  .stk-hero{height:58px;top:-30px}
+}
+/* שער: תאריך השער בתוך האריח, ושתי הנוסחאות בשורות נפרדות. */
+.mt-sub{display:block;margin-top:4px;font-family:var(--f-ui);font-size:.8rem;font-weight:500;color:var(--ink-3)}
+.fxlines .fxline{display:block}
+
 @media (prefers-contrast:more){
   .mt-v,.mt-v-sm,.mt-big,.near-dist,.countdown b,.tile-idx,.hero-name,.tile-nm,.pcard-name,
   .sec-label,.region-hd,.sec-head,.sheet-ttl,.set-ttl,.ttl-en,.sheet-what,.whybox div,.dishbox .dish-hd strong,
