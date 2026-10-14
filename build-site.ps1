@@ -97,7 +97,8 @@ $head = @'
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#a8231f">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#120e1c">
 <meta name="description" content="מאגר נקודות עניין לטיול בווייטנאם: אטרקציות, אוכל רחוב, מסעדות, שווקים, לינה, והתאמה למזג האוויר.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">

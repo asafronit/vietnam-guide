@@ -236,8 +236,14 @@ a{color:inherit;text-decoration:none}
 svg.ic{width:17px;height:17px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 svg.ic-lg{width:21px;height:21px}
 
+/* פאזה 11: באייפון בלי זה הטקסט מתנפח כשמסובבים לרוחב. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
 /* ---------- סרגל עליון ---------- */
-.topbar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid transparent;transition:border-color .2s}
+/* viewport-fit=cover מכניס את הדף מתחת לשעון ולאי הדינמי באפליקציה המותקנת.
+   הרקע ממשיך מתחתם, והתוכן נדחף מהם. מחוץ לאייפון הערך 0. */
+.topbar{position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid transparent;transition:border-color .2s;
+  padding-top:env(safe-area-inset-top,0px)}
 .topbar.is-stuck{border-bottom-color:var(--line)}
 .tb-row{max-width:1140px;margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 /* הכותרת הסגולה של האתר הראשי. היא הזהות, ולכן אינה מתהפכת במצב
@@ -254,8 +260,8 @@ svg.ic-lg{width:21px;height:21px}
   letter-spacing:-.01em;color:inherit;text-decoration:none;min-height:44px;
   padding:4px 11px 4px 9px;border-radius:999px;
   border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.08);
-  transition:background .14s,border-color .14s}
-.brand:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.6)}
+  transition:background .14s,border-color .14s,scale .12s cubic-bezier(.23,1,.32,1)}
+@media (hover:hover) and (pointer:fine){.brand:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.6)}}
 .brand:active{background:rgba(255,255,255,.26)}
 .brand .ic{width:16px;height:16px;flex:none;opacity:.95}
 /* הזהב תקף כאן רק כטקסט גדול ומודגש, וסף "גדול" ב-bold הוא 18.66px.
@@ -274,22 +280,22 @@ svg.ic-lg{width:21px;height:21px}
 .seg{display:inline-flex;border:1px solid var(--line-ctl);border-radius:var(--r-xs);background:var(--surface)}
 .seg button{
   font-family:var(--f-ui);font-size:.79rem;font-weight:500;color:var(--ink-2);
-  padding:6px 11px;border-inline-start:1px solid var(--line-soft);transition:background .13s,color .13s;
+  padding:6px 11px;border-inline-start:1px solid var(--line-soft);transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
 .seg button:first-child{border-inline-start:none}
 .seg button[aria-pressed="true"]{background:var(--brand);color:var(--brand-ink)}
-.seg button:hover:not([aria-pressed="true"]){background:var(--surface-2);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.seg button:hover:not([aria-pressed="true"]){background:var(--surface-2);color:var(--ink)}}
 .iconbtn{
   display:inline-flex;align-items:center;justify-content:center;width:33px;height:33px;
   border:1px solid var(--line-ctl);border-radius:var(--r-xs);color:var(--ink-2);background:var(--surface);
-  transition:background .13s,color .13s;
+  transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
 /* פקדים שיושבים על הכותרת הסגולה */
 .tb-row.r1 .iconbtn{border-color:rgba(255,255,255,.45);color:#fff;background:transparent;border-radius:999px}
 .tb-row.r1 .seg{border-color:rgba(255,255,255,.45);background:transparent;border-radius:999px;overflow:hidden}
 .tb-row.r1 .seg button{color:#fff;border-inline-start-color:rgba(255,255,255,.3)}
 .tb-row.r1 .seg button[aria-pressed="true"]{background:#fff;color:var(--primary-fill)}
-.tb-row.r1 .seg button:hover:not([aria-pressed="true"]){background:rgba(255,255,255,.14);color:#fff}
+@media (hover:hover) and (pointer:fine){.tb-row.r1 .seg button:hover:not([aria-pressed="true"]){background:rgba(255,255,255,.14);color:#fff}}
 /* טבעת פוקוס על רקע סגול או על תצלום: טבעת בודדת בצבע המותג נעלמת.
    הדפוס הכפול כבר הוכח כאן על .hero-name — מרחיבים את תחולתו. */
 .tb-row.r1 :focus-visible,.tile:focus-visible{
@@ -298,7 +304,7 @@ svg.ic-lg{width:21px;height:21px}
 #splash .sp-skip:focus,#splash .sp-skip:focus-visible{
   outline:3px solid #fff;outline-offset:2px;box-shadow:0 0 0 6px rgba(0,0,0,.85);border-radius:999px
 }
-.iconbtn:hover{background:var(--surface-2);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.iconbtn:hover{background:var(--surface-2);color:var(--ink)}}
 
 /* מסגרת הטיול: תאריכים, היום, וספירה לאחור */
 .tripbar{border-top:1px solid var(--line-soft);background:var(--surface)}
@@ -318,9 +324,9 @@ svg.ic-lg{width:21px;height:21px}
 .oflink{
   display:inline-flex;align-items:center;gap:7px;font-family:var(--f-ui);font-size:.8rem;font-weight:500;
   color:var(--ink-2);border:1px solid var(--line-ctl);border-radius:var(--r-xs);padding:6px 11px;
-  transition:border-color .13s,color .13s;
+  transition:border-color .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.oflink:hover{border-color:var(--brand);color:var(--brand)}
+@media (hover:hover) and (pointer:fine){.oflink:hover{border-color:var(--brand);color:var(--brand)}}
 .oflink svg{color:var(--brand)}
 .of-note{font-size:.78rem;color:var(--ink-3);margin-inline-start:auto}
 
@@ -338,14 +344,14 @@ svg.ic-lg{width:21px;height:21px}
 .searchbox input::placeholder{color:var(--ink-3)}
 .searchbox .ic{color:var(--ink-3)}
 .xbtn{color:var(--ink-3);flex:none;padding:4px;display:flex;border-radius:4px;min-width:25px;min-height:25px;align-items:center;justify-content:center}
-.xbtn:hover{color:var(--rose)}
+@media (hover:hover) and (pointer:fine){.xbtn:hover{color:var(--rose)}}
 .tabs{display:flex;gap:2px}
 .tab{
   font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
   padding:8px 13px;border-radius:var(--r-xs);display:inline-flex;gap:7px;align-items:center;
-  transition:background .13s,color .13s;
+  transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.tab:hover{background:var(--surface-2);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.tab:hover{background:var(--surface-2);color:var(--ink)}}
 /* m-3: הפרש הרקע היה 1.10:1 בלבד — כלומר המצב הפעיל היה מסומן בצבע
    ובמשקל בלבד. הפס התחתון הוא הסימן שאינו תלוי בתפיסת צבע, ושורד
    גם קריאה באור שמש ישיר. */
@@ -392,7 +398,7 @@ main:focus,main:focus-visible{outline:none}
   color:var(--ink-2);border:1px solid var(--line-ctl);background:var(--surface);
   padding:7px 13px;border-radius:var(--r-xs);margin:2px 0 12px;
 }
-.backbtn:hover{color:var(--ink);border-color:var(--brand)}
+@media (hover:hover) and (pointer:fine){.backbtn:hover{color:var(--ink);border-color:var(--brand)}}
 .backbtn svg{transform:scaleX(1)}
 :root[dir="rtl"] .backbtn svg,html[dir="rtl"] .backbtn svg{transform:scaleX(-1)}
 
@@ -401,15 +407,16 @@ main:focus,main:focus-visible{outline:none}
    מעבר בין תחנות הוא החלפת התוכן בחלונית אחת, לא ניווט לעמוד חדש. */
 .split{display:grid;grid-template-columns:300px minmax(0,1fr);gap:20px;align-items:start}
 .rail{position:sticky;top:calc(var(--sticky-top) + 8px);max-height:calc(100vh - var(--sticky-top) - 24px);
+  max-height:calc(100dvh - var(--sticky-top) - 24px);
   display:flex;flex-direction:column;gap:10px;min-height:0}
 .rail-head{display:flex;align-items:baseline;gap:8px;padding:2px 10px 6px;
   font-family:var(--f-ui);font-weight:600;font-size:.92rem;border-bottom:1px solid var(--line)}
 .rail-tab{
   flex:1;font-family:var(--f-ui);font-size:.82rem;font-weight:500;color:var(--ink-2);
   padding:8px 6px;border-radius:var(--r-xs);display:flex;align-items:center;justify-content:center;gap:6px;
-  transition:background .13s,color .13s;
+  transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.rail-tab:hover{color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.rail-tab:hover{color:var(--ink)}}
 .rail-tab[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
 .rail-list{overflow-y:auto;overscroll-behavior:contain;display:flex;flex-direction:column;gap:2px;padding-inline-end:2px;min-height:0}
 .rail-sect{display:flex;flex-direction:column}
@@ -418,9 +425,9 @@ main:focus,main:focus-visible{outline:none}
   padding:12px 10px 5px;letter-spacing:.02em}
 .rail-item{
   display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-xs);
-  text-align:start;width:100%;transition:background .12s;position:relative;
+  text-align:start;width:100%;transition:background .12s,scale .12s cubic-bezier(.23,1,.32,1);position:relative;
 }
-.rail-item:hover{background:var(--surface-2)}
+@media (hover:hover) and (pointer:fine){.rail-item:hover{background:var(--surface-2)}}
 .rail-item[aria-current="page"]{background:var(--surface);box-shadow:var(--shadow)}
 .rail-item[aria-current="page"]::before{
   content:"";position:absolute;inset-block:9px;inset-inline-start:0;width:3px;
@@ -489,9 +496,9 @@ html[dir="ltr"] .cat-tabswrap::after{
 .cat-tab{
   font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
   padding:8px 13px;border-radius:var(--r-xs);white-space:nowrap;
-  display:inline-flex;align-items:center;gap:7px;transition:background .13s,color .13s;
+  display:inline-flex;align-items:center;gap:7px;transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.cat-tab:hover{background:var(--surface-2);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.cat-tab:hover{background:var(--surface-2);color:var(--ink)}}
 .cat-tab[aria-selected="true"]{background:var(--ink);color:var(--bg);font-weight:600}
 .cat-tab .n{font-size:.76rem;font-variant-numeric:tabular-nums}
 .cat-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
@@ -529,12 +536,16 @@ html[dir="ltr"] .cat-tabswrap::after{
        .botnav (z-index 60), כלומר הפקד היחיד שמחזיר את החלונית היה
        בלתי נראה ובלתי לחיץ — באייפון, שהוא מכשיר היעד. */
     position:fixed;inset-inline:0;inset-block-end:0;z-index:70;
-    height:92vh;background:var(--surface);
+    /* dvh ולא vh: ב-Safari vh הוא הגובה כשהכרום מקופל, וה-snaps נמדדים
+       מול innerHeight. בפער ביניהם הגיליון החליק מתחת לאצבע ותחתיתו
+       נחתכה מאחורי שורת הכתובת. vh נשאר כ-fallback לדפדפן ישן. */
+    height:92vh;height:92dvh;background:var(--surface);
     border-start-start-radius:18px;border-start-end-radius:18px;
     box-shadow:0 -6px 28px rgba(0,0,0,.22);
     display:flex;flex-direction:column;
-    transform:translateY(var(--sheet-y,55vh));
-    transition:transform .32s cubic-bezier(.2,.8,.25,1);
+    transform:translateY(55vh);transform:translateY(55dvh);
+    /* עקומת המגירה של iOS (Ionic/Vaul): יוצאת מהר ונוחתת רכה. */
+    transition:transform .32s cubic-bezier(.32,.72,0,1);
     touch-action:none;
   }
   .mob-sheet.is-dragging{transition:none}
@@ -549,7 +560,7 @@ html[dir="ltr"] .cat-tabswrap::after{
   /* touch-action:none על הגיליון חל על כל שרשרת הצאצאים בבדיקת
      הפגיעה, ולכן גלילת מגע בתוך הגוף נחסמה ב-iOS — המכשיר היחיד
      שחשוב כאן. */
-  .sheet-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;
+  .sheet-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;
     padding:0 var(--gutter) calc(var(--navh) + 18px)}
   /* בתוך הגיליון הרשימה כבר לא דביקה ולא מוגבלת בגובה */
   body.mob-map .rail{position:static;max-height:none}
@@ -619,9 +630,9 @@ html[dir="ltr"] .cat-tabswrap::after{
 .qbtn{
   display:inline-flex;align-items:center;gap:8px;font-family:var(--f-ui);font-weight:500;font-size:.85rem;
   background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r-xs);padding:9px 15px;
-  transition:border-color .13s;
+  transition:border-color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.qbtn:hover{border-color:var(--brand)}
+@media (hover:hover) and (pointer:fine){.qbtn:hover{border-color:var(--brand)}}
 .qbtn.primary{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
 
 /* ---------- כרטיס מקום ---------- */
@@ -631,9 +642,9 @@ html[dir="ltr"] .cat-tabswrap::after{
 .pcard,.rcard{
   direction:ltr;text-align:left;position:relative;
   background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r-sm);
-  display:flex;flex-direction:column;gap:4px;transition:border-color .15s;
+  display:flex;flex-direction:column;gap:4px;transition:border-color .15s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.pcard:hover,.rcard:hover{border-color:var(--brand)}
+@media (hover:hover) and (pointer:fine){.pcard:hover,.rcard:hover{border-color:var(--brand)}}
 .pcard{flex:0 0 240px;scroll-snap-align:start;padding:13px 14px 11px}
 .rcard{padding:14px 15px 12px}
 .rcard-where{direction:rtl;font-family:var(--f-ui);font-size:.76rem;color:var(--ink-3);display:flex;align-items:center;gap:6px}
@@ -657,9 +668,9 @@ html[dir="ltr"] .rcard-where{direction:ltr}
 .fav{
   margin-inline-start:auto;width:30px;height:30px;border-radius:var(--r-xs);
   color:var(--ink-3);display:flex;align-items:center;justify-content:center;flex:none;
-  transition:background .13s,color .13s;
+  transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.fav:hover{background:var(--surface-2);color:var(--rose)}
+@media (hover:hover) and (pointer:fine){.fav:hover{background:var(--surface-2);color:var(--rose)}}
 .fav[aria-pressed="true"]{color:var(--rose)}
 .fav[aria-pressed="true"] svg{fill:currentColor}
 
@@ -671,9 +682,9 @@ mark{background:var(--brand-soft);color:inherit;border-radius:3px;padding:0 2px;
 .topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:11px;margin-top:12px}
 .topic{
   background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r-sm);padding:15px;
-  text-align:start;display:flex;flex-direction:column;gap:2px;transition:border-color .15s;
+  text-align:start;display:flex;flex-direction:column;gap:2px;transition:border-color .15s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.topic:hover:not(:disabled){border-color:var(--brand)}
+@media (hover:hover) and (pointer:fine){.topic:hover:not(:disabled){border-color:var(--brand)}}
 .topic svg{color:var(--ink-3);margin-bottom:5px}
 .topic-n{font-family:var(--f-ui);font-weight:600;font-size:1.3rem;font-variant-numeric:tabular-nums}
 .topic-l{font-family:var(--f-ui);font-size:.85rem;color:var(--ink-2)}
@@ -720,7 +731,7 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .sheet-acts{margin-inline-start:auto;display:flex;gap:8px;flex:none}
 .closebtn,.ttl-copy{width:34px;height:34px;border-radius:var(--r-xs);border:1px solid var(--line-ctl);
   display:flex;align-items:center;justify-content:center;flex:none;color:var(--ink-2)}
-.closebtn:hover,.ttl-copy:hover{background:var(--surface-2);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.closebtn:hover,.ttl-copy:hover{background:var(--surface-2);color:var(--ink)}}
 .sheet-bd{padding:13px 20px 20px;display:flex;flex-direction:column;gap:13px}
 .sheet-what{color:var(--ink-2)}
 .whybox{background:var(--brand-soft);border-radius:var(--r-sm);padding:12px 14px}
@@ -750,9 +761,9 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .lbtn{
   display:inline-flex;align-items:center;gap:7px;font-family:var(--f-ui);font-weight:500;font-size:.85rem;
   border-radius:var(--r-xs);padding:9px 14px;border:1px solid currentColor;
-  color:var(--ink-2);transition:background .13s;
+  color:var(--ink-2);transition:background .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.lbtn:hover{background:var(--tint,var(--surface-2))}
+@media (hover:hover) and (pointer:fine){.lbtn:hover{background:var(--tint,var(--surface-2))}}
 .act-map  {color:var(--c-map);  --tint:var(--c-map-soft)}
 .act-ride {color:var(--c-ride); --tint:var(--c-ride-soft)}
 .act-video{color:var(--c-video);--tint:var(--c-video-soft)}
@@ -764,7 +775,7 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
    היעדר הגוון. */
 .act-neutral{color:var(--ink-2); --tint:var(--surface-2)}
 .lbtn.is-primary{background:var(--c-map-fill);color:var(--c-map-on);border-color:var(--c-map-fill)}
-.lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}
+@media (hover:hover) and (pointer:fine){.lbtn.is-primary:hover{background:var(--c-map);filter:brightness(1.12)}}
 /* פתק ההדבקה של Grab. לא כפתור — אין בו פעולה. זו הוראה שצריכה לשרוד
    את המעבר לאפליקציה ולהיות על המסך כשחוזרים ממנה, ולכן היא נשארת
    ב-DOM ולא נעלמת. הוא יושב כאח של .linkrow ולא בתוכה — קודם הוא היה
@@ -825,17 +836,17 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .tr-swap{align-self:center;display:inline-flex;align-items:center;gap:7px;min-height:44px;
   font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
   border:1px solid var(--line-ctl);border-radius:999px;padding:6px 16px;background:var(--surface)}
-.tr-swap:hover{border-color:var(--brand);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.tr-swap:hover{border-color:var(--brand);color:var(--ink)}}
 .tr-go{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;
   font-family:var(--f-ui);font-size:1rem;font-weight:600;border-radius:var(--r-xs);
   background:var(--primary-fill);color:var(--primary-on)}
-.tr-go:hover{filter:brightness(1.12)}
+@media (hover:hover) and (pointer:fine){.tr-go:hover{filter:brightness(1.12)}}
 .tr-h2{font-family:var(--f-display);font-weight:700;font-size:1.15rem;margin:30px 0 10px}
 .tr-links{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
 .tr-link{display:flex;align-items:center;gap:9px;min-height:46px;padding:10px 13px;
   background:var(--surface);border:1px solid var(--line-ctl);border-radius:var(--r-xs);
-  font-family:var(--f-ui);font-weight:500;transition:border-color .13s}
-.tr-link:hover{border-color:var(--brand)}
+  font-family:var(--f-ui);font-weight:500;transition:border-color .13s,scale .12s cubic-bezier(.23,1,.32,1)}
+@media (hover:hover) and (pointer:fine){.tr-link:hover{border-color:var(--brand)}}
 .tr-link .dotc:last-child{margin-inline-start:auto}
 
 .tr-ticket{display:flex;align-items:center;gap:10px;margin:-6px 0 16px;padding:12px 16px;
@@ -971,7 +982,7 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
   background:var(--brand);color:var(--brand-ink);border-radius:var(--r-sm);
   padding:12px 16px;text-align:center;min-height:44px;
 }
-.btn-near:hover{filter:brightness(1.08)}
+@media (hover:hover) and (pointer:fine){.btn-near:hover{filter:brightness(1.08)}}
 .near-pick{display:flex;flex-direction:column;gap:7px;
   border-top:1px solid var(--line-soft);padding-top:12px}
 .near-pick-t{margin:0;font-size:.83rem;color:var(--ink-2)}
@@ -983,9 +994,9 @@ dialog::backdrop{background:rgba(10,13,17,.52)}
 .near-list{display:flex;flex-direction:column;gap:2px}
 .near-row{
   display:flex;align-items:center;gap:12px;padding:11px 10px;
-  border-radius:var(--r-xs);transition:background .13s;
+  border-radius:var(--r-xs);transition:background .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
-.near-row:hover{background:var(--surface-2)}
+@media (hover:hover) and (pointer:fine){.near-row:hover{background:var(--surface-2)}}
 /* המרחק ראשון בכיוון הקריאה. tabular-nums כדי שהעמודה לא תרקוד
    בין שורה לשורה — אותו טיפול כמו .money. */
 .near-dist{
@@ -1116,7 +1127,7 @@ li.icard{list-style:none}
    שתיבת הגליפים רצתה 40, ו-overflow:hidden על האריח גזר את ההפרש. */
 .tile-nm{font-family:var(--f-ui);font-size:1.02rem;font-weight:800;line-height:1.25;color:var(--ink)}
 .tile-cnt{margin-top:auto;font-size:.74rem;font-weight:700;color:var(--primary-ink)}
-.tile:hover{border-color:var(--primary-2)}
+@media (hover:hover) and (pointer:fine){.tile:hover{border-color:var(--primary-2)}}
 @media (forced-colors:active){
   /* הגבול הוא הדבר היחיד שמפריד את הלוחית מהתצלום כשהרקעים נכפים,
      וככל שהלוחית גדלה הוא נחוץ יותר. */
@@ -1167,7 +1178,7 @@ li.icard{list-style:none}
 *::-webkit-scrollbar-track{background:transparent}
 *::-webkit-scrollbar-thumb{background:var(--line-ctl);border-radius:99px;
   border:3px solid transparent;background-clip:content-box}
-*::-webkit-scrollbar-thumb:hover{background:var(--ink-3);background-clip:content-box}
+@media (hover:hover) and (pointer:fine){*::-webkit-scrollbar-thumb:hover{background:var(--ink-3);background-clip:content-box}}
 a{text-underline-offset:3px;text-decoration-thickness:1px}
 
 @media (prefers-reduced-motion:reduce){
@@ -1189,14 +1200,14 @@ a{text-underline-offset:3px;text-decoration-thickness:1px}
 .tb-row.r1{background:var(--bg);color:var(--ink);padding-top:10px;padding-bottom:4px}
 .brand{font-weight:500;font-size:.95rem;color:var(--ink-2);border:0;background:none;border-radius:0;padding:4px 2px;gap:6px}
 .brand span{font-weight:500;color:var(--ink-2);font-size:inherit}
-.brand:hover{background:var(--surface);border:0}
+@media (hover:hover) and (pointer:fine){.brand:hover{background:var(--surface);border:0}}
 .brand:active{background:var(--surface-2)}
 .tb-row.r1 .iconbtn{border:0;color:var(--ink);background:transparent;border-radius:0}
-.tb-row.r1 .iconbtn:hover{background:var(--surface)}
+@media (hover:hover) and (pointer:fine){.tb-row.r1 .iconbtn:hover{background:var(--surface)}}
 .tb-row.r1 .seg{border:1px solid var(--line-ctl);background:transparent;border-radius:0}
 .tb-row.r1 .seg button{color:var(--ink);border-inline-start-color:var(--line-ctl)}
 .tb-row.r1 .seg button[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
-.tb-row.r1 .seg button:hover:not([aria-pressed="true"]){background:var(--surface);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.tb-row.r1 .seg button:hover:not([aria-pressed="true"]){background:var(--surface);color:var(--ink)}}
 .tb-row.r1 :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .countdown{color:var(--ink-3);font-weight:300;margin-top:2px}
 .countdown b{color:var(--ink);font-weight:300;font-size:1.7rem}
@@ -1212,7 +1223,7 @@ html[data-route="home"] .tripbar,html[data-route="home"] .official{display:none}
    התיבה 57px מעבר למסך ב-320px. קיים גם באתר החי (400px); נסגר כאן. */
 .searchbox{min-width:0}
 .tab{border-radius:0}
-.tab:hover{background:var(--surface)}
+@media (hover:hover) and (pointer:fine){.tab:hover{background:var(--surface)}}
 .tab[aria-current="page"]{background:var(--tile);color:var(--ink)}
 .botnav{background:var(--bg);border-top:1px solid var(--line)}
 .bnav{border-radius:0}
@@ -1242,7 +1253,7 @@ html[data-route="home"] .tripbar,html[data-route="home"] .official{display:none}
 .mt-link .ic{width:22px;height:22px}
 .mt-linkt{display:flex;flex-direction:column;font-weight:500;font-size:.98rem;line-height:1.3}
 .mt-dom{font-weight:400;font-size:.78rem;opacity:.9}
-.mt-link:hover .mt-linkt{text-decoration:underline;text-underline-offset:3px}
+@media (hover:hover) and (pointer:fine){.mt-link:hover .mt-linkt{text-decoration:underline;text-underline-offset:3px}}
 a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 /* 320px עם הגדלת טקסט: ארבע עמודות נעשות שתיים, ואריח s2 נמתח לכל הרוחב. */
 @media (max-width:24rem){
@@ -1265,7 +1276,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .tilegrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 .tilegrid>li:nth-child(4n+3) .tile,.tilegrid>li:nth-child(4n+4) .tile{background:var(--tile-pale)}
 .tile{background:var(--tile);border:0;border-radius:0;box-shadow:none;min-height:8.5rem;padding:10px 12px;justify-content:space-between}
-.tile:hover{border:0;outline:2px solid var(--ink);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.tile:hover{border:0;outline:2px solid var(--ink);outline-offset:-2px}}
 .tile:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .tile-ph{position:static;aspect-ratio:auto;background:none}
 .tile-ph img{display:none}
@@ -1287,7 +1298,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .near-stlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;list-style:none;margin:0;padding:0}
 .near-st{display:flex;align-items:baseline;gap:8px;width:100%;min-height:48px;padding:8px 10px;text-align:start;
   background:var(--tile-pale);color:var(--ink);border:0;border-radius:0}
-.near-st:hover{background:var(--surface-2)}
+@media (hover:hover) and (pointer:fine){.near-st:hover{background:var(--surface-2)}}
 .near-st[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
 .near-st:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .near-st-n{font-family:var(--f-display);font-weight:300;font-size:1.25rem;line-height:1;font-variant-numeric:tabular-nums}
@@ -1296,7 +1307,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 
 /* ---------- מסך תחנה ---------- */
 .backbtn{border:0;background:none;border-radius:0;padding:6px 0;color:var(--ink-2);font-weight:500}
-.backbtn:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media (hover:hover) and (pointer:fine){.backbtn:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}}
 /* הגיבור: התצלום נשאר, הטקסט יורד ממנו לקרקע. כך הכותרת הדקה והענקית
    יושבת על לבן ולא על שכבת הצללה, וטבעת הפוקוס הכפולה מתייתרת. */
 .hero{border:0;border-radius:0}
@@ -1324,26 +1335,26 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .lbtn,.qbtn{border-radius:0;border:0;min-height:48px;padding:10px 14px;font-weight:500}
 .lbtn[class*="act-"],.qbtn[class*="act-"]{background:var(--act-fill);color:var(--act-on)}
 .lbtn.act-neutral,.qbtn.act-neutral{color:var(--on-tile-dark)}
-.lbtn[class*="act-"]:hover,.qbtn[class*="act-"]:hover{background:var(--act-fill);text-decoration:underline;text-underline-offset:3px}
+@media (hover:hover) and (pointer:fine){.lbtn[class*="act-"]:hover,.qbtn[class*="act-"]:hover{background:var(--act-fill);text-decoration:underline;text-underline-offset:3px}}
 .qbtn-int{background:var(--tile-dark);color:var(--on-tile-dark)}
-.qbtn-int:hover{text-decoration:underline;text-underline-offset:3px}
+@media (hover:hover) and (pointer:fine){.qbtn-int:hover{text-decoration:underline;text-underline-offset:3px}}
 .lbtn:focus-visible,.qbtn:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 .quickbar{gap:6px}
 .quickbar .qbtn{flex:1 1 9.5rem}
 /* לשוניות קטגוריה: אריחים; הפעילה בחציל. */
 .cat-tab{border-radius:0;border:0;background:var(--tile-pale);color:var(--ink);min-height:44px}
-.cat-tab:hover{background:var(--surface-2);color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.cat-tab:hover{background:var(--surface-2);color:var(--ink)}}
 .cat-tab[aria-selected="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
 /* רשומות: אריחים שטוחים, לסירוגין פסטל ולילך. */
 .pcard,.rcard{border:0;border-radius:0;background:var(--tile-pale)}
 .cat-panel>.rcard:nth-child(odd),.reslist>.rcard:nth-child(odd){background:var(--tile)}
-.pcard:hover,.rcard:hover{border:0;outline:2px solid var(--ink);outline-offset:-2px}
+@media (hover:hover) and (pointer:fine){.pcard:hover,.rcard:hover{border:0;outline:2px solid var(--ink);outline-offset:-2px}}
 .pcard-open::after{border-radius:0}
 .pcard-open:focus-visible::after{outline:3px solid var(--ink);outline-offset:-3px}
 .pcard-name{font-family:var(--f-display);font-weight:300;font-size:1.32rem;line-height:1.2}
 .pcard-why{color:var(--ink-2)}
 .fav{border-radius:0;width:44px;height:44px}
-.fav:hover{background:var(--bg)}
+@media (hover:hover) and (pointer:fine){.fav:hover{background:var(--bg)}}
 .dotc{border-radius:0}
 .cat-panel{display:grid;gap:6px}
 /* סימן מצב בתא קבוע לפני האחוז: מלא = מתאים, חצי = בינוני, חלול = לא
@@ -1362,7 +1373,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .official{background:var(--bg);border-top:0}
 .oflink{border-radius:0;border:0;background:var(--tile-dark);color:var(--on-tile-dark);min-height:44px}
 .oflink svg{color:currentColor}
-.oflink:hover{color:var(--on-tile-dark);text-decoration:underline;text-underline-offset:3px}
+@media (hover:hover) and (pointer:fine){.oflink:hover{color:var(--on-tile-dark);text-decoration:underline;text-underline-offset:3px}}
 .rail-tab{border-radius:0}
 .rail-tab[aria-selected="true"]{background:var(--tile-dark);color:var(--on-tile-dark);box-shadow:none}
 .rail-item{border-radius:0}
@@ -1374,7 +1385,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
   border:var(--edge) solid var(--tile-edge);
   --ink-3:var(--ink-3-tile);--ink-3-card:var(--ink-3-tile);
   --jade-ink:var(--jade-tile);--gold-ink:var(--gold-tile);--rose:var(--rose-tile)}
-.pcard:hover,.rcard:hover,.tile:hover,.near-st:hover{border:var(--edge) solid var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}
+@media (hover:hover) and (pointer:fine){.pcard:hover,.rcard:hover,.tile:hover,.near-st:hover{border:var(--edge) solid var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}}
 /* במצב צבעים כפוי הרקע נעלם, והאריח היה מאבד את גבולו. */
 @media (forced-colors:active){
   .mt,.tile,.pcard,.rcard,.cat-tab{border:1px solid CanvasText}
@@ -1389,7 +1400,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .ttl-en{font-family:var(--f-ui);font-weight:300;font-size:1rem;color:var(--ink-3);margin-top:6px}
 .sheet-where{color:var(--ink-3)}
 .closebtn,.ttl-copy{width:44px;height:44px;border-radius:0;border:var(--edge) solid var(--tile-edge);background:var(--bg)}
-.closebtn:hover,.ttl-copy:hover{background:var(--tile-pale)}
+@media (hover:hover) and (pointer:fine){.closebtn:hover,.ttl-copy:hover{background:var(--tile-pale)}}
 .sheet-bd{padding:12px 18px 18px;gap:10px}
 .sheet-what{font-size:1.02rem;font-weight:300;line-height:1.65;color:var(--ink-2)}
 .poi-shot{border-radius:0}
@@ -1436,7 +1447,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .topic{background:var(--tile-pale)}
 .topics>:nth-child(4n+1) .topic,.topics>.topic:nth-child(4n+1),
 .topics>:nth-child(4n+4) .topic,.topics>.topic:nth-child(4n+4){background:var(--tile)}
-.topic:hover:not(:disabled){border-color:var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}
+@media (hover:hover) and (pointer:fine){.topic:hover:not(:disabled){border-color:var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}}
 .topic-n{font-family:var(--f-display);font-weight:300;font-size:2rem;line-height:1}
 .fact{background:var(--tile-pale)}
 .fact b,.fact .fact-v{font-weight:300}
@@ -1451,7 +1462,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .tr-ticket{background:var(--tile)}
 .tr-ticket-dot{border-radius:0}
 .tr-link{background:var(--tile-pale)}
-.tr-link:hover{border-color:var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}
+@media (hover:hover) and (pointer:fine){.tr-link:hover{border-color:var(--tile-edge);outline:2px solid var(--tile-edge);outline-offset:0}}
 /* גלולות → אריחים מרובעים */
 .tr-select{border-radius:0;border:var(--edge) solid var(--tile-edge)}
 .tr-swap{border-radius:0;border:var(--edge) solid var(--tile-edge);background:var(--bg)}
@@ -1473,7 +1484,7 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .set-body{background:var(--bg);border:var(--edge) solid var(--tile-edge);border-top:0;border-radius:0}
 .seg{border-radius:0;border:var(--edge) solid var(--tile-edge);background:var(--bg)}
 .seg button[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
-.seg button:hover:not([aria-pressed="true"]){background:var(--tile-pale)}
+@media (hover:hover) and (pointer:fine){.seg button:hover:not([aria-pressed="true"]){background:var(--tile-pale)}}
 .set-body #themeBtn{border:var(--edge) solid var(--tile-edge);border-radius:0;background:var(--tile-pale);color:var(--ink)}
 .set-body #themeBtn[aria-pressed="true"]{background:var(--tile-dark);color:var(--on-tile-dark)}
 .set-row-lbl{color:var(--ink-2)}
@@ -1604,6 +1615,40 @@ h1.has-sticker,h2.has-sticker{padding-inline-end:88px}
 }
 /* 320px@200%: שורת הפעולות בפירוט יורדת לעמודה אחת, כמו רשת העובדות. */
 @media (max-width:22rem){.linkrow{grid-template-columns:1fr}}
+
+/* ============================================================
+   פאזה 11 — משוב מגע (mobile-native / emil-design-eng)
+   ============================================================ */
+/* ההבהוב האפור של הדפדפן בכל נגיעה הוא הסימן הבולט ביותר ל"אתר".
+   מוחלף במשוב משלנו (:active למטה). */
+html{-webkit-tap-highlight-color:transparent}
+/* בלי עיכוב ה-300ms של זיהוי הקשה כפולה. הזום בצביטה נשאר. */
+button,a,[role="button"],summary,label,.tile,.rcard,.pcard{touch-action:manipulation}
+/* לחיצה ארוכה על פקד לא מסמנת את התווית שלו. רק פקדים: כתובות, שמות
+   וטקסט תוכן נשארים לסימון ולהעתקה (.tr-addr ו-user-select:all למעלה). */
+button,[role="button"],.tab,.cat-tab,.rail-tab,.seg,.tile,.botnav,.sheet-grip{
+  -webkit-user-select:none;user-select:none}
+/* תפריט הלחיצה הארוכה מבוטל רק על פקדים שאינם קישורים. על קישור אמיתי
+   (אריח תחנה, הניווט התחתון) הוא "העתק קישור" ו"פתח בכרטיסייה" — פונקציה
+   של המערכת שמשתמשי iOS מצפים לה (סקירת נגישות 11-01, ב-2). */
+button,[role="button"],.tab,.cat-tab,.rail-tab,.seg,.sheet-grip{-webkit-touch-callout:none}
+/* משוב ברגע הנגיעה ולא כשהאצבע עולה. scale ולא transform, כדי לא להתנגש
+   ב-transform קיים. לפקדים שכבר היה להם transition, scale נוסף לרשימה
+   שלהם במקומה; לאלה כאן לא היה transition קודם. */
+.tile,.tr-go,.tr-swap,.closebtn,.ttl-copy,.btn-near,.near-st,.mt-link,.backbtn,.xbtn,.qbtn-int{
+  transition:scale .12s cubic-bezier(.23,1,.32,1)}
+button:not(:disabled):active,[role="button"]:not(.sheet-grip):not(.leaflet-marker-icon):active,a.tile:active,a.lbtn:active,a.qbtn:active,
+a.mt-link:active,a.tr-link:active,.rcard:active,.pcard:active,.oflink:active{scale:.97}
+/* בלי תנועה: עמעום קל במקום scale. לא על פקד בפוקוס מקלדת — opacity חלה
+   גם על טבעת הפוקוס (סקירת נגישות 11-01, ק-1). */
+@media (prefers-reduced-motion:reduce){
+  button:not(:disabled):active,[role="button"]:not(.sheet-grip):not(.leaflet-marker-icon):active,a.tile:active,a.lbtn:active,a.qbtn:active,
+  a.mt-link:active,a.tr-link:active,.rcard:active,.pcard:active,.oflink:active{scale:none}
+  button:not(:disabled):active:not(:focus-visible),[role="button"]:not(.sheet-grip):not(.leaflet-marker-icon):active:not(:focus-visible),
+  a.tile:active:not(:focus-visible),a.lbtn:active:not(:focus-visible),a.qbtn:active:not(:focus-visible),
+  a.mt-link:active:not(:focus-visible),a.tr-link:active:not(:focus-visible),.rcard:active:not(:focus-visible),
+  .pcard:active:not(:focus-visible),.oflink:active:not(:focus-visible){opacity:.8}
+}
 </style>
 <style>
 html.splash-on,html.splash-on body{overflow:hidden}
@@ -1671,7 +1716,7 @@ html.splash-on #splash{display:flex}
   <div class="tb-row r2">
     <div class="searchbox" role="search">
       <label for="q" class="sr" id="qLabel">חיפוש</label>
-      <input id="q" type="search" autocomplete="off">
+      <input id="q" type="search" autocomplete="off" enterkeyhint="search">
       <button class="xbtn" id="clearBtn" type="button" hidden></button>
     </div>
     <nav class="tabs" id="tabs" aria-label="ניווט ראשי"></nav>
@@ -2121,8 +2166,8 @@ var T={
   sheetFull:{he:"חלונית מלאה",en:"Panel expanded"},
   sheetHalf:{he:"חצי מסך, המפה גלויה",en:"Half screen, map visible"},
   sheetHidden:{he:"חלונית מוסתרת, המפה מלאה",en:"Panel hidden, full map"},
-  sheetGrip:{he:"גרירה לשינוי גובה החלונית. חצים מעלה ומטה, או Enter להחלפה.",
-             en:"Drag to resize the panel. Arrow up and down, or Enter to toggle."},
+  sheetGrip:{he:"גרירה לשינוי גובה החלונית. הקשה, Enter או חצים מעלה ומטה מחליפים מצב.",
+             en:"Drag to resize the panel. Tap, Enter, or arrow up and down to change it."},
   backToList:{he:"לרשימה",en:"Back to list"},
   /* "מפה" ולא "פתח במפה": התווית הארוכה תפסה 121 פיקסל משורת פעולות
      שרוחבה 325, והפעולה השישית דחפה אותה לשלוש שורות ו-138 פיקסל
@@ -4007,12 +4052,19 @@ function markMapPin(sel){
 }
 
 /* ---- הגיליון ---- */
+/* יחידה אחת לגיליון ול-snaps: dvh תואם ל-innerHeight שממנו ה-snaps נגזרים. */
+var SHEET_UNIT=(window.CSS&&CSS.supports&&CSS.supports("height","1dvh"))?"dvh":"vh";
+/* transform ישיר על הגיליון ולא משתנה CSS: משתנה עובר בירושה לכל הצאצאים,
+   ובכל פריים של גרירה הדפדפן חישב מחדש את הסגנון של כל רשימת התחנות. */
+function placeSheet(sh,frac){
+  sh.style.transform="translateY("+(frac*100)+SHEET_UNIT+")";
+}
 function setSheet(frac,animate){
   var sh=document.getElementById("mobSheet");
   if(!sh) return;
   sheetY=frac;
   sh.classList.toggle("is-dragging",!animate);
-  sh.style.setProperty("--sheet-y",(frac*100)+"vh");
+  placeSheet(sh,frac);
   /* aria-expanded אינו מותר על role="region" ולכן פשוט לא נחשף.
      המצב שייך לפקד שמרחיב — הידית — שעד כה הכריזה "כפתור" בלי
      שום מצב. */
@@ -4035,29 +4087,74 @@ function refreshSnaps(){ SNAP[0]=snapFull(); SNAP[2]=snapHidden(); }
 function nearestSnap(frac){
   return SNAP.reduce(function(a,b){return Math.abs(b-frac)<Math.abs(a-frac)?b:a;});
 }
+/* הנפה מהירה מספיקה כדי לעבור מצב, גם במרחק קצר. הסף מ-Sonner/Vaul. */
+var FLICK_V=0.11;          /* px/ms */
+function snapInDirection(frac,dir){
+  var c=SNAP.filter(function(s){return dir>0?s>frac+0.001:s<frac-0.001;});
+  if(!c.length) return dir>0?SNAP[2]:SNAP[0];
+  return dir>0?Math.min.apply(null,c):Math.max.apply(null,c);
+}
+/* מעבר לקצה: תזוזה הולכת ופוחתת במקום קיר בלתי נראה. */
+function rubber(over){
+  return over*0.35/(1+Math.abs(over)*3);
+}
 function wireSheetDrag(sh,grip){
-  var startY=0,startFrac=0,dragging=false;
+  /* moved: המרחק המרבי מנקודת ההתחלה. הקשה בלי תזוזה היא לחיצה ולא גרירה,
+     ועוברת ל-click. justDragged בולע את ה-click שהדפדפן שולח אחרי גרירה. */
+  var startY=0,startFrac=0,dragging=false,pid=null,samples=[],moved=0,justDragged=false;
   function down(e){
-    dragging=true; startY=(e.touches?e.touches[0].clientY:e.clientY);
+    /* אצבע שנייה באמצע גרירה הקפיצה את הגיליון למיקומה. */
+    if(dragging||e.isPrimary===false) return;
+    dragging=true; pid=e.pointerId; startY=e.clientY; moved=0; justDragged=false;
     startFrac=sheetY==null?SNAP[1]:sheetY;
+    samples=[{y:e.clientY,t:e.timeStamp}];
+    try{grip.setPointerCapture(pid);}catch(err){}
     sh.classList.add("is-dragging");
     window.addEventListener("pointermove",move);
-    window.addEventListener("pointerup",up,{once:true});
+    window.addEventListener("pointerup",up);
+    /* iOS מבטל מחווה כשהמערכת לוקחת אותה (שיחה נכנסת, גלילת מערכת).
+       בלי זה הגיליון נשאר בלי מעבר ועם מאזין move תלוי. */
+    window.addEventListener("pointercancel",cancel);
   }
   function move(e){
-    if(!dragging) return;
-    var y=e.clientY, d=(y-startY)/window.innerHeight;
-    var f=Math.min(SNAP[2],Math.max(SNAP[0],startFrac+d));
-    sh.style.setProperty("--sheet-y",(f*100)+"vh");
+    if(!dragging||e.pointerId!==pid) return;
+    moved=Math.max(moved,Math.abs(e.clientY-startY));
+    var f=startFrac+(e.clientY-startY)/window.innerHeight;
+    if(f<SNAP[0]) f=SNAP[0]+rubber(f-SNAP[0]);
+    else if(f>SNAP[2]) f=SNAP[2]+rubber(f-SNAP[2]);
+    placeSheet(sh,f);
     sheetY=f;
+    samples.push({y:e.clientY,t:e.timeStamp});
+    while(samples.length>2&&e.timeStamp-samples[0].t>100) samples.shift();
   }
-  function up(){
+  function finish(e,allowFlick){
+    if(!dragging||(e&&e.pointerId!==pid)) return;
     dragging=false;
     window.removeEventListener("pointermove",move);
+    window.removeEventListener("pointerup",up);
+    window.removeEventListener("pointercancel",cancel);
+    try{grip.releasePointerCapture(pid);}catch(err){}
     sh.classList.remove("is-dragging");
-    setSheet(nearestSnap(sheetY),true);
+    var target=nearestSnap(sheetY), first=samples[0], last=samples[samples.length-1];
+    if(allowFlick&&first&&last&&last.t>first.t){
+      var v=(last.y-first.y)/(last.t-first.t);
+      if(Math.abs(v)>FLICK_V) target=snapInDirection(Math.min(SNAP[2],Math.max(SNAP[0],sheetY)),v>0?1:-1);
+    }
+    pid=null; samples=[];
+    if(moved>=8) justDragged=true;
+    setSheet(target,true);
   }
+  function up(e){ finish(e,true); }
+  function cancel(e){ finish(e,false); }
   grip.addEventListener("pointerdown",down);
+  /* הקשה מחליפה מצב, כמו Enter. בלי זה VoiceOver (הקשה כפולה), Switch Control
+     ו-Voice Control שולחים click ולא keydown — והכפתור לא עשה כלום. WCAG 2.5.7,
+     4.1.2 (סקירת נגישות 11-01, ח-1). */
+  grip.addEventListener("click",function(){
+    if(justDragged){justDragged=false;return;}
+    var i=SNAP.indexOf(nearestSnap(sheetY==null?SNAP[1]:sheetY));
+    setSheet(SNAP[i===1?0:1],true);
+  });
   /* מקלדת: הגיליון חייב להיות נגיש גם בלי גרירה */
   grip.tabIndex=0;
   grip.setAttribute("role","button");
@@ -5878,10 +5975,28 @@ qEl.addEventListener("keydown",function(e){
 });
 
 /* ============ ערכת נושא ============ */
+/* שורת הסטטוס צובעת את עצמה מ-theme-color. שני התגים ב-head בוחרים לפי
+   מצב המערכת, אבל כשהמתג כופה נושא — התג שתואם למערכת הוא הלא-נכון.
+   לכן כותבים לשניהם את הרקע שבפועל. נקרא מהטוקן ולא מקודד כאן, כדי
+   ש-DESIGN.md יישאר מקור האמת. */
+function syncThemeColor(){
+  var bg=getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+  if(!bg) return;
+  var tags=document.querySelectorAll('meta[name="theme-color"]');
+  for(var i=0;i<tags.length;i++) tags[i].setAttribute("content",bg);
+}
+syncThemeColor();
+try{
+  var mqDark=matchMedia("(prefers-color-scheme: dark)");
+  var onScheme=function(){ if(!document.documentElement.hasAttribute("data-theme")) syncThemeColor(); };
+  if(mqDark.addEventListener) mqDark.addEventListener("change",onScheme);
+  else if(mqDark.addListener) mqDark.addListener(onScheme);
+}catch(e){}
 document.getElementById("themeBtn").addEventListener("click",function(){
   var next=currentDark()?"light":"dark";
   document.documentElement.setAttribute("data-theme",next);
   try{localStorage.setItem("vn.theme",next);}catch(e){}
+  syncThemeColor();
   colorCache={}; sceneCache={};
   keepCatFocus(function(){ renderChrome(); render(); });
 });

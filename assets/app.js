@@ -237,8 +237,8 @@ var T={
   sheetFull:{he:"חלונית מלאה",en:"Panel expanded"},
   sheetHalf:{he:"חצי מסך, המפה גלויה",en:"Half screen, map visible"},
   sheetHidden:{he:"חלונית מוסתרת, המפה מלאה",en:"Panel hidden, full map"},
-  sheetGrip:{he:"גרירה לשינוי גובה החלונית. חצים מעלה ומטה, או Enter להחלפה.",
-             en:"Drag to resize the panel. Arrow up and down, or Enter to toggle."},
+  sheetGrip:{he:"גרירה לשינוי גובה החלונית. הקשה, Enter או חצים מעלה ומטה מחליפים מצב.",
+             en:"Drag to resize the panel. Tap, Enter, or arrow up and down to change it."},
   backToList:{he:"לרשימה",en:"Back to list"},
   /* "מפה" ולא "פתח במפה": התווית הארוכה תפסה 121 פיקסל משורת פעולות
      שרוחבה 325, והפעולה השישית דחפה אותה לשלוש שורות ו-138 פיקסל
@@ -2123,12 +2123,19 @@ function markMapPin(sel){
 }
 
 /* ---- הגיליון ---- */
+/* יחידה אחת לגיליון ול-snaps: dvh תואם ל-innerHeight שממנו ה-snaps נגזרים. */
+var SHEET_UNIT=(window.CSS&&CSS.supports&&CSS.supports("height","1dvh"))?"dvh":"vh";
+/* transform ישיר על הגיליון ולא משתנה CSS: משתנה עובר בירושה לכל הצאצאים,
+   ובכל פריים של גרירה הדפדפן חישב מחדש את הסגנון של כל רשימת התחנות. */
+function placeSheet(sh,frac){
+  sh.style.transform="translateY("+(frac*100)+SHEET_UNIT+")";
+}
 function setSheet(frac,animate){
   var sh=document.getElementById("mobSheet");
   if(!sh) return;
   sheetY=frac;
   sh.classList.toggle("is-dragging",!animate);
-  sh.style.setProperty("--sheet-y",(frac*100)+"vh");
+  placeSheet(sh,frac);
   /* aria-expanded אינו מותר על role="region" ולכן פשוט לא נחשף.
      המצב שייך לפקד שמרחיב — הידית — שעד כה הכריזה "כפתור" בלי
      שום מצב. */
@@ -2151,29 +2158,74 @@ function refreshSnaps(){ SNAP[0]=snapFull(); SNAP[2]=snapHidden(); }
 function nearestSnap(frac){
   return SNAP.reduce(function(a,b){return Math.abs(b-frac)<Math.abs(a-frac)?b:a;});
 }
+/* הנפה מהירה מספיקה כדי לעבור מצב, גם במרחק קצר. הסף מ-Sonner/Vaul. */
+var FLICK_V=0.11;          /* px/ms */
+function snapInDirection(frac,dir){
+  var c=SNAP.filter(function(s){return dir>0?s>frac+0.001:s<frac-0.001;});
+  if(!c.length) return dir>0?SNAP[2]:SNAP[0];
+  return dir>0?Math.min.apply(null,c):Math.max.apply(null,c);
+}
+/* מעבר לקצה: תזוזה הולכת ופוחתת במקום קיר בלתי נראה. */
+function rubber(over){
+  return over*0.35/(1+Math.abs(over)*3);
+}
 function wireSheetDrag(sh,grip){
-  var startY=0,startFrac=0,dragging=false;
+  /* moved: המרחק המרבי מנקודת ההתחלה. הקשה בלי תזוזה היא לחיצה ולא גרירה,
+     ועוברת ל-click. justDragged בולע את ה-click שהדפדפן שולח אחרי גרירה. */
+  var startY=0,startFrac=0,dragging=false,pid=null,samples=[],moved=0,justDragged=false;
   function down(e){
-    dragging=true; startY=(e.touches?e.touches[0].clientY:e.clientY);
+    /* אצבע שנייה באמצע גרירה הקפיצה את הגיליון למיקומה. */
+    if(dragging||e.isPrimary===false) return;
+    dragging=true; pid=e.pointerId; startY=e.clientY; moved=0; justDragged=false;
     startFrac=sheetY==null?SNAP[1]:sheetY;
+    samples=[{y:e.clientY,t:e.timeStamp}];
+    try{grip.setPointerCapture(pid);}catch(err){}
     sh.classList.add("is-dragging");
     window.addEventListener("pointermove",move);
-    window.addEventListener("pointerup",up,{once:true});
+    window.addEventListener("pointerup",up);
+    /* iOS מבטל מחווה כשהמערכת לוקחת אותה (שיחה נכנסת, גלילת מערכת).
+       בלי זה הגיליון נשאר בלי מעבר ועם מאזין move תלוי. */
+    window.addEventListener("pointercancel",cancel);
   }
   function move(e){
-    if(!dragging) return;
-    var y=e.clientY, d=(y-startY)/window.innerHeight;
-    var f=Math.min(SNAP[2],Math.max(SNAP[0],startFrac+d));
-    sh.style.setProperty("--sheet-y",(f*100)+"vh");
+    if(!dragging||e.pointerId!==pid) return;
+    moved=Math.max(moved,Math.abs(e.clientY-startY));
+    var f=startFrac+(e.clientY-startY)/window.innerHeight;
+    if(f<SNAP[0]) f=SNAP[0]+rubber(f-SNAP[0]);
+    else if(f>SNAP[2]) f=SNAP[2]+rubber(f-SNAP[2]);
+    placeSheet(sh,f);
     sheetY=f;
+    samples.push({y:e.clientY,t:e.timeStamp});
+    while(samples.length>2&&e.timeStamp-samples[0].t>100) samples.shift();
   }
-  function up(){
+  function finish(e,allowFlick){
+    if(!dragging||(e&&e.pointerId!==pid)) return;
     dragging=false;
     window.removeEventListener("pointermove",move);
+    window.removeEventListener("pointerup",up);
+    window.removeEventListener("pointercancel",cancel);
+    try{grip.releasePointerCapture(pid);}catch(err){}
     sh.classList.remove("is-dragging");
-    setSheet(nearestSnap(sheetY),true);
+    var target=nearestSnap(sheetY), first=samples[0], last=samples[samples.length-1];
+    if(allowFlick&&first&&last&&last.t>first.t){
+      var v=(last.y-first.y)/(last.t-first.t);
+      if(Math.abs(v)>FLICK_V) target=snapInDirection(Math.min(SNAP[2],Math.max(SNAP[0],sheetY)),v>0?1:-1);
+    }
+    pid=null; samples=[];
+    if(moved>=8) justDragged=true;
+    setSheet(target,true);
   }
+  function up(e){ finish(e,true); }
+  function cancel(e){ finish(e,false); }
   grip.addEventListener("pointerdown",down);
+  /* הקשה מחליפה מצב, כמו Enter. בלי זה VoiceOver (הקשה כפולה), Switch Control
+     ו-Voice Control שולחים click ולא keydown — והכפתור לא עשה כלום. WCAG 2.5.7,
+     4.1.2 (סקירת נגישות 11-01, ח-1). */
+  grip.addEventListener("click",function(){
+    if(justDragged){justDragged=false;return;}
+    var i=SNAP.indexOf(nearestSnap(sheetY==null?SNAP[1]:sheetY));
+    setSheet(SNAP[i===1?0:1],true);
+  });
   /* מקלדת: הגיליון חייב להיות נגיש גם בלי גרירה */
   grip.tabIndex=0;
   grip.setAttribute("role","button");
@@ -3994,10 +4046,28 @@ qEl.addEventListener("keydown",function(e){
 });
 
 /* ============ ערכת נושא ============ */
+/* שורת הסטטוס צובעת את עצמה מ-theme-color. שני התגים ב-head בוחרים לפי
+   מצב המערכת, אבל כשהמתג כופה נושא — התג שתואם למערכת הוא הלא-נכון.
+   לכן כותבים לשניהם את הרקע שבפועל. נקרא מהטוקן ולא מקודד כאן, כדי
+   ש-DESIGN.md יישאר מקור האמת. */
+function syncThemeColor(){
+  var bg=getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+  if(!bg) return;
+  var tags=document.querySelectorAll('meta[name="theme-color"]');
+  for(var i=0;i<tags.length;i++) tags[i].setAttribute("content",bg);
+}
+syncThemeColor();
+try{
+  var mqDark=matchMedia("(prefers-color-scheme: dark)");
+  var onScheme=function(){ if(!document.documentElement.hasAttribute("data-theme")) syncThemeColor(); };
+  if(mqDark.addEventListener) mqDark.addEventListener("change",onScheme);
+  else if(mqDark.addListener) mqDark.addListener(onScheme);
+}catch(e){}
 document.getElementById("themeBtn").addEventListener("click",function(){
   var next=currentDark()?"light":"dark";
   document.documentElement.setAttribute("data-theme",next);
   try{localStorage.setItem("vn.theme",next);}catch(e){}
+  syncThemeColor();
   colorCache={}; sceneCache={};
   keepCatFocus(function(){ renderChrome(); render(); });
 });
