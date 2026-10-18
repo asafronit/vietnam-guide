@@ -26,6 +26,8 @@
      להציג את הפתיח לעולם, גם כשמבקשים. */
   var asked = (q==="force"||q==="hold");
   var show = q==="0" ? false : (asked ? true : (rm ? false : (q==="1" ? true : !seen)));
+  /* מי שפותח ישר את מסך החירום לא מחכה לאנימציה (13-01). */
+  if(!asked && /^#sos(\/|$)/.test(location.hash)) show=false;
   if(show){
     document.documentElement.classList.add("splash-on");
     try{sessionStorage.setItem("vnSplashSeen","1");}catch(e){}
@@ -62,7 +64,7 @@ try{
 }catch(e){document.documentElement.setAttribute("lang","he");}
 </script>
 <link rel="preload" href="assets/fonts/Assistant-hebrew.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
 <style>
 /* פונטים מוטמעים מקומית ולא מ-Google Fonts. עבודה אופליין היא דרישת ליבה
    והסיבה שהריפו הופרד; פונט שנטען מהרשת היה נעלם בדיוק בהרים שבהם אין
@@ -543,9 +545,11 @@ html[dir="ltr"] .cat-tabswrap::after{
   }
   .leaflet-container{width:100%;height:100%;font-family:var(--f-body)}
   .mob-sheet{
-    /* מעל הניווט התחתון. ב-SNAP[2] הידית נוחתת בתוך 64 הפיקסלים של
-       .botnav (z-index 60), כלומר הפקד היחיד שמחזיר את החלונית היה
-       בלתי נראה ובלתי לחיץ — באייפון, שהוא מכשיר היעד. */
+    /* מתחת לניווט התחתון (14-01, X-03). קודם הגיליון היה מעליו (70 מול
+       60), כדי שהידית ב-SNAP[2] לא תיבלע בניווט — אבל snapHidden() כבר
+       מציב את הידית מעל הניווט לפי מידה, והמחיר של "מעל" היה שכל ששת
+       פריטי הניווט מוסתרים במפה ובכל ארבע-עשרה התחנות: אין דרך להגיע
+       ל"מעברים", "מידע" או "שמורים". עכשיו הניווט ב-80, מעל הגיליון. */
     position:fixed;inset-inline:0;inset-block-end:0;z-index:70;
     /* dvh ולא vh: ב-Safari vh הוא הגובה כשהכרום מקופל, וה-snaps נמדדים
        מול innerHeight. בפער ביניהם הגיליון החליק מתחת לאצבע ותחתיתו
@@ -571,8 +575,15 @@ html[dir="ltr"] .cat-tabswrap::after{
   /* touch-action:none על הגיליון חל על כל שרשרת הצאצאים בבדיקת
      הפגיעה, ולכן גלילת מגע בתוך הגוף נחסמה ב-iOS — המכשיר היחיד
      שחשוב כאן. */
+  /* --sheet-off: כמה מהגיליון יושב מתחת לתחתית המסך (frac·גובה). בלי
+     זה מיכל הגלילה "חשב" שפריט בתחתיתו נראה, והפוקוס נחת מחוץ למסך או
+     מתחת לניווט (14-01, X-04: 14 פריטים במפה, 7 בהאנוי). scroll-padding
+     מלמד את הדפדפן מהו האזור הנראה, וה-padding מאפשר גם לפריט האחרון
+     להגיע אליו. מתעדכן ב-setSheet בלבד, לא בכל פריים של גרירה. */
   .sheet-body{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y pinch-zoom;
-    padding:0 var(--gutter) calc(var(--navh) + 18px)}
+    padding:0 var(--gutter) calc(var(--sheet-off,0px) + var(--navh) + 18px);
+    scroll-padding-bottom:calc(var(--sheet-off,0px) + var(--navh) + 12px)}
+  body.mob-map .botnav{z-index:80}
   /* בתוך הגיליון הרשימה כבר לא דביקה ולא מוגבלת בגובה */
   body.mob-map .rail{position:static;max-height:none}
   body.mob-map .rail-list{overflow:visible;max-height:none}
@@ -580,7 +591,10 @@ html[dir="ltr"] .cat-tabswrap::after{
   .map-pin{
     display:grid;place-items:center;min-width:26px;min-height:26px;border-radius:50%;
     font-family:var(--f-ui);font-weight:600;font-size:.68rem;
-    border:2px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.4);
+    /* 14-02: לבן ואחריו קו כהה. כל צבע אריח מגיע ל-4.3:1 לפחות מול אחד
+       מהשניים, ולכן הזוג מבטיח 3:1 מול כל רקע מפה. #15121f קשיח ולא
+       --ink: אריחי OSM לא מתהפכים במצב כהה. הצל באותה הצהרה, אחרת נדרס. */
+    border:2px solid #fff;box-shadow:0 0 0 1.5px #15121f,0 1px 5px rgba(0,0,0,.4);
     font-variant-numeric:tabular-nums;
   }
   /* .is-on ו-:focus-visible היו כמעט זהים — סמן שהוא גם נבחר וגם
@@ -1163,8 +1177,11 @@ li.icard{list-style:none}
   /* overflow-wrap: כל שש התוויות הן מילה אחת בשתי השפות ("תחנות",
      "Stations"), ומילה בודדת שרחבה מהתא אינה נעטפת — היא גולשת. ב-320px
      יש ~52px לפריט, ועם הגדלת הטקסט של Safari זה נחרג. */
+  /* 14-02: anywhere שבר תוויות באמצע מילה בהגדלת טקסט ("Transf/ers").
+     עכשיו מילה לא נשברת, וכשהתווית הרחבה ביותר לא נכנסת בשישית רוחב —
+     הניווט עובר לשתי שורות של שלושה (bn-2row, נקבע במדידה ב-fitBotnav). */
   .bnav{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;
-    overflow-wrap:anywhere;
+    overflow-wrap:normal;word-break:keep-all;
     font-family:var(--f-ui);font-size:.68rem;font-weight:500;color:var(--ink-3);padding:6px 2px;border-radius:var(--r-xs)}
   .bnav{position:relative}
   .bnav[aria-current="page"]{color:var(--brand);font-weight:600}
@@ -1173,6 +1190,9 @@ li.icard{list-style:none}
     content:"";position:absolute;top:0;inset-inline:22%;height:3px;
     border-radius:0 0 3px 3px;background:var(--brand);
   }
+  .botnav.bn-2row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* האייקונים יורדים במצב הזה כדי שהניווט לא יבלע רבע מסך; התוויות נשארות. */
+  .botnav.bn-2row .bnav .ic{display:none}
   .pcard{flex-basis:212px}
   .of-note{display:none}
 }
@@ -1610,8 +1630,13 @@ h1.has-sticker,h2.has-sticker{padding-inline-end:88px}
 .seg button[aria-pressed="true"]:focus-visible{outline-color:var(--on-tile-dark);outline-offset:-5px}
 .home-near .near-row:focus-visible,.btn-near:focus-visible,.cat-tab:focus-visible,.backbtn:focus-visible,
 .oflink:focus-visible,.closebtn:focus-visible,.ttl-copy:focus-visible,.fav:focus-visible,.tab:focus-visible,
+.show-close:focus-visible,.sos-show:focus-visible,.sos-copy:focus-visible,
 .bnav:focus-visible{outline:3px solid var(--ink);border-radius:0}
 .tab:focus-visible,.bnav:focus-visible,.cat-tab:focus-visible{outline-offset:-3px}
+/* 14-02: הלשונית הנבחרת יושבת על --tile-dark, והטבעת בצבע הדיו בתוכה
+   נמדדה 1.24:1 — ודווקא עליה הפוקוס נוחת כשנכנסים לרשימת הלשוניות.
+   אותו פתרון כמו כפתור מקטע לחוץ: הטבעת בצבע הטקסט של האריח הכהה. */
+.cat-tab[aria-selected="true"]:focus-visible{outline-color:var(--on-tile-dark);outline-offset:-5px}
 /* כותרות המקטע בדיאלוג הן h3 (ניווט לפי כותרות), באותו מראה. */
 .whybox-h,.dlog-k,.dish-hd{margin:0;font-family:var(--f-ui);font-size:.8rem;font-weight:600;line-height:1.4}
 .whybox-h{color:var(--ink);margin-bottom:2px}
@@ -1698,11 +1723,164 @@ html.splash-on #splash{display:flex}
   .sp-piece,.sp-item,.sp-outline{animation:none!important;opacity:1;transform:none}
   #splash .sp-title{animation:none!important;opacity:1;transform:translate(-50%,0)}
 }
+
+/* ==========================================================
+   13-01 — חירום ומידע חיוני (#sos). אחרי שכבת האריחים כדי שלא תידרס.
+   הצבע: זהב מלא עם דיו כהה (11.3:1 בשני המצבים). לא אדום — האדום
+   הוא --c-video, וכפתור חירום אדום היה נקרא כקישור יוטיוב. המילוי
+   המלא הוא גם מה שמבדיל אותו מחמשת צבעי התקן, שהם טקסט ומתאר בלבד.
+   ========================================================== */
+.sos-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;min-width:44px;
+  padding:0 14px;margin-inline-start:8px;background:var(--gold);color:#15121f;border-radius:0;
+  font-family:var(--f-ui);font-weight:700;font-size:.92rem;text-decoration:none;white-space:nowrap}
+.sos-link .ic{width:18px;height:18px;flex:none}
+.sos-link[aria-current="page"]{box-shadow:inset 0 0 0 3px #15121f}
+@media (hover:hover) and (pointer:fine){.sos-link:hover{filter:brightness(1.06)}}
+@media (max-width:880px){
+  /* בנייד שורת הפקדים מוסתרת, ולכן ההגדרות והחירום נדחפים יחד לקצה. */
+  #settingsBtn{margin-inline-start:auto}
+}
+
+.sos{display:flex;flex-direction:column;gap:26px;margin-top:10px}
+.sos-h2{font-family:var(--f-ui);font-weight:700;font-size:1.3rem;line-height:1.3;margin:0 0 10px}
+.sos-h3{font-family:var(--f-ui);font-weight:700;font-size:1.05rem;line-height:1.35;margin:0 0 6px}
+.sos-h2:focus,.sos-h3:focus{outline:none}
+.sos-h2:focus-visible,.sos-h3:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.sos p{margin:0}
+.sos .sos-lead{font-size:.9rem;color:var(--ink-2);margin:10px 0 0}
+
+/* שלושת מספרי החירום. הספרה גדולה ומעל, התפקיד מתחת — אבל ב-DOM
+   התפקיד קודם, כך שהשם הנגיש הוא "משטרה 113". */
+.sos-dial{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.sos-dial>li{display:flex}
+.sos-tile{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  min-height:80px;padding:10px 6px;background:var(--tile-dark);color:var(--on-tile-dark);
+  font-family:var(--f-ui);text-align:center;text-decoration:none}
+.sos-tile .sos-num{order:-1;font-size:2rem;font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
+.sos-tile .sos-role{font-size:.9rem;font-weight:600}
+@media (max-width:330px){.sos-dial{grid-template-columns:1fr}}
+
+.sos-card{background:var(--surface);border:1px solid var(--line);padding:14px 15px;margin-top:12px}
+.sos-card>.sos-h3{margin-bottom:4px}
+.sos-line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:10px}
+.sos-tel{flex:1 1 100%;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 12px;
+  min-height:52px;padding:11px 14px;background:var(--tile-dark);color:var(--on-tile-dark);
+  font-family:var(--f-ui);font-weight:600;text-decoration:none}
+.sos-num{font-variant-numeric:tabular-nums;unicode-bidi:isolate}
+.sos-tel .sos-num{font-size:1.2rem;font-weight:800}
+.sos-note{flex:1 1 12em;font-size:.86rem;color:var(--ink-2)}
+.sos-copy,.sos-show{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;
+  border:1px solid var(--line-ctl);background:var(--surface);color:var(--ink);
+  font-family:var(--f-ui);font-size:.86rem;font-weight:600}
+.sos-copy .ic,.sos-show .ic{width:16px;height:16px}
+.sos-copy.is-done{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+@media (hover:hover) and (pointer:fine){.sos-copy:hover,.sos-show:hover{background:var(--surface-2)}}
+.sos-addr{margin-top:12px}
+.sos-addr-k{font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--ink-3)}
+.sos-addr-v{display:block;width:fit-content;max-width:100%;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+.sos-acts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:10px 0 0;padding:0}
+.sos-acts>li{display:contents}
+.sos-mail{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;min-height:44px;padding:10px 0;
+  font-family:var(--f-ui);font-weight:600;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.sos-mail .sos-num{font-weight:500;overflow-wrap:anywhere}
+.sos-small{font-size:.84rem;color:var(--ink-2);margin-top:8px}
+
+.sos-toc ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.sos-toc a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;background:var(--tile);color:var(--ink);
+  font-family:var(--f-ui);font-size:.9rem;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.sos-toc-l{font-family:var(--f-ui);font-size:.8rem;font-weight:600;color:var(--ink-3);margin:0 0 6px}
+
+.sos-list{margin:0;padding-inline-start:1.2em;display:grid;gap:8px;font-size:.95rem;line-height:1.55}
+.sos-list b{font-weight:700}
+.sos-phr{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.sos-phr>li{background:var(--surface);border:1px solid var(--line);padding:12px 14px;display:grid;gap:4px}
+.sos-phr-he{font-family:var(--f-ui);font-size:.9rem;font-weight:600;color:var(--ink-2)}
+/* Heebo אינו נושא את כל סימני הטון הכפולים (ệ, ở), ובלי זה האותיות
+   היו מורכבות משני גופנים. line-height 1.5: בצפוף הסימנים נחתכים. */
+.sos :lang(vi),.show-bd :lang(vi){font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.sos-phr-vi{font-size:1.6rem;font-weight:700;line-height:1.5;color:var(--ink);width:fit-content;max-width:100%}
+.sos-phr-say{font-size:.82rem;color:var(--ink-3)}
+.sos-phr .sos-show{justify-self:start;margin-top:4px}
+
+.sos-regions{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.sos-regions>li{background:var(--surface);border:1px solid var(--line);padding:12px 14px}
+.sos-risk{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-ui);font-size:.82rem;font-weight:700;
+  padding:2px 9px;border:1px solid var(--ink-2);color:var(--ink);margin-bottom:6px}
+.sos-risk.is-high{border-width:2px;border-color:var(--ink)}
+.sos-dl{margin:0;display:grid;gap:6px}
+.sos-dl dt{font-family:var(--f-ui);font-size:.78rem;font-weight:600;color:var(--ink-3)}
+.sos-dl dd{margin:0;font-size:.92rem;line-height:1.5}
+.sos-rule{margin:12px 0 0;padding-inline-start:1.3em;display:grid;gap:8px;line-height:1.55}
+.sos-ext{display:inline-flex;align-items:center;min-height:44px;font-family:var(--f-ui);font-weight:600;
+  color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.sos-stamp{font-size:.8rem;color:var(--ink-3)}
+.sos .sos-stamp,.sos .sos-small{margin-top:8px}
+.sos-prov{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.sos-prov-n{font-weight:600}
+
+/* כרטיס החירום בראש "מידע" */
+.sos-infocard{margin-top:14px;background:var(--surface-2);padding:14px 15px}
+.sos-infocard .sos-h2{font-size:1.15rem}
+.sos-infocard .sos-all{display:inline-flex;align-items:center;min-height:44px;margin-top:8px;font-family:var(--f-ui);font-weight:600;
+  color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+/* תוצאת חירום בראש החיפוש */
+.sos-callout{display:flex;align-items:center;gap:10px;margin:6px 0 16px;padding:12px 14px;min-height:52px;
+  background:var(--gold);color:#15121f;font-family:var(--f-ui);font-weight:700;text-decoration:none}
+.sos-callout .ic{width:20px;height:20px;flex:none}
+
+/* הודעת המפה: למעלה, מוזחת מכפתורי הזום (topleft, פיזי) כדי לא להסתיר
+   את הפוקוס שלהם, ומעל שכבות Leaflet (1000). */
+.map-note{position:absolute;top:10px;left:58px;right:10px;z-index:1001;margin:0;display:flex;gap:8px;align-items:flex-start;
+  padding:10px 12px;background:var(--surface);color:var(--ink);border:2px solid var(--ink);
+  font-family:var(--f-ui);font-size:.86rem;font-weight:600;line-height:1.45}
+.map-note .ic{width:18px;height:18px;flex:none;margin-top:1px}
+
+/* כתובת בווייטנאמית בכרטיס מקום ובנקודת עלייה (16-01) */
+.addr-vi{display:grid;gap:6px}
+.addr-vi-p{margin:0}
+.addr-vi-v,.tr-addr-vi{display:block;width:fit-content;max-width:100%;font-weight:600;line-height:1.5;color:var(--ink);
+  overflow-wrap:anywhere;-webkit-user-select:all;user-select:all}
+.addr-vi-note{margin:0;font-size:.84rem;color:var(--ink-2)}
+.addr-vi-acts{display:flex;flex-wrap:wrap;gap:8px}
+.tr-addr-vi{margin:2px 0 0}
+
+/* משוב "העתק שם" (14-02) */
+.sheet-acts{align-items:center}
+.ttl-copy-st{font-family:var(--f-ui);font-size:.8rem;font-weight:700;color:var(--ink);max-width:6.5em;line-height:1.25}
+.ttl-copy-st:empty{display:none}
+.ttl-copy-st.is-warn{text-decoration:underline}
+
+/* יצירת קשר בכרטיס מקום (14-01) — ניטרלי: לחיוג ולדואר אין צבע בתקן */
+.contact{display:grid;gap:6px}
+.contact-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.contact-list>li{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.contact-a{flex:1 1 14em;display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 8px;min-height:44px;padding:8px 12px;
+  border:1px solid var(--line-ctl);color:var(--ink-2);font-family:var(--f-ui);font-weight:600;font-size:.9rem;text-decoration:none}
+.contact-a .ic{width:17px;height:17px;flex:none}
+.contact-a .sos-num{color:var(--ink);overflow-wrap:anywhere}
+@media (hover:hover) and (pointer:fine){.contact-a:hover{background:var(--surface-2)}}
+
+/* "הצג בגדול" — הדיאלוג ממלא את המסך כדי שאפשר יהיה לסובב את הטלפון
+   לנהג. נסגר רק בכפתור או ב-Esc: נגיעה של הנהג לא סוגרת אותו. */
+#showDlg{max-width:none;width:100vw;height:100vh;height:100dvh;max-height:none;margin:0}
+#showDlg .sheet{min-height:100%;display:flex;flex-direction:column;border-radius:0;border:0}
+.show-phrase{margin:0;font-size:1.2rem;font-weight:600;line-height:1.5;color:var(--ink-2);overflow-wrap:anywhere}
+.show-hd{display:flex;align-items:center;gap:12px;padding:14px 16px 0}
+.show-hd .sheet-ttl{flex:1}
+.show-close{display:inline-flex;align-items:center;gap:6px;min-height:44px;min-width:44px;padding:0 14px;
+  border:1px solid var(--line-ctl);background:var(--surface);color:var(--ink);font-family:var(--f-ui);font-weight:600}
+.show-bd{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:20px}
+.show-vi{margin:0;font-size:clamp(2rem,9vw,4.2rem);font-weight:800;line-height:1.4;color:var(--ink);overflow-wrap:anywhere}
+.show-addr{font-size:clamp(1.4rem,6vw,2.6rem);font-weight:700}
+.show-he{margin:0;font-size:1.05rem;color:var(--ink-2)}
+@media (forced-colors:active){.sos-link,.sos-tile,.sos-tel,.sos-callout{border:2px solid LinkText}
+  .sos-link[aria-current="page"]{outline:3px solid CanvasText;outline-offset:-5px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <a class="skip" href="#main" id="skipLink">דלג לתוכן</a>
+<a class="skip" href="#sos" id="skipSos">מידע חירום</a>
 
 <header class="topbar" id="topbar">
   <div class="tb-row r1">
@@ -1716,6 +1894,9 @@ html.splash-on #splash{display:flex}
     <!-- בנייד שלושת הפקדים בולעים שורה שלמה. הכפתור פותח אותם בדיאלוג,
          והם עצמם עוברים לשם פיזית — עותק שני היה יוצר מזהים כפולים. -->
     <button class="iconbtn" id="settingsBtn" type="button" aria-haspopup="dialog"></button>
+    <!-- 13-01: קישור ולא כפתור (הוא מנווט), ואחרי ההגדרות ב-DOM כדי
+         שסדר הקריאה יתאים לסדר החזותי. data-nav נותן לו aria-current. -->
+    <a class="sos-link" id="sosLink" href="#sos" data-nav="sos">חירום</a>
     <p class="countdown" id="countdown"></p>
    </div>
   </div>
@@ -1749,6 +1930,9 @@ html.splash-on #splash{display:flex}
   <button type="button" class="sp-skip" id="sp-skip">דילוג על אנימציית הפתיחה</button>
 </div>
 <dialog id="dlg" aria-labelledby="dlgTitle"></dialog>
+<!-- 16-01: "להצגה" בדיאלוג משלו. על #dlg הוא מחק את כרטיס המקום שממנו נפתח
+     ואיבד את הפוקוס; כאן הוא נערם מעליו, ו-Esc ראשון סוגר רק אותו. -->
+<dialog id="showDlg" aria-labelledby="showTitle"></dialog>
 <dialog id="setDlg" aria-labelledby="setDlgTitle">
   <div class="set-hd">
     <h2 id="setDlgTitle" class="set-ttl"></h2>

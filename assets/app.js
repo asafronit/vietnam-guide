@@ -19,6 +19,10 @@ var ICONS={
      האייקון הוא חצי מהזיהוי שלה ולא קישוט. */
   image:'<rect x="3" y="4.5" width="18" height="15" rx="2.5"/><circle cx="8.6" cy="9.6" r="1.7"/><path d="M3.4 17.4l4.6-4.3 3.2 2.9 3.6-3.9 5.8 5.6"/>',
   close:'<path d="M6 6l12 12M18 6L6 18"/>',
+  /* שפופרת. לא מתהפכת ב-RTL: אין לה כיוון. */
+  mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.6 7l8.4 6.2L20.4 7"/>',
+  phone:'<path d="M6.6 3.5h2.6l1.4 4-2 1.3a11 11 0 0 0 6.6 6.6l1.3-2 4 1.4v2.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/>',
+  check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 5.5A1.5 1.5 0 0 0 13.5 4h-8A1.5 1.5 0 0 0 4 5.5v8A1.5 1.5 0 0 0 5.5 15"/>',
   heart:'<path d="M12 20.3l-1.3-1.2C6 14.9 3 12.2 3 8.9 3 6.2 5.1 4 7.8 4c1.5 0 3 .7 4.2 2 1.2-1.3 2.7-2 4.2-2C18.9 4 21 6.2 21 8.9c0 3.3-3 6-7.7 10.2z"/>',
   /* מסכת צלילה: מסגרת, מחיצה בין שתי העדשות, ושתי קצות רצועה. אותו
@@ -68,6 +72,91 @@ var T={
              en:"Back to the home screen, with the intro animation"},
   brandSub:{he:"נובמבר 2026",en:"November 2026"},
   skip:{he:"דלג לתוכן",en:"Skip to content"},
+  /* 13-01 — חירום ומידע חיוני */
+  skipSos:{he:"מידע חירום",en:"Emergency info"},
+  contactH:{he:"יצירת קשר",en:"Contact"},
+  showDriver:{he:"הראה לנהג",en:"Show the driver"},
+  showDriverHe:{he:"בבקשה, קח אותי לכתובת הזאת.",en:"Please take me to this address."},
+  addrViH:{he:"כתובת בווייטנאמית",en:"Address in Vietnamese"},
+  addrViPartial:{he:"כתובת חלקית: יישוב בלבד. הנהג יראה רק את שם המקום והיישוב.",
+    en:"Partial address: town only. The driver will see just the place name and town."},
+  copyAddrViWhat:{he:"את הכתובת בווייטנאמית",en:"the Vietnamese address"},
+  mapNoTiles:{he:"רקע המפה לא נטען בלי אינטרנט. הסמנים, רשימת התחנות והכרטיסים זמינים.",
+    en:"The map background can't load without internet. The markers, station list and cards still work."},
+  mapNoLib:{he:"המפה לא נטענה. רשימת התחנות והכרטיסים זמינים.",
+    en:"The map didn't load. The station list and cards still work."},
+  callL:{he:"חיוג",en:"Call"},
+  emailL:{he:"אימייל",en:"Email"},
+  copyPhoneWhat:{he:"את המספר",en:"the number"},
+  copyMailWhat:{he:"את הכתובת",en:"the address"},
+  sosBtn:{he:"חירום",en:"Emergency"},
+  sosTitle:{he:"חירום ומידע חיוני",en:"Emergency and essentials"},
+  sosEmerg:{he:"חירום",en:"Emergency"},
+  sosPolice:{he:"משטרה",en:"Police"},
+  sosFire:{he:"כבאות",en:"Fire"},
+  sosAmb:{he:"אמבולנס",en:"Ambulance"},
+  sosDialNote:{he:"החיוג חינם. המוקדנים מדברים בעיקר ווייטנאמית, ולכן אם יש מקומי לידכם, בקשו ממנו לחייג. המשפטים בהמשך המסך עוזרים.",
+    en:"Calls are free. Operators mostly speak Vietnamese, so if a local is nearby, ask them to call. The phrases further down help."},
+  sosEmbassy:{he:"שגרירות ישראל בהאנוי",en:"Embassy of Israel, Hanoi"},
+  sosEmbLine:{he:"קו החירום של השגרירות",en:"Embassy emergency line"},
+  sosEmbLineNote:{he:"לחירום בלבד.",en:"Emergencies only."},
+  sosEmbGen:{he:"מרכזיית השגרירות",en:"Embassy switchboard"},
+  sosEmbGenNote:{he:"שני עד שישי, 9:00–12:00 שעון וייטנאם.",en:"Monday to Friday, 9:00–12:00 Vietnam time."},
+  sosCopyEmb:{he:"את מספר קו החירום של השגרירות",en:"the embassy emergency number"},
+  sosCopyEmbGen:{he:"את מספר מרכזיית השגרירות",en:"the embassy switchboard number"},
+  sosAddr:{he:"כתובת",en:"Address"},
+  sosEmbMail:{he:"דוא\"ל למחלקה הקונסולרית",en:"Email the consular section"},
+  sosCopyMail:{he:"את כתובת הדוא\"ל הקונסולרית",en:"the consular email address"},
+  sosEmbVisit:{he:"ביקור בשגרירות רק בתיאום מראש בדוא\"ל, שני עד שישי 9:00–12:00.",
+    en:"Visits by email appointment only, Monday to Friday 9:00–12:00."},
+  sosEmbShow:{he:"קח אותי לשגרירות ישראל",en:"Take me to the Israeli embassy"},
+  sosMfa:{he:"מרכז המצב של משרד החוץ (ירושלים)",en:"Israeli Foreign Ministry Situation Room (Jerusalem)"},
+  sosMfaCall:{he:"מרכז המצב",en:"Situation Room"},
+  sosMfaNote:{he:"24 שעות ביממה, בעברית.",en:"24 hours a day, in Hebrew."},
+  sosCopyMfa:{he:"את מספר מרכז המצב",en:"the Situation Room number"},
+  sosWa:{he:"וואטסאפ למרכז המצב",en:"WhatsApp the Situation Room"},
+  sosWaNote:{he:"בלי קליטה סלולרית אבל עם Wi-Fi: וואטסאפ עובד.",en:"No signal but on Wi-Fi: WhatsApp works."},
+  sosInsure:{he:"ביטוח נסיעות: שמרו באנשי הקשר בטלפון את מוקד החירום של חברת הביטוח ואת מספר הפוליסה, והתקשרו אליהם לפני שמגיעים לבית חולים אם אפשר.",
+    en:"Travel insurance: save the insurer's emergency line and your policy number in your phone contacts, and call them before going to hospital if you can."},
+  sosCopy:{he:"העתק",en:"Copy"},
+  sosCopied:{he:"הועתק",en:"Copied"},
+  sosCopyFail:{he:"ההעתקה נכשלה. הנה הטקסט:",en:"Copy failed. Here it is:"},
+  sosCopyFailShort:{he:"ההעתקה נכשלה",en:"Copy failed"},
+  sosEmail:{he:"דוא\"ל",en:"Email"},
+  sosCopyMfaMail:{he:"את כתובת הדוא\"ל של מרכז המצב",en:"the Situation Room email address"},
+  sosShow:{he:"הצג בגדול",en:"Show large"},
+  sosShowTtl:{he:"להצגה",en:"Show this"},
+  sosToc:{he:"בעמוד הזה",en:"On this page"},
+  sosOffline:{he:"כל מה שכאן עובד גם בלי אינטרנט, חוץ מקישורים שמסומנים \"דורש אינטרנט\".",
+    en:"Everything here works offline, except links marked \"needs internet\"."},
+  sosNeedsNet:{he:" (דורש אינטרנט, נפתח בכרטיסייה חדשה)",en:" (needs internet, opens in a new tab)"},
+  sosUpdated:{he:"עודכן לאחרונה: ",en:"Last updated: "},
+  sosAll:{he:"כל מידע החירום והמידע החיוני",en:"All emergency and essential info"},
+  sosHit:{he:"מידע חירום בראש התוצאות",en:"Emergency info at the top of the results"},
+  sosSay:{he:"הגייה מקורבת: ",en:""},
+  sosPhrNote:{he:"עדיף להראות את המסך מאשר להגות. הכפתור מגדיל את המשפט למסך מלא.",
+    en:"Showing the screen works better than pronouncing. The button enlarges the phrase to full screen."},
+  sosFloodLead:{he:"סוף אוקטובר ונובמבר הם שיא עונת הגשמים במרכז. מזג האוויר הוא מה שמכריע בין המסלולים.",
+    en:"Late October and November are the peak of the rainy season in the centre. Weather is what decides between the routes."},
+  sosWeather:{he:"סוף אוקטובר עד נובמבר",en:"Late October to November"},
+  sosMeans:{he:"מה זה אומר",en:"What it means"},
+  sosProv:{he:"מחוזות (שמות אחרי האיחוד של 2025)",en:"Provinces (names after the 2025 merger)"},
+  sosRisk:{he:"סיכון שיטפון: ",en:"Flood risk: "},
+  sosRiskLow:{he:"נמוך",en:"low"},
+  sosRiskMid:{he:"בינוני",en:"medium"},
+  sosRiskHigh:{he:"גבוה",en:"high"},
+  sosRuleH:{he:"כלל ההחלטה בהאנוי (27–28/10)",en:"The decision rule in Hanoi (27–28/10)"},
+  sosWarnLink:{he:"אזהרות רשמיות: המרכז הלאומי לחיזוי הידרו-מטאורולוגי",en:"Official warnings: National Centre for Hydro-Meteorological Forecasting"},
+  sosRidesGrab:{he:"מקבלת כרטיס אשראי זר, האפליקציה באנגלית והמחיר ידוע מראש. כפתורי Grab במדריך מעתיקים את הכתובת כדי להדביק אותה באפליקציה.",
+    en:"Takes foreign cards, the app is in English and the price is fixed upfront. The guide's Grab buttons copy the address so you can paste it in the app."},
+  sosRidesGreen:{he:"מוניות וקטנועים חשמליים, החברה הגדולה בווייטנאם (כ-55% מהשוק ברבעון הראשון של 2026). כרטיס זר לא תמיד עובר באפליקציה, מזומן עובד תמיד.",
+    en:"Electric taxis and scooters, the largest operator in Vietnam (about 55% of the market in Q1 2026). Foreign cards don't always work in the app; cash always does."},
+  sosGreenWas:{he:"לשעבר ",en:"formerly "},
+  sosScams:{he:"הונאות נפוצות ואיך להימנע",en:"Common scams and how to avoid them"},
+  sosMoneyH:{he:"כספומטים ותשלום",en:"ATMs and paying"},
+  sosTipsH:{he:"טיפים",en:"Tipping"},
+  sosSafetyH:{he:"בריאות ובטיחות",en:"Health and safety"},
+  sosTempleH:{he:"מקדשים ונימוסים",en:"Temples and etiquette"},
   searchLabel:{he:"חיפוש בכל המאגר",en:"Search everything"},
   searchPh:{he:"מה מחפשים? מסעדה, שוק, פעילות, מלון…",en:"Restaurant, market, activity, hotel…"},
   clear:{he:"נקה חיפוש",en:"Clear search"},
@@ -134,6 +223,8 @@ var T={
   navTopics:{he:"נושאים",en:"Browse"},
   navSaved:{he:"שמורים",en:"Saved"},
   navInfo:{he:"מידע",en:"Trip info"},
+  /* 14-02: תווית הניווט התחתון בלבד. navInfo נשאר לכותרת הדף (2.4.2). */
+  navInfoShort:{he:"מידע",en:"Info"},
   /* ---- מעברים ---- "Routes" ולא "Getting around": תווית קצרה, כי בניווט
      התחתון יש עכשיו שישה פריטים ב-390px, והיא חייבת לשרוד גם 320px והגדלה. */
   navTransfers:{he:"מעברים",en:"Routes"},
@@ -164,8 +255,17 @@ var T={
   trSortPrice:{he:"לפי מחיר",en:"By price"},
   trSortTime:{he:"לפי משך",en:"By duration"},
   trSortedData:{he:"בסדר המומלץ",en:"in suggested order"},
-  trSortedPrice:{he:"ממוין לפי המחיר הנמוך בטווח, אחרי המרה למטבע אחד (לאדם ולרכב יחד — לשים לב ליחידה)",
-                 en:"sorted by the lowest price in each range, converted to one currency (per person and per vehicle mixed — mind the unit)"},
+  /* 14-02: המיון היה לפי priceLow גולמי, ו"לאדם ולרכב יחד — לשים לב ליחידה"
+     הודה בזה. עכשיו הכל מנורמל למחיר לאדם לפי מספר הנוסעים שנבחר. */
+  trSortedPrice:{he:"ממוין לפי המחיר לאדם, ל-{n}",en:"sorted by price per person, for {n}"},
+  trSortedPricePP:{he:"ממוין לפי המחיר לאדם",en:"sorted by price per person"},
+  trPaxBy:{he:"מחיר עבור",en:"Price for"},
+  trPax1:{he:"נוסע אחד",en:"1 traveller"},
+  trPaxN:{he:"{n} נוסעים",en:"{n} travellers"},
+  trPerPerson:{he:"חישוב לאדם",en:"Split per person"},
+  trPerPersonV:{he:"בערך {p} ל-{n} (בהנחה שכולם ברכב אחד)",en:"about {p} each for {n} (assuming one vehicle)"},
+  trPerPersonC:{he:"בערך {p} ל-{n} (בהנחה שכולם בתא אחד)",en:"about {p} each for {n} (assuming one cabin)"},
+  trPaxSaid:{he:"מחיר לאדם מחושב ל-{n}",en:"Price per person now for {n}"},
   trSortedTime:{he:"ממוין לפי המשך הקצר",en:"sorted by shortest duration"},
   trFirst:{he:"ראשון: {x}",en:"First: {x}"},
   trChange:{he:"שינוי בחירה",en:"Change selection"},
@@ -323,7 +423,10 @@ var T={
   tbOver:{he:"הטיול הסתיים",en:"Trip complete"},
   wxTitle:{he:"התאמה למזג האוויר",en:"Weather outlook"},
   wxLive:{he:"תחזית חיה",en:"live forecast"},
-  wxClimate:{he:"לפי 6 שנים",en:"6-year normal"},
+  wxClimate:{he:"לפי %d שנים",en:"%d-year normal"},
+  uMm:{he:"מ״מ",en:"mm"},
+  uKmh:{he:"קמ״ש",en:"km/h"},
+  uM:{he:"מ׳",en:"m"},
   wxTemp:{he:"טמפרטורה",en:"temperature"},
   wxWetDays:{he:"ימים גשומים",en:"wet days"},
   wxWind:{he:"רוח",en:"wind"},
@@ -359,8 +462,14 @@ var T={
   feasAria:{he:"היתכנות %p אחוז, %s",en:"%p percent feasible, %s"},
   wxNoteLive:{he:"תחזית חיה, נמשכת בכל טעינה. כל שינוי בתחזית משנה את המספרים כאן מיד.",
               en:"Live forecast, fetched on every load. Any change in the forecast moves these numbers immediately."},
-  wxNoteClimate:{he:"תחזית לא מגיעה מעבר ל-16 יום, אז עד אמצע אוקטובר מוצג ממוצע %d שנים. ברגע שתאריכי הטיול ייכנסו לטווח התחזית, המספרים כאן יתחלפו לבד.",
-                 en:"Forecasts do not reach beyond 16 days, so until mid-October this shows a %d-year average. The moment the trip dates enter forecast range these numbers switch over on their own."},
+  /* 14-02: היה "%d" = wx.days — אורך החלון (30) — ולכן "ממוצע 30 שנים". והסיבה
+     "עד אמצע אוקטובר" נשארה גם כשהסיבה האמיתית היא שאין רשת. */
+  wxNoteClimate:{he:"התחזית החיה מכסה 16 יום קדימה ותאריכי הטיול עוד לא בטווח, ולכן מוצג ממוצע של %d שנים לחלון הטיול. כשהם ייכנסו לטווח, המספרים כאן יתחלפו לבד.",
+                 en:"The live forecast covers 16 days ahead and the trip dates aren't in range yet, so this shows a %d-year average for the trip window. Once they are, these numbers switch over on their own."},
+  wxNoteError:{he:"התחזית החיה לא זמינה כרגע, ולכן מוצג ממוצע אקלים של %d שנים לחלון הטיול. ננסה שוב בעוד דקה.",
+                en:"The live forecast isn't available right now, so this shows a %d-year climate average for the trip window. Trying again in a minute."},
+  wxNoteOffline:{he:"אין חיבור לרשת, ולכן מוצג ממוצע אקלים של %d שנים לחלון הטיול. התחזית החיה תחזור כשתהיה רשת.",
+                 en:"No connection, so this shows a %d-year climate average for the trip window. The live forecast comes back once you're online."},
   credits:{he:"קרדיט לתצלומים",en:"Photo credits"},
   creditsNote:{he:"כל תצלומי התחנות מ-Wikimedia Commons, ברישיון חופשי. שם הצלם והרישיון לצד כל תחנה.",
                en:"All station photos are from Wikimedia Commons under free licences. Photographer and licence are listed per station."}
@@ -740,7 +849,8 @@ function stColor(st){
      2. נורמות אקלים — ממוצע 6 שנים. גיבוי בלבד, מסומן ככזה.
    התחזית לא מגיעה מעבר ל-16 יום, ולכן עד אמצע אוקטובר יוצג מצב 2. */
 
-var WX_TTL_MS=30*60*1000;                 /* התחזית נשמרת חצי שעה ואז נמשכת מחדש */
+var WX_TTL_MS=30*60*1000;
+var CLIMATE_YEARS=6;   /* נורמות הגשם והטמפרטורה ב-climate.js */                 /* התחזית נשמרת חצי שעה ואז נמשכת מחדש */
 var wxCache={};
 
 /* כמה כל סוג פעילות נפגע מגשם. ברירת מחדל לפי קטגוריה,
@@ -820,9 +930,46 @@ function weatherFor(st){
   if(!c){
     wxCache[st.id]={at:Date.now(),data:fallback};
     fetchForecast(st);
+  }else if(!c.busy){
+    /* 14-02: רשומה שפגה לא נמשכה מחדש לעולם (c קיים, ולכן !c לא התקיים) —
+       לא הרענון של חצי שעה ולא הניסיון החוזר אחרי כשל. מגישים את הישנה
+       ומושכים ברקע; busy מונע בקשה כפולה בזמן שהראשונה בדרך. */
+    c.busy=true;
+    fetchForecast(st);
   }
   return (wxCache[st.id]&&wxCache[st.id].data)||fallback;
 }
+/* 14-02: כשל רשת מסומן, כדי שההערה תגיד "אין חיבור" ולא "מחוץ לטווח".
+   הנורמה נשארת המספר; רק הסיבה משתנה, ולכן refreshWeatherStrip לא מכריז
+   (המקור לא התהפך). ניסיון חוזר אחרי דקה במקום חצי שעה, ומיד כשהרשת
+   חוזרת או כשהאפליקציה חוזרת לחזית. */
+function wxFailed(st,why){
+  var c=wxCache[st.id];
+  if(c&&c.data&&c.data.source==="forecast") return;   /* תחזית קודמת טובה מנורמה */
+  var base=(c&&c.data)||null;
+  if(!base) return;
+  var d={}; for(var k in base) d[k]=base[k];
+  d.why=why||"offline";
+  wxCache[st.id]={at:Date.now()-WX_TTL_MS+60*1000,data:d};
+  refreshWeatherStrip(st);
+}
+/* תשובה תקינה בלי ימי טיול: הנורמה נשארת, אבל הבקשה הסתיימה — busy יורד
+   והשעון מתאפס, אחרת הרשומה לא הייתה נמשכת שוב לעולם. */
+function wxSettle(st){
+  var c=wxCache[st.id]; if(!c) return;
+  c.busy=false; c.at=Date.now();
+  if(c.data&&c.data.why){ var d={}; for(var k in c.data) d[k]=c.data[k]; delete d.why; c.data=d; refreshWeatherStrip(st); }
+}
+function wxRetry(){
+  var any=false;
+  Object.keys(wxCache).forEach(function(id){
+    var c=wxCache[id]; if(c&&c.data&&c.data.why){ delete wxCache[id]; any=true; }
+  });
+  if(!any) return;
+  var sel=currentSel(); if(sel) refreshWeatherStrip(sel);
+}
+window.addEventListener("online",wxRetry);
+document.addEventListener("visibilitychange",function(){ if(!document.hidden) wxRetry(); });
 function fetchForecast(st){
   try{
     /* wind_speed_10m_max נוסף לאותה בקשה — חינם, בלי מפתח, ובלי סבב
@@ -831,7 +978,7 @@ function fetchForecast(st){
           "&daily=precipitation_sum,temperature_2m_max,temperature_2m_min,wind_speed_10m_max"+
           "&forecast_days=16&timezone=Asia%2FBangkok";
     fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(j){
-      if(!j||!j.daily||!j.daily.time||!j.daily.time.length) return;
+      if(!j||!j.daily||!j.daily.time||!j.daily.time.length){ wxFailed(st,navigator.onLine===false?"offline":"error"); return; }
       var d=j.daily;
       /* רק ימים שנופלים בתוך הטיול. בלי הגידור הזה הדף הציג "תחזית
          חיה" על חלון שאינו חופף לטיול בכלל — נמדד ב-05/10/2026:
@@ -843,10 +990,10 @@ function fetchForecast(st){
         var p=d.time[i].split("-"), ts=new Date(+p[0],+p[1]-1,+p[2]).getTime();
         if(ts>=ds&&ts<=de) keep.push(i);
       }
-      if(!keep.length) return;                 /* החלון טרם נפתח — הנורמה נשארת */
+      if(!keep.length){ wxSettle(st); return; }   /* החלון טרם נפתח — הנורמה נשארת */
       function pick(a){ return keep.map(function(i){return a?a[i]:null;}); }
       var mmArr=pick(d.precipitation_sum).filter(function(v){return v!=null;});
-      if(!mmArr.length) return;
+      if(!mmArr.length){ wxSettle(st); return; }
       var windArr=pick(d.wind_speed_10m_max).filter(function(v){return v!=null;});
       wxCache[st.id]={at:Date.now(),data:{
         daily:{mm:mmArr,wind:windArr},
@@ -875,6 +1022,7 @@ function fetchForecast(st){
          נשאר בלי שאף אחד ידע. כשל רשת צפוי ואינו שובר כלום; שגיאת
          קוד צריכה להשאיר עקבות שאפשר למצוא. */
       if(window.console&&console.warn) console.warn("forecast failed for "+st.id,err);
+      wxFailed(st,"offline");
     });
   }catch(e){}
 }
@@ -1240,6 +1388,22 @@ function en2(n){n.lang="en";n.dir="ltr";n.classList.add("en");return n;}
    ו-"Bánh Mì Phượng" בפונמות אנגליות, וזו בדיוק הסיבה שהשם הלועזי
    בריבוע קיבל lang="vi". הפונקציה הגנרית נשארה מאחור. */
 function vi2(n){n.lang="vi";n.dir="ltr";n.classList.add("en");return n;}
+/* 14-02: vi2 גורף על r.name סימן גם את 143 השמות שהם באנגלית ("Hoan Kiem
+   Lake", "Hoa Lo Prison Museum"), ו-VoiceOver עבר לקול ווייטנאמי ושיבש
+   את "Lake" ו-"Museum". ווייטנאמית רק כשיש בשם סימן ווייטנאמי ממשי (đ או
+   סימן משולב אחרי NFD); אחרת en במפורש — בלי תגית הוא היה יורש he.
+   "Pho Thin" בלי סימנים נקרא אנגלית ומובן; קול ווייטנאמי ממילא היה
+   קורא אותו בטון שטוח שגוי. r.nameLang עוקף כשהכלל טועה.
+   רק סימנים ייחודיים לווייטנאמית (đ, breve, hook above, horn, dot below):
+   acute/grave/circumflex/tilde קיימים גם בצרפתית ובספרדית — "Meliá
+   Vinpearl Hue", השם היחיד במאגר עם סימנים, הוא מותג ספרדי. */
+var VI_MARK=/[\u0111\u0110\u0306\u0309\u031B\u0323]/;
+function nameLangOf(name,override){
+  if(override==="vi"||override==="en") return override;
+  var n=String(name||""); try{ n=n.normalize("NFD"); }catch(e){}
+  return VI_MARK.test(n)?"vi":"en";
+}
+function nm2(n,name,override){ return (nameLangOf(name,override)==="vi"?vi2:en2)(n); }
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
 function hl(txt){
   if(!query) return esc(txt);
@@ -1269,9 +1433,17 @@ function bookingUrl(r){
    בשורת המקורות.
    width/height מפורשים כי .sheet-bd הוא flex column, ותמונה שנטענת
    מאוחר דוחפת את שורת הפעולות אחרי שהאצבע כבר עליה. */
+/* מחובר לפני הצבת src: שגיאה מהקאש יכולה לירות לפני שמאזין שמחובר
+   אחר כך קיים. פעם אחת בלבד, כדי שגיבוי שנכשל גם הוא לא ייכנס ללולאה. */
+function onImgFail(img,fn){
+  var done=false;
+  img.addEventListener("error",function(){ if(done) return; done=true; fn(); });
+}
 function figureFor(p,altHe,altEn){
   var fig=el("figure","poi-fig");
   var img=el("img","poi-shot");
+  /* תמונה שלא נטענה — כל ה-figure יורד, כולל הקרדיט לצלם שאין מה לייחס. */
+  onImgFail(img,function(){ fig.hidden=true; });
   img.src=p.src; img.width=560; img.height=316; img.loading="lazy";
   var d=isHe()?altHe:altEn;
   /* תיאור שנכתב ביד לתמונה הזו, או כלום. alt תבניתי ("תצלום של <שם>")
@@ -1421,9 +1593,9 @@ function openDetail(item){
   if(heName){
     var nHe=el("span","ttl-he",heName); nHe.lang="he";
     ttl.appendChild(nHe);
-    ttl.appendChild(vi2(el("span","ttl-en",r.name)));
+    ttl.appendChild(nm2(el("span","ttl-en",r.name),r.name,r.nameLang));
   }else{
-    vi2(ttl); ttl.textContent=r.name;
+    nm2(ttl,r.name,r.nameLang); ttl.textContent=r.name;
   }
   box.appendChild(ttl);
 
@@ -1451,12 +1623,28 @@ function openDetail(item){
        בחישוב השם הנגיש — מגבלת מפרט; ההגייה הנכונה קורית ב-h2. */
     cpb.setAttribute("aria-label",t("copyName")+": "+r.name);
     cpb.appendChild(icon("copy"));
+    /* 14-02: המשוב היה רק קולי. מילה גלויה ליד הכפתור, שנשארת עד סגירת
+       הכרטיס או הלחיצה הבאה — 2 שניות קצרות מדי למי שעובד בזום חזק.
+       aria-hidden: sayHere כבר מכריז, ובלי זה היא נקראת שוב בניווט.
+       לפני הכפתור ב-DOM, כלומר בצד הרחוק מ"סגור": הסגירה לא זזה. */
+    var cpSt=el("span","ttl-copy-st"); cpSt.setAttribute("aria-hidden","true");
+    var cpBack=null;
     cpb.addEventListener("click",function(){
       navigator.clipboard.writeText(r.name).then(
-        function(){ sayHere(t("copied")+": "+r.name); },
-        function(){ sayHere(t("copyFailed")); }
+        function(){
+          sayHere(t("copied")+": "+r.name);
+          cpSt.textContent=t("copied"); cpSt.className="ttl-copy-st";
+          cpb.textContent=""; cpb.appendChild(icon("check"));
+          clearTimeout(cpBack);
+          cpBack=setTimeout(function(){ cpb.textContent=""; cpb.appendChild(icon("copy")); },2500);
+        },
+        function(){
+          sayHere(t("copyFailed"));
+          cpSt.textContent=t("copyFailed"); cpSt.className="ttl-copy-st is-warn";
+        }
       );
     });
+    acts.appendChild(cpSt);
     acts.appendChild(cpb);
   }
   var cb=el("button","closebtn"); cb.type="button";
@@ -1608,11 +1796,17 @@ function openDetail(item){
 
   if(r.whatsapp) act(lbtn("act-chat wa-link","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
   bd.appendChild(lr);
+  var av=addrViBlock(r);
+  if(av) bd.appendChild(av);
+  var ct=contactBlock(r);
+  if(ct) bd.appendChild(ct);
 
   /* יומן סקר: מאיפה זה בא ועד כמה המיקום אמין — המנגנון שמבדיל את
      המדריך מפיד המלצות (PRODUCT.md), באריח אחד בסוף. */
   var lg=el("div","dlog");
-  lg.appendChild(el("h3","dlog-k",t("surveyLog")));
+  /* lang: ה-bd של כרטיס לא-עברי מסומן en, והכותרת היא טקסט ממשק. */
+  var lgh=el("h3","dlog-k",t("surveyLog")); lgh.lang=isHe()?"he":"en";
+  lg.appendChild(lgh);
   if((r.sources||[]).length){
     var sl=el("div","srcline");
     sl.appendChild(el("span",null,t("sources")));
@@ -1671,6 +1865,9 @@ function grabDeep(r){
 function grabAddr(r,st){
   /* נקודת עלייה של מעבר נושאת כתובת מלאה משלה (r.addr). מה שמועתק חייב
      להיות בדיוק מה שכתוב על המסך — לא שם + אזור + תחנה מורכבים. */
+  /* 16-01: כתובת ווייטנאמית עם סימנים היא מה ש-Grab והנהג מבינים. בלי
+     ", Vietnam": המחרוזת שמועתקת זהה למה שכתוב על המסך. */
+  if(r.addrVi) return r.addrVi;
   if(r.addr) return r.addr+", Vietnam";
   return [r.name,r.area,st.name,"Vietnam"].filter(Boolean).join(", ");
 }
@@ -1683,7 +1880,7 @@ function grabBtn(r,st,nameLang){
   /* השפה נוסעת עם הכפתור: showGrabNote מרונדר רק אחרי הלחיצה ואין לו
      גישה לנתון שממנו הכתובת באה. ברירת המחדל vi — במסלול כרטיס המקום
      הכתובת נבנית מ-r.name + r.area + st.name, ואלה שמות ויאטנמיים. */
-  a.setAttribute("data-grab-lang",nameLang==="en"?"en":"vi");
+  a.setAttribute("data-grab-lang",(nameLang==="en"&&!r.addrVi)?"en":"vi");
   a.removeAttribute("target");          /* deep link ב-_blank משאיר לשונית ריקה */
   a.addEventListener("click",function(e){
     if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0) return;   /* לחיצה מותאמת */
@@ -1784,6 +1981,39 @@ dlg.addEventListener("click",function(e){
   downOnBackdrop=false;
 });
 
+/* ============ יצירת קשר (14-01) ============
+   phone ו-email היו בנתונים ולא הוצגו בכלל — רק וואטסאפ. שורה נפרדת
+   מתחת לשורת הפעולות ולא בתוכה: lbtn מוסיף target=_blank ו"נפתח
+   בכרטיסייה חדשה", וזה שקר לחייגן או לאפליקציית דואר (ו-_blank על tel:
+   ב-Safari עלול להשאיר לשונית ריקה). וואטסאפ נשאר למעלה, בצבע התקן. */
+function fmtPhone(e164){
+  /* +84 + 9 ספרות בקבוצות של שלוש — כך VoiceOver מקריא בקבוצות. */
+  var m=/^\+84(\d{3})(\d{3})(\d{3,4})$/.exec(e164||"");
+  return m?"+84 "+m[1]+" "+m[2]+" "+m[3]:e164;
+}
+function contactBlock(r){
+  if(!r.phone&&!r.email) return null;
+  var box=el("div","contact");
+  var cth=el("h3","dlog-k",t("contactH")); cth.lang=isHe()?"he":"en";
+  box.appendChild(cth);
+  var ul=el("ul","contact-list");
+  function row(href,ic,label,value,valLang,copyWhat){
+    var li=el("li"), a=el("a","contact-a"); a.href=href;
+    a.appendChild(icon(ic));
+    a.appendChild(el("span","contact-l",label));
+    a.appendChild(document.createTextNode(" "));
+    var v=sosNum(value); if(valLang) v.lang=valLang;
+    a.appendChild(v);
+    li.appendChild(a);
+    li.appendChild(sosCopy(value,copyWhat));
+    ul.appendChild(li);
+  }
+  if(r.phone) row("tel:"+r.phone,"phone",t("callL"),fmtPhone(r.phone),null,t("copyPhoneWhat"));
+  if(r.email) row("mailto:"+r.email,"mail",t("emailL"),r.email,"en",t("copyMailWhat"));
+  box.appendChild(ul);
+  return box;
+}
+
 /* ============ כרטיס מקום ============ */
 function poiCard(item,cls){
   var r=item.rec, st=item.station;
@@ -1807,7 +2037,7 @@ function poiCard(item,cls){
   var open=el("button","pcard-open"); open.type="button";
   open.setAttribute("aria-haspopup","dialog");
   var nm=el("span","pcard-name");
-  if(!r.nameHe||!isHe()) vi2(nm);          /* שם המקום נשאר לטיני אם אין תעתיק */
+  if(!r.nameHe||!isHe()) nm2(nm,r.name,r.nameLang);          /* שם המקום נשאר לטיני אם אין תעתיק */
   nm.innerHTML=hl(recName(r));
   open.appendChild(nm);
   open.addEventListener("click",function(){openDetail(item);});
@@ -1923,6 +2153,9 @@ function exitMapMode(){
   var sh=document.getElementById("mobSheet"); if(sh) sh.remove();
   var mp=document.getElementById("mapPane");
   if(mp){ mp.remove(); if(lmap){lmap.remove();} lmap=null; lmarkers={}; }
+  /* ההודעה נמחקה עם הפאנל; בלי האיפוס כניסה חוזרת בלי רשת לא הציגה אותה
+     שוב (setMapNote ראה "כבר במצב הזה" ויצא). */
+  mapNoteKind=null; ltiles=null;
   document.body.classList.remove("mob-map");
 }
 
@@ -1942,7 +2175,9 @@ function ensureLeaflet(cb){
     q.forEach(function(f){ f(err); });
   }
   var s=document.createElement("script");
-  s.src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+  /* 14-01: עותק מקומי ב-precache. מ-unpkg המפה לא נטענה בלי רשת כלל,
+     וה-CSS משם חסם את הרינדור בטעינה ראשונה. */
+  s.src="assets/vendor/leaflet/leaflet.js";
   /* onload מעביר Event כארגומנט ראשון. להעביר את cb ישירות פירושו
      שהקריאה נראית כמו cb(event), והקוד שבודק err חושב שנכשלנו. */
   s.onload=function(){flush();};
@@ -1950,7 +2185,39 @@ function ensureLeaflet(cb){
   document.head.appendChild(s);
 }
 
-function buildMap(){
+/* הודעת "אין רשת" במפה (14-01). <p> סטטי בתוך ה-region ולא role=status:
+   במצב המלא #mapPane מקבל inert, ו-live region בתוך עץ inert אינו נשמע;
+   שני מנגנונים גם היו מכריזים פעמיים. ההכרזה היא say() אחד, מחוץ למפה,
+   פעם אחת לכל מעבר מצב. navigator.onLine אינו אמין באייפון (true גם
+   ברשת שבויה), ולכן הזיהוי הוא אריחים שנכשלים בפועל. */
+var mapNoteKind=null, ltiles=null, tileFails=0;
+/* פעם אחת ברמת המודול: נרשמו בכל buildMap, הצטברו, והכריזו "רקע המפה
+   לא נטען" גם במסך הבית. offline מציג רק אם אריחים כבר נכשלו — אחרת
+   האריחים שנטענו עדיין על המסך וההודעה הייתה שקר. */
+function mapActive(){ return !!lmap&&document.body.classList.contains("mob-map"); }
+window.addEventListener("offline",function(){ if(mapActive()&&tileFails>0) setMapNote("tiles"); });
+window.addEventListener("online",function(){
+  if(!mapActive()) return;
+  tileFails=0;
+  if(mapNoteKind==="tiles"){ setMapNote(null); if(ltiles) ltiles.redraw(); }
+});
+function setMapNote(kind){
+  if(kind===mapNoteKind) return;
+  mapNoteKind=kind;
+  var pane=ensureMapPane();
+  var n=document.getElementById("mapNote");
+  if(!kind){ if(n) n.parentNode.removeChild(n); if(lmap) frameMap(); return; }
+  /* ראשונה בסדר הקריאה של האזור — לפני 14 הסמנים. המיקום החזותי absolute. */
+  if(!n){ n=el("p","map-note"); n.id="mapNote"; pane.insertBefore(n,pane.firstChild); }
+  n.textContent="";
+  n.appendChild(icon("info"));
+  n.appendChild(document.createTextNode(t(kind==="lib"?"mapNoLib":"mapNoTiles")));
+  say(t(kind==="lib"?"mapNoLib":"mapNoTiles"));
+  /* ההודעה תופסת את ראש המפה; מסגור מחדש כדי שסמן הצפון לא יישב מתחתיה. */
+  if(lmap) frameMap();
+}
+function mapNoteH(){ var n=document.getElementById("mapNote"); return n?n.offsetHeight+10:0; }
+function ensureMapPane(){
   var pane=document.getElementById("mapPane");
   if(!pane){
     pane=el("div",null); pane.id="mapPane";
@@ -1964,6 +2231,11 @@ function buildMap(){
     var wrapEl=document.querySelector(".wrap"), bn=document.getElementById("botnav");
     if(bn) wrapEl.insertBefore(pane,bn); else wrapEl.appendChild(pane);
   }
+  return pane;
+}
+function buildMap(){
+  var pane=ensureMapPane();
+  if(mapNoteKind==="lib") setMapNote(null);
   /* הגיליון מתחיל מתחת לסרגל העליון, אז המפה חייבת לדעת את גובהו */
   syncMapTop();
   if(lmap){ lmap.invalidateSize(); return; }
@@ -1987,7 +2259,11 @@ function buildMap(){
   /* אריחי OSM הרשמיים: חינמיים, בלי מפתח וללא חותמת.
      CartoDB עברו לדרוש API key וצובעים את האריחים ב-"API KEY REQUIRED",
      ולכן הם לא שמישים כאן. הייחוס חובה לפי תנאי השימוש. */
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19}).addTo(lmap);
+  ltiles=L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19}).addTo(lmap);
+  /* שלושה כשלים רצופים בלי אף הצלחה = אין רשת לאריחים. הצלחה אחת מסירה. */
+  tileFails=0;
+  ltiles.on("tileerror",function(){ if(++tileFails>=3) setMapNote("tiles"); });
+  ltiles.on("tileload",function(){ tileFails=0; if(mapNoteKind==="tiles") setMapNote(null); });
   /* פקד הייחוס של Leaflet יושב בתחתית המפה — כלומר מתחת לגיליון בכל
      אחד משלושת המצבים, ותחת inert במצב המלא. הוא ממוקד ובלתי נראה,
      וגם דרישת הרישוי של OSM לא מתקיימת בפועל. מוצג בגיליון במקום. */
@@ -2051,7 +2327,7 @@ function revealMarker(st){
   var lim=sheetTopPx()-40;
   var pt=lmap.latLngToContainerPoint([st.lat,st.lng]);
   var mapTop=document.getElementById("mapPane").getBoundingClientRect().top;
-  var absY=mapTop+pt.y, top=mapTop+40;
+  var absY=mapTop+pt.y, top=mapTop+40+mapNoteH();
   /* דו-כיווני. panBy מזיז את כל 14 הסמנים, ולכן תיקון כלפי מטה בלבד
      דוחף סמנים אחרים מעל הפריים — שם לא היה שום תיקון, והם נחתכו. */
   if(absY>lim)      lmap.panBy([0,absY-lim+30],{animate:false});
@@ -2100,7 +2376,7 @@ function frameMap(){
   var bounds=L.latLngBounds(pts);
   if(!bounds.isValid()||paneH<80) return;
   lmap.fitBounds(bounds,{
-    paddingTopLeft:[26,26],
+    paddingTopLeft:[26,26+mapNoteH()],
     paddingBottomRight:[26,padB],
     animate:false
   });
@@ -2136,6 +2412,7 @@ function setSheet(frac,animate){
   sheetY=frac;
   sh.classList.toggle("is-dragging",!animate);
   placeSheet(sh,frac);
+  syncSheetOff(frac);
   /* aria-expanded אינו מותר על role="region" ולכן פשוט לא נחשף.
      המצב שייך לפקד שמרחיב — הידית — שעד כה הכריזה "כפתור" בלי
      שום מצב. */
@@ -2152,6 +2429,18 @@ function setSheet(frac,animate){
     say(frac<=SNAP[0]+0.001?t("sheetFull"):(frac>=SNAP[2]-0.001?t("sheetHidden"):t("sheetHalf")));
   }
   if(!animate) requestAnimationFrame(function(){sh.classList.remove("is-dragging");});
+}
+function syncSheetOff(frac){
+  var b=document.getElementById("sheetBody");
+  if(b&&frac!=null) b.style.setProperty("--sheet-off",Math.round(frac*(window.innerHeight||0))+"px");
+}
+/* גובה הניווט משתנה (הגדלת טקסט, שפה). ה-snaps נגזרים ממנו, ולכן הגיליון
+   חוזר לאותו מצב לוגי — מלא/חצי/מוסתר — לפי הערכים החדשים. אחרת הידית
+   ב-SNAP[2] נכנסת שוב מתחת לניווט שגדל. */
+function resnapSheet(){
+  var i=sheetY==null?-1:SNAP.indexOf(nearestSnap(sheetY));
+  refreshSnaps();
+  if(i>=0&&document.getElementById("mobSheet")) setSheet(SNAP[i],false);
 }
 /* מחושב אחרי שהניווט קיים, ומתעדכן עם המכשיר. */
 function refreshSnaps(){ SNAP[0]=snapFull(); SNAP[2]=snapHidden(); }
@@ -2268,6 +2557,7 @@ function tileFor(st){
        אילץ את האריח לזרוק 38% מרוחבו בחיתוך מרכזי, ושם זה חתך את
        הנושא כמעט תמיד. נפילה חזרה לגיבור אם אין קובץ אריח. */
     var img=el("img");
+    onImgFail(img,function(){ img.remove(); });
     img.src=(typeof STATION_PHOTO_TILE!=="undefined" && STATION_PHOTO_TILE[st.id])||STATION_PHOTO[st.id];
     img.width=440; img.height=330;   /* יחס ידוע מראש, בלי קפיצת פריסה */
     img.alt=""; img.setAttribute("aria-hidden","true");
@@ -2286,7 +2576,7 @@ function tileFor(st){
      פעמיים. lang ולא רק dir: שם ויאטנמי במסמך עברי בלי lang נהגה
      בפונמות עבריות. */
   if(st.name!==stName(st)){
-    var lat=el("span","sr",st.name); lat.lang="vi"; lat.dir="ltr";
+    var lat=nm2(el("span","sr",st.name),st.name); lat.classList.remove("en");
     tx.appendChild(lat);
   }
   tx.appendChild(el("div","tile-cnt",placesN(total(st))));
@@ -2436,6 +2726,14 @@ function screenSplit(sel){
   if(isMobileMap()) return screenMobileMap(sel);
   document.body.classList.remove("mob-map");
   var wrap=main.querySelector(".split");
+  /* 14-02: הסרגל נבנה פעם אחת ונשמר, ולכן החלפת שפה השאירה את כל 37
+     הטקסטים שלו בעברית. מחליפים רק אותו — החלונית לא מהבהבת. */
+  if(wrap&&wrap.getAttribute("data-lang")!==lang){
+    var oldRail=wrap.querySelector(".rail");
+    if(oldRail) wrap.replaceChild(buildRail(),oldRail);
+    var sh1x=main.querySelector("h1"); if(sh1x) sh1x.textContent=t("navStations");
+    wrap.setAttribute("data-lang",lang);
+  }
   if(!wrap){
     main.textContent="";
     /* h1 קבוע למסך. קודם לא היה כאן אף h1 בדסקטופ, והמבנה התחיל ב-h2. */
@@ -2444,6 +2742,7 @@ function screenSplit(sel){
        ולכן getElementById החזיר אותה במקום שם התחנה — כל מעבר תחנה
        הכריז "תחנות" והפוקוס נעלם לתוך אלמנט בגודל פיקסל. */
     wrap=el("div","split");
+    wrap.setAttribute("data-lang",lang);
     wrap.appendChild(buildRail());
     var d=el("div","detail"); d.id="detailPane";
     wrap.appendChild(d);
@@ -2463,13 +2762,37 @@ function screenSplit(sel){
 
 /* מפה מלאת-מסך עם גיליון נגרר מעליה. הגיליון מחזיק את אותו תוכן
    בדיוק של החלונית בדסקטופ — רשימה כשאין בחירה, פרטים כשיש. */
+/* 14-02: המעטפת של המפה והגיליון נבנית פעם אחת. בהחלפת שפה מעדכנים את
+   התוויות במקום ולא בונים מחדש: בנייה מחדש פירושה lmap.remove(), מפה
+   חדשה ואריחים מחדש — ובשטח בלי רשת הם לא יחזרו. */
+function relabelMapChrome(sel){
+  var h=main.querySelector("h1"); if(h) h.textContent=t(sel?"navStations":"navMap");
+  var sh=document.getElementById("mobSheet");
+  if(sh){ sh.setAttribute("aria-label",t("allStations")); sh.setAttribute("data-lang",lang); }
+  var gp=document.querySelector(".sheet-grip"); if(gp) gp.setAttribute("aria-label",t("sheetGripName"));
+  var gh=document.getElementById("sheetGripHelp"); if(gh) gh.textContent=t("sheetGrip");
+  var mp=document.getElementById("mapPane"); if(mp) mp.setAttribute("aria-label",t("mapRegion"));
+  STATIONS.forEach(function(st){
+    var m=lmarkers[st.id], e=m&&m.getElement&&m.getElement();
+    if(e) e.setAttribute("aria-label",stName(st)+", "+placesN(total(st)));
+  });
+  [[".leaflet-control-zoom-in","zoomIn"],[".leaflet-control-zoom-out","zoomOut"]].forEach(function(z){
+    var a=document.querySelector(z[0]); if(a){ a.title=t(z[1]); a.setAttribute("aria-label",t(z[1])); }
+  });
+  var n=document.getElementById("mapNote");
+  if(n&&mapNoteKind){ n.lastChild.nodeValue=t(mapNoteKind==="lib"?"mapNoLib":"mapNoTiles"); }
+}
 function screenMobileMap(sel){
   document.body.classList.add("mob-map");
   var sh=document.getElementById("mobSheet");
+  /* גם בלי החלפת שפה: ה-h1 הסמוי נקבע פעם אחת ולא עקב אחרי מעבר
+     בין הרשימה לתחנה. */
+  if(sh) relabelMapChrome(sel);
   if(!sh){
     main.textContent="";
     main.appendChild(screenTitle(t(sel?"navStations":"navMap"),"sr"));
     sh=el("div","mob-sheet"); sh.id="mobSheet";
+    sh.setAttribute("data-lang",lang);
     sh.setAttribute("role","region");
     sh.setAttribute("aria-label",t("allStations"));
     var grip=el("div","sheet-grip");
@@ -2483,6 +2806,12 @@ function screenMobileMap(sel){
     sh.appendChild(gh);
     var body=el("div","sheet-body"); body.id="sheetBody";
     sh.appendChild(body);
+    /* חגורה ל-scroll-padding: לא נבדק עדיין ש-WebKit מכבד אותו בגלילה
+       שנגרמת מפוקוס. scrollIntoView כן מכבד אותו, ו-"nearest" לא זז
+       כשהפריט כבר באזור הנראה. */
+    body.addEventListener("focusin",function(e){
+      if(e.target&&e.target.scrollIntoView) e.target.scrollIntoView({block:"nearest"});
+    });
     /* לפני המפה: אחרת משתמש מקלדת עובר את כפתורי הזום ו-14 סמנים —
        שכל אחד מהם מפעיל panBy — לפני שהוא מגיע לתוכן העיקרי.
        וגם לפני הניווט התחתון. קודם שניהם נתלו בסוף .wrap, כלומר *אחרי*
@@ -2499,7 +2828,7 @@ function screenMobileMap(sel){
     wireSheetDrag(sh,grip);
     refreshSnaps();
     setSheet(SNAP[1],false);
-    ensureLeaflet(function(err){ if(!err) buildMap(); });
+    ensureLeaflet(function(err){ if(!err) buildMap(); else setMapNote("lib"); });
   }
   var body=document.getElementById("sheetBody");
   body.textContent="";
@@ -2521,7 +2850,7 @@ function screenMobileMap(sel){
   }
   syncRail(sel);
   if(window.L && lmap) markMapPin(sel);
-  else ensureLeaflet(function(err){ if(!err){ buildMap(); markMapPin(sel);} });
+  else ensureLeaflet(function(err){ if(!err){ buildMap(); markMapPin(sel);} else setMapNote("lib"); });
 }
 
 /* מעבר בין דסקטופ לנייד מחייב בנייה מחדש — שני המבנים לא חולקים DOM */
@@ -2530,6 +2859,7 @@ MOBILE_Q.addEventListener("change",function(){
   if(sh) sh.remove();
   var mp=document.getElementById("mapPane");
   if(mp){ mp.remove(); lmap=null; lmarkers={}; }
+  mapNoteKind=null; ltiles=null;
   document.body.classList.remove("mob-map");
   main.textContent="";
   render();
@@ -2850,6 +3180,7 @@ function railItem(st){
   a.style.setProperty("--stationcolor",stColor(st));
   if(hasPhoto(st)){
     var img=el("img","rail-thumb");
+    onImgFail(img,function(){ img.remove(); });
     img.src=STATION_PHOTO[st.id]; img.alt=""; img.loading="lazy";
     a.appendChild(img);
   }
@@ -2887,7 +3218,7 @@ function weatherStrip(st){
   box.setAttribute("data-wx-source",wx.source||"");
 
   var hd=el("div","wx-hd");
-  var tag=el("span","wx-tag"+(live?" is-live":""),live?t("wxLive"):t("wxClimate"));
+  var tag=el("span","wx-tag"+(live?" is-live":""),live?t("wxLive"):t("wxClimate",{"%d":CLIMATE_YEARS}));
   /* h3 ולא span: הטקסט נשא משקל של כותרת בלי להיות כותרת, ובמקביל אותה
      מחרוזת שימשה aria-label ל-section — כך שהשם נקרא פעמיים, "התאמה
      למזג האוויר, אזור" ואז שוב. עכשיו הכותרת היא השם, והיא גם היעד
@@ -2904,11 +3235,11 @@ function weatherStrip(st){
   /* ימים גשומים מתוך החלון, ולא "סיכוי לגשם": ההסתברות אינה הגודל
      שמניע את הציון יותר, והצגתה לצידו הייתה מסבירה אותו לא נכון. */
   stats.appendChild(wxStat(wx.rainDays+"/"+wx.days,t("wxWetDays")));
-  stats.appendChild(wxStat(wx.mm+" mm",t("wxRainTotal")));
+  stats.appendChild(wxStat(String(wx.mm),t("wxRainTotal"),t("uMm")));
   /* רוח וגל מוצגים כי הם מגבילים רשומות בתחנה הזו, והצ'יפ שלהן יהיה
      בלתי מוסבר בלי המספר שמאחוריו. הגל רק היכן שהוא נמדד. */
-  if(wx.wind!=null) stats.appendChild(wxStat(Math.round(wx.wind)+" km/h",t("wxWind")));
-  if(wx.wave!=null) stats.appendChild(wxStat(wx.wave.toFixed(1)+" m",t("wxWave")));
+  if(wx.wind!=null) stats.appendChild(wxStat(String(Math.round(wx.wind)),t("wxWind"),t("uKmh")));
+  if(wx.wave!=null) stats.appendChild(wxStat(wx.wave.toFixed(1),t("wxWave"),t("uM")));
   box.appendChild(stats);
 
   /* בתוך הטיול, היום ומחר קודמים לכל השאר. זו השאלה שנשאלת בבוקר
@@ -2928,7 +3259,7 @@ function weatherStrip(st){
          שלו. מספר אחד לעובדה, הרבה ורדיקטים. */
       var cell=el("div","wx-day");
       cell.appendChild(el("span","wx-day-l",p[0]));
-      cell.appendChild(el("b","wx-day-mm "+rainBand(mm),Math.round(mm)+" mm"));
+      cell.appendChild(el("b","wx-day-mm "+rainBand(mm),Math.round(mm)+" "+t("uMm")));
       cell.appendChild(el("span","wx-day-w",t(rainWordKey(mm))));
       pair.appendChild(cell);
     });
@@ -2959,12 +3290,18 @@ function weatherStrip(st){
     rows.appendChild(row);
   });
   box.appendChild(rows);
-  box.appendChild(el("p","wx-note",live?t("wxNoteLive"):t("wxNoteClimate",{"%d":wx.days})));
+  box.appendChild(el("p","wx-note",live?t("wxNoteLive"):t(wx.why==="offline"?"wxNoteOffline":(wx.why==="error"?"wxNoteError":"wxNoteClimate"),{"%d":CLIMATE_YEARS})));
   return box;
 }
-function wxStat(v,l){
+function wxStat(v,l,unit){
   var d=el("div","wx-stat");
-  d.appendChild(el("b",null,v));
+  /* 14-02: רק המספר מבודד ב-ltr. היחידה (מ״מ, קמ״ש) בכיוון ההורה — אם
+     היא בתוך הבידוד, בעברית היא נצמדת לצד הלא נכון ("מ״מ 35"). טווח
+     הטמפרטורה כולו ב-ltr, כמו טווח מספרים עם מקף בעברית: "24–29°". */
+  var b=el("b"), bd=document.createElement("bdi"); bd.dir="ltr"; bd.textContent=v;
+  b.appendChild(bd);
+  if(unit) b.appendChild(document.createTextNode(" "+unit));
+  d.appendChild(b);
   d.appendChild(el("span",null,l));
   return d;
 }
@@ -2979,6 +3316,9 @@ function renderStationDetail(st,pane){
   var hero=el("div","hero");
   hero.style.setProperty("--stationcolor",stColor(st));
   var img=el("img","scene");
+  /* בלי רשת התצלום נשבר וה-alt התיאורי גלש על הכותרת. האיור (scene)
+     הוא אותו גיבוי שמוצג כשאין תצלום, ולכן גם ה-alt חוזר להיות ריק. */
+  if(hasPhoto(st)) onImgFail(img,function(){ img.src=scene(st,1140,380); img.alt=""; });
   img.src=hasPhoto(st)?STATION_PHOTO[st.id]:scene(st,1140,380);
   /* בלי width/height מפורשים כאן. הגובה נקבע ב-style למטה, והרוחב
      נגזר מיחס התמונה — כך התיבה מתאימה את עצמה לכל רוחב מסך. רמז
@@ -2996,7 +3336,7 @@ function renderStationDetail(st,pane){
   /* המחרוזת מעורבת: שם ויאטנמי ואז טקסט ממשק. תיוג אחיד שלה כאנגלית
      היה שגוי בשני הצדדים, והמילה "places" הייתה מקובעת. */
   var hs=el("div","hero-sub");
-  hs.appendChild(vi2(el("span",null,st.name)));
+  hs.appendChild(nm2(el("span",null,st.name),st.name));
   hs.appendChild(document.createTextNode(" · "+placesN(total(st))));
   ht.appendChild(hs);
   hero.appendChild(ht);
@@ -3131,6 +3471,15 @@ var TRANSFERS=(typeof TRANSFERS_DATA!=="undefined"&&Array.isArray(TRANSFERS_DATA
 /* מצב שחייב לשרוד render(): החלפת שפה או מטבע בונה את main מחדש,
    ובלי זה הבחירות והמיון היו מתאפסים באמצע שימוש (הנחיה 9). */
 var trSort="data", trDraftFrom="", trDraftTo="";
+/* מספר הנוסעים להשוואת מחירים. הרכב הנוסעים לא סגור, ולכן ברירת המחדל
+   1 ולא "זוג". אין בנתונים קיבולת לרכב או לתא — ההנחה כתובה בכרטיס. */
+var trPax=1;
+try{ var tp=+localStorage.getItem("vn.trPax"); if(tp>=1&&tp<=4) trPax=tp; }catch(e){}
+function trPaxText(n){ return n===1?t("trPax1"):t("trPaxN",{"{n}":String(n)}); }
+function trPerPersonUsd(o){
+  var u=trUsdLow(o); if(u==null) return null;
+  return (o.priceUnit==="per_vehicle"||o.priceUnit==="per_cabin")?u/trPaxEff():u;
+}
 var TR_MODE={
   flight:        {ic:"plane", he:"טיסה",           en:"Flight"},
   train:         {ic:"train", he:"רכבת",           en:"Train"},
@@ -3240,6 +3589,8 @@ function trCard(o,idx){
   }else{
     bd.appendChild(bLang(el("p","tr-bname",b.name)));
     if(b.address) bd.appendChild(bLang(el("p","tr-addr",b.address)));
+    /* 16-01: מה ש-Grab מעתיק חייב להיות גלוי — הכתובת הווייטנאמית. */
+    if(b.addressVi) bd.appendChild(vi2(el("p","tr-addr-vi",b.addressVi)));
   }
   art.appendChild(bd);
   /* עובדות: dl, תווית וערך (הנחיה 15) */
@@ -3250,6 +3601,14 @@ function trCard(o,idx){
      בעמודה צרה הן נשברו לחמש שורות. */
   if(o.durationMin!=null) row("trDuration",trDur(o));
   if(o.priceLow!=null) row("trPrice",trPrice(o));
+  /* רק כשיש מה לחשב: ב-1 המחיר המוצג כבר נכון, ומחיר לאדם הוא עצמו. */
+  if(o.priceLow!=null&&trPaxEff()>1&&(o.priceUnit==="per_vehicle"||o.priceUnit==="per_cabin")){
+    var ppv=trPerPersonUsd(o), pps=el("span","money");
+    var bdx=document.createElement("bdi"); bdx.textContent=conv(ppv);
+    var txt=t(o.priceUnit==="per_cabin"?"trPerPersonC":"trPerPersonV",{"{n}":trPaxText(trPax)}).split("{p}");
+    pps.appendChild(document.createTextNode(txt[0])); pps.appendChild(bdx); pps.appendChild(document.createTextNode(txt[1]||""));
+    row("trPerPerson",pps); dl.lastChild.className="is-wide";
+  }
   /* עברית מ-departuresHe (09-02); אנגלית מתויגת רק כשאין תאום */
   if(o.departures){ row("trDepart",trText("span",null,o,"departures")); dl.lastChild.className="is-wide"; }
   art.appendChild(dl);
@@ -3280,7 +3639,8 @@ function trCard(o,idx){
   if(!b.pickupHotel&&b.lat!=null&&b.lng!=null){
     act(lbtn("act-map map-link","pin",t("trMaps"),"https://www.google.com/maps/search/?api=1&query="+b.lat+","+b.lng,b.name,null,bLangTag));
     /* Grab רק כשיש נ"צ (הנחיה 18), והכתובת שמועתקת היא כתובת העלייה. */
-    act(grabBtn({name:b.name,addr:b.address,lat:b.lat,lng:b.lng},{name:""},bLangTag));
+    act(grabBtn({name:b.name,addr:b.address,addrVi:b.addressVi,lat:b.lat,lng:b.lng},{name:""},bLangTag));
+    if(b.addressVi) act(driverBtn({label:b.name,labelLang:bLangTag,main:b.nameVi||b.name,mainLang:b.nameVi?"vi":bLangTag,extra:b.addressVi}));
   }
   (o.bookLinks||[]).forEach(function(l){
     /* שם החברה בטקסט הגלוי, סוג התחבורה ב-sr (הנחיה 17) */
@@ -3310,7 +3670,7 @@ function trSortNodes(list,opts){
   var lis=Array.prototype.slice.call(list.children);
   lis.sort(function(x,y){
     var a=opts[+x.dataset.idx], b=opts[+y.dataset.idx];
-    if(trSort==="price"){ var pa=trUsdLow(a), pb=trUsdLow(b); return (pa==null?1e9:pa)-(pb==null?1e9:pb); }
+    if(trSort==="price"){ var pa=trPerPersonUsd(a), pb=trPerPersonUsd(b); return (pa==null?1e9:pa)-(pb==null?1e9:pb); }
     if(trSort==="time"){ return (a.durationMin||1e9)-(b.durationMin||1e9); }
     return (+x.dataset.idx)-(+y.dataset.idx);
   });
@@ -3319,6 +3679,14 @@ function trSortNodes(list,opts){
   return first;
 }
 function trSortedKey(){ return trSort==="price"?"trSortedPrice":(trSort==="time"?"trSortedTime":"trSortedData"); }
+/* מספר הנוסעים רלוונטי רק במסלול שיש בו מחיר לרכב או לתא. במסלול אחר
+   ערך שמור (למשל 3) לא נוגע בכלום: אין בדף פקד לשנות אותו. */
+var trMixed=false;
+function trPaxEff(){ return trMixed?trPax:1; }
+function trSortedText(){
+  if(trSort==="price"&&!trMixed) return t("trSortedPricePP");
+  return t(trSortedKey(),{"{n}":trPaxText(trPaxEff())});
+}
 function trCountText(n){ return n===1?t("trCount1"):t("trCountN",{"{n}":String(n)}); }
 
 /* -------- מסך -------- */
@@ -3469,9 +3837,10 @@ function trResult(A,B){
   if(found.rev) main.appendChild(el("p","tr-rev",t("trReverseNote",{"{a}":stName(A),"{b}":stName(B)})));
 
   var opts=T0.options||[];
+  trMixed=opts.some(function(o){ return o.priceUnit==="per_vehicle"||o.priceUnit==="per_cabin"; });
   var sum=el("p","tr-summary");
   sum.id="trSummary";
-  function sumText(){ return trCountText(opts.length)+" · "+t(trSortedKey()); }
+  function sumText(){ return trCountText(opts.length)+" · "+trSortedText(); }
   sum.textContent=sumText();
   main.appendChild(sum);
 
@@ -3499,12 +3868,40 @@ function trResult(A,B){
       var det="";
       if(trSort==="price"&&first&&first.priceLow!=null) det=", "+trPrice(first).textContent;
       else if(trSort==="time"&&first&&first.durationMin!=null) det=", "+trDur(first).textContent;
-      say(t(trSortedKey()).split(" (")[0]+". "+t("trFirst",{"{x}":trMode(first).name})+det);
+      say(trSortedText()+". "+t("trFirst",{"{x}":trMode(first).name})+det);
     });
     lb.appendChild(r); lb.appendChild(el("span",null,t(p[1])));
     fs.appendChild(lb);
   });
   if(opts.length>1) main.appendChild(fs);
+  /* fieldset נפרד ולא בתוך המיון: זו שאלה אחרת ("כמה אנחנו"). מוצג רק
+     כשיש לפחות אפשרות אחת שמחירה לרכב או לתא — אחרת אין מה לנרמל. */
+  var mixed=opts.some(function(o){ return o.priceUnit==="per_vehicle"||o.priceUnit==="per_cabin"; });
+  if(mixed){
+    var pf=el("fieldset","tr-sort tr-pax");
+    pf.appendChild(el("legend",null,t("trPaxBy")));
+    [1,2,3,4].forEach(function(n){
+      var lb=el("label","tr-sort-opt");
+      var r=el("input"); r.type="radio"; r.name="trPax"; r.value=String(n); r.className="sr-input";
+      if(trPax===n) r.checked=true;
+      r.addEventListener("change",function(){
+        if(!r.checked) return;
+        trPax=n; try{localStorage.setItem("vn.trPax",String(n));}catch(e){}
+        /* הכרטיסים נבנים מחדש בשביל שורת "≈ לאדם"; הפוקוס על הרדיו, מחוץ לרשימה. */
+        list.textContent="";
+        opts.forEach(function(o,i){ list.appendChild(trCard(o,i)); });
+        var first=trSortNodes(list,opts);
+        sum.textContent=sumText();
+        if(trSort==="price"&&first){
+          var pp=trPerPersonUsd(first);
+          say(trSortedText()+". "+t("trFirst",{"{x}":trMode(first).name})+(pp!=null?", "+conv(pp):""));
+        } else say(t("trPaxSaid",{"{n}":trPaxText(n)}));
+      });
+      lb.appendChild(r); lb.appendChild(el("span",null,trPaxText(n)));
+      pf.appendChild(lb);
+    });
+    main.appendChild(pf);
+  }
 
   opts.forEach(function(o,i){ list.appendChild(trCard(o,i)); });
   if(trSort!=="data") trSortNodes(list,opts);
@@ -3604,6 +4001,7 @@ function screenInfo(){
   main.textContent="";
   main.appendChild(screenTitle(t("tripInfo")));
   setDocTitle(t("navInfo"));
+  main.appendChild(sosInfoCard());
   /* בנייד השורות האלה מוסתרות מהכרום, אז כאן הן חייבות להופיע */
   var of=el("div","info-official");
   of.appendChild(oflink("passport",t("evisa"),"https://evisa.gov.vn"));
@@ -3688,7 +4086,10 @@ function screenSearch(){
   h.appendChild(b);
   main.appendChild(h);
   setDocTitle(hits.length+" "+t("results"));
-  say(hits.length+" "+t("results"));
+  var sosHit=sosMatch(query);
+  say((sosHit?t("sosHit")+". ":"")+hits.length+" "+t("results"));
+  if(sosHit) main.appendChild(sosCallout(sosHit));
+  if(!hits.length&&sosHit) return;
   if(!hits.length){
     var d=el("div","empty");
     d.appendChild(icon("search","ic-lg"));
@@ -3698,6 +4099,558 @@ function screenSearch(){
   }
   main.appendChild(cardsByStation(hits));
 }
+
+/* ============ חירום ומידע חיוני (13-01) ============
+   הכול טקסט סטטי בתבנית: המסך הזה חייב לעבוד במצב טיסה, ולכן אין כאן
+   fetch ואין נתונים עצלים.
+   מספרי טלפון: ה-href ב-E.164 נקי, בלי רווחים ובלי תווי כיווניות — תו
+   LRM בלתי נראה בתוך tel: עלול לא לחייג. התצוגה בקבוצות, בתוך span
+   dir=ltr, כי בתוך שורה עברית ה-"+" קופץ לצד הלא נכון. השם הנגיש הוא
+   הטקסט הגלוי בלבד (תפקיד ואז מספר), בלי aria-label שמחליף אותו. */
+function sosL(o){return (o&&(o[lang]||o.he))||"";}
+var SOS_UPDATED="18/10/2026";
+var SOS_SECTIONS=[
+  {id:"phrases",he:"משפטים בווייטנאמית",en:"Vietnamese phrases"},
+  {id:"flood",  he:"שיטפונות ובחירת מסלול",en:"Floods and choosing a route"},
+  {id:"rides",  he:"מוניות ואפליקציות נסיעה",en:"Taxis and ride apps"},
+  {id:"money",  he:"כסף וטיפים",en:"Money and tipping"},
+  {id:"sim",    he:"סים ואינטרנט",en:"SIM and data"},
+  {id:"safety", he:"בטיחות ונימוסים",en:"Safety and etiquette"}
+];
+var SOS_EMB_VI="Tháp Hà Nội, 49 Hai Bà Trưng, Trần Hưng Đạo, Hoàn Kiếm, Hà Nội";
+/* התרגומים לאימות מול דובר ווייטנאמית לפני היציאה. ההגייה מקורבת
+   בכוונה ומוצגת רק בעברית: באנגלית אין לה תעתיק סביר. */
+var SOS_PHRASES=[
+  {vi:"Tôi cần giúp đỡ.",he:"אני צריך/ה עזרה.",en:"I need help.",say:"טוֹי קֶן זוּפּ דֶה"},
+  {vi:"Làm ơn gọi xe cấp cứu!",he:"בבקשה, תזמינו אמבולנס!",en:"Please call an ambulance!",say:"לָאם אֶן גוֹי סֶה קֶפּ קוּ"},
+  {vi:"Làm ơn gọi cảnh sát!",he:"בבקשה, תזמינו משטרה!",en:"Please call the police!",say:"לָאם אֶן גוֹי קָאן סָאט"},
+  {vi:"Bệnh viện ở đâu?",he:"איפה בית החולים?",en:"Where is the hospital?",say:"בֶּן וְיֶן אֶ דָאוּ"},
+  {vi:"Tôi bị lạc.",he:"הלכתי לאיבוד.",en:"I am lost.",say:"טוֹי בִּי לָאק"},
+  {vi:"Làm ơn đưa tôi đến địa chỉ này.",he:"בבקשה, קח אותי לכתובת הזאת.",en:"Please take me to this address.",
+   say:"לָאם אֶן דוּאָה טוֹי דֶן דִיאָה צִ'י נָאי",
+   note:{he:"הראו אותו יחד עם הכתובת. לשגרירות יש כפתור משלה, בכרטיס השגרירות למעלה.",
+         en:"Show it together with the address. The embassy has its own button in the embassy card above."}},
+  {vi:"Bao nhiêu tiền?",he:"כמה זה עולה?",en:"How much is it?",say:"בָּאוֹ נְיֶיוּ טְיֶן"}
+];
+/* המקור: docs/routes-synthesis.md §1 ו-§5. שמות המחוזות אחרי האיחוד של
+   יולי 2025 (34 יחידות); השם הישן אחרי "לשעבר" כדי שאפשר יהיה לזהות
+   אותו בתחזיות ובאתרים שלא עודכנו. */
+var SOS_REGIONS=[
+  {he:"צפון",en:"North",where:{he:"האנוי, סאפה, הא לונג, נין בין, הא ג'יאנג",en:"Hanoi, Sapa, Ha Long, Ninh Binh, Ha Giang"},
+   risk:"low",
+   wx:{he:"תחילת העונה היבשה. נוח ומתקרר, סאפה קרירה בלילות.",en:"Start of the dry season. Pleasant and cooling; Sapa is cold at night."},
+   means:{he:"החלון הכי טוב בטיול. כדאי להאריך כאן.",en:"The best window of the trip. Worth staying longer here."},
+   prov:[["Hà Nội"],["Lào Cai","Yên Bái"],["Quảng Ninh"],["Ninh Bình","Hà Nam, Nam Định"],["Tuyên Quang","Hà Giang"]]},
+  {he:"מרכז",en:"Centre",where:{he:"פונג נה, הואה, הוי אן, דה נאנג",en:"Phong Nha, Hue, Hoi An, Da Nang"},
+   risk:"high",
+   wx:{he:"שיא עונת הגשמים והשיטפונות. ב-9/10/2026 הוצפו הואה ודה נאנג וגויס צבא לחילוץ.",
+       en:"Peak of the rain and flood season. On 9/10/2026 Hue and Da Nang flooded and the army was called in."},
+   means:{he:"האזור המסוכן. שייט מערת פונג נה נסגר בהצפה, Paradise Cave נסגרת ל-2–5 ימים בכל אירוע, והעיר העתיקה בהוי אן מוצפת כמעט כל שנה.",
+          en:"The risky region. The Phong Nha cave boat stops in floods, Paradise Cave closes for 2–5 days each time, and Hoi An's old town floods almost every year."},
+   prov:[["Quảng Trị","Quảng Bình"],["Huế"],["Đà Nẵng","Quảng Nam"]]},
+  {he:"רמות",en:"Highlands",where:{he:"דה לאט, בואון מה תואוט, אגם לאק",en:"Da Lat, Buon Ma Thuot, Lak Lake"},
+   risk:"mid",
+   wx:{he:"סוף עונת הגשמים. בדה לאט כ-19 ימי גשם בנובמבר, בעיקר מקלחות אחר הצהריים.",
+       en:"End of the rainy season. Da Lat has about 19 rain days in November, mostly afternoon showers."},
+   means:{he:"סביר. רכיבת easy-rider עלולה לפגוש גשם.",en:"Reasonable. An easy-rider trip may meet rain."},
+   prov:[["Lâm Đồng","Đắk Nông, Bình Thuận"],["Đắk Lắk","Phú Yên"]]},
+  {he:"דרום",en:"South",where:{he:"הו צ'י מין, דלתת המקונג",en:"Ho Chi Minh City, Mekong Delta"},
+   risk:"low",
+   wx:{he:"סוף עונת הגשמים, משתפר לאורך נובמבר.",en:"End of the rainy season, improving through November."},
+   means:{he:"טוב.",en:"Good."},
+   prov:[["TP. Hồ Chí Minh","Bình Dương, Bà Rịa–Vũng Tàu"],["Cần Thơ","Sóc Trăng, Hậu Giang"],["Vĩnh Long","Bến Tre, Trà Vinh"],["Đồng Tháp","Tiền Giang"]]},
+  {he:"פו קוק",en:"Phu Quoc",where:{he:"האי ומעבורות מהא טיאן ורך זיה",en:"The island and ferries from Ha Tien and Rach Gia"},
+   risk:"low",
+   wx:{he:"תחילת העונה היבשה. סוף נובמבר טוב יותר מתחילתו.",en:"Start of the dry season. Late November is better than early November."},
+   means:{he:"מתאים כפינאלה. ספינות מבוטלות ברוח חזקה.",en:"Good as a finale. Ferries are cancelled in strong wind."},
+   prov:[["An Giang","Kiên Giang"]]}
+];
+var SOS_RULE=[
+  {he:"לבדוק תחזית ואזהרות למחוזות <span lang=\"vi\" dir=\"ltr\">Quảng Trị</span> (כולל פונג נה), <span lang=\"vi\" dir=\"ltr\">Huế</span> ו-<span lang=\"vi\" dir=\"ltr\">Đà Nẵng</span> (כולל הוי אן), לטווח 7–14 יום.",
+   en:"Check the forecast and warnings for <span lang=\"vi\" dir=\"ltr\">Quảng Trị</span> (includes Phong Nha), <span lang=\"vi\" dir=\"ltr\">Huế</span> and <span lang=\"vi\" dir=\"ltr\">Đà Nẵng</span> (includes Hoi An), 7–14 days ahead."},
+  {he:"אם יש אזהרת שיטפון או סופה פעילה, או שהייתה הצפה מאז 20/10: מסלול B, עם מוי נה במקטע הגמיש.",
+   en:"If a flood or storm warning is active, or there has been flooding since 20/10: route B, with Mui Ne in the flexible part."},
+  {he:"אם המרכז רגוע ועבר שבוע יבש: מסלול A, או C למי שרוצה הרפתקה.",
+   en:"If the centre is calm after a dry week: route A, or C for more adventure."},
+  {he:"בכל מסלול, לדרוש מהסוכנות סעיף גמישות בכתב: החלפת מקטע המרכז בלי קנס אם הוכרזה אזהרה רשמית, עד 3 ימים לפני.",
+   en:"On any route, get a written flexibility clause from the agency: swap the central part without penalty if an official warning is issued, up to 3 days before."}
+];
+var SOS_SCAMS=[
+  {he:"מונית בלי אפליקציה: רק <span lang=\"vi\" dir=\"ltr\">Mai Linh</span> (ירוקה) או <span lang=\"vi\" dir=\"ltr\">Vinasun</span> (לבנה), ולוודא שהמונה מופעל. אחרת לסכם מחיר לפני שנכנסים.",
+   en:"Taxi without an app: only <span lang=\"vi\" dir=\"ltr\">Mai Linh</span> (green) or <span lang=\"vi\" dir=\"ltr\">Vinasun</span> (white), and make sure the meter is running. Otherwise agree a price before getting in."},
+  {he:"שטרות של 500,000 ו-20,000 דונג דומים בצבע. לספור שטר-שטר מול הנהג: תרגיל נפוץ הוא להחליף שטר ולטעון שנתתם את הקטן.",
+   en:"The 500,000 and 20,000 dong notes look alike. Count note by note in front of the driver: a common trick is to swap a note and claim you gave the small one."},
+  {he:"בשדה התעופה: Grab מהנקודה המסומנת או מונית מהדלפק הרשמי, לא מי שניגש אליכם באולם.",
+   en:"At the airport: Grab from the marked pickup point or a taxi from the official desk, not whoever approaches you in the hall."},
+  {he:"קטנוע-מונית מהרחוב: לסכם מחיר מראש, בדונג, ולהקליד אותו בטלפון כדי שלא תהיה \"אי הבנה\".",
+   en:"Motorbike taxi off the street: agree the price first, in dong, and type it on your phone so there is no \"misunderstanding\"."}
+];
+var SOS_MONEY=[
+  {he:"<b>כספומט בלי עמלה:</b> VPBank עד 10,000,000 דונג למשיכה, ACB עד 3,000,000. ברוב הבנקים האחרים 22,000–55,000 דונג למשיכה.",
+   en:"<b>Fee-free ATMs:</b> VPBank up to 10,000,000 dong per withdrawal, ACB up to 3,000,000. Most other banks charge 22,000–55,000 dong."},
+  {he:"<b>כשהמכשיר שואל באיזה מטבע לחייב:</b> תמיד בדונג (VND), לא בשקלים ולא בדולרים. ההמרה שלו יקרה.",
+   en:"<b>When the machine asks which currency to charge:</b> always dong (VND), never shekels or dollars. Its conversion is expensive."},
+  {he:"מזומן הוא המלך בשווקים, בדוכנים ובכפרים. כרטיס עובד במלונות, בקניונים ובמסעדות גדולות.",
+   en:"Cash rules at markets, stalls and villages. Cards work in hotels, malls and larger restaurants."},
+  {he:"תשלום בקוד VietQR: Moreta Pay שנטענת מכרטיס LAYA. לבדוק בטעינת ניסיון לפני הטיסה.",
+   en:"VietQR payments: Moreta Pay topped up from the LAYA card. Test with a small top-up before flying."}
+];
+var SOS_TIPS=[
+  {he:"טיפ אינו חובה, אבל מתקבל בשמחה.",en:"Tipping isn't required, but it is appreciated."},
+  {he:"נהג או נהג קטנוע: 20,000–50,000 דונג. מדריך: 50,000–100,000 ליום. במסעדה: לעגל למעלה.",
+   en:"Driver or motorbike driver: 20,000–50,000 dong. Guide: 50,000–100,000 a day. Restaurants: round up."}
+];
+var SOS_SIM=[
+  {he:"<b>eSIM:</b> להתקין לפני הטיסה ולהפעיל בנחיתה. Airalo בערך $11 ל-30 יום ו-5GB.",
+   en:"<b>eSIM:</b> install before the flight and switch on after landing. Airalo is about $11 for 30 days and 5GB."},
+  {he:"<b>סים מקומי בשדה התעופה:</b> צריך דרכון. ל-Viettel הכיסוי הטוב ביותר בהרים ובכפרים (הא ג'יאנג, סאפה).",
+   en:"<b>Local SIM at the airport:</b> bring your passport. Viettel has the best coverage in the mountains and villages (Ha Giang, Sapa)."},
+  {he:"להוריד מפות אופליין ב-Google Maps לפני כל מעבר. גם המדריך עצמו עובד בלי רשת.",
+   en:"Download offline maps in Google Maps before each transfer. The guide itself works offline too."}
+];
+var SOS_SAFETY=[
+  {he:"<b>לא לטוס 18–24 שעות אחרי צלילה.</b> 18 שעות אחרי כמה צלילות או כמה ימי צלילה, 24 ליתר ביטחון. רלוונטי לפו קוק ולהוי אן לפני טיסת פנים.",
+   en:"<b>Don't fly for 18–24 hours after diving.</b> 18 hours after several dives or dive days, 24 to be safe. Relevant to Phu Quoc and Hoi An before a domestic flight."},
+  {he:"מי ברז אינם לשתייה. קרח בבתי קפה ובמסעדות מסודרים מגיע בדרך כלל מפס ייצור.",
+   en:"Tap water isn't drinkable. Ice in proper cafés and restaurants usually comes from a factory."},
+  {he:"לצלם את הדרכון והוויזה ולשמור עותק בענן ובדוא\"ל.",
+   en:"Photograph your passport and visa and keep a copy in the cloud and in your email."}
+];
+var SOS_TEMPLE=[
+  {he:"כתפיים וברכיים מכוסות בפגודות, במקדשים ובמאוזוליאום של הו צ'י מין.",
+   en:"Shoulders and knees covered in pagodas, temples and the Ho Chi Minh Mausoleum."},
+  {he:"להוריד נעליים כשמבקשים, לא לכוון את כפות הרגליים לפסל, ולא לגעת בראש של אף אחד.",
+   en:"Take shoes off when asked, don't point your feet at a statue, and don't touch anyone's head."}
+];
+
+/* יעד הפוקוס כשנכנסים לתת-נתיב #sos/<מקטע>. render מאפס אותו בכל
+   סיבוב, ולכן הוא לעולם לא נשאר מניווט קודם. */
+var sosTarget=null;
+function sosNum(text){ var s=el("span","sos-num",text); s.dir="ltr"; return s; }
+function sosHead(tag,id,text){ var h=el(tag,tag==="h2"?"sos-h2":"sos-h3",text); h.id="sos-"+id; h.tabIndex=-1; return h; }
+function sosList(items,ordered,cls){
+  var ul=el(ordered?"ol":"ul",cls||"sos-list");
+  items.forEach(function(o){
+    var li=el("li");
+    /* רק <b> ו-<span lang> מהטקסט הקבוע למעלה — אין כאן קלט משתמש. */
+    li.innerHTML=sosL(o);
+    ul.appendChild(li);
+  });
+  return ul;
+}
+function sosCopy(text,what){
+  var b=el("button","sos-copy"); b.type="button";
+  b.appendChild(icon("copy"));
+  var lbl=document.createTextNode(t("sosCopy"));
+  b.appendChild(lbl);
+  /* מתחיל במילה הגלויה, כך ש-Voice Control ("הקש העתק") ממשיך לעבוד. */
+  b.setAttribute("aria-label",t("sosCopy")+" "+what);
+  var back=null;
+  b.addEventListener("click",function(){
+    var p=grabCopy(text);
+    function done(ok){
+      b.classList.toggle("is-done",ok);
+      /* משוב גלוי ולא רק עובי מסגרת — ובכשל, שבו קודם לא קרה כלום על
+         המסך. המילה הגלויה והשם מתחלפים יחד (2.5.3). */
+      var w=ok?t("sosCopied"):t("sosCopyFailShort");
+      lbl.nodeValue=w; b.setAttribute("aria-label",w);
+      clearTimeout(back);
+      back=setTimeout(function(){
+        b.classList.remove("is-done");
+        lbl.nodeValue=t("sosCopy"); b.setAttribute("aria-label",t("sosCopy")+" "+what);
+      },2200);
+      /* בכשל הטקסט עצמו בהכרזה: הוא גלוי על המסך לסימון ידני, וקורא
+         מסך צריך לשמוע מה לסמן. */
+      say(ok?t("sosCopied"):t("sosCopyFail")+" "+text);
+    }
+    if(p&&p.then) p.then(function(){done(true);},function(){done(false);});
+    else done(false);
+  });
+  return b;
+}
+/* שורת מספר ארוך: קישור חיוג ברוחב מלא, הערה (שעות, אזור זמן) שמקושרת
+   ב-aria-describedby כדי שהשם יישאר קצר, וכפתור העתקה — לאייפד, למחשב,
+   ולחיוג דרך וואטסאפ. */
+var sosNoteSeq=0;
+function sosLine(display,e164,role,note,copyWhat){
+  var row=el("div","sos-line");
+  var a=el("a","sos-tel"); a.href="tel:"+e164;
+  a.appendChild(el("span","sos-role",role));
+  a.appendChild(document.createTextNode(" "));
+  a.appendChild(sosNum(display));
+  row.appendChild(a);
+  if(note){
+    var n=el("p","sos-note",note); n.id="sosNote"+(++sosNoteSeq);
+    a.setAttribute("aria-describedby",n.id);
+    row.appendChild(n);
+  }
+  row.appendChild(sosCopy(display.replace(/\s+/g," "),copyWhat));
+  return row;
+}
+function sosDial(){
+  var ul=el("ul","sos-dial");
+  [["113","sosPolice"],["114","sosFire"],["115","sosAmb"]].forEach(function(d){
+    var li=el("li"), a=el("a","sos-tile");
+    a.href="tel:"+d[0];
+    a.appendChild(el("span","sos-role",t(d[1])));
+    a.appendChild(document.createTextNode(" "));
+    a.appendChild(sosNum(d[0]));
+    li.appendChild(a); ul.appendChild(li);
+  });
+  return ul;
+}
+function sosShowBtn(phrase,vi,he,extra){
+  var b=el("button","sos-show"); b.type="button";
+  b.appendChild(icon("doc"));
+  b.appendChild(document.createTextNode(t("sosShow")));
+  b.setAttribute("aria-label",t("sosShow")+": "+phrase);
+  b.addEventListener("click",function(){ openShow({main:vi,mainLang:"vi",extra:extra,he:he}); });
+  return b;
+}
+/* המשפט או היעד בגדול, למסך מלא. דיאלוג משלו (#showDlg) שנערם מעל כרטיס
+   המקום: הפוקוס וה-live region הקודמים נשמרים ומוחזרים בסגירה. נסגר
+   בכפתור גלוי או ב-Esc בלבד — נגיעה של הנהג לא סוגרת.
+   o: {phrase, main, mainLang, extra, he, partial}. השורה הראשית מקבלת את
+   השפה שלה: שם מלון לטיני אינו ווייטנאמית. */
+var showDlg=document.getElementById("showDlg"), showLastFocus=null, showPrevLive=null;
+var SHOW_PHRASE="Làm ơn đưa tôi đến địa chỉ này.";
+function openShow(o){
+  showLastFocus=document.activeElement;
+  showPrevLive=activeLive;
+  showDlg.textContent="";
+  var ui=isHe()?"he":"en";
+  var sh=el("div","sheet");
+  var hd=el("div","show-hd");
+  var h=el("h2","sheet-ttl",t("sosShowTtl")); h.id="showTitle"; h.lang=ui;
+  hd.appendChild(h);
+  var cb=el("button","show-close"); cb.type="button"; cb.lang=ui;
+  cb.appendChild(icon("close"));
+  cb.appendChild(document.createTextNode(t("close")));
+  cb.addEventListener("click",function(){ showDlg.close(); });
+  hd.appendChild(cb);
+  sh.appendChild(hd);
+  var bd=el("div","show-bd");
+  if(o.phrase) bd.appendChild(vi2(el("p","show-phrase",o.phrase)));
+  bd.appendChild((o.mainLang==="vi"?vi2:en2)(el("p","show-vi",o.main)));
+  if(o.extra) bd.appendChild(vi2(el("p","show-vi show-addr",o.extra)));
+  /* התרגום (והסתייגות "יישוב בלבד") הם התיאור — "להצגה" לבדו לא אומר מה פתוח. */
+  var desc=[];
+  if(o.he){ var hp=el("p","show-he",o.he); hp.id="showHe"; hp.lang=ui; bd.appendChild(hp); desc.push("showHe"); }
+  if(o.partial){ var pp=el("p","show-he",t("addrViPartial")); pp.id="showPartial"; pp.lang=ui; bd.appendChild(pp); desc.push("showPartial"); }
+  if(desc.length) showDlg.setAttribute("aria-describedby",desc.join(" ")); else showDlg.removeAttribute("aria-describedby");
+  sh.appendChild(bd);
+  showDlg.appendChild(sh);
+  showDlg.showModal();
+  cb.focus();
+}
+showDlg.addEventListener("close",function(){
+  activeLive=showPrevLive; showPrevLive=null;
+  if(showLastFocus&&showLastFocus.isConnected&&showLastFocus.focus) showLastFocus.focus();
+});
+/* "הראה לנהג": אותו שם ואותו אייקון בכרטיס מקום, בנקודת עלייה ובשגרירות. */
+function driverBtn(o){
+  var b=el("button","sos-show"); b.type="button";
+  b.appendChild(icon("doc"));
+  b.appendChild(document.createTextNode(t("showDriver")));
+  /* השם ב-span סמוי עם lang משלו ולא ב-aria-label: מחרוזת aria-label
+     אחת אינה יכולה לתייג שפה, ו-"Ga Hà Nội" היה נהגה בקול עברי. הטקסט
+     הגלוי עדיין פותח את השם הנגיש (2.5.3). כמו ב-lbtn. */
+  var sr=el("span","sr",": "); sr.lang=isHe()?"he":"en";
+  var nm=el("span",null,o.label); nm.lang=o.labelLang||nameLangOf(o.label);
+  sr.appendChild(nm); b.appendChild(sr);
+  b.addEventListener("click",function(){
+    openShow({phrase:SHOW_PHRASE,main:o.main,mainLang:o.mainLang,extra:o.extra,he:t("showDriverHe"),partial:o.partial});
+  });
+  return b;
+}
+/* בלוק הכתובת בכרטיס מקום. h3 כמו שאר אחיו בכרטיס; טקסט הממשק מתויג
+   בשפת הממשק, כי ה-bd של כרטיס לא-עברי מסומן lang="en". */
+function addrViBlock(r){
+  if(!r.addrVi) return null;
+  var ui=isHe()?"he":"en";
+  var box=el("div","addr-vi");
+  var h=el("h3","dlog-k",t("addrViH")); h.lang=ui; box.appendChild(h);
+  var p=el("p","addr-vi-p"); p.appendChild(vi2(el("span","addr-vi-v",r.addrVi))); box.appendChild(p);
+  var noteId=null;
+  if(r.addrViPartial){
+    var n=el("p","addr-vi-note",t("addrViPartial")); n.lang=ui;
+    noteId="addrViNote"+(++sosNoteSeq); n.id=noteId; box.appendChild(n);
+  }
+  var acts=el("div","addr-vi-acts");
+  var db=driverBtn({label:r.name,labelLang:nameLangOf(r.name,r.nameLang),main:r.nameVi||r.name,
+    mainLang:r.nameVi?"vi":nameLangOf(r.name,r.nameLang),extra:r.addrVi,partial:!!r.addrViPartial});
+  var cp=sosCopy(r.addrVi,t("copyAddrViWhat"));
+  if(noteId){ db.setAttribute("aria-describedby",noteId); cp.setAttribute("aria-describedby",noteId); }
+  acts.appendChild(db); acts.appendChild(cp); box.appendChild(acts);
+  return box;
+}
+
+function screenSos(sec){
+  exitMapMode();
+  main.textContent="";
+  sosNoteSeq=0;
+  main.appendChild(screenTitle(t("sosTitle")));
+  setDocTitle(t("sosTitle"));
+  var wrap=el("div","sos");
+
+  /* 1. חירום — לפני תוכן העניינים: אדם בלחץ צריך לראות 113/115 ראשון.
+     רק המקטע הזה מקבל שם, כדי שיופיע כאזור ב-rotor בלי להציף אותו. */
+  var s1=el("section","sos-sec");
+  s1.setAttribute("aria-labelledby","sos-emergency");
+  s1.appendChild(sosHead("h2","emergency",t("sosEmerg")));
+  s1.appendChild(sosDial());
+  s1.appendChild(el("p","sos-lead",t("sosDialNote")));
+
+  var emb=el("div","sos-card");
+  emb.appendChild(sosHead("h3","embassy",t("sosEmbassy")));
+  emb.appendChild(sosLine("+84 903 498 685","+84903498685",t("sosEmbLine"),t("sosEmbLineNote"),t("sosCopyEmb")));
+  emb.appendChild(sosLine("+84 24 3718 7500","+842437187500",t("sosEmbGen"),t("sosEmbGenNote"),t("sosCopyEmbGen")));
+  var ad=el("div","sos-addr");
+  ad.appendChild(el("div","sos-addr-k",t("sosAddr")));
+  ad.appendChild(vi2(el("span","sos-addr-v",SOS_EMB_VI)));
+  var acts=el("ul","sos-acts linkrow");
+  acts.setAttribute("aria-label",t("sosEmbassy"));
+  var li1=el("li"); li1.appendChild(lbtn("act-map map-link","pin",t("trMaps"),
+    "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent("Hanoi Tower, 49 Hai Ba Trung, Hanoi"),"Hanoi Tower",null,"en"));
+  acts.appendChild(li1);
+  var li2=el("li"); li2.appendChild(grabBtn({name:"Hanoi Tower",addrVi:SOS_EMB_VI},null,"en")); acts.appendChild(li2);
+  var li3=el("li"); li3.appendChild(driverBtn({label:t("sosEmbassy"),labelLang:isHe()?"he":"en",main:"Đại sứ quán Israel",mainLang:"vi",extra:SOS_EMB_VI}));
+  acts.appendChild(li3);
+  ad.appendChild(acts);
+  emb.appendChild(ad);
+  var ml=el("div","sos-line");
+  var mail="HanoiConsularDepartment@hanoi.mfa.gov.il";
+  var ma=el("a","sos-mail"); ma.href="mailto:"+mail;
+  ma.appendChild(el("span",null,t("sosEmbMail")));
+  ma.appendChild(document.createTextNode(" "));
+  ma.appendChild(sosNum(mail));
+  ml.appendChild(ma);
+  ml.appendChild(sosCopy(mail,t("sosCopyMail")));
+  emb.appendChild(ml);
+  emb.appendChild(el("p","sos-small",t("sosEmbVisit")));
+  s1.appendChild(emb);
+
+  var mfa=el("div","sos-card");
+  mfa.appendChild(sosHead("h3","mfa",t("sosMfa")));
+  mfa.appendChild(sosLine("+972 2 530 3155","+97225303155",t("sosMfaCall"),t("sosMfaNote"),t("sosCopyMfa")));
+  var wl=el("ul","sos-acts linkrow");
+  wl.setAttribute("aria-label",t("sosMfa"));
+  var wli=el("li"); wli.appendChild(lbtn("act-chat","chat",t("sosWa"),"https://wa.me/972505073969","+972 50 507 3969",null,"en"));
+  wl.appendChild(wli);
+  mfa.appendChild(wl);
+  mfa.appendChild(el("p","sos-small",t("sosWaNote")));
+  var mm=el("div","sos-line");
+  var mfaMail="matzav@mfa.gov.il";
+  var mma=el("a","sos-mail"); mma.href="mailto:"+mfaMail;
+  mma.appendChild(document.createTextNode(t("sosEmail")));
+  mma.appendChild(document.createTextNode(" "));
+  mma.appendChild(sosNum(mfaMail));
+  mm.appendChild(mma);
+  mm.appendChild(sosCopy(mfaMail,t("sosCopyMfaMail")));
+  mfa.appendChild(mm);
+  s1.appendChild(mfa);
+  s1.appendChild(el("p","sos-lead",t("sosInsure")));
+  wrap.appendChild(s1);
+
+  /* תוכן עניינים. נתיבי #sos/<מקטע> ולא עוגנים: href="#money" היה מחליף
+     את ה-hash, routeName היה מחזיר "home", והמשתמש נזרק מהמסך. */
+  var nav=el("nav","sos-toc");
+  nav.setAttribute("aria-labelledby","sosTocL");
+  var tl=el("p","sos-toc-l",t("sosToc")); tl.id="sosTocL";
+  nav.appendChild(tl);
+  var tul=el("ul");
+  SOS_SECTIONS.forEach(function(s){
+    var li=el("li"), a=el("a",null,sosL(s)); a.href="#sos/"+s.id;
+    li.appendChild(a); tul.appendChild(li);
+  });
+  nav.appendChild(tul);
+  nav.appendChild(el("p","sos-lead",t("sosOffline")));
+  wrap.appendChild(nav);
+
+  function sec2(id){
+    var s=el("section","sos-sec");
+    var meta=SOS_SECTIONS.filter(function(x){return x.id===id;})[0];
+    s.appendChild(sosHead("h2",id,sosL(meta)));
+    wrap.appendChild(s);
+    return s;
+  }
+
+  /* 2. משפטים */
+  var s2=sec2("phrases");
+  s2.appendChild(el("p","sos-lead",t("sosPhrNote")));
+  var pl=el("ul","sos-phr");
+  SOS_PHRASES.forEach(function(p){
+    var li=el("li");
+    var tr=isHe()?p.he:p.en;
+    li.appendChild(el("span","sos-phr-he",tr));
+    li.appendChild(vi2(el("span","sos-phr-vi",p.vi)));
+    if(isHe()&&p.say) li.appendChild(el("span","sos-phr-say",t("sosSay")+p.say));
+    if(p.note) li.appendChild(el("span","sos-phr-say",sosL(p.note)));
+    li.appendChild(sosShowBtn(tr,p.vi,tr));
+    pl.appendChild(li);
+  });
+  s2.appendChild(pl);
+
+  /* 3. שיטפונות — כרטיסים ולא <table>: ארבע עמודות טקסט עברי ב-390px
+     הן גלילה אופקית. הסיכון כתוב במילים, לא רק בעובי מסגרת. */
+  var s3=sec2("flood");
+  s3.appendChild(el("p","sos-lead",t("sosFloodLead")));
+  var rl=el("ul","sos-regions");
+  rl.style.marginTop="12px";
+  SOS_REGIONS.forEach(function(r){
+    var li=el("li");
+    li.appendChild(el("h3","sos-h3",sosL(r)));
+    li.appendChild(el("p","sos-small",sosL(r.where)));
+    var rk=el("span","sos-risk"+(r.risk==="high"?" is-high":""),
+      t("sosRisk")+t(r.risk==="high"?"sosRiskHigh":(r.risk==="mid"?"sosRiskMid":"sosRiskLow")));
+    rk.style.marginTop="6px";
+    li.appendChild(rk);
+    var dl=el("dl","sos-dl");
+    function row(k,v){ dl.appendChild(el("dt",null,k)); var dd=el("dd"); if(typeof v==="string") dd.textContent=v; else dd.appendChild(v); dl.appendChild(dd); }
+    row(t("sosWeather"),sosL(r.wx));
+    row(t("sosMeans"),sosL(r.means));
+    /* רשימה ולא שורה אחת: שמות ווייטנאמיים LTR ששורשרו בתוך שורה
+       עברית נשברו באמצע שם ("Tuyên" בשורה אחת, "Quang" בבאה). */
+    var pv=el("ul","sos-prov");
+    r.prov.forEach(function(p){
+      var li=el("li");
+      li.appendChild(vi2(el("span","sos-prov-n",p[0])));
+      if(p[1]){
+        li.appendChild(document.createTextNode(" "+(isHe()?"לשעבר גם ":"formerly also ")));
+        li.appendChild(vi2(el("span",null,p[1])));
+      }
+      pv.appendChild(li);
+    });
+    row(t("sosProv"),pv);
+    li.appendChild(dl);
+    rl.appendChild(li);
+  });
+  s3.appendChild(rl);
+  var rc=el("div","sos-card");
+  rc.appendChild(el("h3","sos-h3",t("sosRuleH")));
+  rc.appendChild(sosList(SOS_RULE,true,"sos-rule"));
+  var wa=el("a","sos-ext",t("sosWarnLink"));
+  wa.href="https://nchmf.gov.vn"; wa.target="_blank"; wa.rel="noopener noreferrer";
+  wa.appendChild(document.createTextNode(t("sosNeedsNet")));
+  rc.appendChild(wa);
+  rc.appendChild(el("p","sos-stamp",t("sosUpdated")+SOS_UPDATED));
+  s3.appendChild(rc);
+
+  /* 4. נסיעות */
+  var s4=sec2("rides");
+  var gc=el("div","sos-card");
+  gc.appendChild(en2(el("h3","sos-h3","Grab")));
+  gc.appendChild(el("p",null,t("sosRidesGrab")));
+  s4.appendChild(gc);
+  var xc=el("div","sos-card");
+  var xh=el("h3","sos-h3");
+  xh.appendChild(en2(el("span",null,"Green SM")));
+  xh.appendChild(document.createTextNode(" ("+t("sosGreenWas")));
+  xh.appendChild(vi2(el("span",null,"Xanh SM")));
+  xh.appendChild(document.createTextNode(")"));
+  xc.appendChild(xh);
+  xc.appendChild(el("p",null,t("sosRidesGreen")));
+  s4.appendChild(xc);
+  var sc=el("div","sos-card");
+  sc.appendChild(el("h3","sos-h3",t("sosScams")));
+  sc.appendChild(sosList(SOS_SCAMS));
+  s4.appendChild(sc);
+
+  /* 5. כסף */
+  var s5=sec2("money");
+  var mc=el("div","sos-card");
+  mc.appendChild(el("h3","sos-h3",t("sosMoneyH")));
+  mc.appendChild(sosList(SOS_MONEY));
+  s5.appendChild(mc);
+  var tc=el("div","sos-card");
+  tc.appendChild(el("h3","sos-h3",t("sosTipsH")));
+  tc.appendChild(sosList(SOS_TIPS));
+  s5.appendChild(tc);
+
+  /* 6. סים */
+  var s6=sec2("sim");
+  s6.appendChild(sosList(SOS_SIM));
+
+  /* 7. בטיחות */
+  var s7=sec2("safety");
+  var hc=el("div","sos-card");
+  hc.appendChild(el("h3","sos-h3",t("sosSafetyH")));
+  hc.appendChild(sosList(SOS_SAFETY));
+  s7.appendChild(hc);
+  var pc=el("div","sos-card");
+  pc.appendChild(el("h3","sos-h3",t("sosTempleH")));
+  pc.appendChild(sosList(SOS_TEMPLE));
+  s7.appendChild(pc);
+
+  main.appendChild(wrap);
+  if(sec){ var tg=document.getElementById("sos-"+sec); if(tg) sosTarget=tg; }
+}
+/* כרטיס החירום בראש "מידע": החיוג עצמו, לא רק קישור — במצוקה כל ניווט
+   נוסף הוא מחיר. */
+function sosInfoCard(){
+  var s=el("section","sos-infocard");
+  s.setAttribute("aria-labelledby","sosInfoH");
+  var h=el("h2","sos-h2",t("sosEmerg")); h.id="sosInfoH";
+  s.appendChild(h);
+  s.appendChild(sosDial());
+  var a=el("a","sos-all",t("sosAll")); a.href="#sos";
+  s.appendChild(a);
+  return s;
+}
+/* חיפוש: מילות מפתח שמובילות למקטע. התאמה מדויקת, או תחילית מ-3 תווים
+   ("emb" מוצא embassy), או מילת המפתח בתוך השאילתה ("שגרירות ישראל"). */
+var SOS_KEYS=[
+  {sec:"emergency",k:["113","114","115","חירום","משטרה","אמבולנס","כבאות","כיבוי","בית חולים","עזרה","פציעה","police","ambulance","hospital","emergency","sos","help","injury"]},
+  {sec:"embassy",k:["שגרירות","קונסול","דרכון","embassy","consul","consulate","passport"]},
+  {sec:"mfa",k:["משרד החוץ","מרכז המצב","foreign ministry","situation room"]},
+  {sec:"phrases",k:["משפטים","ביטויים","phrases","phrase"]},
+  {sec:"flood",k:["שיטפון","שיטפונות","הצפה","סופה","טייפון","flood","floods","storm","typhoon"]},
+  {sec:"rides",k:["מונית","מוניות","הונאה","taxi","scam","green sm","xanh sm"]},
+  {sec:"money",k:["כספומט","מזומן","טיפ","טיפים","atm","cash","tipping"]},
+  {sec:"sim",k:["סים","esim","sim","אינטרנט סלולרי"]},
+  {sec:"safety",k:["צלילה","מקדש","לבוש","diving","temple","dress code"]}
+];
+/* מילים שלמות בלבד: indexOf גולמי תפס "טיפוס" ככסף ו"בסיס" כסים, והכריז
+   "מידע חירום" על שאילתות שאין להן קשר. תחילית רק לשאילתה של מילה אחת
+   ובלי רווח במילת המפתח ("emb" כן, "בית" מתוך "בית קפה" לא). */
+function sosMatch(q){
+  q=(q||"").trim().replace(/\s+/g," ");
+  if(!q) return null;
+  var padQ=" "+q+" ", one=q.indexOf(" ")<0;
+  for(var i=0;i<SOS_KEYS.length;i++){
+    var ks=SOS_KEYS[i].k;
+    for(var j=0;j<ks.length;j++){
+      var k=ks[j];
+      if(padQ.indexOf(" "+k+" ")>=0) return SOS_KEYS[i].sec;
+      if(one&&q.length>=3&&k.indexOf(" ")<0&&k.indexOf(q)===0) return SOS_KEYS[i].sec;
+    }
+  }
+  return null;
+}
+function sosCallout(sec){
+  var a=el("a","sos-callout"); a.href="#sos/"+sec;
+  a.appendChild(icon("phone"));
+  var meta=SOS_SECTIONS.filter(function(x){return x.id===sec;})[0];
+  var what=meta?sosL(meta):(sec==="embassy"?t("sosEmbassy"):(sec==="mfa"?t("sosMfa"):t("sosEmerg")));
+  a.appendChild(document.createTextNode(t("sosTitle")+": "+what));
+  /* מעבר מפורש מסיים את החיפוש, כמו פריט ניווט. */
+  a.addEventListener("click",function(){ qEl.value=""; query=""; xBtn.hidden=true; });
+  return a;
+}
+
+/* קישור לאותו hash שכבר פתוח (דילוג "מידע חירום" מתוך המסך, או לחיצה
+   חוזרת בתוכן העניינים) אינו מפיק hashchange, ולכן הפוקוס לא זז. */
+document.addEventListener("click",function(e){
+  var a=e.target&&e.target.closest?e.target.closest('a[href^="#sos"]'):null;
+  if(!a||a.getAttribute("href")!==location.hash) return;
+  e.preventDefault();
+  var sec=a.getAttribute("href").split("/")[1];
+  var tg=(sec&&document.getElementById("sos-"+sec))||document.getElementById("screenHeading");
+  if(!tg) return;
+  tg.focus({preventScroll:true});
+  var rm=false; try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(er){}
+  if(sec) tg.scrollIntoView({block:"start",behavior:rm?"auto":"smooth"}); else window.scrollTo(0,0);
+});
 
 /* ============ ניתוב ============ */
 function routeName(){
@@ -3716,11 +4669,13 @@ function routeName(){
   /* התאמה מדויקת או תחילית "tr/" — לא indexOf("tr") לבד, שהיה תופס
      כל hash עתידי שמתחיל באותן אותיות. */
   if(hz==="tr"||hz.indexOf("tr/")===0) return "transfers";
+  if(hz==="sos"||hz.indexOf("sos/")===0) return "sos";
   return "home";
 }
 function render(){
   var hz=decodeURIComponent(location.hash.replace(/^#/,""));
   var r=routeName();
+  sosTarget=null;
   /* בית ותחנה חולקים מסך אחד — רק חלונית הפרטים מתחלפת ביניהם */
   if(r==="search")        screenSearch();
   else if(r==="map")      screenSplit(null);
@@ -3730,6 +4685,7 @@ function render(){
   else if(r==="saved")    screenSaved();
   else if(r==="info")     screenInfo();
   else if(r==="transfers"){ var p=hz.split("/"); screenTransfers(p[1]||"",p[2]||""); }
+  else if(r==="sos")      screenSos(hz.split("/")[1]||"");
   else                    screenHome();
   /* הבית מציג את הספירה כאריח גדול, ולכן הכרום מסתיר את שלו שם בלבד. */
   /* גם החיפוש נחשב "בית" לכרום: אחרת הקלדה ראשונה הקפיצה את פס הטיול
@@ -3805,7 +4761,7 @@ var NAV=[
   /* אותו מקום בשני הסרגלים (3.2.3) — אחרי "נושאים", לפני "שמורים". */
   {id:"transfers",hash:"#tr",  ic:"route",  key:"navTransfers"},
   {id:"saved", hash:"#saved",  ic:"heart",  key:"navSaved"},
-  {id:"info",  hash:"#info",   ic:"info",   key:"navInfo"}
+  {id:"info",  hash:"#info",   ic:"info",   key:"navInfo", short:"navInfoShort"}
 ];
 function markNav(r){
   /* תחנה נפתחת ממסך הבית, ולכן היא מסמנת אותו. המפה היא יעד משלה. */
@@ -3822,7 +4778,18 @@ window.addEventListener("hashchange",function(){
   var typing=document.activeElement===qEl;
   render();
   if(typing) return;
-  var h=document.getElementById("screenHeading");
+  /* תת-נתיב של מסך החירום ממקד את כותרת המקטע; focus() גולל אליה
+     (scroll-padding-top שומר אותה מתחת לסרגל), ולכן אין לגלול לראש. */
+  var deep=sosTarget;
+  var h=deep||document.getElementById("screenHeading");
+  if(deep){
+    /* focus() לבד גולל רק עד שהכותרת נראית ("nearest") — היא נחתה
+       באמצע המסך. גוללים במפורש לראש, ומכבדים reduced-motion. */
+    deep.focus({preventScroll:true});
+    var rm=false; try{rm=matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+    deep.scrollIntoView({block:"start",behavior:rm?"auto":"smooth"});
+    return;
+  }
   if(h){h.focus();}else{document.getElementById("main").focus();}
   window.scrollTo(0,0);
 });
@@ -3832,6 +4799,11 @@ function renderChrome(){
   document.documentElement.setAttribute("lang",lang);
   document.documentElement.setAttribute("dir",isHe()?"rtl":"ltr");
   document.getElementById("skipLink").textContent=t("skip");
+  document.getElementById("skipSos").textContent=t("skipSos");
+  /* האייקון מוסתר; השם הנגיש הוא המילה הגלויה בלבד (2.5.3). */
+  var sosA=document.getElementById("sosLink");
+  sosA.textContent=""; sosA.appendChild(icon("phone"));
+  sosA.appendChild(document.createTextNode(t("sosBtn")));
   var bl=document.getElementById("brandLink");
   if(bl&&!bl.querySelector("svg")) bl.insertBefore(icon("home"),bl.firstChild);
   document.getElementById("brandName").textContent=t("brand");
@@ -3929,10 +4901,13 @@ function renderChrome(){
 
     var b=el("a","bnav"); b.href=n.hash; b.setAttribute("data-nav",n.id);
     b.appendChild(icon(n.ic));
-    b.appendChild(document.createTextNode(t(n.key)+(n.id==="saved"&&favs.size?" "+favs.size:"")));
+    b.appendChild(document.createTextNode(t(n.short||n.key)+(n.id==="saved"&&favs.size?" "+favs.size:"")));
     bot.appendChild(b);
   });
   markNav(routeName());
+  /* תוויות חדשות (שפה) יכולות לחצות את סף שתי השורות בלי שגובה הניווט
+     ישתנה — ה-ResizeObserver לא יירה, אז בודקים כאן. */
+  fitBotnav();
   /* גובה הסרגל משתנה עם השפה (עטיפת שורות), ו-scroll-padding-top
      נגזר ממנו. בלי זה עוגן שמוקפץ אליו נוחת מתחת לסרגל. */
   if(typeof syncStickyTop==="function") syncStickyTop();
@@ -4208,7 +5183,11 @@ function syncStickyTop(){
   root.setProperty("scroll-padding-top",(h+16)+"px");
 }
 window.addEventListener("resize",syncStickyTop);
-window.addEventListener("resize",function(){ refreshSnaps(); if(lmap) frameMap(); });
+/* 14-01: גובה הכרום משתנה בין מסכים (בבית הספירה לאחור מוסתרת), ו-SNAP[0]
+   נגזר ממנו. גיליון שנבנה בבית ונפתח אחר כך בתחנה שמר את המידה הישנה
+   וכיסה את שדה החיפוש. מעקב אחרי הגובה עצמו ולא אחרי ניווט. */
+if(window.ResizeObserver) new ResizeObserver(function(){ syncStickyTop(); resnapSheet(); }).observe(topbar);
+window.addEventListener("resize",function(){ resnapSheet(); if(lmap) frameMap(); });
 window.addEventListener("load",syncStickyTop);
 syncStickyTop();
 
@@ -4223,10 +5202,37 @@ syncStickyTop();
     var h=Math.round(bn.getBoundingClientRect().height);
     if(h>0) document.documentElement.style.setProperty("--navh",h+"px");
     else document.documentElement.style.removeProperty("--navh");
+    fitBotnav();
+    resnapSheet();
   }).observe(bn);
 })();
 
+/* 14-02: שורה אחת או שתיים, לפי מדידה שאינה תלויה בפריסה הנוכחית: רוחב
+   התווית הרחבה ביותר כשהיא nowrap (בגשוש מחוץ לזרימה) מול שישית מרוחב
+   הניווט. מדידה של "האם גולש עכשיו" הייתה נכנסת ללולאה — אחרי המעבר
+   לשתי שורות כבר אין גלישה, המחלקה יורדת, וחוזר חלילה. */
+function fitBotnav(){
+  var bn=document.getElementById("botnav");
+  if(!bn||!bn.clientWidth) return;
+  var probe=el("span","bnav");
+  /* 700: הפריט הנוכחי מוצג מודגש ורחב יותר — הגשוש מודד את הגרוע. */
+  probe.style.cssText="position:absolute;visibility:hidden;white-space:nowrap;flex:none;width:auto;padding:0;font-weight:700";
+  bn.appendChild(probe);
+  var max=0;
+  Array.prototype.forEach.call(bn.querySelectorAll("a.bnav"),function(a){
+    probe.textContent=a.textContent;
+    max=Math.max(max,probe.getBoundingClientRect().width);
+  });
+  probe.remove();
+  var two=max>bn.clientWidth/6-6;
+  if(bn.classList.contains("bn-2row")!==two) bn.classList.toggle("bn-2row",two);
+}
+/* גופן שנטען אחרי המדידה משנה רוחב תוויות בלי לשנות את גובה הניווט. */
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitBotnav);
 renderChrome();
 render();
+/* קישור ישיר ל-#sos/<מקטע> (מסימנייה או מהחיפוש של המערכת): בלי
+   hashchange אין מי שיגלול למקטע. */
+if(sosTarget) requestAnimationFrame(function(){ if(sosTarget){ sosTarget.focus({preventScroll:true}); sosTarget.scrollIntoView({block:"start"}); } });
 fetchRates();
 })();

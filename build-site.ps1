@@ -156,6 +156,22 @@ $swSrc = Join-Path $PSScriptRoot 'sw.js'
 if (-not (Test-Path $swSrc)) { $swSrc = "$Dest\sw.js" }
 $sw = Get-Content $swSrc -Raw -Encoding UTF8
 $sw = $sw -replace 'const VERSION = "[^"]*";', 'const VERSION = "__ASSET_HASH__";'
+# 14-01: רשימת ה-precache של התצלומים וספריית המפה נגזרת מהתיקיות עצמן.
+# רשימה ידנית הייתה מתיישנת בשקט בתצלום הבא שנוסף — בדיוק כמו המספר
+# הידני של VERSION שהוחלף בחתימה.
+$gen = @()
+foreach ($dir in @('photos','poi-photos','vendor')) {
+  $full = "$Dest\assets\$dir"
+  if (-not (Test-Path $full)) { continue }
+  Get-ChildItem $full -Recurse -File | Sort-Object FullName | ForEach-Object {
+    $rel = $_.FullName.Substring($Dest.Length + 1) -replace '\\','/'
+    $gen += '  "./' + $rel + '",'
+  }
+}
+$genBlock = "/* __PRECACHE_GEN_START__ */`n" + ($gen -join "`n") + "`n  /* __PRECACHE_GEN_END__ */"
+$swN = $sw -replace "`r`n","`n"
+if ($swN -notmatch '(?s)/\* __PRECACHE_GEN_START__ \*/.*?/\* __PRECACHE_GEN_END__ \*/') { throw 'precache markers not found in sw.js' }
+$sw = [regex]::Replace($swN, '(?s)/\* __PRECACHE_GEN_START__ \*/.*?/\* __PRECACHE_GEN_END__ \*/', { param($m) $genBlock })
 $fingerprint = (Get-ChildItem "$Dest\assets" -Recurse -File | Sort-Object FullName |
   ForEach-Object { (Get-FileHash $_.FullName -Algorithm SHA256).Hash }) -join ''
 # --- שער תחביר ---
