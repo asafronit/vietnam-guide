@@ -1316,6 +1316,30 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 .tile-txt{padding:0}
 .tile-nm{font-family:var(--f-display);font-weight:300;font-size:1.3rem;line-height:1.1;color:var(--ink)}
 .tile-cnt{font-family:var(--f-ui);font-size:.8rem;font-weight:500;color:var(--ink-2)}
+/* 20/10: איור באריח. גריד: [מספר | איור] למעלה, אזור ריק, ושורת טקסט
+   ברוחב מלא למטה. האיור יושב רק בעמודה הנגדית לטקסט ובשתי השורות
+   העליונות, כך שאין מצב שהוא חופף לשם, לספירה או לשורת הגשם. overflow:clip
+   ולא hidden: לא יוצר מכל גלילה ולא חותך את טבעת הפוקוס החיצונית. */
+.tile{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,40%);grid-template-rows:auto 1fr auto;
+  column-gap:6px;row-gap:8px;overflow:clip;isolation:isolate;container-type:inline-size}
+.tile>.tile-ph{grid-column:1;grid-row:1}
+.tile>.tile-txt{grid-column:1 / -1;grid-row:3}
+.tile-art{grid-column:2;grid-row:1 / 3;align-self:end;justify-self:end;z-index:0;
+  max-width:100%;max-height:min(100%,6.5rem);min-height:0;width:auto;height:auto;object-fit:contain;
+  margin-inline-end:-6px;pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgb(0 0 0 / .22))}
+/* אין מקום — אין איור. rem ולא px: בהגדלת טקסט 200% הסף גדל איתה, והאיור
+   נעלם לפני שהוא נדחס. */
+@container (max-width:9rem){.tile-art{display:none}}
+@media (max-width:20rem){.tile-art{display:none}}
+@media (forced-colors:active),(prefers-contrast:more){.tile-art{display:none}}
+/* כהה: חפצים כהים (פילטר, ספינת עץ) נבלעים ברקע הסגול — הילה עדינה. באריח
+   הסיכון הרקע לבנדר בהיר, ולכן שם צל כהה. */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tile-art{filter:drop-shadow(0 0 1px rgb(255 255 255 / .35)) brightness(.95)}}
+:root[data-theme="dark"] .tile-art{filter:drop-shadow(0 0 1px rgb(255 255 255 / .35)) brightness(.95)}
+/* ספציפיות 0,3,0+ כדי לגבור על כללי המצב הכהה שמעל — אחרת דווקא כאן
+   (רקע לבנדר) הופיעה ההילה הלבנה. */
+:root .tile.tile--risk .tile-art{filter:drop-shadow(0 2px 3px rgb(0 0 0 / .3))}
 
 /* ---------- קרוב אליך בבית ---------- */
 .home-near .btn-near{border-radius:0;background:var(--tile-dark);color:var(--on-tile-dark);border:0;min-height:48px;font-weight:500}

@@ -160,7 +160,7 @@ $sw = $sw -replace 'const VERSION = "[^"]*";', 'const VERSION = "__ASSET_HASH__"
 # רשימה ידנית הייתה מתיישנת בשקט בתצלום הבא שנוסף — בדיוק כמו המספר
 # הידני של VERSION שהוחלף בחתימה.
 $gen = @()
-foreach ($dir in @('photos','poi-photos','vendor')) {
+foreach ($dir in @('photos','poi-photos','vendor','tile-art')) {
   $full = "$Dest\assets\$dir"
   if (-not (Test-Path $full)) { continue }
   Get-ChildItem $full -Recurse -File | Sort-Object FullName | ForEach-Object {

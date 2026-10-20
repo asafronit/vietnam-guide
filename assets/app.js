@@ -260,10 +260,18 @@ var T={
   trSortedPrice:{he:"ממוין לפי המחיר לאדם, ל-{n}",en:"sorted by price per person, for {n}"},
   trSortedPricePP:{he:"ממוין לפי המחיר לאדם",en:"sorted by price per person"},
   trPaxBy:{he:"מחיר עבור",en:"Price for"},
+  trCabin:{he:"סוג תא",en:"Cabin"},
+  cabinSingle:{he:"תא יחיד פרטי (וילון, מזגן).",en:"Private single cabin (curtain, air-conditioned)."},
+  cabinDouble:{he:"תא זוגי פרטי (וילון, מזגן).",en:"Private double cabin (curtain, air-conditioned)."},
+  cabinBoth:{he:"תאים פרטיים ליחיד ולשניים (וילון, מזגן).",en:"Private single and double cabins (curtain, air-conditioned)."},
+  cabinNoDouble:{he:"אין תא זוגי.",en:"No double cabins."},
+  cabinNoSingle:{he:"אין תא יחיד.",en:"No single cabins."},
+  cabinAlsoDouble:{he:"יש גם תא זוגי.",en:"Double cabins available."},
   trPax1:{he:"נוסע אחד",en:"1 traveller"},
   trPaxN:{he:"{n} נוסעים",en:"{n} travellers"},
   trPerPerson:{he:"חישוב לאדם",en:"Split per person"},
   trPerPersonV:{he:"בערך {p} ל-{n} (בהנחה שכולם ברכב אחד)",en:"about {p} each for {n} (assuming one vehicle)"},
+  trPerPersonCabins:{he:"בערך {p} ל-{n} (בהנחה של {c} תאים זוגיים)",en:"about {p} each for {n} (assuming {c} double cabins)"},
   trPerPersonC:{he:"בערך {p} ל-{n} (בהנחה שכולם בתא אחד)",en:"about {p} each for {n} (assuming one cabin)"},
   trPaxSaid:{he:"מחיר לאדם מחושב ל-{n}",en:"Price per person now for {n}"},
   trSortedTime:{he:"ממוין לפי המשך הקצר",en:"sorted by shortest duration"},
@@ -2548,6 +2556,9 @@ function infoCard(k,v,tail,wide){
   if(tail) li.appendChild(tail);
   return li;
 }
+/* מידות טבעיות של קבצי assets/tile-art (בלי קפיצת פריסה). נכתב ע"י
+   הכנת האיורים; תחנה בלי ערך פשוט בלי איור. */
+var TILE_ART={"hanoi":[220,188],"ha-giang":[191,220],"sapa":[167,220],"ha-long":[220,210],"ninh-binh":[220,148],"phong-nha":[220,199],"hue":[220,122],"hoi-an":[138,220],"buon-ma-thuot":[220,192],"lak-lake":[137,220],"da-lat":[220,177],"saigon":[220,216],"mekong":[218,220],"phu-quoc":[220,157]};
 function tileFor(st){
   var li=el("li"); li.setAttribute("role","listitem");
   var a=el("a","tile"); a.href="#s/"+st.id;
@@ -2568,6 +2579,20 @@ function tileFor(st){
   /* תג "חובה לראות" ירד. הוא היה ספירה שנייה שמתחרה ב"47 מקומות" על
      אותו אריח של 168 פיקסל, וזה מה שהפך אותו לעמוס. */
   a.appendChild(ph);
+  /* 20/10: איור דקורטיבי בסגנון הספלאש. בתוך הקישור (אח מעל היה חוסם
+     לחיצות), alt ריק כדי שהשם הנגיש יישאר "01, האנוי, 47 מקומות".
+     המיקום בגריד ולא absolute: שורת הטקסט שייכת רק לטקסט, ולכן איור
+     לעולם לא נוגע בשם — גם כשהוא נשבר לשתי שורות או בהגדלת טקסט. */
+  if(TILE_ART[st.id]){
+    var art=el("img","tile-art");
+    onImgFail(art,function(){ art.remove(); });
+    art.src="assets/tile-art/"+st.id+".webp";
+    art.width=TILE_ART[st.id][0]; art.height=TILE_ART[st.id][1];
+    art.alt=""; art.setAttribute("aria-hidden","true"); art.draggable=false;
+    art.decoding="async"; art.setAttribute("fetchpriority","low");
+    if(st.seq>4) art.loading="lazy";
+    a.appendChild(art);
+  }
   var tx=el("div","tile-txt");
   tx.appendChild(el("div","tile-nm",stName(st)));
   /* השם הלועזי יורד מהתצוגה ונשאר ל-sr בלבד. הוא נתון תפקודי — זה מה
@@ -3476,9 +3501,15 @@ var trSort="data", trDraftFrom="", trDraftTo="";
 var trPax=1;
 try{ var tp=+localStorage.getItem("vn.trPax"); if(tp>=1&&tp<=4) trPax=tp; }catch(e){}
 function trPaxText(n){ return n===1?t("trPax1"):t("trPaxN",{"{n}":String(n)}); }
+/* 19/10: תא באוטובוס לילה מכיל שניים לכל היותר. מחיר לתא ל-3–4 נוסעים הוא
+   כמה תאים, לא תא אחד — "בהנחה שכולם בתא אחד" היה שקר. ברכבת ההנחה נשארת
+   (תא של 4 דרגשים). */
+function trCabinsNeeded(o){
+  return (o.mode==="sleeper_bus"&&o.priceUnit==="per_cabin")?Math.ceil(trPaxEff()/2):1;
+}
 function trPerPersonUsd(o){
   var u=trUsdLow(o); if(u==null) return null;
-  return (o.priceUnit==="per_vehicle"||o.priceUnit==="per_cabin")?u/trPaxEff():u;
+  return (o.priceUnit==="per_vehicle"||o.priceUnit==="per_cabin")?u*trCabinsNeeded(o)/trPaxEff():u;
 }
 var TR_MODE={
   flight:        {ic:"plane", he:"טיסה",           en:"Flight"},
@@ -3595,7 +3626,8 @@ function trCard(o,idx){
   art.appendChild(bd);
   /* עובדות: dl, תווית וערך (הנחיה 15) */
   var dl=el("dl","tr-facts");
-  function row(k,valNode){ var d=el("div"); d.appendChild(el("dt",null,t(k))); var dd=el("dd"); dd.appendChild(valNode); d.appendChild(dd); dl.appendChild(d); }
+  /* lang על התווית: היא טקסט ממשק, והכרטיס יכול לשבת במכל lang="en". */
+  function row(k,valNode){ var d=el("div"); var dt=el("dt",null,t(k)); dt.lang=isHe()?"he":"en"; d.appendChild(dt); var dd=el("dd"); dd.appendChild(valNode); d.appendChild(dd); dl.appendChild(d); }
   /* משך ומחיר קצרים ויושבים זה לצד זה; היציאות הן משפט ("VN1911 13:20,
      arrives 14:25 - Tuesday, Thursday and Saturday") ולכן שורה מלאה אחריהם —
      בעמודה צרה הן נשברו לחמש שורות. */
@@ -3605,9 +3637,19 @@ function trCard(o,idx){
   if(o.priceLow!=null&&trPaxEff()>1&&(o.priceUnit==="per_vehicle"||o.priceUnit==="per_cabin")){
     var ppv=trPerPersonUsd(o), pps=el("span","money");
     var bdx=document.createElement("bdi"); bdx.textContent=conv(ppv);
-    var txt=t(o.priceUnit==="per_cabin"?"trPerPersonC":"trPerPersonV",{"{n}":trPaxText(trPax)}).split("{p}");
+    var cabins=trCabinsNeeded(o);
+    var txt=t(o.priceUnit==="per_cabin"?(cabins>1?"trPerPersonCabins":"trPerPersonC"):"trPerPersonV",
+      {"{n}":trPaxText(trPax),"{c}":String(cabins)}).split("{p}");
     pps.appendChild(document.createTextNode(txt[0])); pps.appendChild(bdx); pps.appendChild(document.createTextNode(txt[1]||""));
     row("trPerPerson",pps); dl.lastChild.className="is-wide";
+  }
+  /* 19/10: סוג התא באוטובוס לילה — תמיד פרטי עם וילון ומזגן (אחרת הוא לא
+     במדריך), ומשפט נפרד שאומר אם יש תא זוגי. פיסוק אמיתי ולא "·": קורא מסך
+     מדלג על נקודה אמצעית ומחבר את שני המשפטים לרצף אחד. ערך לא מוכר — אין שורה. */
+  var CAB={single:["cabinSingle","cabinNoDouble"],double:["cabinDouble","cabinNoSingle"],single_double:["cabinBoth","cabinAlsoDouble"]};
+  if(o.mode==="sleeper_bus"&&CAB[o.cabin]){
+    var cv=el("span",null,t(CAB[o.cabin][0])+" "+t(CAB[o.cabin][1])); cv.lang=isHe()?"he":"en";
+    row("trCabin",cv); dl.lastChild.className="is-wide";
   }
   /* עברית מ-departuresHe (09-02); אנגלית מתויגת רק כשאין תאום */
   if(o.departures){ row("trDepart",trText("span",null,o,"departures")); dl.lastChild.className="is-wide"; }

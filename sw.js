@@ -10,7 +10,7 @@
  */
 // build-site.ps1 כותב לכאן חתימה של תוכן הנכסים. אין כאן מספר ידני:
 // גרסה שתלויה בזיכרון של מי שפורס נשכחת בדיוק בדיפלוי שהכי חשוב שיעבור.
-const VERSION = "516fb5f7fd24";
+const VERSION = "6ea049474930";
 const SHELL = `guide-shell-${VERSION}`;
 const ASSETS = `guide-assets-${VERSION}`;
 
@@ -130,6 +130,20 @@ const PRECACHE = [
   "./assets/vendor/leaflet/images/marker-shadow.png",
   "./assets/vendor/leaflet/leaflet.css",
   "./assets/vendor/leaflet/leaflet.js",
+  "./assets/tile-art/buon-ma-thuot.webp",
+  "./assets/tile-art/da-lat.webp",
+  "./assets/tile-art/ha-giang.webp",
+  "./assets/tile-art/ha-long.webp",
+  "./assets/tile-art/hanoi.webp",
+  "./assets/tile-art/hoi-an.webp",
+  "./assets/tile-art/hue.webp",
+  "./assets/tile-art/lak-lake.webp",
+  "./assets/tile-art/mekong.webp",
+  "./assets/tile-art/ninh-binh.webp",
+  "./assets/tile-art/phong-nha.webp",
+  "./assets/tile-art/phu-quoc.webp",
+  "./assets/tile-art/saigon.webp",
+  "./assets/tile-art/sapa.webp",
   /* __PRECACHE_GEN_END__ */
 ];
 
