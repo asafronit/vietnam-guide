@@ -2479,6 +2479,8 @@ var T={
   sources:{he:"מקורות:",en:"Sources:"},
   newTab:{he:" (נפתח בכרטיסייה חדשה)",en:" (opens in a new tab)"},
   photos:{he:"תמונות",en:"Photos"},
+  siteHotel:{he:"הזמנה באתר המלון",en:"Book on hotel site"},
+  siteOfficial:{he:"האתר הרשמי",en:"Official site"},
   photoBy:{he:"צילום",en:"Photo"},
   dishHere:{he:"המנה שמגישים כאן",en:"The dish served here"},
   /* מצהיר שזו חיפוש ולא גלריה של המקום עצמו — מי שלוחץ ונוחת בדף
@@ -3910,6 +3912,13 @@ function openDetail(item){
 
   var bk=bookingUrl(r);
   if(bk) act(lbtn("act-book book-link","bed",t("booking"),bk,r.name));
+  /* 25/10: האתר של המקום עצמו; במלון — הזמנה ישירה. ניטרלי ולא צבע שישי,
+     מאותה סיבה כמו "תמונות": זה כל דומיין שהוא, בלי זהות שמזהים לפי צבע.
+     https בלבד גם כאן ולא רק בצינור — הגנה מ-javascript: שיגיע מהנתונים. */
+  if(r.website && /^https:\/\//i.test(r.website)){
+    act(lbtn("act-neutral site-link","globe",
+             t(item.cat==="hotels"?"siteHotel":"siteOfficial"),r.website,r.name));
+  }
 
   act(lbtn("act-video yt-link","play",t("video"),vidUrl(r,st),r.name,
            r.video?null:"videoSearchNote"));
