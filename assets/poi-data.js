@@ -2560,7 +2560,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "addrVi": "Cầu kính Rồng Mây, Đèo Ô Quy Hồ, Lào Cai",
+          "addrVi": "Cầu kính Rồng Mây, Đèo Ô Quy Hồ, Lai Châu",
           "weather": "high",
           "limiter": "wind"
         },
@@ -3157,7 +3157,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "addrVi": "Bãi Cát Cò 3, Thị trấn Cát Bà, Cát Hải, Hải Phòng",
+          "addrVi": "Bãi Cát Cò 3, Đặc khu Cát Hải, Hải Phòng",
           "locNote": "Above Cat Co 3 beach a few minutes from Cat Ba town - the base for Lan Ha Bay day boats and kayaking.",
           "locNoteHe": "מעל חוף קאט קו 3, כמה דקות מהעיירה קאט בא - הבסיס לשייטי יום ולקיאקים במפרץ לאן הא.",
           "pros": [
