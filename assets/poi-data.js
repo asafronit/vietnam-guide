@@ -51,6 +51,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "33 Đường Thành, Hoàn Kiếm, Hà Nội",
+          "locNote": "On Duong Thanh street at the edge of the Old Quarter: a few minutes' walk to Hoan Kiem Lake, Train Street and the best street food.",
+          "locNoteHe": "ברחוב דואונג טאן בקצה הרובע העתיק: כמה דקות הליכה לאגם הואן קיים, לרחוב הרכבת ולאוכל הרחוב הטוב ביותר.",
+          "pros": [
+            "Rooftop pool and bar over the Old Quarter",
+            "Walk to everything",
+            "Best rating-to-location ratio"
+          ],
+          "prosHe": [
+            "בריכה ובר על הגג מעל הרובע העתיק",
+            "הכל במרחק הליכה",
+            "יחס הדירוג-למיקום הטוב ביותר"
+          ],
+          "cons": [
+            "Busy streets, motorbike noise",
+            "Compact rooms"
+          ],
+          "consHe": [
+            "רחובות עמוסים, רעש אופנועים",
+            "חדרים קומפקטיים"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -83,6 +103,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "41 Hàng Bông, Hoàn Kiếm, Hà Nội",
+          "locNote": "On Hang Bong in the Old Quarter, a short walk to Hoan Kiem Lake and St Joseph's Cathedral.",
+          "locNoteHe": "ברחוב האנג בונג ברובע העתיק, הליכה קצרה לאגם הואן קיים ולקתדרלת סנט ג'וזף.",
+          "pros": [
+            "Indochine style, residence-like lobby",
+            "Rooftop pool and bar",
+            "Central and quieter than the bar streets"
+          ],
+          "prosHe": [
+            "סגנון אינדושין, לובי שמרגיש כמו בית",
+            "בריכה ובר על הגג",
+            "מרכזי ושקט יותר מרחובות הברים"
+          ],
+          "cons": [
+            "5-star is self-declared",
+            "Small hotel - limited facilities"
+          ],
+          "consHe": [
+            "5 כוכבים בהצהרה עצמית",
+            "מלון קטן - מתקנים מוגבלים"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -115,6 +155,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "61 Hàng Bè, Hoàn Kiếm, Hà Nội",
+          "locNote": "On Hang Be, 100 m from the water puppet theatre and a few minutes from the lake - in the heart of the Old Quarter.",
+          "locNoteHe": "ברחוב האנג בה, 100 מ' מתיאטרון בובות המים וכמה דקות מהאגם - בלב הרובע העתיק.",
+          "pros": [
+            "Officially 4-star",
+            "Spa, sauna and rooftop terrace",
+            "Very central for the price"
+          ],
+          "prosHe": [
+            "4 כוכבים רשמי",
+            "ספא, סאונה ומרפסת גג",
+            "מרכזי מאוד ביחס למחיר"
+          ],
+          "cons": [
+            "Street noise",
+            "No pool"
+          ],
+          "consHe": [
+            "רעש רחוב",
+            "אין בריכה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -146,6 +206,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "33-35 Hàng Dầu, Hoàn Kiếm, Hà Nội",
+          "locNote": "Directly across from Hoan Kiem Lake on Hang Dau - step out onto the lake promenade, especially lively on weekend walking-street nights.",
+          "locNoteHe": "ממש מול אגם הואן קיים ברחוב האנג דאו - יוצאים לטיילת האגם, תוססת במיוחד בערבי רחוב ההולכים בסוף השבוע.",
+          "pros": [
+            "Unbeatable lake-front position",
+            "Sky bar and lake-view restaurant",
+            "Spa"
+          ],
+          "prosHe": [
+            "מיקום מול האגם שאין לו מתחרה",
+            "בר בשמיים ומסעדה עם נוף לאגם",
+            "ספא"
+          ],
+          "cons": [
+            "5-star marketing, 4-star listings",
+            "Lake-view rooms cost more"
+          ],
+          "consHe": [
+            "שיווק של 5 כוכבים, רישום של 4",
+            "חדרים עם נוף לאגם יקרים יותר"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -230,7 +310,7 @@ const POI_DATA = {
           "areaHe": "הואן קיים",
           "whatHe": "האגם שבמרכז האנוי העתיקה, עם גשר אדום קטן אל אי ובו מקדש. המקומיים מקיפים אותו בהליכה ובהתעמלות עם אור ראשון.",
           "whyHe": "העיר מסודרת סביב האגם הזה, וההליכה סביבו לא עולה כלום",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -257,9 +337,9 @@ const POI_DATA = {
           "areaHe": "דונג דה, רחוב ואן מייה",
           "whatHe": "מתחם מקדש קונפוציאני מוקף חומה על 2.5 הקטאר, שנוסד ב-1070. חמש חצרות, לוחות אבן על גבי צבים שמתעדים מאות שנים של בוגרי מבחנים, ואולם עץ המוקדש לקונפוציוס.",
           "whyHe": "האוניברסיטה הלאומית הראשונה של ויאטנם, ואחד האתרים ההיסטוריים השלמים הוותיקים בהאנוי",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 3.0,
+          "priceHigh": 3.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -286,9 +366,9 @@ const POI_DATA = {
           "areaHe": "הואן קיים, רחוב הואה לו",
           "whatHe": "אגף משומר של כלא מתקופת הקולוניאליזם הצרפתי שנבנה ב-1896, וכונה בפי שבויים אמריקנים שהוחזקו בו בשנות ה-60 וה-70 בשם הילטון האנוי. בתצוגה גיליוטינה ותאי הכלא ששימשו לפעילי עצמאות ויאטנמים.",
           "whyHe": "מבט ישיר ובלתי מסונן על שתי התקופות — הקולוניאלית והמלחמה האמריקנית — בלב העיר המודרנית",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 2.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -380,9 +460,9 @@ const POI_DATA = {
           "areaHe": "קאו ז'יאיי, כ-8 קילומטר מהרובע העתיק",
           "whatHe": "מוזיאון פתוח וסגור על 54 הקבוצות האתניות המוכרות רשמית בוויאטנם, עם בתי כלונסאות וקברים משוחזרים בגודל מלא בגן ולמעלה מ-15,000 פריטים בפנים.",
           "whyHe": "ההקדמה הטובה ביותר לתרבויות שבטי ההרים שהטיול עובר בהן בהמשך, בסאפה ובהא ז'יאנג",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 2.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -409,9 +489,9 @@ const POI_DATA = {
           "areaHe": "הרובע העתיק, פונג הונג / לה דואן",
           "whatHe": "שורת בתי קפה צרים לאורך מסילה פעילה. פעמיים ביום עוברת רכבת במרחק יד מהשולחנות, וכולם מושכים את הכיסאות אל הקירות.",
           "whyHe": "חמש דקות מוזרות באמת ומצולמות, אם כי הגישה הודקה לשיטה שמנוהלת דרך בתי העסק אחרי סגירות בעבר מטעמי בטיחות קהל. בפברואר 2026 אישרה האנוי עקרונית לצמצם רכבות בקטע הזה; לבדוק שעדיין עוברות רכבות לפני שהולכים",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 2.0,
+          "priceHigh": 3.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -1231,9 +1311,9 @@ const POI_DATA = {
           "areaHe": "הרובע העתיק, הואן קיים, ארבעה סניפים",
           "whatHe": "רשת ספא עם ארבעה סניפים בתוך הרובע העתיק, שמציעה עיסוי כפות רגליים וגוף, עבודת רקמות עמוקה, וחבילות שמשלבות עיסוי עם חפיפת ראש.",
           "whyHe": "הרשת עם הביקורות העקביות ביותר ברובע העתיק, וארבעה סניפים אומרים שתמיד יש אחד במרחק הליכה מאיפה שהיום נגמר",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 20.0,
+          "priceHigh": 35.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -1259,9 +1339,9 @@ const POI_DATA = {
           "areaHe": "הרובע העתיק, הואן קיים",
           "whatHe": "ספא קטן ברובע העתיק, שעיסוי כפות הרגליים שלו וטיפול החפיפה המזינה הוויאטנמי לראש ולקרקפת מקבלים את הביקורות החזקות ביותר ברובע.",
           "whyHe": "טיפול חפיפת הראש הוא טקס ויאטנמי שאין לו מקבילה אמיתית בבית, והוא עולה פחות מכוס קפה בתל אביב",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 18.0,
+          "priceHigh": 30.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -1474,6 +1554,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Đường Trần Phú, Hà Giang, Tuyên Quang",
+          "locNote": "In Ha Giang city on Tran Phu street: the natural night before and after the loop, close to the tour offices and bus companies.",
+          "locNoteHe": "בעיר הא ג'יאנג ברחוב טראן פו: הלילה הטבעי לפני הלולאה ואחריה, קרוב למשרדי הטיולים וחברות האוטובוסים.",
+          "pros": [
+            "The province's only official 5-star",
+            "Indoor pool, spa and rooftop bar",
+            "International-brand standard"
+          ],
+          "prosHe": [
+            "ה-5 כוכבים הרשמי היחיד במחוז",
+            "בריכה מקורה, ספא ובר על הגג",
+            "סטנדרט של רשת בינלאומית"
+          ],
+          "cons": [
+            "Pricey for Ha Giang",
+            "The city itself is a transit stop, not a sight"
+          ],
+          "consHe": [
+            "יקר ביחס להא ג'יאנג",
+            "העיר עצמה היא תחנת מעבר, לא אטרקציה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -1505,6 +1605,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "517 Nguyễn Trãi, Hà Giang, Tuyên Quang",
+          "locNote": "On Nguyen Trai street along the Lo river in the city - walkable to restaurants and a short ride to the loop starting point.",
+          "locNoteHe": "ברחוב נגוין טראי לאורך נהר לו בעיר - מרחק הליכה למסעדות ונסיעה קצרה לנקודת ההתחלה של הלולאה.",
+          "pros": [
+            "Officially 4-star with high review scores",
+            "Mountain or city views",
+            "Seasonal outdoor pool"
+          ],
+          "prosHe": [
+            "4 כוכבים רשמי עם ציונים גבוהים",
+            "נוף להרים או לעיר",
+            "בריכה חיצונית עונתית"
+          ],
+          "cons": [
+            "Pool is seasonal - may be closed in November",
+            "Plain rooms"
+          ],
+          "consHe": [
+            "הבריכה עונתית - ייתכן שסגורה בנובמבר",
+            "חדרים פשוטים"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -1536,6 +1656,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "426 Nguyễn Trãi, Hà Giang, Tuyên Quang",
+          "locNote": "A short walk from the Km 0 milestone where most loop tours start - the easiest place to begin and end the loop.",
+          "locNoteHe": "הליכה קצרה מאבן הדרך Km 0 שממנה יוצאים רוב טיולי הלולאה - המקום הכי נוח להתחיל ולסיים בו את הלולאה.",
+          "pros": [
+            "Next to the loop start",
+            "Balcony rooms, rooftop bar and pool",
+            "Well under luxury prices"
+          ],
+          "prosHe": [
+            "ליד נקודת ההתחלה של הלולאה",
+            "חדרים עם מרפסת, בר על הגג ובריכה",
+            "הרבה מתחת למחירי היוקרה"
+          ],
+          "cons": [
+            "New hotel - short track record",
+            "Main-road traffic noise"
+          ],
+          "consHe": [
+            "מלון חדש - מעט היסטוריה",
+            "רעש תנועה מהכביש הראשי"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -1620,7 +1760,7 @@ const POI_DATA = {
           "areaHe": "כביש ארצי 4C, בין דונג ואן למאו ואק",
           "whatHe": "מקטע של 20 קילומטר מכביש שנקרא דרך האושר, חצוב בקיר סלע גיר תלול בגובה של מעל 2,000 מטר, נצמד למדרון עם צניחה ישרה של מאות מטרים אל נהר נו קווה הטורקיז שמתחת.",
           "whyHe": "אחד מארבעת המעברים הגדולים של ויאטנם, והמקטע המצולם ביותר בכל לולאת הא ז'יאנג",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -1640,16 +1780,18 @@ const POI_DATA = {
           "lng": 105.3163342,
           "approx": true,
           "sources": [
-            "https://en.wikipedia.org/wiki/Lung_Cu_Flag_Tower"
+            "https://en.wikipedia.org/wiki/Lung_Cu_Flag_Tower",
+            "https://www.vietnamairlines.com/en/plan-book/travel/travel-guide/lung-cu-flag-point"
           ],
           "tier": null,
           "nameHe": "מגדל הדגל לונג קו",
           "areaHe": "לונג קו, מחוז דונג ואן",
           "whatHe": "מגדל מתומן בגובה 34.85 מטר על פסגה סמוך לנקודה הצפונית ביותר של ויאטנם, ומעליו דגל אדום עם כוכב צהוב בשטח 54 מטר רבוע — אחד לכל קבוצה אתנית מוכרת. מגיעים אליו בכ-280 עד 800 מדרגות אבן, תלוי היכן חונים.",
           "whyHe": "ראש ויאטנם הסמלי, ויעד הסיום המקובל של הרגל הצפונית של הלולאה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 1.0,
+          "priceHigh": 2.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -1674,7 +1816,7 @@ const POI_DATA = {
           "areaHe": "העיירה דונג ואן",
           "whatHe": "מקבץ של כארבעים בתים בני מאה שנה עם קירות חימר צהובים, שלדי עץ וגגות רעפים, שנבנו כתחנת מסחר בתקופה הקולוניאלית הצרפתית בגובה 1,000 עד 1,600 מטר בלב רמת הקארסט.",
           "whyHe": "עיירת הלינה עם האווירה הטובה ביותר בלולאה, והבסיס לשוק יום ראשון ולטיול היום ללונג קו",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -1703,9 +1845,9 @@ const POI_DATA = {
           "areaHe": "מעגל מהעיר הא ז'יאנג דרך קוואן בה, יין מין, דונג ואן ומאו ואק",
           "whatHe": "לולאה של כ-350 עד 400 קילומטר של כבישי הרים דרך גיאופארק רמת הקארסט דונג ואן, שרוכבים אותה בשלושה עד ארבעה ימים — או כנהג על אופנוע ידני משלך או שכור, או כנוסע מאחורי מדריך מקומי.",
           "whyHe": "הסיבה שהאזור הזה נמצא במסלול בכלל. מעברי סיכות השיער, עמקי המדרגות וכפרי ההמונג נגישים רק כך",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 120.0,
+          "priceHigh": 250.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -1730,9 +1872,9 @@ const POI_DATA = {
           "areaHe": "מזח שין קאי / טה לאנג, מתחת למעבר מה פי לנג",
           "whatHe": "שייט של כחצי שעה על נהר נו קווה הירוק-אזמרגד, מחליק מתחת לקירות הסלע המתנשאים של קניון טו סאן. מגיעים בדרך צדדית 5 עד 7 קילומטר אחרי נקודת התצפית של מה פי לנג.",
           "whyHe": "מבט מגובה המים על אותו קניון שהכביש משקיף אליו מלמעלה, והפסקה מהרכיבה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 6.0,
+          "priceHigh": 8.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -1757,9 +1899,9 @@ const POI_DATA = {
           "areaHe": "דו ז'יה, כ-70 קילומטר מהעיר הא ז'יאנג",
           "whatHe": "כפר של בני טאי ובו בתי כלונסאות מעץ בעמק של שדות אורז, ובמרחק הליכה קצרה מפל עם בריכה טורקיזית שאפשר לשחות בה. בדרך כלל מגיעים רק באופנוע או ברכב, כי אין קו אוטובוס ישיר.",
           "whyHe": "המשקל הנגדי השקט של הלולאה מול דונג ואן ומאו ואק — עיקוף איטי וירוק יותר, עם מקום לשחות בו",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 0.0,
+          "priceHigh": 1.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -1975,6 +2117,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Đồi Quan 6, Sa Pa, Lào Cai",
+          "locNote": "On the hillside above Sun Plaza, about 1.5 km from the town centre - close to the Fansipan train, a short walk downhill to town.",
+          "locNoteHe": "על הגבעה מעל Sun Plaza, כ-1.5 ק\"מ ממרכז העיירה - קרוב לרכבת לפנסיפן, הליכה קצרה במורד לעיירה.",
+          "pros": [
+            "Official 5-star, indoor pool and spa",
+            "Large quiet resort",
+            "Far cheaper than city 5-stars"
+          ],
+          "prosHe": [
+            "5 כוכבים רשמי, בריכה מקורה וספא",
+            "ריזורט גדול ושקט",
+            "זול בהרבה מ-5 כוכבים בערים"
+          ],
+          "cons": [
+            "Uphill walk back from town",
+            "Mist can hide the view in November"
+          ],
+          "consHe": [
+            "עלייה בחזרה מהעיירה",
+            "ערפל עלול להסתיר את הנוף בנובמבר"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2006,6 +2168,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Đường Violet, Sa Pa, Lào Cai",
+          "locNote": "On Violet street on the hillside, overlooking the Muong Hoa valley and Fansipan, a short walk to the town centre.",
+          "locNoteHe": "ברחוב ויולט על הגבעה, משקיף על עמק מואנג הואה ועל פנסיפן, הליכה קצרה למרכז העיירה.",
+          "pros": [
+            "Valley and Fansipan views",
+            "Official 5-star, #3 in Sapa",
+            "Big terraces"
+          ],
+          "prosHe": [
+            "נוף לעמק ולפנסיפן",
+            "5 כוכבים רשמי, מקום 3 בסאפה",
+            "מרפסות גדולות"
+          ],
+          "cons": [
+            "Rooms feel closer to 4-star",
+            "223 rooms - busy"
+          ],
+          "consHe": [
+            "החדרים מרגישים כמו 4 כוכבים",
+            "223 חדרים - עמוס"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2038,6 +2220,26 @@ const POI_DATA = {
           "video": null,
           "addrVi": "Sa Pa, gần ga cáp treo Fansipan Legend, Lào Cai",
           "addrViPartial": true,
+          "locNote": "Next to the Fansipan Legend cable-car station area in town, with the town centre a short walk away.",
+          "locNoteHe": "ליד אזור תחנת הרכבל Fansipan Legend בעיירה, ומרכז העיירה בהליכה קצרה.",
+          "pros": [
+            "Sapa's highest rooftop infinity pool",
+            "Fansipan and valley views",
+            "Best-reviewed plain 4-star"
+          ],
+          "prosHe": [
+            "בריכת האינפיניטי הגבוהה בסאפה",
+            "נוף לפנסיפן ולעמק",
+            "ה-4 כוכבים המדורג ביותר"
+          ],
+          "cons": [
+            "Pool is seasonal - may be closed in November",
+            "Pricier than most 4-stars"
+          ],
+          "consHe": [
+            "הבריכה עונתית - ייתכן שסגורה בנובמבר",
+            "יקר מרוב ה-4 כוכבים"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2070,6 +2272,26 @@ const POI_DATA = {
           "video": null,
           "addrVi": "Sa Pa, Lào Cai",
           "addrViPartial": true,
+          "locNote": "In Sapa town, walkable to the stone church, the market and the restaurants.",
+          "locNoteHe": "בעיירת סאפה, במרחק הליכה מכנסיית האבן, מהשוק ומהמסעדות.",
+          "pros": [
+            "Heated pool and spa",
+            "Mountain-view rooms",
+            "#9 of 188, many reviews"
+          ],
+          "prosHe": [
+            "בריכה מחוממת וספא",
+            "חדרים עם נוף להרים",
+            "מקום 9 מתוך 188, הרבה ביקורות"
+          ],
+          "cons": [
+            "Star rating inflated on some sites",
+            "Town-centre noise"
+          ],
+          "consHe": [
+            "הדירוג מנופח בחלק מהאתרים",
+            "רעש ממרכז העיירה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2146,16 +2368,18 @@ const POI_DATA = {
           "lng": 103.7995338,
           "approx": true,
           "sources": [
-            "https://junglebosstours.com/explorer/tourism-blog/fansipan-mountain-sapa"
+            "https://junglebosstours.com/explorer/tourism-blog/fansipan-mountain-sapa",
+            "https://www.trvlogue.com/en/fansipan-cable-car-sapa-tickets"
           ],
           "tier": null,
           "nameHe": "רכבל פאנסיפאן ורכבת ההרים מואונג הואה",
           "areaHe": "מסאן פלאזה שבעיירה סאפה אל פסגת פאנסיפאן",
           "whatHe": "שילוב של רכבת הרים מסאן פלאזה לתחנת מואונג הואה, ואחריה רכבל באורך 6.3 קילומטר שמטפס עד סמוך לפסגת פאנסיפאן — 3,143 מטר, הפסגה הגבוהה בהודו-סין — עם מתחם פגודות בתחנה העליונה.",
           "whyHe": "הדרך הקלה ביותר לעמוד על גג הודו-סין בלי טרק של כמה ימים, והכרטיס המשולב כולל את שני המקטעים",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 33.0,
+          "priceHigh": 41.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2182,9 +2406,9 @@ const POI_DATA = {
           "areaHe": "סאן סה הו, כ-3 קילומטר מהעיירה סאפה",
           "whatHe": "כפר של המונג השחורים בכניסה לעמק מואונג הואה, שנוסד באמצע המאה ה-19, ובו שלושה נחלים שנפגשים במפל קאט קאט ושני גשרי שרשרת להולכי רגל שחוצים אותו.",
           "whyHe": "כפר המיעוטים הנגיש ביותר מהעיירה סאפה, ואפשר להקיף אותו ברגל בחצי יום",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 6.0,
+          "priceHigh": 6.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2209,7 +2433,7 @@ const POI_DATA = {
           "areaHe": "מרכז העיירה סאפה",
           "whatHe": "כנסיית אבן בסגנון רומי-גותי שנבנתה בין 1926 ל-1935 למרגלות הר האם רונג, ופונה אל הכיכר המרוצפת שמתפקדת כמרכז החברתי של העיירה ונקודת המוצא של רכבת ההרים.",
           "whyHe": "המרכז המילולי של העיירה סאפה, ונקודת העוגן של שוק הלילה של שבת",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -2238,9 +2462,9 @@ const POI_DATA = {
           "areaHe": "עמק מואונג הואה, הכפרים מדרום לסאפה",
           "whatHe": "הליכה מודרכת של חצי יום או יום שלם בשבילי עפר בין מדרגות אורז וכפרי המונג ודאו בעמק שמתחת לסאפה, בדרך כלל בהובלת מדריכה מקומית מבנות המונג או הדאו.",
           "whyHe": "הדרך המהותית ביותר לראות את נוף המדרגות ולפגוש משפחות מקומיות, ולא רק לצלם את העמק מנקודת תצפית",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 15.0,
+          "priceHigh": 35.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2361,9 +2585,9 @@ const POI_DATA = {
           "areaHe": "מרכז העיר סאפה",
           "whatHe": "בית עיסוי במרכז העיר שמציע עיסוי סאפה מסורתי, עבודת אבנים חמות ואמבט צמחי של בני הדאו האדום, במחירי רחוב ולא במחירי מלון.",
           "whyHe": "הדרך הזולה להגיע לאותו אמבט צמחי, והביקורות מציינות ידיים חזקות באמת לרקמות עמוקות — וזה מה ששוקיים כואבות צריכות",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 8.0,
+          "priceHigh": 15.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2387,7 +2611,7 @@ const POI_DATA = {
     "lng": 107.1839,
     "color": "#3cb44b",
     "counts": {
-      "hotels": 6,
+      "hotels": 8,
       "must_see": 2,
       "attractions": 2,
       "food": 0,
@@ -2431,6 +2655,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
+          "locNote": "You sleep on the boat in the bay: board at Tuan Chau harbour (about 2.5 hours from Hanoi), so the location is the karst scenery itself.",
+          "locNoteHe": "ישנים על הסירה בתוך המפרץ: העלייה בנמל טואן צ'או (כ-2.5 שעות מהאנוי), כך שהמיקום הוא נוף הצוקים עצמו.",
+          "pros": [
+            "Newest ship in the bay (2025), balcony cabins, elevator",
+            "Full itinerary: kayaking, cave, cooking class",
+            "Meals included"
+          ],
+          "prosHe": [
+            "הספינה החדשה במפרץ (2025), תאים עם מרפסת, מעלית",
+            "תוכנית מלאה: קיאקים, מערה, שיעור בישול",
+            "ארוחות כלולות"
+          ],
+          "cons": [
+            "Most expensive option",
+            "Fixed schedule; cancelled in storms"
+          ],
+          "consHe": [
+            "האפשרות היקרה ביותר",
+            "לוח זמנים קבוע; מבוטל בסערה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2462,6 +2706,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
+          "locNote": "Overnight on the bay from Tuan Chau harbour - you wake up among the karsts, no town nearby.",
+          "locNoteHe": "לילה על המפרץ מנמל טואן צ'או - מתעוררים בין הצוקים, בלי עיר בסביבה.",
+          "pros": [
+            "Spacious balcony cabins",
+            "Multi-course set dinner",
+            "Cheaper than Aqua for a similar standard"
+          ],
+          "prosHe": [
+            "תאים מרווחים עם מרפסת",
+            "ארוחת ערב קבועה במנות",
+            "זול מ-Aqua בסטנדרט דומה"
+          ],
+          "cons": [
+            "'5-star' is the product name, not a rating",
+            "Busy Ha Long route"
+          ],
+          "consHe": [
+            "'5 כוכבים' הוא שם המוצר, לא דירוג",
+            "מסלול הא לונג העמוס"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2493,6 +2757,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Bến Gót, Cát Hải, Hải Phòng",
+          "locNote": "Sails Lan Ha Bay from Got pier near Cat Ba - quieter waters than central Ha Long, but a longer transfer from Hanoi.",
+          "locNoteHe": "שט במפרץ לאן הא מרציף גוט ליד קאט בא - מים שקטים יותר ממרכז הא לונג, אבל העברה ארוכה יותר מהאנוי.",
+          "pros": [
+            "Every cabin has a balcony",
+            "Lan Ha Bay - fewer boats",
+            "Kayaking, squid fishing, jacuzzi"
+          ],
+          "prosHe": [
+            "לכל תא יש מרפסת",
+            "מפרץ לאן הא - פחות סירות",
+            "קיאקים, דיג דיונונים, ג'קוזי"
+          ],
+          "cons": [
+            "Longer transfer to Got pier",
+            "4-star standard"
+          ],
+          "consHe": [
+            "העברה ארוכה יותר לרציף גוט",
+            "סטנדרט 4 כוכבים"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2524,6 +2808,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
+          "locNote": "Standard Ha Long Bay overnight from Tuan Chau - the classic route with cave and viewpoint stops.",
+          "locNoteHe": "לילה סטנדרטי בהא לונג מטואן צ'או - המסלול הקלאסי עם עצירות במערה ובתצפית.",
+          "pros": [
+            "Dependable 4-star",
+            "Balcony cabins",
+            "Lowest price of the four boats"
+          ],
+          "prosHe": [
+            "4 כוכבים אמין",
+            "תאים עם מרפסת",
+            "המחיר הנמוך מבין ארבע הסירות"
+          ],
+          "cons": [
+            "Busiest part of the bay",
+            "Fewer activities than the newer boats"
+          ],
+          "consHe": [
+            "החלק העמוס ביותר של המפרץ",
+            "פחות פעילויות מהסירות החדשות"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2590,6 +2894,106 @@ const POI_DATA = {
           "addrViPartial": true,
           "weather": "low",
           "limiter": "rain"
+        },
+        {
+          "name": "Novotel Ha Long Bay",
+          "area": "Bai Chay seafront, Ha Long city",
+          "what": "A 214-room Accor hotel on the Bai Chay seafront road facing the bay, with an outdoor pool and sea-view rooms.",
+          "why": "A dependable international 4-star on land for the night before or after a cruise, at a fraction of cruise prices",
+          "lat": 20.9519701,
+          "lng": 107.0420228,
+          "approx": false,
+          "sources": [
+            "https://www.travelocity.com/Bai-Chay-Hotels-Novotel-Ha-Long-Bay.h2102731.Hotel-Information",
+            "https://www.kayak.com/Ha-Long-Hotels-Novotel-Ha-Long-Bay.304046.ksp"
+          ],
+          "tier": 4,
+          "areaHe": "טיילת באי צ'אי, העיר הא לונג",
+          "whatHe": "מלון Accor עם 214 חדרים על כביש החוף של באי צ'אי מול המפרץ, עם בריכה חיצונית וחדרים עם נוף לים.",
+          "whyHe": "4 כוכבים בינלאומי ואמין על היבשה ללילה לפני או אחרי שייט, בחלק קטן ממחיר השייט",
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 35.0,
+          "priceHigh": 110.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "addrVi": "Đường Hạ Long, Bãi Cháy, Hạ Long, Quảng Ninh",
+          "locNote": "On the Bai Chay seafront road facing the bay, 20-30 minutes from Tuan Chau harbour - the classic night before a cruise.",
+          "locNoteHe": "על כביש החוף של באי צ'אי מול המפרץ, 20-30 דקות מנמל טואן צ'או - הלילה הקלאסי לפני שייט.",
+          "pros": [
+            "Sea-view rooms over the bay",
+            "Reliable Accor standard",
+            "Low price"
+          ],
+          "prosHe": [
+            "חדרים עם נוף למפרץ",
+            "סטנדרט Accor אמין",
+            "מחיר נמוך"
+          ],
+          "cons": [
+            "Bai Chay is a busy resort strip",
+            "Older building"
+          ],
+          "consHe": [
+            "באי צ'אי היא רצועת נופש עמוסה",
+            "בניין ותיק"
+          ],
+          "weather": "low",
+          "limiter": "rain"
+        },
+        {
+          "name": "Hotel Perle d'Orient Cat Ba - MGallery",
+          "area": "Cat Co 3 beach, Cat Ba town",
+          "what": "An Accor MGallery resort above Cat Co 3 beach on Cat Ba island, with an infinity pool facing Lan Ha Bay.",
+          "why": "The only international 5-star on Cat Ba - the base for Lan Ha Bay day boats without an overnight cruise",
+          "lat": 20.7151779,
+          "lng": 107.0487626,
+          "approx": false,
+          "sources": [
+            "https://press.accor.com/middle-east-africa-turkey-asia-pacific/?p=12531",
+            "https://www.travelocity.com/Hai-Phong-Hotels-Hotel-Perle-DOrient-Cat-Ba-MGallery.h44167516.Hotel-Information"
+          ],
+          "tier": 5,
+          "areaHe": "חוף קאט קו 3, העיירה קאט בא",
+          "whatHe": "ריזורט Accor MGallery מעל חוף קאט קו 3 באי קאט בא, עם בריכת אינפיניטי מול מפרץ לאן הא.",
+          "whyHe": "ה-5 כוכבים הבינלאומי היחיד בקאט בא - בסיס לשייטי יום במפרץ לאן הא בלי לילה על סירה",
+          "priceUnit": "per_night",
+          "tierOfficial": true,
+          "priceLow": 92.0,
+          "priceHigh": 235.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "addrVi": "Bãi Cát Cò 3, Thị trấn Cát Bà, Cát Hải, Hải Phòng",
+          "locNote": "Above Cat Co 3 beach a few minutes from Cat Ba town - the base for Lan Ha Bay day boats and kayaking.",
+          "locNoteHe": "מעל חוף קאט קו 3, כמה דקות מהעיירה קאט בא - הבסיס לשייטי יום ולקיאקים במפרץ לאן הא.",
+          "pros": [
+            "Infinity pool over Lan Ha Bay",
+            "Only international 5-star on Cat Ba",
+            "Beach steps away"
+          ],
+          "prosHe": [
+            "בריכת אינפיניטי מעל מפרץ לאן הא",
+            "ה-5 כוכבים הבינלאומי היחיד בקאט בא",
+            "החוף במרחק צעדים"
+          ],
+          "cons": [
+            "Expensive for Cat Ba",
+            "Long trip from Hanoi (bus and boat)"
+          ],
+          "consHe": [
+            "יקר ביחס לקאט בא",
+            "דרך ארוכה מהאנוי (אוטובוס וסירה)"
+          ],
+          "weather": "low",
+          "limiter": "rain"
         }
       ],
       "must_see": [
@@ -2609,9 +3013,9 @@ const POI_DATA = {
           "areaHe": "מפרץ הא לונג, מחוז קוואנג נין",
           "whatHe": "כ-1,600 איי גיר ועמודי קארסט שמתרוממים ממים ירוקי אזמרגד, רבים מהם מכוסי צמחייה ובתוכם מערות. אתר מורשת עולמית של אונסק\"ו מאז 1994.",
           "whyHe": "הסיבה שהרגל הזו של הטיול קיימת. הכי טוב לראות אותה לאט, מסיפון של ספינת לילה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 35.0,
+          "priceHigh": 70.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2636,9 +3040,9 @@ const POI_DATA = {
           "areaHe": "מרכז האי קאט בה",
           "whatHe": "פארק לאומי שמכסה את רוב פנים האי קאט בה ומגן על יער גיר טרופי, ביצות ומנגרובים. חלק מאתר המורשת העולמית המשותף של הא לונג וארכיפלג קאט בה, ושמורת ביוספרה של אונסק\"ו מאז 2004.",
           "whyHe": "המקבילה המיוערת וברת ההליכה לאיים שמגיעים אליהם רק בסירה, וביתו של קוף הלנגור של קאט בה שנמצא בסכנת הכחדה חמורה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 3.0,
+          "priceHigh": 4.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2666,9 +3070,9 @@ const POI_DATA = {
           "areaHe": "מפרץ לאן הא, מול האי קאט בה",
           "whatHe": "טיפוס חופשי בלי חבלים ובלי רתמה על מסלולי גיר קצרים היישר מהסירה, ונפילה לים כשהאחיזה אוזלת. בדרך כלל טיול של חצי יום בשילוב קיאקים אל לגונות נסתרות.",
           "whyHe": "פעילות ההרפתקה המובחנת ביותר ברגל הזו של הטיול, וייחודית לקו החוף הגירי הזה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 70.0,
+          "priceHigh": 100.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2694,9 +3098,9 @@ const POI_DATA = {
           "areaHe": "הפארק הלאומי קאט בה, כ-20 עד 30 דקות מהנמל",
           "whatHe": "מערה טבעית באורך 300 מטר החצובה דרך הר בלב העמק הגדול בקאט בה, עם נטיפים וזקיפים שמגיעים אליהם בהליכה קצרה וקלה.",
           "whyHe": "עצירת מערה מהירה וללא מאמץ שמשתלבת במסלול השייט לצד הקיאקים, בלי להקדיש לה יום שלם",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 3.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2798,6 +3202,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Thôn Đồng Tâm, Cúc Phương, Nho Quan, Ninh Bình",
+          "locNote": "Far out in Nho Quan near Cuc Phuong National Park, 30-40 minutes from Trang An - a destination resort, not a base for walking out.",
+          "locNoteHe": "רחוק בנו קוואן ליד הפארק הלאומי קוק פואנג, 30-40 דקות מטראנג אן - ריזורט שהוא יעד בפני עצמו, לא בסיס ליציאות ברגל.",
+          "pros": [
+            "Hot-mineral infinity pool on the river",
+            "Only international chain in the province",
+            "Kids' club, free kayaks"
+          ],
+          "prosHe": [
+            "בריכת אינפיניטי מים מינרליים חמים על הנהר",
+            "הרשת הבינלאומית היחידה במחוז",
+            "מועדון ילדים, קיאקים חינם"
+          ],
+          "cons": [
+            "30-40 minutes from the boat trips",
+            "Isolated - eat in the resort"
+          ],
+          "consHe": [
+            "30-40 דקות מהשייטים",
+            "מבודד - אוכלים בריזורט"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2829,6 +3253,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Đường Lê Thái Tổ, Hoa Lư, Ninh Bình",
+          "locNote": "In Ninh Binh city near the train station - convenient for arriving by train, 15-20 minutes by car to Trang An and Tam Coc.",
+          "locNoteHe": "בעיר נין בין ליד תחנת הרכבת - נוח להגעה ברכבת, 15-20 דקות ברכב לטראנג אן ולטאם קוק.",
+          "pros": [
+            "Close to the station and restaurants",
+            "Three pools, tennis, gym",
+            "Lower price than resorts"
+          ],
+          "prosHe": [
+            "קרוב לתחנה ולמסעדות",
+            "שלוש בריכות, טניס, חדר כושר",
+            "מחיר נמוך מהריזורטים"
+          ],
+          "cons": [
+            "City setting, no karst view",
+            "Big and impersonal"
+          ],
+          "consHe": [
+            "סביבה עירונית, בלי נוף צוקים",
+            "גדול ולא אישי"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2860,6 +3304,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Khu bảo tồn Vân Long, Gia Vân, Gia Viễn, Ninh Bình",
+          "locNote": "On a private lake in Van Long Nature Reserve, about 15 minutes' drive from Trang An - scenic and quiet, car needed.",
+          "locNoteHe": "על אגם פרטי בשמורת ואן לונג, כ-15 דקות נסיעה מטראנג אן - נופי ושקט, צריך רכב.",
+          "pros": [
+            "Lake and karst setting",
+            "Indoor pool, sauna, spa",
+            "Officially assessed 4-star"
+          ],
+          "prosHe": [
+            "אגם וצוקים",
+            "בריכה מקורה, סאונה, ספא",
+            "4 כוכבים בדירוג רשמי"
+          ],
+          "cons": [
+            "Need transport for everything",
+            "Price varies a lot by date"
+          ],
+          "consHe": [
+            "צריך תחבורה לכל דבר",
+            "המחיר משתנה מאוד לפי תאריך"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -2891,6 +3355,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Khu du lịch Tam Cốc - Bích Động, Ninh Thắng, Hoa Lư, Ninh Bình",
+          "locNote": "In Tam Coc among rice fields, walking distance to the Tam Coc boat pier and the restaurants of Tam Coc village.",
+          "locNoteHe": "בטאם קוק בין שדות אורז, מרחק הליכה לרציף הסירות של טאם קוק ולמסעדות הכפר.",
+          "pros": [
+            "Walk to the Tam Coc boats",
+            "Pool, spa, two restaurants",
+            "#3 of 120+ on Tripadvisor"
+          ],
+          "prosHe": [
+            "הליכה לסירות של טאם קוק",
+            "בריכה, ספא, שתי מסעדות",
+            "מקום 3 מתוך 120+ ב-Tripadvisor"
+          ],
+          "cons": [
+            "Tam Coc is touristy",
+            "Trang An needs a short ride"
+          ],
+          "consHe": [
+            "טאם קוק תיירותי",
+            "לטראנג אן צריך נסיעה קצרה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -3070,9 +3554,9 @@ const POI_DATA = {
           "areaHe": "מחוז טרואונג יין, כ-10 ק\"מ מהעיר נין בין",
           "whatHe": "המקדשים המשוחזרים של דין טיין הואנג ולה דאי האן, המסמנים את מקום בירתה של וייטנאם במאה העשירית, בתוך טבעת של הרי אבן גיר.",
           "whyHe": "העוגן ההיסטורי של האזור, ובדרך כלל משלבים אותו עם טראנג אן או עם מערת מואה ליום אחד",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 1.0,
+          "priceHigh": 1.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3289,6 +3773,26 @@ const POI_DATA = {
           "video": null,
           "addrVi": "Sơn Trạch, Phong Nha, Quảng Trị",
           "addrViPartial": true,
+          "locNote": "In the paddies about 2 km from Phong Nha town and the national park visitor centre - quiet, with a short ride to the cave boats.",
+          "locNoteHe": "בין שדות האורז כ-2 ק\"מ מהעיירה פונג נה וממרכז המבקרים של הפארק - שקט, נסיעה קצרה לסירות למערות.",
+          "pros": [
+            "Karst mountain views",
+            "Outdoor pool",
+            "Close to the visitor centre"
+          ],
+          "prosHe": [
+            "נוף להרי הצוקים",
+            "בריכה חיצונית",
+            "קרוב למרכז המבקרים"
+          ],
+          "cons": [
+            "Small property, simple service",
+            "Star rating varies by site (3-4)"
+          ],
+          "consHe": [
+            "מקום קטן, שירות פשוט",
+            "הדירוג משתנה בין אתרים (3-4)"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -3367,16 +3871,18 @@ const POI_DATA = {
           "lng": null,
           "approx": false,
           "sources": [
-            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-cave-vietnam-tour-guide"
+            "https://junglebosstours.com/explorer/tourism-blog/phong-nha-cave-vietnam-tour-guide",
+            "https://www.vietnamtourism.com/en/phong-nha-ke-bang-national-park-tickets-complete-2026-price-guide-and-cave-selection"
           ],
           "tier": null,
           "nameHe": "שייט למערת פונג ניה",
           "areaHe": "מרכז התיירות של פונג ניה, נהר סון",
           "whatHe": "שייט של חצי שעה בסירת עץ במעלה נהר סון אל תוך מערת תצוגה מוארת באורך קילומטר וחצי, שנהר תת-קרקעי זורם דרכה. זו המערה שהעיירה כולה קרויה על שמה.",
           "whyHe": "חוויית המערה הנגישה ביותר בפארק, והסיבה שפונג ניה קיימת כיעד מלכתחילה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 6.0,
+          "priceHigh": 9.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3397,16 +3903,18 @@ const POI_DATA = {
           "approx": true,
           "sources": [
             "https://www.vietnamtourism.com/en/phong-nha-ke-bang-national-park-tickets-complete-2026-price-guide-and-cave-selection-2",
-            "https://oxalisadventure.com/paradise-cave-in-phong-nha/"
+            "https://oxalisadventure.com/paradise-cave-in-phong-nha/",
+            "https://www.vietnamtourism.com/en/phong-nha-ke-bang-national-park-tickets-complete-2026-price-guide-and-cave-selection"
           ],
           "tier": null,
           "nameHe": "מערת גן העדן",
           "areaHe": "הפארק הלאומי פונג ניה-קה באנג",
           "whatHe": "מערה יבשה שמגיעים אליה במדרגות תלולות ובשביל ג'ונגל, ואז קילומטר של מסלול עץ דרך אולם שנטיפיו מוארים כך שייראה כמו קתדרלה תת-קרקעית.",
           "whyHe": "נקראת דרך קבע אחת המערות היפות בוויאטנם, ואפשר לעשות אותה בלי מדריך ובלי הזמנה מראש",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 10.0,
+          "priceHigh": 11.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3429,16 +3937,18 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://oxalisadventure.com/tour/son-doong-cave-expedition-4d3n/",
-            "https://sondoongcave.info/exploration/how-to-get-to-son-doong-cave/"
+            "https://sondoongcave.info/exploration/how-to-get-to-son-doong-cave/",
+            "https://www.vietnamtourism.com/en/son-doong-cave-the-complete-guide-to-the-world-s-largest-cave"
           ],
           "tier": null,
           "nameHe": "משלחת מערת סון דונג",
           "areaHe": "עמוק בפארק הלאומי, טרק רב-יומי מקילומטר 37",
           "whatHe": "משלחת של ארבעה ימים ושלושה לילות אל מעבר המערה הגדול בעולם — גדול מספיק להכיל בלוק במנהטן, עם ג'ונגל ומזג אוויר משלו בתוך שתי בליעות שקרסו. סבלים נושאים את הציוד, והלילות עוברים במחנה על רצפת המערה.",
           "whyHe": "הסיבה שפונג ניה נמצאת על מפת עולם המערות בכלל. ההזמנה הקשה והיקרה ביותר באזור, ולכן צריך לסמן אותה מוקדם אם רוצים אותה. לא אפשרי בתאריכי הטיול: אוקסליס מפעילים אותו רק בינואר-אוגוסט, ו-2027-2028 כבר מלאות",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 2850.0,
+          "priceHigh": 3000.0,
+          "priceChecked": "2026-10-25",
           "avoid": true,
           "kind": null,
           "isDish": false,
@@ -3456,16 +3966,18 @@ const POI_DATA = {
           "lng": null,
           "approx": false,
           "sources": [
-            "https://oxalisadventure.com/tour/hang-en-adventure-cave-camp/"
+            "https://oxalisadventure.com/tour/hang-en-adventure-cave-camp/",
+            "https://www.vietnamtourism.com/en/son-doong-cave-the-complete-guide-to-the-world-s-largest-cave"
           ],
           "tier": null,
           "nameHe": "טרק מערת האנג אן",
           "areaHe": "הפארק הלאומי, אזור טו לאן",
           "whatHe": "טרק של יומיים ולילה אחד אל המערה השלישית בגודלה בעולם, עם לינה על גדת חול בתוך המערה לצד נהר תת-קרקעי, מתחת לאחד משלושה צוהרי ענק.",
           "whyHe": "אפשרות המערות הרצינית שלא דורשת את התקציב של סון דונג ולא הזמנה שנה מראש. מחנה מדברי אמיתי בתוך מערה. סגור מאמצע ספטמבר עד דצמבר, ולכן לא אפשרי בתאריכי הטיול",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 340.0,
+          "priceHigh": 360.0,
+          "priceChecked": "2026-10-25",
           "avoid": true,
           "kind": null,
           "isDish": false,
@@ -3491,9 +4003,9 @@ const POI_DATA = {
           "areaHe": "טאן הואה, כ-65 קילומטר מהעיירה פונג ניה",
           "whatHe": "רשת של מערות רטובות ועמקי ג'ונגל שחוקרים בהליכה במים ובשחייה דרך אגמי מערה בין אולמות גיר, כסיורים שנמשכים מיום אחד ועד משלחת של ארבעה עד חמישה ימים.",
           "whyHe": "טווח הקושי הרחב ביותר מכל מוצרי המערות של פונג ניה — יום אחד של שחייה במערות, או כמה ימי משלחת ג'ונגל אמיתית, מאותו מפעיל. משלחת הימים מתחילה רק מאמצע נובמבר, וקטעי השחייה תלויים במפלס המים",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 100.0,
+          "priceHigh": 220.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3518,9 +4030,9 @@ const POI_DATA = {
           "areaHe": "הפארק הלאומי, אזור טו לאן",
           "whatHe": "טרק של יום אחד דרך ג'ונגל ומערכת מערות שנהר חצב, כולל קטעי הליכה במים ושחייה, בלי המחויבות הרב-יומית של טו לאן או האנג אן.",
           "whyHe": "האפשרות האמצעית בין מערת מסלול-עץ למשלחת רב-יומית. סומנה במחקר המאומת של הפרויקט למי שרוצה טרק אמיתי בלי הלילות הנוספים",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 90.0,
+          "priceHigh": 120.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3546,9 +4058,9 @@ const POI_DATA = {
           "areaHe": "נהר צ'אי, הפארק הלאומי",
           "whatHe": "אומגה קצרה מעל נהר צ'אי אל תוך מערה חשוכה לחלוטין, ואז שחייה אל בריכת בוץ טבעית עמוק בפנים, וחזרה בקיאקים במורד הנהר.",
           "whyHe": "פעילות האדרנלין הקלה ביותר בפונג ניה — חצי יום, בלי מבחן כושר, וזו שכל משפחה וכל קבוצת תרמילאים עושה. מאמצע ספטמבר עד נובמבר האומגה ובריכת הבוץ פועלות בהיקף מצומצם או סגורות; לבדוק באותו יום",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 17.0,
+          "priceHigh": 20.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3573,9 +4085,9 @@ const POI_DATA = {
           "areaHe": "עמק בונג לאי, כ-10 קילומטר מהעיירה",
           "whatHe": "חוות ברווזים פעילה וקטנה שבה מאכילים להקת ברווזים והולכים איתה על סוללות שדות האורז, כולל רכיבה על תאו ומשקה.",
           "whyHe": "האטרקציה המדורגת ראשונה בפונג ניה בטריפאדוויזר, והדבר הקל והנעים ביותר לעשות ביום מנוחה בין מערות",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 4.0,
+          "priceHigh": 6.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3600,9 +4112,9 @@ const POI_DATA = {
           "areaHe": "עמק בונג לאי, ליד נהר ראו קון",
           "whatHe": "בר-חווה כפרי בסוף דרך עפר, שבו בוחרים תרנגולת חיה מהגינה והיא נצלית לפי הזמנה ונאכלת בערסלים ליד הנהר.",
           "whyHe": "העצירה המוכרת ביותר בלולאת האופנועים של עמק בונג לאי, וארוחה מקומית אמיתית שאינה מבוימת",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 3.0,
+          "priceHigh": 8.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3871,6 +4383,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "5 Lê Lợi, Huế",
+          "locNote": "On the Perfume River on Le Loi, a pleasant riverside walk to Truong Tien Bridge and a short ride to the Imperial City.",
+          "locNoteHe": "על נהר הבושם ברחוב לה לוי, הליכה נעימה לאורך הנהר לגשר טרונג טיין ונסיעה קצרה לעיר הקיסרית.",
+          "pros": [
+            "1930s French residence on the river",
+            "Hue's best-reviewed true 5-star",
+            "Spa and riverside pool"
+          ],
+          "prosHe": [
+            "בית מושל צרפתי משנות ה-30 על הנהר",
+            "ה-5 כוכבים האמיתי המדורג ביותר בהואה",
+            "ספא ובריכה על הנהר"
+          ],
+          "cons": [
+            "Expensive",
+            "Riverfront floods in heavy rain"
+          ],
+          "consHe": [
+            "יקר",
+            "חזית הנהר מוצפת בגשם כבד"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -3902,6 +4434,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "50A Hùng Vương, Huế",
+          "locNote": "A tower in the city centre on Hung Vuong, 10 minutes' walk to the river and Truong Tien Bridge, close to restaurants.",
+          "locNoteHe": "מגדל במרכז העיר ברחוב הונג וואנג, 10 דקות הליכה לנהר ולגשר טרונג טיין, קרוב למסעדות.",
+          "pros": [
+            "International chain, 9.4/10 from 3,000+ reviews",
+            "Indoor pool, spa and gym",
+            "Views over the city"
+          ],
+          "prosHe": [
+            "רשת בינלאומית, 9.4/10 מיותר מ-3,000 ביקורות",
+            "בריכה מקורה, ספא וחדר כושר",
+            "נוף על העיר"
+          ],
+          "cons": [
+            "Big tower, little local character",
+            "10 minutes from the river"
+          ],
+          "consHe": [
+            "מגדל גדול, מעט אופי מקומי",
+            "10 דקות מהנהר"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -3933,6 +4485,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "60 Bến Nghé, Huế",
+          "locNote": "On Ben Nghe in the centre, south of the river - walk to the Perfume River promenade and the night market area.",
+          "locNoteHe": "ברחוב בן נגה במרכז, דרומית לנהר - הליכה לטיילת נהר הבושם ולאזור שוק הלילה.",
+          "pros": [
+            "Clear official 4-star",
+            "Bright wood-floored rooms, very clean",
+            "Central and good value"
+          ],
+          "prosHe": [
+            "4 כוכבים רשמי וברור",
+            "חדרים מוארים עם רצפת עץ, נקיים מאוד",
+            "מרכזי ומשתלם"
+          ],
+          "cons": [
+            "Small pool or none",
+            "Fewer facilities than the 5-stars"
+          ],
+          "consHe": [
+            "בריכה קטנה או בלי",
+            "פחות מתקנים מה-5 כוכבים"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -3964,6 +4536,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "130 Minh Mạng, Huế",
+          "locNote": "On a forested hillside south of the city on the way to the royal tombs - green and quiet, but taxis to the river and Citadel.",
+          "locNoteHe": "על גבעה מיוערת דרומית לעיר בדרך לקברי המלכים - ירוק ושקט, אבל מוניות לנהר ולמצודה.",
+          "pros": [
+            "Village-style resort with several pools",
+            "Extensive spa",
+            "Close to the tombs"
+          ],
+          "prosHe": [
+            "ריזורט בסגנון כפר עם כמה בריכות",
+            "ספא נרחב",
+            "קרוב לקברי המלכים"
+          ],
+          "cons": [
+            "5 km from the centre",
+            "Star rating disputed (4 or 5)"
+          ],
+          "consHe": [
+            "5 ק\"מ מהמרכז",
+            "הדירוג שנוי במחלוקת (4 או 5)"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -4041,16 +4633,18 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://www.tripadvisor.com/Attraction_Review-g293926-d317599-Reviews-Hue_Imperial_City_The_Citadel-Hue_Thua_Thien_Hue_Province.html",
-            "https://culturephamtravel.com/hue-entrance-fee/"
+            "https://culturephamtravel.com/hue-entrance-fee/",
+            "https://vietnamvacation.com.vn/hue-entrance-fee/"
           ],
           "tier": null,
           "nameHe": "העיר האסורה",
           "areaHe": "הגדה הצפונית של נהר הבשמים, מרכז העיר",
           "whatHe": "מושבה המבוצר של שושלת נגוין מ-1802 עד 1945. נכנסים דרך שער נגו מון, עוברים את תשעת התותחים הקדושים ואת תשע כדי השושלת, ובפנים מקדש המשפחה טו מייה.",
           "whyHe": "הסיבה שהואה היא הבירה הקיסרית של ויאטנם ולא עוד עיר נהר, והאתר ההיסטורי היחיד הגדול ביותר במדינה. נסגר כשנהר הבשמים מוצף - ב-2025 ב-27-30/10 ושוב מ-3/11",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 8.0,
+          "priceHigh": 8.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4070,16 +4664,18 @@ const POI_DATA = {
           "lng": 107.5902801,
           "approx": false,
           "sources": [
-            "https://vinwonders.com/en/wonderpedia/news/khai-dinh-tomb-things-to-know-about-the-last-imperial-tomb-built-in-hue/"
+            "https://vinwonders.com/en/wonderpedia/news/khai-dinh-tomb-things-to-know-about-the-last-imperial-tomb-built-in-hue/",
+            "https://vietnamvacation.com.vn/hue-entrance-fee/"
           ],
           "tier": null,
           "nameHe": "קבר קאי דין",
           "areaHe": "כפר צ'או צ'ו, כ-10 קילומטר מהעיר",
           "whatHe": "האחרון והמעוטר ביותר מקברי המלוכה של נגוין. חזיתו מבטון בסגנון אירופי בגוון גותי, אבל אולם הארון שבפנים הוא פיצוץ של ציורי פסיפס קרמי צבעוניים. מגיעים ב-127 מדרגות אבן.",
           "whyHe": "המרשים ביותר חזותית מבין שבעת קברי המלוכה, ושונה מכל מונומנט נגוין אחר בהואה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 6.0,
+          "priceHigh": 6.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4107,7 +4703,7 @@ const POI_DATA = {
           "areaHe": "גבעת הא קה, הגדה הצפונית של נהר הבשמים, כ-5 קילומטר מהעיר",
           "whatHe": "המבנה הדתי העתיק ביותר בהואה, שנוסד ב-1601, סביב מגדל פואוק דוין המתומן בן שבע הקומות שהוא הסמל הלא-רשמי של העיר, ובאולם המרכזי פעמון ברונזה בגובה 2.5 מטר.",
           "whyHe": "האתר המצולם ביותר על נהר הבשמים, ובן למעלה מארבע מאות שנה",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -4132,16 +4728,18 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://centralvietnamguide.com/tu-duc-tomb/",
-            "https://vinpearl.com/en/tu-duc-tomb-one-of-the-most-appealing-attractions-in-hue-to-visit"
+            "https://vinpearl.com/en/tu-duc-tomb-one-of-the-most-appealing-attractions-in-hue-to-visit",
+            "https://vietnamvacation.com.vn/hue-entrance-fee/"
           ],
           "tier": null,
           "nameHe": "קבר טו דוק",
           "areaHe": "כפר תוי שואן, כ-7 קילומטר מהעיר",
           "whatHe": "מקום מפלט מלכותי מעוצב סביב אגם בעמק יערות אורן, שבו הקיסר טו דוק חי, כתב שירה ושייט שנים לפני מותו. פזורים בו ביתנים ומקדשים ולא מבנה מאוזוליאום יחיד.",
           "whyHe": "הרך והפארקי ביותר מבין הקברים — נבנה כמקום מגורים ולא רק כקבורה — וניגוד להדר של קאי דין",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 6.0,
+          "priceHigh": 6.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4169,9 +4767,9 @@ const POI_DATA = {
           "areaHe": "יוצא ממזחים לאורך נהר הבשמים, מרכז העיר",
           "whatHe": "שייט ערב בסירת עץ עם חרטום דרקון על פני גשרי טרונג טיין ופו שואן, בדרך כלל עם מופע חי של מוזיקת קה הואה על הסיפון ואפשרות לשלח פנס לוטוס על המים.",
           "whyHe": "הדרך הקלאסית לראות את גשרי הואה ואת גדות הנהר מוארים בלילה, ולשמוע את מוזיקת החצר קה הואה בקירוב לסביבתה המקורית. אין שייט כשהנהר מוצף",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 4.0,
+          "priceHigh": 20.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4376,7 +4974,7 @@ const POI_DATA = {
     "lng": 108.338,
     "color": "#f032e6",
     "counts": {
-      "hotels": 6,
+      "hotels": 7,
       "must_see": 2,
       "attractions": 3,
       "food": 0,
@@ -4419,6 +5017,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "132 Hùng Vương, Hội An, Đà Nẵng",
+          "locNote": "On Hung Vuong at the edge of the rice fields, about a 10-minute walk or bike ride to the Old Town - quiet nights, easy access.",
+          "locNoteHe": "ברחוב הונג וואנג בשולי שדות האורז, כ-10 דקות הליכה או רכיבה לעיר העתיקה - לילות שקטים, גישה נוחה.",
+          "pros": [
+            "Infinity pool over rice paddies",
+            "Award-winning spa",
+            "Free bikes into town"
+          ],
+          "prosHe": [
+            "בריכת אינפיניטי מעל שדות אורז",
+            "ספא עטור פרסים",
+            "אופניים חינם לעיר"
+          ],
+          "cons": [
+            "Not in the Old Town itself",
+            "Popular - book early"
+          ],
+          "consHe": [
+            "לא בתוך העיר העתיקה",
+            "פופולרי - להזמין מוקדם"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -4427,8 +5045,8 @@ const POI_DATA = {
           "area": "326 Ly Thuong Kiet, about 15 minutes' walk north-west of the Old Town",
           "what": "A 139-room wellness resort about 15 minutes' walk from the Old Town, built around a Japanese garden with a koi pond and My Chi Spa, the largest resort spa in Hoi An.",
           "why": "One of the highest-rated hotels of any tier in Hoi An (9.2/10 from over 2,400 reviews), though some reviewers rate the actual guest experience closer to a strong 4-star than a true 5-star",
-          "lat": null,
-          "lng": null,
+          "lat": 15.8836,
+          "lng": 108.3275049,
           "approx": false,
           "sources": [
             "https://www.tripadvisor.com/Hotel_Review-g298082-d7094399-Reviews-Almanity_Hoi_An_Resort_Spa-Hoi_An_Quang_Nam_Province.html",
@@ -4450,6 +5068,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "326 Lý Thường Kiệt, Hội An, Đà Nẵng",
+          "locNote": "At 326 Ly Thuong Kiet, about 15 minutes' walk north-west of the Old Town - a garden resort a short ride from the lanterns.",
+          "locNoteHe": "ב-326 לי טואנג קיאט, כ-15 דקות הליכה צפון-מערבית לעיר העתיקה - ריזורט גן במרחק נסיעה קצרה מהפנסים.",
+          "pros": [
+            "Largest resort spa in Hoi An",
+            "Japanese garden and koi pond",
+            "9.2/10 from 2,400+ reviews"
+          ],
+          "prosHe": [
+            "הספא הגדול ביותר בהוי אן",
+            "גן יפני ובריכת קוי",
+            "9.2/10 מיותר מ-2,400 ביקורות"
+          ],
+          "cons": [
+            "15 minutes' walk to the Old Town",
+            "Some rate the experience below the score"
+          ],
+          "consHe": [
+            "15 דקות הליכה לעיר העתיקה",
+            "יש מי שמדרג את החוויה נמוך מהציון"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -4482,6 +5120,26 @@ const POI_DATA = {
           "video": null,
           "addrVi": "14 Hùng Vương, Hội An, Đà Nẵng",
           "nameVi": "Silkotel Hội An",
+          "locNote": "On Hung Vuong, a short walk to the Old Town's riverside streets - the closest of the picks to the lanterns.",
+          "locNoteHe": "ברחוב הונג וואנג, הליכה קצרה לרחובות הנהר של העיר העתיקה - הקרוב ביותר לפנסים מבין המלונות.",
+          "pros": [
+            "Walk to the Old Town",
+            "Pool, spa and gym",
+            "9.1/10 at two-thirds of resort prices"
+          ],
+          "prosHe": [
+            "הליכה לעיר העתיקה",
+            "בריכה, ספא וחדר כושר",
+            "9.1/10 בשני שליש ממחיר הריזורטים"
+          ],
+          "cons": [
+            "City hotel, no rice-field view",
+            "Road-side rooms hear traffic"
+          ],
+          "consHe": [
+            "מלון עירוני, בלי נוף לשדות",
+            "חדרים לכביש שומעים תנועה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -4513,6 +5171,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Lý Thường Kiệt, Hội An Đông, Hội An, Đà Nẵng",
+          "locNote": "On the edge of town among rice fields, about 2 km from the Old Town; the free shuttle covers the Old Town and the beach.",
+          "locNoteHe": "בשולי העיר בין שדות אורז, כ-2 ק\"מ מהעיר העתיקה; הסעה חינם לעיר העתיקה ולחוף.",
+          "pros": [
+            "Infinity pool and 4th-floor bar over the paddies",
+            "Free shuttle to town and beach",
+            "Cheaper than La Siesta"
+          ],
+          "prosHe": [
+            "בריכת אינפיניטי ובר בקומה 4 מעל השדות",
+            "הסעה חינם לעיר ולחוף",
+            "זול מ-La Siesta"
+          ],
+          "cons": [
+            "Too far to walk to the Old Town at night",
+            "Shuttle times limit you"
+          ],
+          "consHe": [
+            "רחוק מדי להליכה לעיר העתיקה בלילה",
+            "שעות ההסעה מגבילות"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -4552,8 +5230,8 @@ const POI_DATA = {
           "area": "239 Nguyen Duy Hieu, Cam Chau, about 7 minutes' walk to the Central Market",
           "what": "A small villa-style property with a spa, outdoor pool and restaurant, about 1 km east of the town centre.",
           "why": "Rated 5/5 on Tripadvisor from hundreds of reviews despite its official 3-star classification - well above its price bracket",
-          "lat": null,
-          "lng": null,
+          "lat": 15.8783547,
+          "lng": 108.3373817,
           "approx": false,
           "sources": [
             "https://www.tripadvisor.com/Hotel_Review-g298082-d12192622-Reviews-Little_Town_Villas-Hoi_An_Quang_Nam_Province.html",
@@ -4577,6 +5255,60 @@ const POI_DATA = {
           "addrVi": "239 Nguyễn Duy Hiệu, Hội An, Đà Nẵng",
           "weather": "low",
           "limiter": "rain"
+        },
+        {
+          "name": "MAISON De CHINH - Hoi An Boutique Villa",
+          "area": "163 Nguyen Trai, Cam Chau, between the Old Town and Cua Dai beach",
+          "what": "A small boutique villa with a saltwater outdoor pool, a garden and a sun terrace, among rice fields about 2.6 km from Cua Dai beach.",
+          "why": "Recommended in a TikTok reel for its location between the Old Town and the beach and its low price; only 3 Booking reviews so far",
+          "lat": 15.8897504,
+          "lng": 108.3522056,
+          "approx": false,
+          "sources": [
+            "https://www.booking.com/hotel/vn/maison-de-chinh-boutique-hoi-an.html",
+            "TikTok @katerinawinnerr reel, screenshot sent 2026-10-25 (guide-inbox/media/2026-10-25_tiktok-katerinawinnerr-maison-de-chinh)"
+          ],
+          "tier": 3,
+          "nameHe": "מזון דה צ'ין",
+          "areaHe": "נגוין טראי 163, קאם צ'או, בין העיר העתיקה לחוף קואה דאי",
+          "whatHe": "וילת בוטיק קטנה עם בריכת מי-מלח חיצונית, גינה ומרפסת שמש, בין שדות אורז כ-2.6 ק\"מ מחוף קואה דאי.",
+          "whyHe": "הומלץ בסרטון טיקטוק בזכות המיקום בין העיר העתיקה לחוף והמחיר הנמוך; רק 3 ביקורות ב-Booking עד כה",
+          "priceUnit": "per_night",
+          "tierOfficial": false,
+          "priceLow": 27.0,
+          "priceHigh": 47.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "addrVi": "163 Nguyễn Trãi, Cẩm Châu, Hội An, Đà Nẵng",
+          "recommendedBy": "TikTok @katerinawinnerr",
+          "locNote": "In Cam Chau, about 10 minutes by bike to the Old Town and 2.6 km to Cua Dai beach - quiet nights, but not walking distance to the lanterns.",
+          "locNoteHe": "בקאם צ'או, כ-10 דקות באופניים לעיר העתיקה ו-2.6 ק\"מ לחוף קואה דאי - לילות שקטים, אבל לא במרחק הליכה מהפנסים.",
+          "pros": [
+            "Lowest price in the station ($27-47 on 12/11)",
+            "Saltwater pool and garden",
+            "Between town and beach, rice-field view"
+          ],
+          "prosHe": [
+            {
+              "המחיר הנמוך בתחנה": "27-47 דולר ללילה ב-12/11"
+            },
+            "בריכת מי-מלח וגינה",
+            "בין העיר לחוף, נוף לשדות אורז"
+          ],
+          "cons": [
+            "Only 3 reviews - the 10/10 score means little",
+            "Free bikes claimed in the reel are not listed on Booking - ask"
+          ],
+          "consHe": [
+            "רק 3 ביקורות - ציון 10/10 חסר משמעות",
+            "האופניים בחינם מהסרטון לא מופיעים ב-Booking - לשאול"
+          ],
+          "weather": "low",
+          "limiter": "rain"
         }
       ],
       "must_see": [
@@ -4597,9 +5329,9 @@ const POI_DATA = {
           "areaHe": "העיר העתיקה, לאורך נהר תו בון",
           "whatHe": "עיר נמל מסחר ברשימת אונסק\"ו, של בתי חנות בקירות צהובים, אולמות אספה סיניים ובתי סוחרים מהמאות ה-16 עד ה-18, סביב הגשר היפני המקורה מעץ באורך 18 מטר שמשמש גם כמקדש קטן.",
           "whyHe": "הסיבה שהוי אן מופיעה בכל מסלול — אחד מנמלי המסחר המשומרים ביותר בדרום מזרח אסיה, ברשימת אונסק\"ו מאז 1999. רחובות הנהר מוצפים שוב ושוב בנובמבר - עד 2 מטר ב-2025; לבדוק את מפלס המים באותו יום",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 5.0,
+          "priceHigh": 5.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4620,16 +5352,18 @@ const POI_DATA = {
           "approx": true,
           "sources": [
             "https://hoiandaytrip.com/ba-na-hills-tickets/",
-            "https://happytovisit.com/golden-bridge-ba-na-hills-marble-mountain-monkey-mountain/"
+            "https://happytovisit.com/golden-bridge-ba-na-hills-marble-mountain-monkey-mountain/",
+            "https://sunparadiseland.com/en/SunParadiseLandDaNang/tin-tuc/ba-na-hills-ticket-prices-2026-cable-car-fares-and-saving-tips-7745"
           ],
           "tier": null,
           "nameHe": "גבעות בה נה והגשר הזהוב",
           "areaHe": "הר בה נה, כ-45 דקות ממערב לדה נאנג",
           "whatHe": "אתר נופש על פסגה שמגיעים אליו ברכבל שובר שיאי אורך, בנוי סביב שחזור של כפר נופש צרפתי ועל הגשר הזהוב — מסלול הליכה שנתמך בשתי כפות ידיים ענקיות מאבן שבוקעות מהמדרון.",
           "whyHe": "הבחירה המוסכמת על פני מיי סון מבין ההצעות המתחרות של הטיול (החלטת מסלול R6), והאתר המודרני המצולם ביותר במרכז ויאטנם",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 38.0,
+          "priceHigh": 50.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4658,9 +5392,9 @@ const POI_DATA = {
           "areaHe": "בין דה נאנג להוי אן, על כביש החוף",
           "whatHe": "חמש גבעות של גיר ושיש, כל אחת קרויה על שם אחד מחמשת היסודות, מחוררות במערות ובנקיקים ובהם מקדשים בודהיסטיים. מעלית ומדרגות מובילות לנקודות תצפית ולמערת הויין קונג, ששימשה בעבר כבית חולים שדה במלחמה.",
           "whyHe": "נוף שונה לגמרי מעיר הנהר השטוחה של הוי אן, ועצירה קלה בדרך אל דה נאנג או ממנה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 3.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4688,9 +5422,9 @@ const POI_DATA = {
           "areaHe": "חוף אן באנג, כ-3 קילומטר ממזרח לעיר העתיקה",
           "whatHe": "רצועת חוף חולי עם גלים עדינים וידידותיים למתחילים, שבה בתי ספר לגלישה בניהול זרים משכירים גלשנים ומעבירים שיעורים. עונת הגלישה נמשכת בערך מספטמבר עד מרץ.",
           "whyHe": "אפשרות הגלישה האמיתית של הוי אן, ורכיבת אופניים של 20 דקות מהעיר העתיקה דרך שדות אורז",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 25.0,
+          "priceHigh": 45.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -4716,9 +5450,9 @@ const POI_DATA = {
           "areaHe": "יער הקוקוס באי מאו, הכפר קאם תאן, כ-5 קילומטר מהעיר העתיקה",
           "whatHe": "סירת סל עגולה מבמבוק שחותרים בה דרך תעלות המים של יער דקלים שהמקומיים קוראים לו הריאה הירוקה של הוי אן. בדרך כלל כולל מופע סירה מסתובבת והדגמת דיג ברשת.",
           "whyHe": "חלופה קלה וקרובה יותר לעיר לחוויית סירות הסל של דלתת המקונג, ופופולרית במיוחד עם משפחות. הסירות לא יוצאות בימי שיטפון או טייפון",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 6.0,
+          "priceHigh": 10.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -5212,9 +5946,9 @@ const POI_DATA = {
           "areaHe": "הוי אן, כמה סניפים",
           "whatHe": "ספא שבנוי סביב טיפול צמחים ויאטנמי — למון גראס, ג'ינג'ר, קינמון ולענה מאודים ומוחלים חמים — לצד עיסוי גוף וכפות רגליים רגיל.",
           "whyHe": "4.8 מתוך 5 מלמעלה מאלפיים ביקורות בקלוק, ומדורג ראשון בטריפאדוויזר מאז 2019 — בסיס ביקורות עמוק בהרבה מכל ספא בהאנוי",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 15.0,
+          "priceHigh": 30.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -5240,9 +5974,9 @@ const POI_DATA = {
           "areaHe": "ליד חוף אן באנג",
           "whatHe": "ספא ליד חוף אן באנג שמציע טיפולי גוף, כפות רגליים וצמחים, הרחק מההמון של העיר העתיקה.",
           "whyHe": "4.9 מתוך 5 מלמעלה מ-1,300 ביקורות, וקרוב מספיק לחוף כדי לשלב עם שחייה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 12.0,
+          "priceHigh": 25.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -5272,9 +6006,9 @@ const POI_DATA = {
           "areaHe": "קו לאו צ'אם, כ-15 עד 20 דקות בסירה מהירה מקואה דאי",
           "whatHe": "אשכול של שמונה איי גרניט ושמורת ביוספרה של אונסק\"ו מול חופי הוי אן, עם שוניות אלמוגים שנגישות בשנורקלינג מהפנים או בצלילה לעומק של כשישה מטרים ומעלה. עונת הצלילה נמשכת ממרץ עד ספטמבר. מאוקטובר בערך המונסון הצפון-מזרחי הופך את המעבר ללא אמין, מרכזי הצלילה בהוי אן נסגרים, ושירותי הסירות מושבתים לימים שלמים.",
           "whyHe": "מחוץ לעונה עבור הטיול הזה. התאריכים נופלים בדיוק בתוך ההשבתה של המונסון, ולכן מפעיל שעדיין מוכר את זה לסוף אוקטובר או לנובמבר מוכר מזג אוויר שאינו יכול לספק. צלילת השונית לתאריכים האלה היא אן תוי בדרום פו קוק, שם נובמבר פותח את החלון הטוב ביותר",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 25.0,
+          "priceHigh": 90.0,
           "avoid": true,
           "kind": null,
           "isDish": false,
@@ -5426,6 +6160,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "81 Nguyễn Tất Thành, Tân An, Buôn Ma Thuột, Đắk Lắk",
+          "locNote": "In the middle of town by the Victory Monument roundabout: the cafes, the market and most restaurants are within a 10-15 minute walk.",
+          "locNoteHe": "באמצע העיר ליד כיכר אנדרטת הניצחון: בתי הקפה, השוק ורוב המסעדות במרחק 10-15 דקות הליכה.",
+          "pros": [
+            "Tallest building in town, rooftop bar with a view",
+            "Outdoor pool",
+            "Most consistent reviews in the city"
+          ],
+          "prosHe": [
+            "הבניין הגבוה בעיר, בר על הגג עם נוף",
+            "בריכה חיצונית",
+            "הביקורות הכי עקביות בעיר"
+          ],
+          "cons": [
+            "Domestic chain - 5-star by local standards, not international",
+            "Large and impersonal"
+          ],
+          "consHe": [
+            "רשת מקומית - 5 כוכבים בסטנדרט מקומי, לא בינלאומי",
+            "גדול ולא אישי"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -5457,6 +6211,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "1-3 Phan Chu Trinh, Buôn Ma Thuột, Đắk Lắk",
+          "locNote": "Two minutes' walk from the central market and the coffee-shopping streets around it - the most walkable base in Buon Ma Thuot.",
+          "locNoteHe": "שתי דקות הליכה מהשוק המרכזי ומרחובות הקפה סביבו - הבסיס הכי נוח להליכה בבואון מה תואוט.",
+          "pros": [
+            "Closest well-reviewed hotel to the market",
+            "Outdoor pool",
+            "Low price"
+          ],
+          "prosHe": [
+            "המלון המדורג היטב הקרוב ביותר לשוק",
+            "בריכה חיצונית",
+            "מחיר נמוך"
+          ],
+          "cons": [
+            "Business-hotel feel, dated in places",
+            "Karaoke lounge can be noisy"
+          ],
+          "consHe": [
+            "אווירה של מלון עסקים, מיושן בחלקו",
+            "טרקלין קריוקי עלול להיות רועש"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -5503,16 +6277,18 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://en.wikipedia.org/wiki/The_World_Coffee_Museum",
-            "https://vietnamtourism.gov.vn/en/post/20640"
+            "https://vietnamtourism.gov.vn/en/post/20640",
+            "https://www.vietjetair.com/en/pages/travel-guides-1665635013747/what-to-do-in-buon-ma-thuot-the-most-attractive-locations-1711073073129"
           ],
           "tier": null,
           "nameHe": "מוזיאון הקפה העולמי",
           "areaHe": "רחוב נגוין דין צ'יאו, רובע בואן מה תואט, כ-1.2 קילומטר צפונית למרכז",
           "whatHe": "מוזיאון בנוי בסגנון בתי האורך של רמות המרכז, ובו למעלה מ-10,000 פריטים הקשורים לקפה מרחבי העולם, עם חדרי טעימה מעשיים ולא ויטרינות זכוכית.",
           "whyHe": "האתר המזוהה של בירת הקפה של ויאטנם, והסיבה שרוב המבקרים מגיעים לבואן מה תואט בכלל",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 3.0,
+          "priceHigh": 6.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -5540,7 +6316,7 @@ const POI_DATA = {
           "areaHe": "טאן לוי, בתוך העיר",
           "whatHe": "שכונה פעילה של בני המיעוט האתני אדה בתוך העיר עצמה, ובה למעלה מ-30 בתי אורך מסורתיים מעץ, בנויים על כלונסאות בצורת סירות.",
           "whyHe": "המקום היחיד לראות אדריכלות אדה אותנטית על כלונסאות בלי לצאת מהעיר",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -5568,9 +6344,9 @@ const POI_DATA = {
           "areaHe": "מחוז קרונג אנה, כ-27 קילומטר מדרום-מערב למרכז",
           "whatHe": "מפל ברוחב 250 מטר שצונח למעלה מ-30 מטר במקום שבו נהרות קרונג אנה וקרונג נו נפגשים ויוצרים את נהר סרפוק, עם גשר תלוי מעל הערוץ.",
           "whyHe": "המפל העוצמתי ביותר ברמות המרכז, וטיול חצי יום פשוט מהעיר",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 4.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -5596,9 +6372,9 @@ const POI_DATA = {
           "areaHe": "מחוז בואן דון, כ-40 קילומטר מהמרכז",
           "whatHe": "הפארק הלאומי השני בגודלו בוויאטנם, רצועת יער דיפטרוקרפ יבש לאורך נהר סרפוק, שבה פילים שהיו בעבר פילי רכיבה מלקטים מזון בחופשיות תחת עינם של הפָּחָתים שלהם.",
           "whyHe": "אתר תיירות הפילים האתי הראשון בוויאטנם, שהפסיק כאן את רכיבת הפילים ב-2018 לטובת התבוננות",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 2.0,
+          "priceHigh": 40.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -5626,9 +6402,9 @@ const POI_DATA = {
           "areaHe": "לי תאי טו 163, רובע בואן מה תואט, כ-3 קילומטר צפון-מזרחית למרכז",
           "whatHe": "מתחם של 20,000 מטר רבוע ובו העתקים של בתים מסורתיים, מיצגי קלייה ובתי קפה, שהקים מותג הקפה המוכר בוויאטנם. מוזיאון הקפה העולמי הוא אתר נפרד, 2.6 קילומטר משם.",
           "whyHe": "אחר צהריים שלם של תרבות קפה באתר אחד שאפשר להקיף ברגל, מגידול ועד קלייה ועד כוס",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 4.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -5846,7 +6622,7 @@ const POI_DATA = {
           "areaHe": "ליין סון, מחוז לאק",
           "whatHe": "האגם הטבעי הגדול ביותר של מים מתוקים ברמות המרכז, מוקף שדות אורז ויער, וחוצים אותו בסירות חצובות מגזע עץ ולא בסירות מנוע.",
           "whyHe": "לב הרגל הזו של המסלול, והסיבה שהתוכנית עוצרת כאן ללינה",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -5874,7 +6650,7 @@ const POI_DATA = {
           "areaHe": "החוף הדרומי של אגם לאק",
           "whatHe": "יישוב של בני המיעוט מנונג מבתי כלונסאות מעץ ומקש על החוף הדרומי של האגם, שבו התושבים עדיין אורגים ברוקד ודגים מסירות חצובות.",
           "whyHe": "כפר המנונג הנגיש ביותר על האגם, והעצירה הסטנדרטית במסלול הרוכבים כאן",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -5904,9 +6680,9 @@ const POI_DATA = {
           "areaHe": "מעגן ליד הכפר ג'ון ומחנה האוהלים",
           "whatHe": "סירה מסורתית חצובה מגזע עץ יחיד, שחותרים בה ידנית על פני אגם לאק עם שחר או עם דמדומים. מסודרת דרך שייטי הכפר ג'ון או דרך מחנה האוהלים.",
           "whyHe": "כך המקומיים באמת נעים על האגם, וחלופה שקטה יותר לרכיבות הפילים שנמכרות בכפר לידו",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 6.0,
+          "priceHigh": 15.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6037,6 +6813,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "2 Trần Phú, Đà Lạt, Lâm Đồng",
+          "locNote": "On the hill above Xuan Huong Lake, a short walk to the lake promenade and about 15 minutes on foot to the market and night market.",
+          "locNoteHe": "על הגבעה מעל אגם שואן הואנג, הליכה קצרה לטיילת ותוך כ-15 דקות ברגל לשוק ולשוק הלילה.",
+          "pros": [
+            "1922 colonial grand hotel with fireplaces in every room",
+            "Lake views and gardens",
+            "Genuine heritage 5-star"
+          ],
+          "prosHe": [
+            "מלון קולוניאלי מפואר מ-1922 עם אח בכל חדר",
+            "נוף לאגם וגנים",
+            "5 כוכבים מורשת אמיתי"
+          ],
+          "cons": [
+            "Expensive for Da Lat",
+            "Old building - no pool"
+          ],
+          "consHe": [
+            "יקר ביחס לדה לאט",
+            "בניין ישן - בלי בריכה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6068,6 +6864,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Phạm Hồng Thái, Xuân Hương, Đà Lạt, Lâm Đồng",
+          "locNote": "On the edge of downtown by the golf course: a 10-15 minute walk to Xuan Huong Lake, a short taxi to the market.",
+          "locNoteHe": "בשולי מרכז העיר ליד מגרש הגולף: 10-15 דקות הליכה לאגם שואן הואנג, נסיעה קצרה לשוק.",
+          "pros": [
+            "Indoor pool and spa - welcome in Da Lat's cool evenings",
+            "Large modern rooms",
+            "Good price for the facilities"
+          ],
+          "prosHe": [
+            "בריכה מקורה וספא - נעים בערבים הקרירים של דה לאט",
+            "חדרים גדולים ומודרניים",
+            "מחיר טוב ביחס למתקנים"
+          ],
+          "cons": [
+            "Self-declared 5-star; guests say it falls short",
+            "Big, busy with groups"
+          ],
+          "consHe": [
+            "5 כוכבים בהצהרה עצמית; אורחים אומרים שהוא לא עומד בזה",
+            "גדול ועמוס בקבוצות"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6099,6 +6915,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "10 Phan Bội Châu, Xuân Hương, Đà Lạt, Lâm Đồng",
+          "locNote": "Built onto the steps down to the night market: you walk out straight into Da Lat's evening food scene, and the lake is 5 minutes away.",
+          "locNoteHe": "בנוי על המדרגות שיורדות לשוק הלילה: יוצאים ישר לסצנת האוכל הערבית של דה לאט, והאגם במרחק 5 דקות.",
+          "pros": [
+            "Zero steps from the night market",
+            "Rooftop restaurant over the town",
+            "Officially rated 4-star"
+          ],
+          "prosHe": [
+            "צמוד לשוק הלילה",
+            "מסעדה על הגג מעל העיר",
+            "4 כוכבים בדירוג רשמי"
+          ],
+          "cons": [
+            "Busy, noisy area at night",
+            "No pool"
+          ],
+          "consHe": [
+            "אזור עמוס ורועש בלילה",
+            "אין בריכה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6130,6 +6966,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Khu chức năng 7.9, Hồ Tuyền Lâm, Đà Lạt, Lâm Đồng",
+          "locNote": "Out of town on Tuyen Lam Lake, about 6 km from the centre: quiet and green, but every meal or sight in town means a taxi.",
+          "locNoteHe": "מחוץ לעיר על אגם טוין לאם, כ-6 ק\"מ מהמרכז: שקט וירוק, אבל כל ארוחה או אתר בעיר דורשים מונית.",
+          "pros": [
+            "Lakeside resort setting",
+            "Close to 3-star prices",
+            "Bikes and golf next door"
+          ],
+          "prosHe": [
+            "סביבת ריזורט על האגם",
+            "מחירים קרובים ל-3 כוכבים",
+            "אופניים וגולף בסמוך"
+          ],
+          "cons": [
+            "6 km from the centre",
+            "Little to walk to in the evening"
+          ],
+          "consHe": [
+            "6 ק\"מ מהמרכז",
+            "כמעט אין לאן ללכת ברגל בערב"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6214,9 +7070,9 @@ const POI_DATA = {
           "areaHe": "רחוב הויין תוק קאנג",
           "whatHe": "מבנה סוריאליסטי בצורת עץ באניאן ענק, בתכנון האדריכלית דאנג ויאט נגה, עם מדרגות במנהרות, חדרים בצורת פטריות וכמעט בלי קו ישר אחד.",
           "whyHe": "לא דומה לשום דבר אחר שנבנה בוויאטנם, ובמרחק הליכה ממרכז העיר",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 4.0,
+          "priceHigh": 5.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6244,9 +7100,9 @@ const POI_DATA = {
           "areaHe": "לאק דואונג, כ-12 קילומטר מצפון לעיר",
           "whatHe": "הר דו-פסגתי בגובה 2,167 מטר, שמגיעים אליו במסלול ג'יפים משובש באורך 4.5 קילומטר מהבסיס, ומהפסגה נשקף נוף פנורמי על יערות האורן והעמקים של דה לאט.",
           "whyHe": "נקודת התצפית הטובה ביותר על כל רמת דה לאט, וטיול חצי יום קל",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 2.0,
+          "priceHigh": 7.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6272,7 +7128,7 @@ const POI_DATA = {
           "areaHe": "מרכז העיר",
           "whatHe": "אגם מלאכותי בשטח 40 הקטאר שבנו המתיישבים הצרפתים ב-1919 במרכז דה לאט, מוקף שביל הליכה, עצי אורן ומגרש הגולף הישן.",
           "whyHe": "דה לאט מסודרת סביב האגם הזה בדיוק כפי שהאנוי מסודרת סביב הואן קיים",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -6302,9 +7158,9 @@ const POI_DATA = {
           "areaHe": "7 קילומטר מדרום לעיר",
           "whatHe": "ירידה מודרכת דרך ערוץ מפל דאטנלה ממחנה בסיס שליד המפל: גלישה בחבלים במורד צוקים ומפל בגובה 30 מטר, אומגה, מגלשת מים ונקיק סלע צר שמכונה מכונת הכביסה.",
           "whyHe": "טענת ספורט ההרפתקה האמיתית של דה לאט, ואחת ממעט פעילויות קניונינג בכל ויאטנם",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 55.0,
+          "priceHigh": 80.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6330,9 +7186,9 @@ const POI_DATA = {
           "areaHe": "מפל דאטנלה, 7 קילומטר מדרום לעיר",
           "whatHe": "מסלול מזחלת כבידה באורך 2,400 מטר דרך יער אורנים במורד אל המפל, עם בלם יד כך שכל רוכב שולט במהירות שלו.",
           "whyHe": "רכבת ההרים האלפינית הארוכה באסיה, ואפשרות אדרנלין עדינה יותר מהקניונינג שלידה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 6.0,
+          "priceHigh": 10.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6358,9 +7214,9 @@ const POI_DATA = {
           "areaHe": "אגם טוין לאם, מדרום לעיר",
           "whatHe": "חתירה בקיאק או על סאפ על פני מימי אגם טוין לאם המוקפים אורנים, בדרך כלל בשילוב עצירה במנהרת החימר — פיסול חימר פתוח שעוברים דרכו ברגל, ליד מנזר טרוק לאם.",
           "whyHe": "המקבילה השקטה ונטולת הצפיפות לשוק הלילה. טבע ואמנות עממית ביציאה אחת",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 30.0,
+          "priceHigh": 50.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6386,9 +7242,9 @@ const POI_DATA = {
           "areaHe": "ברחבי העיר, יוצא מהמרכז",
           "whatHe": "יום שלם ברכיבה מאחורי מדריך מקומי על אופנוע, דרך חוות הפרחים של דה לאט, מפעל משי, מטע קפה חמוס ונקודות תצפית בדרכי עפר שרוב אוטובוסי התיירים לא מגיעים אליהן.",
           "whyHe": "ההמלצה המוסכמת של שתי הצעות הסוכנות שחקרו את הרגל הזו, והדרך הסטנדרטית לראות את דה לאט הכפרית",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 50.0,
+          "priceHigh": 80.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6594,9 +7450,9 @@ const POI_DATA = {
           "areaHe": "מרכז העיר דה לאט",
           "whatHe": "הסניף הדה-לאטי של רשת ספא ויאטנמית, שמריצה טיפולי גוף מלאים במסגרת של מלון ולא של חלון ראווה.",
           "whyHe": "דה לאט היא התחנה שבה נוחתים הקניונינג ויום האופנועים, וזה המקום היחיד בעיר שמקבל ביקורות עקביות כספא אמיתי ולא כשפשוף רגליים זריז",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 20.0,
+          "priceHigh": 40.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6692,6 +7548,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "180-188 Lý Tự Trọng, Bến Thành, Quận 1, TP. Hồ Chí Minh",
+          "locNote": "On Ly Tu Trong, two minutes' walk from Ben Thanh Market, in the middle of District 1's shopping and dining.",
+          "locNoteHe": "ברחוב לי טו טרונג, שתי דקות הליכה משוק בן טאן, באמצע הקניות והמסעדות של מחוז 1.",
+          "pros": [
+            "Rooftop pool over the skyline",
+            "Closest to Ben Thanh",
+            "Top-rated boutique 5-star"
+          ],
+          "prosHe": [
+            "בריכה על הגג מעל קו הרקיע",
+            "הקרוב ביותר לבן טאן",
+            "5 כוכבים בוטיק המדורג ביותר"
+          ],
+          "cons": [
+            "Expensive",
+            "Busy, loud streets around"
+          ],
+          "consHe": [
+            "יקר",
+            "רחובות עמוסים ורועשים מסביב"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6723,6 +7599,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "76-78 Nguyễn Thị Minh Khai, Quận 3, TP. Hồ Chí Minh",
+          "locNote": "On Nguyen Thi Minh Khai in District 3, a short walk to Notre-Dame Cathedral, the post office and the War Remnants Museum.",
+          "locNoteHe": "ברחוב נגוין טי מין קאי במחוז 3, הליכה קצרה לקתדרלת נוטרדאם, לדואר ולמוזיאון שרידי המלחמה.",
+          "pros": [
+            "Art-deco design, rooftop infinity pool",
+            "Accor MGallery standard",
+            "Walk to the colonial sights"
+          ],
+          "prosHe": [
+            "עיצוב ארט דקו, בריכת אינפיניטי על הגג",
+            "סטנדרט Accor MGallery",
+            "הליכה לאתרים הקולוניאליים"
+          ],
+          "cons": [
+            "Very expensive at the top end",
+            "10-15 minutes to Ben Thanh"
+          ],
+          "consHe": [
+            "יקר מאוד בקצה העליון",
+            "10-15 דקות לבן טאן"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6754,6 +7650,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "17 Tôn Đức Thắng, Bến Nghé, Quận 1, TP. Hồ Chí Minh",
+          "locNote": "On Ton Duc Thang a few blocks from the Saigon River and Nguyen Hue walking street - central and walkable.",
+          "locNoteHe": "ברחוב טון דוק טאנג, כמה רחובות מנהר סייגון ומרחוב ההולכים נגוין הואה - מרכזי ובמרחק הליכה.",
+          "pros": [
+            "Rooftop pool",
+            "Half the price of the 5-stars",
+            "Near the river and walking street"
+          ],
+          "prosHe": [
+            "בריכה על הגג",
+            "חצי ממחיר ה-5 כוכבים",
+            "ליד הנהר ורחוב ההולכים"
+          ],
+          "cons": [
+            "Mid-scale chain feel",
+            "River view costs extra"
+          ],
+          "consHe": [
+            "אווירה של רשת בינונית",
+            "נוף לנהר בתוספת"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6785,6 +7701,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "48-50 Thủ Khoa Huân, Bến Thành, Quận 1, TP. Hồ Chí Minh",
+          "locNote": "On Thu Khoa Huan, a few minutes' walk from Ben Thanh Market in central District 1.",
+          "locNoteHe": "ברחוב טו קואה הואן, כמה דקות הליכה משוק בן טאן במרכז מחוז 1.",
+          "pros": [
+            "Cheapest 4-star in the pool",
+            "Walk to Ben Thanh",
+            "Rooftop terrace"
+          ],
+          "prosHe": [
+            "ה-4 כוכבים הזול ביותר במאגר",
+            "הליכה לבן טאן",
+            "מרפסת גג"
+          ],
+          "cons": [
+            "Self-classified 4-star",
+            "Small rooms, no pool"
+          ],
+          "consHe": [
+            "4 כוכבים בסיווג עצמי",
+            "חדרים קטנים, אין בריכה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -6869,9 +7805,9 @@ const POI_DATA = {
           "areaHe": "מחוז 1",
           "whatHe": "מבנה ממשלתי מודרניסטי משנות ה-60 שטנק צפון-ויאטנמי פרץ דרך שעריו ב-30 באפריל 1975. חדרי המלחמה, חדר הרדיו ומגורי הנשיא משומרים כפי שהיו באותו יום.",
           "whyHe": "המקום הפיזי היחיד שבו סיום מלחמת ויאטנם משומר במקומו, ולא רק מתואר",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 3.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6898,7 +7834,7 @@ const POI_DATA = {
           "areaHe": "מחוז 1",
           "whatHe": "קתדרלת לבנים אדומות עם שני מגדלים, שבנו המתיישבים הצרפתים בשנות ה-80 של המאה ה-19 מלבנים שיובאו ממרסיי. בשיפוץ בפיגומים מאז יולי 2017; יעד 2027 נדחה מאז עוד, ופיגומים וגדרות עדיין מגבילים את הגישה. הכיכר שלפניה פתוחה והמיסה עדיין נערכת. שני צלבים מצופי זהב הוחזרו למגדלים במרץ 2026.",
           "whyHe": "האתר הקולוניאלי המוכר ביותר בעיר — אבל לצפות לבניין עטוף פיגומים ולא לגלויה. הכיכר ובניין הדואר המרכזי שלצידה הם הסיבה לעמוד שם",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -6927,9 +7863,9 @@ const POI_DATA = {
           "areaHe": "מחוז קו צ'י, כשעה וחצי ממרכז סייגון",
           "whatHe": "מקטע משומר מרשת מנהרות תת-קרקעית באורך למעלה מ-120 קילומטר שנחפרה ביד ושימשה את לוחמי הוייטקונג, עם קטעי זחילה שהורחבו, כניסות דלת-מלכודת מוסתרות וחדרים תת-קרקעיים משוחזרים.",
           "whyHe": "טיול חצי היום המזוהה של סייגון, ואחד המקומות המעטים בוויאטנם שנכנסים בהם פיזית אל תוך המלחמה במקום רק לקרוא עליה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 5.0,
+          "priceHigh": 35.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -6956,9 +7892,9 @@ const POI_DATA = {
           "areaHe": "מחוז 3",
           "whatHe": "מוזיאון בן שלוש קומות ובו למעלה מ-20,000 פריטים, תצלומים וציוד צבאי בתשע תערוכות קבע על מלחמת ויאטנם ותוצאותיה, כולל חצר חיצונית של טנקים ומטוסים אמריקניים שנתפסו.",
           "whyHe": "התיאור הישיר והבלתי מסונן ביותר של המלחמה מהצד הוויאטנמי, ומדורג דרך קבע כמוזיאון המוביל בעיר",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 2.0,
+          "priceHigh": 2.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -7093,9 +8029,9 @@ const POI_DATA = {
           "area": "Tan Dinh ward (former Da Kao, District 1), 25 Hoang Sa",
           "what": "A southern pho counter, sweeter and more herb-heavy than the Hanoi version, served with the plate of bean sprouts, basil and lime that the north leaves off.",
           "why": "Eating this after Hanoi's pho is the fastest way to taste how far apart the two halves of the country actually are",
-          "lat": null,
-          "lng": null,
-          "approx": false,
+          "lat": 10.7959661,
+          "lng": 106.6239021,
+          "approx": true,
           "sources": [
             "https://guide.michelin.com/us/en/ho-chi-minh/restaurants/bib-gourmand",
             "https://www.tripadvisor.com/Restaurants-g293925-Ho_Chi_Minh_City.html"
@@ -7463,9 +8399,9 @@ const POI_DATA = {
           "areaHe": "האי בא טרונג, מחוז 1",
           "whatHe": "ספא עצמאי עם בית ספר הכשרה משלו, מתחם סאונה שכולל חדרי אינפרא-אדום, מלח הימלאיה ושלג, וטיפולים ברמה של ספא מלון.",
           "whyHe": "מדורג ראשון בין הספא של העיר, וכל הצוות עובר דרך בית הספר שלו — ולכן השירות עקבי ולא הגרלה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 22.0,
+          "priceHigh": 40.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -7490,9 +8426,9 @@ const POI_DATA = {
           "areaHe": "מחוז 1",
           "whatHe": "ספא שהמטפלים בו עיוורים, ועובדים באור עמום או בחשכה חושית מלאה, ובסוף תה ופאנה קוטה. פרויקט אחות של מסעדת נואר.",
           "whyHe": "לא גימיק אלא חוש מגע אחר לגמרי, ומהדברים שנשארים איתך יותר מהעיסוי עצמו",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_hour",
+          "priceLow": 18.0,
+          "priceHigh": 30.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -7645,6 +8581,26 @@ const POI_DATA = {
           "video": null,
           "addrVi": "209 Đường 30 Tháng 4, Ninh Kiều, Cần Thơ",
           "nameVi": "Sheraton Cần Thơ",
+          "locNote": "On the Can Tho riverfront near Ninh Kieu Pier and the night market - early boats to Cai Rang floating market leave from right outside.",
+          "locNoteHe": "על טיילת הנהר בקאן טו ליד רציף נין קיאו ושוק הלילה - הסירות המוקדמות לשוק הצף קאי ראנג יוצאות ממש מחוץ למלון.",
+          "pros": [
+            "Only international-chain 5-star in the delta",
+            "Walk to the pier and night market",
+            "River views from the tower"
+          ],
+          "prosHe": [
+            "ה-5 כוכבים הבינלאומי היחיד בדלתא",
+            "הליכה לרציף ולשוק הלילה",
+            "נוף לנהר מהמגדל"
+          ],
+          "cons": [
+            "Big conference-style hotel",
+            "Busy road in front"
+          ],
+          "consHe": [
+            "מלון גדול בסגנון כנסים",
+            "כביש עמוס בחזית"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -7676,6 +8632,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Khu E1, Cồn Cái Khế, Ninh Kiều, Cần Thơ",
+          "locNote": "On Cai Khe islet across a short bridge from central Ninh Kieu - quiet, river views, a short taxi to the pier.",
+          "locNoteHe": "על האי קאי קה, גשר קצר ממרכז נין קיאו - שקט, נוף לנהר, נסיעה קצרה במונית לרציף.",
+          "pros": [
+            "Cheapest 5-star-branded option",
+            "Rooftop bar and pool over the river",
+            "Quiet islet"
+          ],
+          "prosHe": [
+            "האפשרות הזולה ביותר במיתוג 5 כוכבים",
+            "בר ובריכה על הגג מעל הנהר",
+            "אי שקט"
+          ],
+          "cons": [
+            "Rooms feel dated",
+            "Not walkable to the night market"
+          ],
+          "consHe": [
+            "חדרים מיושנים",
+            "לא במרחק הליכה לשוק הלילה"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -7708,6 +8684,26 @@ const POI_DATA = {
           "video": null,
           "addrVi": "Cái Khế, Ninh Kiều, Cần Thơ",
           "nameVi": "Victoria Cần Thơ Resort",
+          "locNote": "Riverside on Cai Khe, a short ride from Ninh Kieu - a colonial resort with its own boats to the floating market.",
+          "locNoteHe": "על הנהר בקאי קה, נסיעה קצרה מנין קיאו - ריזורט קולוניאלי עם סירות משלו לשוק הצף.",
+          "pros": [
+            "Own daily boat trips to the floating market",
+            "Riverside pool",
+            "Most-praised resort in the delta"
+          ],
+          "prosHe": [
+            "סירות יומיות משלו לשוק הצף",
+            "בריכה על הנהר",
+            "הריזורט המשובח ביותר בדלתא"
+          ],
+          "cons": [
+            "Taxi into town for dinner",
+            "Older property"
+          ],
+          "consHe": [
+            "מונית לעיר לארוחת ערב",
+            "מקום ותיק"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -7739,6 +8735,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Cầu Ba Láng, Cái Răng, Cần Thơ",
+          "locNote": "Out of town on the Ba Lang River in Cai Rang, close to the floating market but 20 minutes from the city centre.",
+          "locNoteHe": "מחוץ לעיר על נהר בה לאנג בקאי ראנג, קרוב לשוק הצף אבל 20 דקות ממרכז העיר.",
+          "pros": [
+            "Thatched eco-resort on the river",
+            "Close to Cai Rang floating market",
+            "Pool and garden"
+          ],
+          "prosHe": [
+            "אקו-ריזורט בבתי קש על הנהר",
+            "קרוב לשוק הצף קאי ראנג",
+            "בריכה וגן"
+          ],
+          "cons": [
+            "Far from town and restaurants",
+            "Rustic - mosquitoes and humidity"
+          ],
+          "consHe": [
+            "רחוק מהעיר ומהמסעדות",
+            "כפרי - יתושים ולחות"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -7824,9 +8840,9 @@ const POI_DATA = {
           "areaHe": "קאי ראנג, כ-6 קילומטר מדרום-מערב למרכז קאן טו",
           "whatHe": "שוק נהר שבו סירות המסחר תולות דוגמה מסחורתן על מוט גבוה כדי שקונים יזהו אותן מהמים. הוא מצטמק במהירות — כ-400 סירות בשיא שנות ה-90, כ-200 רשומות היום, ודיווחים על 40 בלבד שסוחרות בפועל בבוקר טוב, אחרי שהכבישים החליפו את הנהר. סירות התיירים כבר רבות מהסוחרות. פועל מלפני הזריחה, וכשוק סיטונאי נגמר עד אמצע הבוקר.",
           "whyHe": "עדיין השוק הצף הגדול ביותר שנותר בדלתה, אבל ללכת אליו לפי מה שהוא היום ולא לפי התצלומים — ורק עם שחר. במהלך 2026 דווחו נגישה אגרסיבית והפקעת מחירים. פונג דיין, במעלה הזרם, יושב על תעלה צרה מדי לסירות התיירים הגדולות ושומר על מסחר אמיתי יותר",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 10.0,
+          "priceHigh": 20.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -7855,9 +8871,9 @@ const POI_DATA = {
           "areaHe": "מיי טו (היום מחוז דונג טאפ) ובן טרה (היום מחוז וין לונג), צפון דלתת המקונג",
           "whatHe": "מעגל איי נהר שמגיעים אליו בסירת מנוע ובסמפן — סירת עץ קטנה שמשייט בה שייט בכובע חרוטי — בתעלות צרות, עם עצירה בבית מלאכה קטן שבו חלב קוקוס מבושל ביד ונחתך לממתק בעודו חם.",
           "whyHe": "החלופה הקלאסית והעדינה יותר לקאן טו לביקור מקונג של יום אחד, והדרך הסטנדרטית לראות ייצור ממתקי קוקוס בעבודת יד",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 20.0,
+          "priceHigh": 45.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -7882,7 +8898,7 @@ const POI_DATA = {
           "areaHe": "מיי טו",
           "whatHe": "פגודה בודהיסטית מהמאה ה-19 שמוכרת כשריד היסטורי לאומי, ומשלבת סגנונות אדריכליים ויאטנמיים, חמריים וצרפתיים, עם פסל בודהה שוכב גדול בשטחה.",
           "whyHe": "המקדש המובחן ביותר אדריכלית בדלתה, שמערבב שלוש מסורות בנייה במתחם אחד",
-          "priceUnit": null,
+          "priceUnit": "free",
           "priceLow": null,
           "priceHigh": null,
           "avoid": false,
@@ -8045,6 +9061,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Đường tỉnh 975B, Gành Dầu, Phú Quốc, An Giang",
+          "locNote": "Despite the name it is on Bai Dai in the far north-west, about 45 minutes from the airport and far from Duong Dong's night market.",
+          "locNoteHe": "למרות השם הוא בבאי דאי בצפון-מערב הרחוק, כ-45 דקות משדה התעופה ורחוק משוק הלילה של דואונג דונג.",
+          "pros": [
+            "Beachfront on a quiet beach",
+            "International-chain 5-star",
+            "Several pools and restaurants"
+          ],
+          "prosHe": [
+            "על החוף בחוף שקט",
+            "5 כוכבים של רשת בינלאומית",
+            "כמה בריכות ומסעדות"
+          ],
+          "cons": [
+            "Isolated - 45 minutes from town",
+            "Not on Long Beach"
+          ],
+          "consHe": [
+            "מבודד - 45 דקות מהעיר",
+            "לא בלונג ביץ'"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -8076,6 +9112,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Trần Hưng Đạo, Cửa Lấp, Dương Tơ, Phú Quốc, An Giang",
+          "locNote": "In Cua Lap, three minutes' walk to Long Beach and about 10-15 minutes by car to Duong Dong town and the night market.",
+          "locNoteHe": "בקואה לאפ, שלוש דקות הליכה ללונג ביץ' וכ-10-15 דקות ברכב לעיר דואונג דונג ולשוק הלילה.",
+          "pros": [
+            "Close to Long Beach",
+            "Pool, kids' club, free shuttle",
+            "Top-rated hotel in its ward"
+          ],
+          "prosHe": [
+            "קרוב ללונג ביץ'",
+            "בריכה, מועדון ילדים, הסעה חינם",
+            "המלון המדורג ביותר באזורו"
+          ],
+          "cons": [
+            "Not directly on the sand",
+            "Star rating 4 or 5 depending on source"
+          ],
+          "consHe": [
+            "לא ישירות על החול",
+            "דירוג 4 או 5 לפי המקור"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -8107,6 +9163,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Trần Hưng Đạo, Dương Đông, Phú Quốc, An Giang",
+          "locNote": "In Duong Dong on its own small beach - walkable or a short ride to the night market and town restaurants.",
+          "locNoteHe": "בדואונג דונג על חוף קטן משלו - הליכה או נסיעה קצרה לשוק הלילה ולמסעדות העיר.",
+          "pros": [
+            "Private beach",
+            "9.4-9.5 guest score",
+            "Low-rise garden design"
+          ],
+          "prosHe": [
+            "חוף פרטי",
+            "ציון אורחים 9.4-9.5",
+            "עיצוב נמוך עם גנים"
+          ],
+          "cons": [
+            "Small resort, limited dining",
+            "Rustic style is not for everyone"
+          ],
+          "consHe": [
+            "ריזורט קטן, מעט אפשרויות אוכל",
+            "הסגנון הכפרי לא מתאים לכולם"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -8138,6 +9214,26 @@ const POI_DATA = {
           "signal": null,
           "video": null,
           "addrVi": "Trần Hưng Đạo, Dương Đông, Phú Quốc, An Giang",
+          "locNote": "In Duong Dong, 100 m from the beach and close to the night market - the most convenient base for eating out.",
+          "locNoteHe": "בדואונג דונג, 100 מ' מהחוף וקרוב לשוק הלילה - הבסיס הכי נוח לאכול בחוץ.",
+          "pros": [
+            "100 m from the beach",
+            "Near the night market",
+            "Low price for an official 4-star"
+          ],
+          "prosHe": [
+            "100 מ' מהחוף",
+            "קרוב לשוק הלילה",
+            "מחיר נמוך ל-4 כוכבים רשמי"
+          ],
+          "cons": [
+            "Town hotel, not a resort",
+            "Street noise"
+          ],
+          "consHe": [
+            "מלון עירוני, לא ריזורט",
+            "רעש רחוב"
+          ],
           "weather": "low",
           "limiter": "rain"
         },
@@ -8216,16 +9312,18 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://blog.premierresidencesphuquoc.com/hon-thom-cable-car/",
-            "https://www.vietjetair.com/en/news/travel-guides-1665635013747/hon-thom-phu-quoc-cable-car-review-the-worlds-longest-sea-crossing-cable-car-1768878737803"
+            "https://www.vietjetair.com/en/news/travel-guides-1665635013747/hon-thom-phu-quoc-cable-car-review-the-worlds-longest-sea-crossing-cable-car-1768878737803",
+            "https://visitphuquoc.com.vn/en/sun-world-hon-thom-2026-ticket-update-ride-the-worlds-longest-cable-car-what-to-play-for-a-blast-8467"
           ],
           "tier": null,
           "nameHe": "הרכבל להון תום",
           "areaHe": "אן תוי, דרום פו קוק",
           "whatHe": "קו רכבל תלת-כבלי שנמתח כמעט 8 קילומטר מחוף אן תוי מעל ים פתוח אל האי הון תום, בתאים ל-30 נוסעים ובנסיעה של רבע שעה, מעל שני איים קטנים יותר בדרך.",
           "whyHe": "שיא גינס לרכבל תלת-כבלי חוצה-ים הארוך בעולם, והדרך שבה רוב המבקרים מגיעים לפארק סאן וורלד שבהון תום",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 27.0,
+          "priceHigh": 33.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8255,9 +9353,9 @@ const POI_DATA = {
           "areaHe": "באי דאי, צפון-מערב פו קוק",
           "whatHe": "פארק שימור החי הגדול בוויאטנם, ובו כ-4,500 בעלי חיים מ-200 מינים, כולל טיגריסים בנגליים, אריות אפריקניים, ג'ירפות וקרנפים לבנים, לצפייה מאזור נסיעה בסגנון ספארי ומאזורי הליכה.",
           "whyHe": "פארק החי הגדול במדינה, ואפשרות ליום שלם שאינה דורשת חוף או סירה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "entry",
+          "priceLow": 25.0,
+          "priceHigh": 30.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8474,9 +9572,9 @@ const POI_DATA = {
           "areaHe": "דרום פו קוק, יוצאים מהעיירה אן תוי",
           "whatHe": "שנים-עשר איים מול הקצה הדרומי, עם כשבעה-עשר אתרי צלילה נקובים בשם. השונית בנויה בשתי שכבות — אלמוג קשה במים הרדודים, אלמוג רך מתחת לכשבעה מטרים — והחיים שם קטנים ולא גדולים: דגי שונית, נודיברנכים, דיונונים, סרטנים. העומק הממוצע בין האתרים הוא כשמונה מטרים והעמוק שבהם מגיע ל-35. הסירות עוגנות בדרך כלל במים רדודים ומוגנים, והצוות בוחר את שני אתרי היום לפי מצב הים ולא לפי לוח זמנים.",
           "whyHe": "המקום היחיד במסלול הזה שבו צלילה באמת עובדת בסוף נובמבר. העונה נמשכת מנובמבר עד אפריל, הראות מגיעה ל-15 עד 20 מטר מסוף נובמבר, והמונסון הצפון-מזרחי שסוגר את הצפון והמזרח של האי משאיר את הדרום רגוע",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 75.0,
+          "priceHigh": 110.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8502,9 +9600,9 @@ const POI_DATA = {
           "areaHe": "אן תוי, דרום פו קוק",
           "whatHe": "יציאה בסירת צלילה דו-סיפונית ממרכז הצלילה PADI הוותיק בוויאטנם אל אתרי שונית באיי אן תוי, בקבוצות של עד ארבעה צוללים למדריך, עם ארוחת צהריים מלאה על הסיפון אחרי המסלול הדרומי.",
           "whyHe": "האפשרות לצולל המוסמך של הטיול — מפעילת ה-PADI הוותיקה בוויאטנם, פועלת מאז 1996, ב-65 עד 85 דולר לצלילה, זול מאתרים מקבילים בתאילנד או באינדונזיה. התזמון מדויק — עונת אן תוי נמשכת מנובמבר עד אפריל, הראות מגיעה ל-15 עד 20 מטר מסוף נובמבר, והאתרים הדרומיים בעומק ממוצע של כשמונה מטרים — הרבה בתוך גבול 18 המטרים של Open Water",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 85.0,
+          "priceHigh": 115.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8530,9 +9628,9 @@ const POI_DATA = {
           "areaHe": "ארכיפלג אן תוי, דרום פו קוק",
           "whatHe": "היכרות עם צלילה שאינה דורשת הסמכה, אחד על אחד עם מדריך ששולט בעומק, בכיוון ובציוד. הצוללים אינם יורדים מתחת לשישה מטרים, בשתי צלילות של כ-20 דקות אחרי תדריך ותרגול מיומנויות במים רדודים.",
           "whyHe": "האפשרות למטייל הלא-מוסמך לצלול לצד הצולל המוסמך באותה יציאה, במקום להישאר לשנורקל",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 90.0,
+          "priceHigh": 130.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8558,9 +9656,9 @@ const POI_DATA = {
           "areaHe": "דואונג דונג, פו קוק",
           "whatHe": "מרכז PADI שמפעיל קבוצות קטנות יותר מהמפעילות הגדולות, עם מדריכים מכמה מדינות. מדורג 4.5 מתוך 5 מיותר מ-670 ביקורות, ובמקום השני מתוך שבעים וחמישה סיורים ופעילויות בדואונג דונג.",
           "whyHe": "החלופה למפעילה הגדולה של האי, וזו שמבקרים פונים אליה כשרוצים סירה קטנה ולא מלאה. יותר ביקורות מכל מרכז צלילה אחר כאן, מה שהופך את הדירוג למשמעותי",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 75.0,
+          "priceHigh": 105.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8576,7 +9674,7 @@ const POI_DATA = {
           "why": "The only quoted price in this tab, and it sits inside the normal Phu Quoc range of 90 to 130 USD for two fun dives. John's Tours is a long-running tour agency (office at 143 Tran Hung Dao, Duong Dong; also 0948 222 111 and Zalo) - confirm it runs scuba itself, and ask for the Discover Scuba price. Two agencies already offered An Thoi diving inside their packages, so check you are not buying the same day twice. Do not dive within 18-24 hours of a flight",
           "lat": 10.1942845,
           "lng": 103.9674837,
-          "approx": true,
+          "approx": false,
           "sources": [
             "https://localvietnam.com/phu-quoc/diving-in-phu-quoc/"
           ],
@@ -8616,9 +9714,9 @@ const POI_DATA = {
           "areaHe": "ארכיפלג אן תוי, מתחת לרכבל",
           "whatHe": "שני אתרים נפרדים על אותו אי. נקודת האננס הצפונית מגיעה לכ-18 מטר על קרקעית סלעית שנושאת מושבה גדולה של אלמוגי שוט, עם דיונונים ודגי שונית. נקודת האננס הדרומית צוללת ל-35 מטר והיא הצלילה העמוקה ביותר בפו קוק.",
           "whyHe": "האתר הצפוני הוא הצלילה המשתלמת כאן לצולל Open Water — קרקעית 18 המטרים שלו היא בדיוק גבול ה-Open Water, ולכן כל האתר בטווח. הדרומי לא: 35 מטר דורשים Advanced, ושום ראות טובה לא משנה את זה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 75.0,
+          "priceHigh": 110.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8644,9 +9742,9 @@ const POI_DATA = {
           "areaHe": "ארכיפלג אן תוי, בין החוף לחוות פנינים בלב ים",
           "whatHe": "רוי מזרח יושב בתעלה שבין חוף האי לחוות פנינים, בעומק מקסימלי של כעשרה מטרים. רוי מזרח ורוי דרום הם המים הרגועים ביותר בארכיפלג, עם אלמוגים מגוונים, דיונונים ושרימפס זכוכית.",
           "whyHe": "האתר הנכון לצלילה ראשונה בחיים. עשרה מטרים מקסימום, מים מוגנים וחיים קטנים להסתכל עליהם מקרוב — וזה בדיוק מה שמקום של צלילת היכרות שתקרתה שישה מטרים באמת צריך, ולא עומק שאינו יכול להשתמש בו",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 75.0,
+          "priceHigh": 110.0,
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -8672,9 +9770,9 @@ const POI_DATA = {
           "areaHe": "ארכיפלג אן תוי, האי הקרוב ביותר לעיירה אן תוי",
           "whatHe": "האי הקרוב ביותר לעיירה אן תוי, ולכן נסיעת הסירה הקצרה ביותר בארכיפלג. צוללים מול חופו המערבי מדווחים על רסיסי חרסינה עתיקה פזורים סביב ספינה טרופה.",
           "whyHe": "האתר היחיד כאן שיש בו משהו מלבד שונית להסתכל עליו, והקרוב ביותר לנמל — מה שחשוב ביום שהים מתהפך והסירה צריכה נסיעה קצרה הביתה",
-          "priceUnit": null,
-          "priceLow": null,
-          "priceHigh": null,
+          "priceUnit": "per_person",
+          "priceLow": 75.0,
+          "priceHigh": 110.0,
           "avoid": false,
           "kind": null,
           "isDish": false,

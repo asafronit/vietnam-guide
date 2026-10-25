@@ -284,6 +284,10 @@ var T={
   trDuration:{he:"משך",en:"Duration"},
   trPrice:{he:"מחיר",en:"Price"},
   trPros:{he:"יתרונות",en:"Pros"},
+  locHere:{he:"המיקום בעיני מטייל",en:"The location, for a traveller"},
+  locPros:{he:"חוזקות",en:"Strengths"},
+  locCons:{he:"חולשות",en:"Weaknesses"},
+  recBy:{he:"המלצה שהגיעה מ:",en:"Recommended by:"},
   trCons:{he:"חסרונות",en:"Cons"},
   trTip:{he:"טיפ",en:"Tip"},
   trVerify:{he:"לאמת לפני הזמנה",en:"Check before booking"},
@@ -1757,6 +1761,8 @@ function openDetail(item){
     wb.appendChild(txt("div",null,recWhy(r)));
     bd.appendChild(wb);
   }
+  var lb=locBox(r);
+  if(lb) bd.appendChild(lb);
   var lr=el("ul","linkrow");
   lr.setAttribute("aria-label",t("actions"));
   /* list-style:none גורם ל-WebKit להפסיק להכריז רשימה ולספור פריטים.
@@ -3399,13 +3405,6 @@ function renderStationDetail(st,pane){
   var panel=el("div","cat-panel");
   panel.id="catPanel";
   panel.setAttribute("role","tabpanel");
-  /* aria-hidden: ה-tablist עצמו כבר מכריז "טאב, 3 מתוך 10", ולכן טקסט
-     נוסף הוא כפילות שתישמע פעמיים. ולא aria-live — הכרזת מיקום על
-     מחווה רציפה מציפה את הקורא בדבר שהוא כבר יודע. */
-  var pos=el("div","cat-pos");
-  pos.setAttribute("aria-hidden","true");
-  /* "3 / 10" במכולה RTL מתרנדר "10 / 3". */
-  pos.dir="ltr";
 
   function show(cat){
     catChoice[st.id]=cat;
@@ -3417,12 +3416,6 @@ function renderStationDetail(st,pane){
       b.setAttribute("aria-selected",b.getAttribute("data-cat")===cat?"true":"false");
       b.tabIndex=b.getAttribute("data-cat")===cat?0:-1;
     });
-    /* נגזר מהטאב **הנבחר** ולא ממצב הגלילה: בלי מאזין scroll, ולכן בלי
-       הצפה, ובלי מספר שסותר את מה שקורא המסך מכריז. מצב גלילה היה מראה
-       "3 / 10" בעוד שהנבחר הוא השביעי. */
-    var kids=Array.prototype.slice.call(tabs.children), at=0;
-    kids.forEach(function(b,i){ if(b.getAttribute("data-cat")===cat) at=i+1; });
-    pos.textContent=at+" / "+kids.length;
     panel.removeAttribute("aria-label");
     panel.setAttribute("aria-labelledby","catTab-"+cat);
   }
@@ -3460,7 +3453,6 @@ function renderStationDetail(st,pane){
   var tabsWrap=el("div","cat-tabswrap");
   tabsWrap.appendChild(tabs);
   pane.appendChild(tabsWrap);
-  pane.appendChild(pos);
   pane.appendChild(panel);
   /* הטאב שנבחר, אם הוא עוד קיים בתחנה הזו. החלפת מטבע, נושא או שפה
      קוראת ל-render() שבונה את החלונית מאפס, ועד כה היא החזירה תמיד
@@ -4407,6 +4399,42 @@ function driverBtn(o){
 }
 /* בלוק הכתובת בכרטיס מקום. h3 כמו שאר אחיו בכרטיס; טקסט הממשק מתויג
    בשפת הממשק, כי ה-bd של כרטיס לא-עברי מסומן lang="en". */
+/* 25/10: לכל מלון 4-5 כוכבים — מה המיקום אומר למטייל, חוזקות וחולשות;
+   ולמלון שאסף שלח בעצמו (סרטון, חבר) — מי המליץ. אותו דפוס תוויות+רשימות
+   של כרטיס המעבר: התווית היא <p> עם id והרשימה מקושרת אליה ב-aria-labelledby,
+   כדי שניווט בין רשימות בקורא מסך ישמע "חוזקות"/"חולשות" ולא רק "רשימה". */
+var locSeq=0;
+function locBox(r){
+  var nt=heField(r,"locNote")||r.locNote, hasNote=!!nt, hasPts=!!((r.pros||[]).length||(r.cons||[]).length);
+  if(!hasNote&&!hasPts&&!r.recommendedBy) return null;
+  /* div ולא section: section עם שם הוא landmark, ובתוך דיאלוג זה רעש;
+     ה-h3 כבר נותן ניווט, כמו בשאר הקופסאות (סקירת נגישות 25/10). */
+  var box=el("div","whybox locbox");
+  var hid="loc-h-"+(locSeq++);
+  var h=el("h3","whybox-h",t("locHere")); h.id=hid; h.lang=isHe()?"he":"en";
+  box.appendChild(h);
+  if(hasNote){
+    var d=el("div",null,nt);
+    if(isHe()&&!r.locNoteHe) en2(d);
+    box.appendChild(d);
+  }
+  function labelled(key,field,cls){
+    var id="loc-"+key+"-"+(locSeq++);
+    var p=el("p","tr-lbl",t(key)); p.id=id; p.lang=isHe()?"he":"en";
+    var ul=trList(r,field); ul.classList.add(cls); ul.setAttribute("aria-labelledby",id);
+    box.appendChild(p); box.appendChild(ul);
+  }
+  if((r.pros||[]).length) labelled("locPros","pros","is-pro");
+  if((r.cons||[]).length) labelled("locCons","cons","is-con");
+  if(r.recommendedBy){
+    var rb=el("p","mt-note loc-rec");
+    rb.appendChild(document.createTextNode(t("recBy")+" "));
+    var who=el("bdi",null,r.recommendedBy); who.lang="en"; who.dir="ltr";
+    rb.appendChild(who);
+    box.appendChild(rb);
+  }
+  return box;
+}
 function addrViBlock(r){
   if(!r.addrVi) return null;
   var ui=isHe()?"he":"en";

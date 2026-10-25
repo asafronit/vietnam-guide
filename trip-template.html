@@ -458,51 +458,25 @@ main:focus,main:focus-visible{outline:none}
    "טאב, 3 מתוך 10" מתוך ה-tablist עצמו, כלומר הוא ידע יותר מהמשתמש
    הרואה. הדהייה והמחוון סוגרים את הפער הזה. */
 .cat-tabswrap{position:relative}
+/* 25/10, אסף: הרצועה הנגללת לצד הייתה "קטנה ולא אינטואיטיבית" — בהאנוי 8
+   מתוך 10 טאבים מחוץ למסך, ומחוון "1 / 10" ודהיית קצה כפיצוי. עכשיו הטאבים
+   נשברים לשורות וכולם גלויים בבת אחת: אין מה לגלות בגלילה, ולכן אין דהייה
+   ואין מחוון. גודל הצ'יפ נגזר מהתוכן, והשורה מתמלאת עד הקצה. */
 .cat-tabs{
-  display:flex;gap:4px;overflow-x:auto;padding:4px 0 10px;margin-top:18px;
-  border-bottom:1px solid var(--line);scrollbar-width:none;
-  /* חצי צ'יפ גלוי בקצה הוא האפורדנס. הצ'יפ החתוך נשאר נגיש במלואו —
-     חיתוך חזותי אינו מקטין את שטח ההקשה. */
-  scroll-padding-inline-end:2.25rem;
-}
-.cat-tabs::-webkit-scrollbar{display:none}
-/* דהיית הקצה היא קישוט: היא רומזת שיש עוד ואינה נושאת מידע, ולכן
-   pseudo-element שאינו בעץ הנגישות הוא הכלי הנכון. והיא יושבת על
-   עוטף חיצוני ולא בתוך ה-tablist — ילד ישיר של role=tablist חייב
-   להיות role=tab, אחרת זו אי-התאמת הורה-ילד ב-ARIA. */
-.cat-tabswrap::after{
-  content:"";position:absolute;pointer-events:none;
-  inset-block:0;inset-inline-end:0;width:2.25rem;
-  background-image:linear-gradient(to left,var(--bg) 20%,transparent 100%);
-}
-/* inset-inline-end מתהפך לבד; ל-linear-gradient צריך כיוון פיזי. */
-html[dir="ltr"] .cat-tabswrap::after{
-  background-image:linear-gradient(to right,var(--bg) 20%,transparent 100%);
-}
-.cat-pos{
-  font-family:var(--f-ui);font-size:.72rem;font-weight:600;
-  color:var(--ink-3);font-variant-numeric:tabular-nums;
-  padding:5px 2px 0;text-align:center;
-}
-/* דהיית קצה יכולה להסתיר טאב שקיבל פוקוס — אותו 2.4.11 ששורה
-   scroll-margin-top על .tile מטפלת בו. focus() גולל את המינימום
-   ומצמיד את הטאב לקצה החתוך, כלומר מתחת לדהייה. */
-.cat-tab{scroll-margin-inline:2.25rem}
-@media (forced-colors:active){
-  /* גרדיאנט CSS מושלך במצב הזה, וה-pseudo נשאר מלבן ברקע Canvas אטום
-     מעל הטאב שבקצה — הקישוט הופך לחוסם תוכן. mask-image דווקא **אינו**
-     מבוטל כאן, ולכן הוא היה ממשיך לחתוך את התווית לשקיפות בלי שום
-     הסבר חזותי; לכן גרדיאנט, ולכן כיבוי מלא. */
-  .cat-tabswrap::after{display:none}
+  display:flex;flex-wrap:wrap;gap:6px;padding:4px 0 12px;margin-top:18px;
+  border-bottom:1px solid var(--line);
 }
 .cat-tab{
-  font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--ink-2);
-  padding:8px 13px;border-radius:var(--r-xs);white-space:nowrap;
-  display:inline-flex;align-items:center;gap:7px;transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
+  font-family:var(--f-ui);font-size:.95rem;font-weight:500;color:var(--ink-2);
+  padding:10px 14px;border-radius:var(--r-xs);white-space:nowrap;flex:1 1 auto;justify-content:center;
+  display:inline-flex;align-items:center;gap:8px;transition:background .13s,color .13s,scale .12s cubic-bezier(.23,1,.32,1);
 }
 @media (hover:hover) and (pointer:fine){.cat-tab:hover{background:var(--surface-2);color:var(--ink)}}
 .cat-tab[aria-selected="true"]{background:var(--ink);color:var(--bg);font-weight:600}
-.cat-tab .n{font-size:.76rem;font-variant-numeric:tabular-nums}
+.cat-tab .n{font-size:.8rem;font-variant-numeric:tabular-nums}
+/* זום 400% (1.4.10): שם ארוך בלי שבירה היה חורג מ-320px. */
+.cat-tab{max-width:100%}
+@media (max-width:20rem){.cat-tab{white-space:normal;text-align:start}}
 .cat-panel{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px}
 
 @media (max-width:900px){
@@ -1461,6 +1435,12 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
   --ink-3:var(--ink-3-tile)}
 .whybox b{color:var(--ink);font-weight:600}
 .whybox div{font-size:1.05rem;font-weight:300;line-height:1.5}
+/* 25/10: אריח המיקום של מלון — אותו אריח של "למה כאן", עם התוויות והרשימות
+   של כרטיס המעבר. הרשימה יורשת את גודל הגוף ולא את 1.05rem/300 של .whybox div. */
+.locbox{display:flex;flex-direction:column;gap:6px}
+.locbox .tr-lbl{margin-top:4px}
+.locbox .tr-points{font-size:.92rem}
+.loc-rec{margin:4px 0 0}
 /* המנה: אריח חציל, הטקסט בצבע האריח. */
 .dishbox{background:var(--tile-dark);color:var(--on-tile-dark);border:var(--edge) solid var(--tile-edge);border-radius:0}
 .dishbox .dish-hd,.dishbox .dish-txt,.dishbox .poi-cred,.dishbox .poi-cred a{color:var(--on-tile-dark)}
@@ -2421,6 +2401,10 @@ var T={
   trDuration:{he:"משך",en:"Duration"},
   trPrice:{he:"מחיר",en:"Price"},
   trPros:{he:"יתרונות",en:"Pros"},
+  locHere:{he:"המיקום בעיני מטייל",en:"The location, for a traveller"},
+  locPros:{he:"חוזקות",en:"Strengths"},
+  locCons:{he:"חולשות",en:"Weaknesses"},
+  recBy:{he:"המלצה שהגיעה מ:",en:"Recommended by:"},
   trCons:{he:"חסרונות",en:"Cons"},
   trTip:{he:"טיפ",en:"Tip"},
   trVerify:{he:"לאמת לפני הזמנה",en:"Check before booking"},
@@ -3894,6 +3878,8 @@ function openDetail(item){
     wb.appendChild(txt("div",null,recWhy(r)));
     bd.appendChild(wb);
   }
+  var lb=locBox(r);
+  if(lb) bd.appendChild(lb);
   var lr=el("ul","linkrow");
   lr.setAttribute("aria-label",t("actions"));
   /* list-style:none גורם ל-WebKit להפסיק להכריז רשימה ולספור פריטים.
@@ -5536,13 +5522,6 @@ function renderStationDetail(st,pane){
   var panel=el("div","cat-panel");
   panel.id="catPanel";
   panel.setAttribute("role","tabpanel");
-  /* aria-hidden: ה-tablist עצמו כבר מכריז "טאב, 3 מתוך 10", ולכן טקסט
-     נוסף הוא כפילות שתישמע פעמיים. ולא aria-live — הכרזת מיקום על
-     מחווה רציפה מציפה את הקורא בדבר שהוא כבר יודע. */
-  var pos=el("div","cat-pos");
-  pos.setAttribute("aria-hidden","true");
-  /* "3 / 10" במכולה RTL מתרנדר "10 / 3". */
-  pos.dir="ltr";
 
   function show(cat){
     catChoice[st.id]=cat;
@@ -5554,12 +5533,6 @@ function renderStationDetail(st,pane){
       b.setAttribute("aria-selected",b.getAttribute("data-cat")===cat?"true":"false");
       b.tabIndex=b.getAttribute("data-cat")===cat?0:-1;
     });
-    /* נגזר מהטאב **הנבחר** ולא ממצב הגלילה: בלי מאזין scroll, ולכן בלי
-       הצפה, ובלי מספר שסותר את מה שקורא המסך מכריז. מצב גלילה היה מראה
-       "3 / 10" בעוד שהנבחר הוא השביעי. */
-    var kids=Array.prototype.slice.call(tabs.children), at=0;
-    kids.forEach(function(b,i){ if(b.getAttribute("data-cat")===cat) at=i+1; });
-    pos.textContent=at+" / "+kids.length;
     panel.removeAttribute("aria-label");
     panel.setAttribute("aria-labelledby","catTab-"+cat);
   }
@@ -5597,7 +5570,6 @@ function renderStationDetail(st,pane){
   var tabsWrap=el("div","cat-tabswrap");
   tabsWrap.appendChild(tabs);
   pane.appendChild(tabsWrap);
-  pane.appendChild(pos);
   pane.appendChild(panel);
   /* הטאב שנבחר, אם הוא עוד קיים בתחנה הזו. החלפת מטבע, נושא או שפה
      קוראת ל-render() שבונה את החלונית מאפס, ועד כה היא החזירה תמיד
@@ -6544,6 +6516,42 @@ function driverBtn(o){
 }
 /* בלוק הכתובת בכרטיס מקום. h3 כמו שאר אחיו בכרטיס; טקסט הממשק מתויג
    בשפת הממשק, כי ה-bd של כרטיס לא-עברי מסומן lang="en". */
+/* 25/10: לכל מלון 4-5 כוכבים — מה המיקום אומר למטייל, חוזקות וחולשות;
+   ולמלון שאסף שלח בעצמו (סרטון, חבר) — מי המליץ. אותו דפוס תוויות+רשימות
+   של כרטיס המעבר: התווית היא <p> עם id והרשימה מקושרת אליה ב-aria-labelledby,
+   כדי שניווט בין רשימות בקורא מסך ישמע "חוזקות"/"חולשות" ולא רק "רשימה". */
+var locSeq=0;
+function locBox(r){
+  var nt=heField(r,"locNote")||r.locNote, hasNote=!!nt, hasPts=!!((r.pros||[]).length||(r.cons||[]).length);
+  if(!hasNote&&!hasPts&&!r.recommendedBy) return null;
+  /* div ולא section: section עם שם הוא landmark, ובתוך דיאלוג זה רעש;
+     ה-h3 כבר נותן ניווט, כמו בשאר הקופסאות (סקירת נגישות 25/10). */
+  var box=el("div","whybox locbox");
+  var hid="loc-h-"+(locSeq++);
+  var h=el("h3","whybox-h",t("locHere")); h.id=hid; h.lang=isHe()?"he":"en";
+  box.appendChild(h);
+  if(hasNote){
+    var d=el("div",null,nt);
+    if(isHe()&&!r.locNoteHe) en2(d);
+    box.appendChild(d);
+  }
+  function labelled(key,field,cls){
+    var id="loc-"+key+"-"+(locSeq++);
+    var p=el("p","tr-lbl",t(key)); p.id=id; p.lang=isHe()?"he":"en";
+    var ul=trList(r,field); ul.classList.add(cls); ul.setAttribute("aria-labelledby",id);
+    box.appendChild(p); box.appendChild(ul);
+  }
+  if((r.pros||[]).length) labelled("locPros","pros","is-pro");
+  if((r.cons||[]).length) labelled("locCons","cons","is-con");
+  if(r.recommendedBy){
+    var rb=el("p","mt-note loc-rec");
+    rb.appendChild(document.createTextNode(t("recBy")+" "));
+    var who=el("bdi",null,r.recommendedBy); who.lang="en"; who.dir="ltr";
+    rb.appendChild(who);
+    box.appendChild(rb);
+  }
+  return box;
+}
 function addrViBlock(r){
   if(!r.addrVi) return null;
   var ui=isHe()?"he":"en";
