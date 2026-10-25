@@ -50,7 +50,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "phone": "+84 886 428 888",
+          "phone": "+84886428888",
           "email": "info.grand@peridothotels.com",
           "website": "https://reservation.peridotgrandhotel.com/hotel/BeHome?hotel_code=4B7272",
           "messenger": "https://m.me/Peridotgrandhotel",
@@ -218,7 +218,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "phone": "+84 968 472 388",
+          "phone": "+84968472388",
           "website": "https://lasinfoniavietnam.com/delrey/booking/",
           "messenger": "https://m.me/lasinfoniadelreyhotel",
           "addrVi": "33-35 Hàng Dầu, Hoàn Kiếm, Hà Nội",
@@ -272,7 +272,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "phone": "+84 24 3927 4666",
+          "phone": "+842439274666",
           "website": "https://amoritaboutiquehotel.com/",
           "messenger": "https://m.me/Amorita-Boutique-Hotel",
           "addrVi": "7 Hàng Dầu, Hoàn Kiếm, Hà Nội",
@@ -306,7 +306,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "phone": "+84 24 3719 1374",
+          "phone": "+842437191374",
           "email": "info@hanoilastoriahotel.com",
           "addrVi": "Phố cổ, gần phố Hàng Mã, Hoàn Kiếm, Hà Nội",
           "addrViPartial": true,
@@ -763,6 +763,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84366473532",
+          "website": "https://langcoduonglam.vn/",
           "weather": "high",
           "limiter": "rain"
         }
@@ -1356,8 +1358,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "whatsapp": "+84 977 903 499",
-          "phone": "+84 866 903 499",
+          "whatsapp": "+84977903499",
+          "phone": "+84866903499",
           "weather": "low",
           "limiter": "rain"
         },
@@ -2667,7 +2669,7 @@ const POI_DATA = {
           "video": null,
           "hours": "Daily, roughly 09:00-18:00 (last entry 17:00); closes in bad weather",
           "hoursHe": "כל יום, בערך 09:00-18:00 (כניסה אחרונה 17:00); נסגר במזג אוויר גרוע",
-          "phone": "+84 862 096 116",
+          "phone": "+84862096116",
           "website": "https://www.banmong.vn/alpine-coaster-funfair",
           "addrVi": "Bản Mòng, Sa Pa, Lào Cai",
           "weather": "high",
@@ -2699,7 +2701,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "phone": "+84 913 885 812",
+          "phone": "+84913885812",
           "addrVi": "Ngõ 66 Violet, Sa Pa, Lào Cai",
           "weather": "high",
           "limiter": "rain"
@@ -2856,6 +2858,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84966577130",
+          "messenger": "https://m.me/relax.massagesp",
           "weather": "low",
           "limiter": "rain"
         }
@@ -2874,7 +2878,7 @@ const POI_DATA = {
     "lng": 107.1839,
     "color": "#3cb44b",
     "counts": {
-      "hotels": 8,
+      "hotels": 9,
       "must_see": 2,
       "attractions": 3,
       "food": 0,
@@ -2900,26 +2904,30 @@ const POI_DATA = {
           "sources": [
             "https://www.halongbaycruises.com.vn/tours/aqua-luxury-cruise.html",
             "https://www.booking.com/hotel/vn/aqua-luxury-cruise.html",
-            "https://www.tripadvisor.com/Attraction_Review-g14776299-d33264304-Reviews-Aqua_Luxury_Cruise-Ha_Long_City_H_Long_Bay_Quang_Ninh_Province.html"
+            "https://www.tripadvisor.com/Attraction_Review-g14776299-d33264304-Reviews-Aqua_Luxury_Cruise-Ha_Long_City_H_Long_Bay_Quang_Ninh_Province.html",
+            "https://www.expedia.com/Ha-Long-Hotels-Aqua-Luxury-Cruise.h123122112.Hotel-Information"
           ],
           "tier": 5,
           "nameHe": "אקווה לוקסרי קרוז",
           "areaHe": "שייט לילה במפרץ הא לונג ולאן הא, יוצא מטואן צ'או",
           "whatHe": "ספינת שייט בת חמישה סיפונים שהושקה בנובמבר 2025, עם 32 תאים, מרפסות, נוף לים ומעלית, בשייט לילה בין עמודי הגיר של המפרץ.",
           "whyHe": "בחירת שייט הלילה של המסלול — הצי החדש ביותר במפרץ, והמסלול המפורט ביותר מבין ההצעות שהושוו: קיאקים, סדנת בישול בשקיעה ועצירה במערת טרונג טראנג",
-          "priceUnit": "per_night",
+          "priceUnit": "per_person",
           "tierOfficial": false,
-          "priceLow": 170,
-          "priceHigh": 400,
-          "priceChecked": "2026-08-16",
+          "priceLow": 250.0,
+          "priceHigh": 320.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84973385888",
+          "email": "dos@aquaoftheseas.com",
+          "website": "https://aqualuxurycruise.com/",
           "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
-          "locNote": "You sleep on the boat in the bay: board at Tuan Chau harbour (about 2.5 hours from Hanoi), so the location is the karst scenery itself.",
-          "locNoteHe": "ישנים על הסירה בתוך המפרץ: העלייה בנמל טואן צ'או (כ-2.5 שעות מהאנוי), כך שהמיקום הוא נוף הצוקים עצמו.",
+          "locNote": "You sleep on the boat in the bay: board at Tuan Chau harbour (about 2.5 hours from Hanoi), so the location is the karst scenery itself. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "ישנים על הסירה בתוך המפרץ: העלייה בנמל טואן צ'או (כ-2.5 שעות מהאנוי), כך שהמיקום הוא נוף הצוקים עצמו. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
           "pros": [
             "Newest ship in the bay (2025), balcony cabins, elevator",
             "Full itinerary: kayaking, cave, cooking class",
@@ -2951,18 +2959,19 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://www.tripadvisor.com/AttractionProductReview-g3737857-d19915585-Dora_Cruise_Luxury_5_Star_in_Halong_Lan_Ha_Bay_2_Days_1_Night-Tuan_Chau_Island_H_.html",
-            "https://www.torntackies.com/dora-cruise-review/"
+            "https://www.torntackies.com/dora-cruise-review/",
+            "https://www.halongbaytours.com/cruise/dora-cruise/2-day-1-night.html"
           ],
           "tier": 5,
           "nameHe": "דורה קרוז",
           "areaHe": "שייט לילה במפרץ הא לונג ולאן הא",
           "whatHe": "ספינת שייט לילה שמשווקת תחת השם Dora Cruise Luxury 5 Star, עם תאים מרווחים, מרפסות עם נוף לים ותפריט ערב קבוע רב-מנתי.",
           "whyHe": "בחירת שייט הלילה החלופית, וההצעה הקבועה לשדרוג מספינה קודמת ומדורגת נמוך יותר באותה משפחת מפעילים",
-          "priceUnit": "per_night",
+          "priceUnit": "per_person",
           "tierOfficial": false,
-          "priceLow": 157,
-          "priceHigh": 265,
-          "priceChecked": "2026-08-16",
+          "priceLow": 150.0,
+          "priceHigh": 210.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -2972,8 +2981,8 @@ const POI_DATA = {
           "phone": "+842439291555",
           "messenger": "https://m.me/100090607041878",
           "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
-          "locNote": "Overnight on the bay from Tuan Chau harbour - you wake up among the karsts, no town nearby.",
-          "locNoteHe": "לילה על המפרץ מנמל טואן צ'או - מתעוררים בין הצוקים, בלי עיר בסביבה.",
+          "locNote": "Overnight on the bay from Tuan Chau harbour - you wake up among the karsts, no town nearby. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "לילה על המפרץ מנמל טואן צ'או - מתעוררים בין הצוקים, בלי עיר בסביבה. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
           "pros": [
             "Spacious balcony cabins",
             "Multi-course set dinner",
@@ -3005,43 +3014,48 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://www.halongbaycruises.com.vn/tours/mon-cheri-cruise-2-days-1-nights.html",
-            "https://www.bestpricetravel.com/halong-bay-cruises/mon-cheri-cruise.html"
+            "https://www.bestpricetravel.com/halong-bay-cruises/mon-cheri-cruise.html",
+            "https://monchericruises.com/mon-cheri-cruises-2-days-1-night.html"
           ],
           "tier": 4,
           "nameHe": "מון שרי קרוז",
           "areaHe": "שייט לילה במפרץ לאן הא",
           "whatHe": "קו שייט של 42 תאים בשתי ספינות, כל תא עם מרפסת פרטית, שמפליג בלאן הא ובהא לונג עם קיאקים, דיג דיונונים בלילה וג'קוזי חיצוני.",
           "whyHe": "מקבל ביקורות טובות באופן עקבי במסלולי לאן הא, ומתומחר מתחת לשתי אפשרויות 5 הכוכבים ברמת תא דומה",
-          "priceUnit": "per_night",
+          "priceUnit": "per_person",
           "tierOfficial": false,
-          "priceLow": 175,
-          "priceHigh": 230,
-          "priceChecked": "2026-08-16",
+          "priceLow": 313.0,
+          "priceHigh": 350.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
           "signal": null,
           "video": null,
+          "whatsapp": "+84981678941",
+          "phone": "+84981678914",
+          "email": "info@monchericruises.com",
+          "website": "https://monchericruises.com/reservation.html",
           "addrVi": "Bến Gót, Cát Hải, Hải Phòng",
-          "locNote": "Sails Lan Ha Bay from Got pier near Cat Ba - quieter waters than central Ha Long, but a longer transfer from Hanoi.",
-          "locNoteHe": "שט במפרץ לאן הא מרציף גוט ליד קאט בא - מים שקטים יותר ממרכז הא לונג, אבל העברה ארוכה יותר מהאנוי.",
+          "locNote": "Boards at Tuan Chau International Terminal (pier 34, about 2.5 hours from Hanoi) and spends the night in Lan Ha Bay, with fewer boats than central Ha Long. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "עולים בנמל טואן צ'או (רציף 34, כ-2.5 שעות מהאנוי) והלילה עובר במפרץ לאן הא, עם פחות סירות ממרכז הא לונג. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
           "pros": [
             "Every cabin has a balcony",
             "Lan Ha Bay - fewer boats",
-            "Kayaking, squid fishing, jacuzzi"
+            "Kayaking, squid fishing, jacuzzi; entrance fees and 4 meals included"
           ],
           "prosHe": [
             "לכל תא יש מרפסת",
             "מפרץ לאן הא - פחות סירות",
-            "קיאקים, דיג דיונונים, ג'קוזי"
+            "קיאקים, דיג דיונונים, ג'קוזי; דמי כניסה ו-4 ארוחות כלולים"
           ],
           "cons": [
-            "Longer transfer to Got pier",
-            "4-star standard"
+            "Higher price than the other 4-star boat",
+            "Hanoi transfer costs extra"
           ],
           "consHe": [
-            "העברה ארוכה יותר לרציף גוט",
-            "סטנדרט 4 כוכבים"
+            "יקרה מספינת ה-4 כוכבים השנייה",
+            "ההסעה מהאנוי בתוספת תשלום"
           ],
           "weather": "low",
           "limiter": "rain"
@@ -3056,18 +3070,19 @@ const POI_DATA = {
           "approx": false,
           "sources": [
             "https://www.tripadvisor.com/Attraction_Review-g293923-d24105240-Reviews-La_Pandora_cruise-H_Long_Bay_Quang_Ninh_Province.html",
-            "https://www.agoda.com/la-pandora-cruise/hotel/halong-vn.html"
+            "https://www.agoda.com/la-pandora-cruise/hotel/halong-vn.html",
+            "https://www.halongbaytours.com/cruise/la-pandora-cruise/2-day-1-night.html"
           ],
           "tier": 4,
           "nameHe": "לה פנדורה קרוז",
           "areaHe": "שייט לילה במפרץ הא לונג",
           "whatHe": "ספינה באורך 52 מטר עם תאי מרפסת, שמפליגה במסלול לילה סטנדרטי במפרץ הא לונג עם עצירות במערות ובנקודות תצפית.",
           "whyHe": "מדורגת 4 כוכבים סטנדרטיים ואמינים לפי הצלבה עצמאית, ולא לפי שיווק הכוכבים המנופח שרווח במסלול הזה",
-          "priceUnit": "per_night",
+          "priceUnit": "per_person",
           "tierOfficial": true,
-          "priceLow": 116,
-          "priceHigh": 200,
-          "priceChecked": "2026-08-16",
+          "priceLow": 145.0,
+          "priceHigh": 175.0,
+          "priceChecked": "2026-10-25",
           "avoid": false,
           "kind": null,
           "isDish": false,
@@ -3079,8 +3094,8 @@ const POI_DATA = {
           "website": "https://lapandoracruises.com/",
           "messenger": "https://m.me/lapandoracruises",
           "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
-          "locNote": "Standard Ha Long Bay overnight from Tuan Chau - the classic route with cave and viewpoint stops.",
-          "locNoteHe": "לילה סטנדרטי בהא לונג מטואן צ'או - המסלול הקלאסי עם עצירות במערה ובתצפית.",
+          "locNote": "Standard Ha Long Bay overnight from Tuan Chau - the classic route with cave and viewpoint stops. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "לילה סטנדרטי בהא לונג מטואן צ'או - המסלול הקלאסי עם עצירות במערה ובתצפית. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
           "pros": [
             "Dependable 4-star",
             "Balcony cabins",
@@ -3269,6 +3284,62 @@ const POI_DATA = {
           ],
           "weather": "low",
           "limiter": "rain"
+        },
+        {
+          "name": "Capella Cruise",
+          "area": "Ha Long Bay and Lan Ha Bay overnight cruise, departing Pier 20B, Tuan Chau International Port",
+          "what": "A 30-cabin boutique cruise launched in 2020, every cabin with a private balcony and floor-to-ceiling windows; the overnight route crosses into quieter Lan Ha Bay.",
+          "why": "Covers both Ha Long and the less crowded Lan Ha Bay in one night, with a 4.4/5 traveller score - sent in by the traveller",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.capellacruise.com/",
+            "https://www.klook.com/activity/27709-halong-bay-lan-ha-luxury-sightseeing-cruise-tour-hanoi/",
+            "https://theabroadguide.com/capella-halong-bay-6-star-cruise2d1n-ultimate-lan-ha-bay-journey/"
+          ],
+          "tier": 5,
+          "nameHe": "קפלה קרוז",
+          "areaHe": "שייט לילה במפרץ הא לונג ובמפרץ לאן הא, יוצא מרציף 20B בנמל הבינלאומי טואן צ'או",
+          "whatHe": "שייט בוטיק של 30 תאים שהושק ב-2020, לכל תא מרפסת פרטית וחלונות מהרצפה עד התקרה; מסלול הלילה חוצה אל מפרץ לאן הא השקט יותר.",
+          "whyHe": "מכסה בלילה אחד גם את הא לונג וגם את מפרץ לאן הא הפחות עמוס, עם ציון 4.4/5 מנוסעים - הומלץ על ידי המטייל",
+          "priceUnit": "per_person",
+          "tierOfficial": false,
+          "priceLow": 245.0,
+          "priceHigh": 380.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "phone": "+842473073886",
+          "email": "info@capellacruise.com",
+          "website": "https://www.capellacruise.com/2-day-1-night-itinerary/",
+          "addrVi": "Bến 20B, Cảng quốc tế Tuần Châu, Hạ Long, Quảng Ninh",
+          "recommendedBy": "capellacruise.com",
+          "locNote": "You sleep on the boat: board at Tuan Chau (about 2.5 hours from Hanoi); the night is spent among the karsts, moving into Lan Ha Bay. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "ישנים על הסירה: עולים בטואן צ'או (כ-2.5 שעות מהאנוי); הלילה עובר בין הצוקים, עם מעבר למפרץ לאן הא. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
+          "pros": [
+            "Every cabin has a balcony",
+            "Ha Long and quieter Lan Ha Bay in one night",
+            "Kayaking, bamboo boat into Dark & Bright Cave, cooking demo"
+          ],
+          "prosHe": [
+            "לכל תא יש מרפסת",
+            "הא לונג ומפרץ לאן הא השקט בלילה אחד",
+            "קיאקים, סירת במבוק למערה החשוכה והמוארת, הדגמת בישול"
+          ],
+          "cons": [
+            "Official price is per cabin for two (from $490); site does not say what is included",
+            "Transfer from Hanoi not clearly included - ask"
+          ],
+          "consHe": [
+            "המחיר הרשמי לתא לשניים (מ-490$); האתר לא מפרט מה כלול",
+            "ההסעה מהאנוי לא ברור שכלולה - לשאול"
+          ],
+          "weather": "low",
+          "limiter": "rain"
         }
       ],
       "must_see": [
@@ -3354,6 +3425,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84347645000",
           "weather": "high",
           "limiter": "sea"
         },
@@ -3415,7 +3487,7 @@ const POI_DATA = {
           "video": null,
           "hours": "Dinner + show 18:00-20:00, lunch + show 11:15-13:15; show + drink 09:00 and 15:00. Weekend (Fri-Sun) costs more. Transport not included",
           "hoursHe": "ארוחת ערב ומופע 18:00-20:00, צהריים ומופע 11:15-13:15; מופע ומשקה ב-09:00 וב-15:00. בסוף השבוע (שישי-ראשון) יקר יותר. התחבורה לא כלולה",
-          "phone": "+84 789 455 888",
+          "phone": "+84789455888",
           "addrVi": "Hang Ngọc Rồng, Khu Điểm Thủy, Cẩm Phả, Quảng Ninh",
           "weather": "high",
           "limiter": "flood"
@@ -3829,6 +3901,7 @@ const POI_DATA = {
           "video": null,
           "hours": "08:30-18:30 daily",
           "hoursHe": "08:30-18:30 כל יום",
+          "phone": "+84936446336",
           "weather": "medium",
           "limiter": "rain"
         },
@@ -4101,6 +4174,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84857788789",
           "addrVi": "Sơn Trạch, Phong Nha, Quảng Trị",
           "addrViPartial": true,
           "locNote": "In the paddies about 2 km from Phong Nha town and the national park visitor centre - quiet, with a short ride to the cave boats.",
@@ -4292,6 +4366,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84919900357",
+          "website": "https://oxalisadventure.com/",
           "weather": "high",
           "limiter": "flood"
         },
@@ -4321,6 +4397,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84919900357",
+          "website": "https://oxalisadventure.com/",
           "weather": "high",
           "limiter": "flood"
         },
@@ -4349,6 +4427,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84919900357",
+          "website": "https://oxalisadventure.com/",
           "weather": "high",
           "limiter": "flood"
         },
@@ -4376,6 +4456,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84919900357",
+          "website": "https://oxalisadventure.com/",
           "weather": "high",
           "limiter": "flood"
         },
@@ -5282,6 +5364,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+842343987999",
           "weather": "low",
           "limiter": "rain"
         }
@@ -5371,7 +5454,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "phone": "+84 235 3915 915",
+          "phone": "+842353915915",
           "email": "info@lasiestaresorts.com",
           "website": "https://book-directonline.com/properties/lasiestahoianresort%26spadirect",
           "messenger": "https://m.me/lasiestahoianresortandspa",
@@ -5426,7 +5509,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
-          "phone": "+84 235 3666 888",
+          "phone": "+842353666888",
           "email": "reservation@almanityhoian.com",
           "website": "https://book-directonline.com/properties/almanityhoianresort&spadirect",
           "messenger": "https://m.me/almanityhoian",
@@ -5592,6 +5675,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84903948777",
           "addrVi": "301 Nguyễn Duy Hiệu, Hội An, Đà Nẵng",
           "weather": "low",
           "limiter": "rain"
@@ -5623,6 +5707,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84702646262",
           "addrVi": "239 Nguyễn Duy Hiệu, Hội An, Đà Nẵng",
           "weather": "low",
           "limiter": "rain"
@@ -5654,6 +5739,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "whatsapp": "+84888777468",
+          "phone": "+84982791708",
           "addrVi": "163 Nguyễn Trãi, Cẩm Châu, Hội An, Đà Nẵng",
           "recommendedBy": "TikTok @katerinawinnerr",
           "locNote": "In Cam Chau, about 10 minutes by bike to the Old Town and 2.6 km to Cua Dai beach - quiet nights, but not walking distance to the lanterns.",
@@ -5742,6 +5829,8 @@ const POI_DATA = {
           "video": null,
           "hours": "08:00-22:00; last cable car down at 22:00",
           "hoursHe": "08:00-22:00; הרכבל האחרון למטה ב-22:00",
+          "phone": "18001000",
+          "website": "https://sunworld.vn/vi/banahills",
           "weather": "medium",
           "limiter": "wind"
         }
@@ -5832,6 +5921,8 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84898239383",
+          "website": "https://coconutboattourhoian.com/en/coconut-boat-tour",
           "weather": "high",
           "limiter": "flood"
         }
@@ -6398,6 +6489,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+842353910782",
           "weather": "high",
           "limiter": "sea"
         }
@@ -7677,6 +7769,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84988055345",
           "weather": "high",
           "limiter": "rain"
         }
@@ -8854,6 +8947,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+842822200507",
           "weather": "low",
           "limiter": "rain"
         },
@@ -9777,6 +9871,7 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84886562299",
           "addrVi": "Dương Đông, gần chợ đêm Dinh Cậu, Phú Quốc, An Giang",
           "addrViPartial": true,
           "weather": "low",
@@ -10128,6 +10223,9 @@ const POI_DATA = {
           "isDish": false,
           "signal": null,
           "video": null,
+          "phone": "+84903551422",
+          "email": "phuquoc@vietnamactive.com",
+          "website": "https://divephuquoc.com/",
           "weather": "high",
           "limiter": "sea"
         },
