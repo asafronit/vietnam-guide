@@ -701,7 +701,9 @@ function conv(usd){
 }
 function priceText(r){
   if(r.priceLow==null) return null;
-  return r.priceHigh? conv(r.priceLow)+"–"+conv(r.priceHigh).replace(SYM[cur],"") : conv(r.priceLow);
+  /* "$3–3" כשהנמוך והגבוה זהים אחרי ההמרה — מספר אחד, לא טווח. */
+  var lo=conv(r.priceLow), hi=r.priceHigh?conv(r.priceHigh):lo;
+  return hi!==lo? lo+"–"+hi.replace(SYM[cur],"") : lo;
 }
 /* מחיר בלי יחידה הוא מספר שאי אפשר לפעול לפיו: 15 דולר זה זול ללילה,
    רגיל לצלילה, ומופרך לקערת פו. */
