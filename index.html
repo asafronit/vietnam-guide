@@ -1459,6 +1459,8 @@ a.mt:focus-visible,.mt :focus-visible{outline:3px solid var(--ink);outline-offse
 /* פעולות: רשת שני טורים, אייקון מעל המילה. */
 .linkrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 .linkrow>li{display:flex}
+/* מספר אי-זוגי של פעולות בחלון המקום: האחרונה לוקחת שורה שלמה ולא משבצת יתומה. */
+#dlg .linkrow>li:last-child:nth-child(odd){grid-column:1 / -1}
 .linkrow .lbtn{flex:1;min-height:64px;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:6px;font-size:1rem}
 .linkrow .lbtn .ic{width:22px;height:22px}
 /* יומן סקר */

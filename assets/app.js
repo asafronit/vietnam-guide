@@ -45,6 +45,9 @@ var ICONS={
      מעוגל, כל מה שקצר מזה נבלע בקצה המעוגל עצמו. */
   clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.6V12h3.1"/>',
   chat:'<path d="M20.5 11.6a8 8 0 0 1-11.7 7.1L4 20l1.4-4.6A8 8 0 1 1 20.5 11.6z"/>',
+  /* מסנג'ר: בועה עם "ברק" פתוח. שונה מ-chat בצורת הזנב ובקו הפנימי;
+     קו בלבד ובלי מילוי, ובלי כיוון, לכן לא מתהפך ב-RTL. */
+  messenger:'<path d="M12 3.5c-4.7 0-8.5 3.5-8.5 7.9 0 2.5 1.2 4.7 3.1 6.1V21l2.9-1.6c.8.2 1.6.3 2.5.3 4.7 0 8.5-3.5 8.5-7.9S16.7 3.5 12 3.5z"/><path d="M7.5 13.5l3-3 3 2.5 3-3.5"/>',
   chev:'<path d="M14.5 5.8L8.3 12l6.2 6.2"/>',
   grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
   /* מעברים. אותו משקל קו ואותה גיאומטריה כמו שאר הסט. "route" הוא שתי
@@ -342,6 +345,7 @@ var T={
      מדלגים עליו, והטווח מוכרז "08:00 17:00" — שתי שעות בלי קשר מוצהר. */
   hoursTo:{he:"עד",en:"to"},
   whatsapp:{he:"וואטסאפ",en:"WhatsApp"},
+  messenger:{he:"מסנג׳ר",en:"Messenger"},
   pickStation:{he:"בחרו תחנה מהרשימה",en:"Pick a station from the list"},
   pickHint:{he:"או חפשו מקום מסוים בשדה החיפוש למעלה.",en:"Or search for a specific place above."},
   allStations:{he:"כל התחנות",en:"All stations"},
@@ -1820,6 +1824,11 @@ function openDetail(item){
   }
 
   if(r.whatsapp) act(lbtn("act-chat wa-link","chat",t("whatsapp"),waUrl(r.whatsapp),r.name));
+  /* 25/10: מסנג'ר — אותו סגול של "הודעה לאדם", מובחן באייקון ובמילה.
+     רק m.me, כמו בצינור: חוסם javascript: ודומיינים זרים. */
+  if(r.messenger && /^https:\/\/m\.me\/[\w.\-]+\/?$/i.test(r.messenger)){
+    act(lbtn("act-chat ms-link","messenger",t("messenger"),r.messenger,r.name));
+  }
   bd.appendChild(lr);
   var av=addrViBlock(r);
   if(av) bd.appendChild(av);
