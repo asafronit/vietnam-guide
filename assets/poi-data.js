@@ -19,7 +19,8 @@ const POI_DATA = {
       "spa": 2,
       "diving": 0,
       "logistics": 1,
-      "contacts": 4
+      "contacts": 4,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -1541,7 +1542,8 @@ const POI_DATA = {
           "weather": "low",
           "limiter": "rain"
         }
-      ]
+      ],
+      "cruises": []
     }
   },
   "ha-giang": {
@@ -1564,7 +1566,8 @@ const POI_DATA = {
       "spa": 0,
       "diving": 0,
       "logistics": 1,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -2118,7 +2121,8 @@ const POI_DATA = {
           "limiter": "rain"
         }
       ],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "sapa": {
@@ -2141,7 +2145,8 @@ const POI_DATA = {
       "spa": 2,
       "diving": 0,
       "logistics": 0,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -2866,7 +2871,8 @@ const POI_DATA = {
       ],
       "diving": [],
       "logistics": [],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "ha-long": {
@@ -2878,7 +2884,7 @@ const POI_DATA = {
     "lng": 107.1839,
     "color": "#3cb44b",
     "counts": {
-      "hotels": 9,
+      "hotels": 4,
       "must_see": 2,
       "attractions": 3,
       "food": 0,
@@ -2889,234 +2895,11 @@ const POI_DATA = {
       "spa": 0,
       "diving": 0,
       "logistics": 0,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 5
     },
     "poi": {
       "hotels": [
-        {
-          "name": "Aqua Luxury Cruise",
-          "area": "Ha Long Bay / Lan Ha Bay overnight cruise, departing Tuan Chau",
-          "what": "A newly launched (November 2025) 5-deck cruise ship with 32 cabins, balconies, sea views and an elevator, sailing an overnight route through the bay's limestone karsts.",
-          "why": "The route's chosen overnight-cruise pick — newest fleet in the bay, and the most detailed itinerary (kayaking, sunset cooking class, Trung Trang cave stop) of the options compared",
-          "lat": null,
-          "lng": null,
-          "approx": false,
-          "sources": [
-            "https://www.halongbaycruises.com.vn/tours/aqua-luxury-cruise.html",
-            "https://www.booking.com/hotel/vn/aqua-luxury-cruise.html",
-            "https://www.tripadvisor.com/Attraction_Review-g14776299-d33264304-Reviews-Aqua_Luxury_Cruise-Ha_Long_City_H_Long_Bay_Quang_Ninh_Province.html",
-            "https://www.expedia.com/Ha-Long-Hotels-Aqua-Luxury-Cruise.h123122112.Hotel-Information"
-          ],
-          "tier": 5,
-          "nameHe": "אקווה לוקסרי קרוז",
-          "areaHe": "שייט לילה במפרץ הא לונג ולאן הא, יוצא מטואן צ'או",
-          "whatHe": "ספינת שייט בת חמישה סיפונים שהושקה בנובמבר 2025, עם 32 תאים, מרפסות, נוף לים ומעלית, בשייט לילה בין עמודי הגיר של המפרץ.",
-          "whyHe": "בחירת שייט הלילה של המסלול — הצי החדש ביותר במפרץ, והמסלול המפורט ביותר מבין ההצעות שהושוו: קיאקים, סדנת בישול בשקיעה ועצירה במערת טרונג טראנג",
-          "priceUnit": "per_person",
-          "tierOfficial": false,
-          "priceLow": 250.0,
-          "priceHigh": 320.0,
-          "priceChecked": "2026-10-25",
-          "avoid": false,
-          "kind": null,
-          "isDish": false,
-          "signal": null,
-          "video": null,
-          "phone": "+84973385888",
-          "email": "dos@aquaoftheseas.com",
-          "website": "https://aqualuxurycruise.com/",
-          "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
-          "locNote": "You sleep on the boat in the bay: board at Tuan Chau harbour (about 2.5 hours from Hanoi), so the location is the karst scenery itself. Price shown is per person for the 2-day / 1-night package.",
-          "locNoteHe": "ישנים על הסירה בתוך המפרץ: העלייה בנמל טואן צ'או (כ-2.5 שעות מהאנוי), כך שהמיקום הוא נוף הצוקים עצמו. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
-          "pros": [
-            "Newest ship in the bay (2025), balcony cabins, elevator",
-            "Full itinerary: kayaking, cave, cooking class",
-            "Meals included"
-          ],
-          "prosHe": [
-            "הספינה החדשה במפרץ (2025), תאים עם מרפסת, מעלית",
-            "תוכנית מלאה: קיאקים, מערה, שיעור בישול",
-            "ארוחות כלולות"
-          ],
-          "cons": [
-            "Most expensive option",
-            "Fixed schedule; cancelled in storms"
-          ],
-          "consHe": [
-            "האפשרות היקרה ביותר",
-            "לוח זמנים קבוע; מבוטל בסערה"
-          ],
-          "weather": "low",
-          "limiter": "rain"
-        },
-        {
-          "name": "Dora Cruise",
-          "area": "Ha Long / Lan Ha Bay overnight cruise",
-          "what": "An overnight cruise ship marketed under the product name \"Dora Cruise Luxury 5 Star\", with spacious cabins, sea-view balconies and a set multi-course dinner menu.",
-          "why": "The alternative overnight cruise pick, and the standing upgrade offer from an earlier, lower-rated boat in this same operator family",
-          "lat": null,
-          "lng": null,
-          "approx": false,
-          "sources": [
-            "https://www.tripadvisor.com/AttractionProductReview-g3737857-d19915585-Dora_Cruise_Luxury_5_Star_in_Halong_Lan_Ha_Bay_2_Days_1_Night-Tuan_Chau_Island_H_.html",
-            "https://www.torntackies.com/dora-cruise-review/",
-            "https://www.halongbaytours.com/cruise/dora-cruise/2-day-1-night.html"
-          ],
-          "tier": 5,
-          "nameHe": "דורה קרוז",
-          "areaHe": "שייט לילה במפרץ הא לונג ולאן הא",
-          "whatHe": "ספינת שייט לילה שמשווקת תחת השם Dora Cruise Luxury 5 Star, עם תאים מרווחים, מרפסות עם נוף לים ותפריט ערב קבוע רב-מנתי.",
-          "whyHe": "בחירת שייט הלילה החלופית, וההצעה הקבועה לשדרוג מספינה קודמת ומדורגת נמוך יותר באותה משפחת מפעילים",
-          "priceUnit": "per_person",
-          "tierOfficial": false,
-          "priceLow": 150.0,
-          "priceHigh": 210.0,
-          "priceChecked": "2026-10-25",
-          "avoid": false,
-          "kind": null,
-          "isDish": false,
-          "signal": null,
-          "video": null,
-          "whatsapp": "+84905489888",
-          "phone": "+842439291555",
-          "messenger": "https://m.me/100090607041878",
-          "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
-          "locNote": "Overnight on the bay from Tuan Chau harbour - you wake up among the karsts, no town nearby. Price shown is per person for the 2-day / 1-night package.",
-          "locNoteHe": "לילה על המפרץ מנמל טואן צ'או - מתעוררים בין הצוקים, בלי עיר בסביבה. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
-          "pros": [
-            "Spacious balcony cabins",
-            "Multi-course set dinner",
-            "Cheaper than Aqua for a similar standard"
-          ],
-          "prosHe": [
-            "תאים מרווחים עם מרפסת",
-            "ארוחת ערב קבועה במנות",
-            "זול מ-Aqua בסטנדרט דומה"
-          ],
-          "cons": [
-            "'5-star' is the product name, not a rating",
-            "Busy Ha Long route"
-          ],
-          "consHe": [
-            "'5 כוכבים' הוא שם המוצר, לא דירוג",
-            "מסלול הא לונג העמוס"
-          ],
-          "weather": "low",
-          "limiter": "rain"
-        },
-        {
-          "name": "Mon Cheri Cruise",
-          "area": "Lan Ha Bay overnight cruise",
-          "what": "A 42-cabin cruise line with two ships, every cabin with a private balcony, sailing Lan Ha and Ha Long Bay with kayaking, night squid fishing and an outdoor jacuzzi.",
-          "why": "Consistently well reviewed on Lan Ha Bay routes and priced below the two 5-star options for a similar cabin standard",
-          "lat": null,
-          "lng": null,
-          "approx": false,
-          "sources": [
-            "https://www.halongbaycruises.com.vn/tours/mon-cheri-cruise-2-days-1-nights.html",
-            "https://www.bestpricetravel.com/halong-bay-cruises/mon-cheri-cruise.html",
-            "https://monchericruises.com/mon-cheri-cruises-2-days-1-night.html"
-          ],
-          "tier": 4,
-          "nameHe": "מון שרי קרוז",
-          "areaHe": "שייט לילה במפרץ לאן הא",
-          "whatHe": "קו שייט של 42 תאים בשתי ספינות, כל תא עם מרפסת פרטית, שמפליג בלאן הא ובהא לונג עם קיאקים, דיג דיונונים בלילה וג'קוזי חיצוני.",
-          "whyHe": "מקבל ביקורות טובות באופן עקבי במסלולי לאן הא, ומתומחר מתחת לשתי אפשרויות 5 הכוכבים ברמת תא דומה",
-          "priceUnit": "per_person",
-          "tierOfficial": false,
-          "priceLow": 313.0,
-          "priceHigh": 350.0,
-          "priceChecked": "2026-10-25",
-          "avoid": false,
-          "kind": null,
-          "isDish": false,
-          "signal": null,
-          "video": null,
-          "whatsapp": "+84981678941",
-          "phone": "+84981678914",
-          "email": "info@monchericruises.com",
-          "website": "https://monchericruises.com/reservation.html",
-          "addrVi": "Bến Gót, Cát Hải, Hải Phòng",
-          "locNote": "Boards at Tuan Chau International Terminal (pier 34, about 2.5 hours from Hanoi) and spends the night in Lan Ha Bay, with fewer boats than central Ha Long. Price shown is per person for the 2-day / 1-night package.",
-          "locNoteHe": "עולים בנמל טואן צ'או (רציף 34, כ-2.5 שעות מהאנוי) והלילה עובר במפרץ לאן הא, עם פחות סירות ממרכז הא לונג. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
-          "pros": [
-            "Every cabin has a balcony",
-            "Lan Ha Bay - fewer boats",
-            "Kayaking, squid fishing, jacuzzi; entrance fees and 4 meals included"
-          ],
-          "prosHe": [
-            "לכל תא יש מרפסת",
-            "מפרץ לאן הא - פחות סירות",
-            "קיאקים, דיג דיונונים, ג'קוזי; דמי כניסה ו-4 ארוחות כלולים"
-          ],
-          "cons": [
-            "Higher price than the other 4-star boat",
-            "Hanoi transfer costs extra"
-          ],
-          "consHe": [
-            "יקרה מספינת ה-4 כוכבים השנייה",
-            "ההסעה מהאנוי בתוספת תשלום"
-          ],
-          "weather": "low",
-          "limiter": "rain"
-        },
-        {
-          "name": "La Pandora Cruise",
-          "area": "Ha Long Bay overnight cruise",
-          "what": "A 52-metre cruise ship with balcony cabins sailing a standard Ha Long Bay overnight route with cave and viewpoint stops.",
-          "why": "Rated a standard, dependable 4-star by independent cross-checking rather than the inflated star-marketing common on this route",
-          "lat": null,
-          "lng": null,
-          "approx": false,
-          "sources": [
-            "https://www.tripadvisor.com/Attraction_Review-g293923-d24105240-Reviews-La_Pandora_cruise-H_Long_Bay_Quang_Ninh_Province.html",
-            "https://www.agoda.com/la-pandora-cruise/hotel/halong-vn.html",
-            "https://www.halongbaytours.com/cruise/la-pandora-cruise/2-day-1-night.html"
-          ],
-          "tier": 4,
-          "nameHe": "לה פנדורה קרוז",
-          "areaHe": "שייט לילה במפרץ הא לונג",
-          "whatHe": "ספינה באורך 52 מטר עם תאי מרפסת, שמפליגה במסלול לילה סטנדרטי במפרץ הא לונג עם עצירות במערות ובנקודות תצפית.",
-          "whyHe": "מדורגת 4 כוכבים סטנדרטיים ואמינים לפי הצלבה עצמאית, ולא לפי שיווק הכוכבים המנופח שרווח במסלול הזה",
-          "priceUnit": "per_person",
-          "tierOfficial": true,
-          "priceLow": 145.0,
-          "priceHigh": 175.0,
-          "priceChecked": "2026-10-25",
-          "avoid": false,
-          "kind": null,
-          "isDish": false,
-          "signal": null,
-          "video": null,
-          "whatsapp": "+84965426588",
-          "phone": "+84965426588",
-          "email": "info@lapandoracruises.com",
-          "website": "https://lapandoracruises.com/",
-          "messenger": "https://m.me/lapandoracruises",
-          "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
-          "locNote": "Standard Ha Long Bay overnight from Tuan Chau - the classic route with cave and viewpoint stops. Price shown is per person for the 2-day / 1-night package.",
-          "locNoteHe": "לילה סטנדרטי בהא לונג מטואן צ'או - המסלול הקלאסי עם עצירות במערה ובתצפית. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
-          "pros": [
-            "Dependable 4-star",
-            "Balcony cabins",
-            "Lowest price of the four boats"
-          ],
-          "prosHe": [
-            "4 כוכבים אמין",
-            "תאים עם מרפסת",
-            "המחיר הנמוך מבין ארבע הסירות"
-          ],
-          "cons": [
-            "Busiest part of the bay",
-            "Fewer activities than the newer boats"
-          ],
-          "consHe": [
-            "החלק העמוס ביותר של המפרץ",
-            "פחות פעילויות מהסירות החדשות"
-          ],
-          "weather": "low",
-          "limiter": "rain"
-        },
         {
           "name": "Hoang Giang Hotel",
           "area": "Cat Ba town",
@@ -3281,62 +3064,6 @@ const POI_DATA = {
           "consHe": [
             "יקר ביחס לקאט בא",
             "דרך ארוכה מהאנוי (אוטובוס וסירה)"
-          ],
-          "weather": "low",
-          "limiter": "rain"
-        },
-        {
-          "name": "Capella Cruise",
-          "area": "Ha Long Bay and Lan Ha Bay overnight cruise, departing Pier 20B, Tuan Chau International Port",
-          "what": "A 30-cabin boutique cruise launched in 2020, every cabin with a private balcony and floor-to-ceiling windows; the overnight route crosses into quieter Lan Ha Bay.",
-          "why": "Covers both Ha Long and the less crowded Lan Ha Bay in one night, with a 4.4/5 traveller score - sent in by the traveller",
-          "lat": null,
-          "lng": null,
-          "approx": false,
-          "sources": [
-            "https://www.capellacruise.com/",
-            "https://www.klook.com/activity/27709-halong-bay-lan-ha-luxury-sightseeing-cruise-tour-hanoi/",
-            "https://theabroadguide.com/capella-halong-bay-6-star-cruise2d1n-ultimate-lan-ha-bay-journey/"
-          ],
-          "tier": 5,
-          "nameHe": "קפלה קרוז",
-          "areaHe": "שייט לילה במפרץ הא לונג ובמפרץ לאן הא, יוצא מרציף 20B בנמל הבינלאומי טואן צ'או",
-          "whatHe": "שייט בוטיק של 30 תאים שהושק ב-2020, לכל תא מרפסת פרטית וחלונות מהרצפה עד התקרה; מסלול הלילה חוצה אל מפרץ לאן הא השקט יותר.",
-          "whyHe": "מכסה בלילה אחד גם את הא לונג וגם את מפרץ לאן הא הפחות עמוס, עם ציון 4.4/5 מנוסעים - הומלץ על ידי המטייל",
-          "priceUnit": "per_person",
-          "tierOfficial": false,
-          "priceLow": 245.0,
-          "priceHigh": 380.0,
-          "priceChecked": "2026-10-25",
-          "avoid": false,
-          "kind": null,
-          "isDish": false,
-          "signal": null,
-          "video": null,
-          "phone": "+842473073886",
-          "email": "info@capellacruise.com",
-          "website": "https://www.capellacruise.com/2-day-1-night-itinerary/",
-          "addrVi": "Bến 20B, Cảng quốc tế Tuần Châu, Hạ Long, Quảng Ninh",
-          "recommendedBy": "capellacruise.com",
-          "locNote": "You sleep on the boat: board at Tuan Chau (about 2.5 hours from Hanoi); the night is spent among the karsts, moving into Lan Ha Bay. Price shown is per person for the 2-day / 1-night package.",
-          "locNoteHe": "ישנים על הסירה: עולים בטואן צ'או (כ-2.5 שעות מהאנוי); הלילה עובר בין הצוקים, עם מעבר למפרץ לאן הא. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
-          "pros": [
-            "Every cabin has a balcony",
-            "Ha Long and quieter Lan Ha Bay in one night",
-            "Kayaking, bamboo boat into Dark & Bright Cave, cooking demo"
-          ],
-          "prosHe": [
-            "לכל תא יש מרפסת",
-            "הא לונג ומפרץ לאן הא השקט בלילה אחד",
-            "קיאקים, סירת במבוק למערה החשוכה והמוארת, הדגמת בישול"
-          ],
-          "cons": [
-            "Official price is per cabin for two (from $490); site does not say what is included",
-            "Transfer from Hanoi not clearly included - ask"
-          ],
-          "consHe": [
-            "המחיר הרשמי לתא לשניים (מ-490$); האתר לא מפרט מה כלול",
-            "ההסעה מהאנוי לא ברור שכלולה - לשאול"
           ],
           "weather": "low",
           "limiter": "rain"
@@ -3529,7 +3256,289 @@ const POI_DATA = {
       "spa": [],
       "diving": [],
       "logistics": [],
-      "contacts": []
+      "contacts": [],
+      "cruises": [
+        {
+          "name": "Aqua Luxury Cruise",
+          "area": "Ha Long Bay / Lan Ha Bay overnight cruise, departing Tuan Chau",
+          "what": "A newly launched (November 2025) 5-deck cruise ship with 32 cabins, balconies, sea views and an elevator, sailing an overnight route through the bay's limestone karsts.",
+          "why": "The route's chosen overnight-cruise pick — newest fleet in the bay, and the most detailed itinerary (kayaking, sunset cooking class, Trung Trang cave stop) of the options compared",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.halongbaycruises.com.vn/tours/aqua-luxury-cruise.html",
+            "https://www.booking.com/hotel/vn/aqua-luxury-cruise.html",
+            "https://www.tripadvisor.com/Attraction_Review-g14776299-d33264304-Reviews-Aqua_Luxury_Cruise-Ha_Long_City_H_Long_Bay_Quang_Ninh_Province.html",
+            "https://www.expedia.com/Ha-Long-Hotels-Aqua-Luxury-Cruise.h123122112.Hotel-Information"
+          ],
+          "tier": 5,
+          "nameHe": "אקווה לוקסרי קרוז",
+          "areaHe": "שייט לילה במפרץ הא לונג ולאן הא, יוצא מטואן צ'או",
+          "whatHe": "ספינת שייט בת חמישה סיפונים שהושקה בנובמבר 2025, עם 32 תאים, מרפסות, נוף לים ומעלית, בשייט לילה בין עמודי הגיר של המפרץ.",
+          "whyHe": "בחירת שייט הלילה של המסלול — הצי החדש ביותר במפרץ, והמסלול המפורט ביותר מבין ההצעות שהושוו: קיאקים, סדנת בישול בשקיעה ועצירה במערת טרונג טראנג",
+          "priceUnit": "per_person",
+          "tierOfficial": false,
+          "priceLow": 250.0,
+          "priceHigh": 320.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "phone": "+84973385888",
+          "email": "dos@aquaoftheseas.com",
+          "website": "https://aqualuxurycruise.com/",
+          "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
+          "locNote": "You sleep on the boat in the bay: board at Tuan Chau harbour (about 2.5 hours from Hanoi), so the location is the karst scenery itself. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "ישנים על הסירה בתוך המפרץ: העלייה בנמל טואן צ'או (כ-2.5 שעות מהאנוי), כך שהמיקום הוא נוף הצוקים עצמו. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
+          "pros": [
+            "Newest ship in the bay (2025), balcony cabins, elevator",
+            "Full itinerary: kayaking, cave, cooking class",
+            "Meals included"
+          ],
+          "prosHe": [
+            "הספינה החדשה במפרץ (2025), תאים עם מרפסת, מעלית",
+            "תוכנית מלאה: קיאקים, מערה, שיעור בישול",
+            "ארוחות כלולות"
+          ],
+          "cons": [
+            "Most expensive option",
+            "Fixed schedule; cancelled in storms"
+          ],
+          "consHe": [
+            "האפשרות היקרה ביותר",
+            "לוח זמנים קבוע; מבוטל בסערה"
+          ],
+          "weather": "low",
+          "limiter": "wind"
+        },
+        {
+          "name": "Dora Cruise",
+          "area": "Ha Long / Lan Ha Bay overnight cruise",
+          "what": "An overnight cruise ship marketed under the product name \"Dora Cruise Luxury 5 Star\", with spacious cabins, sea-view balconies and a set multi-course dinner menu.",
+          "why": "The alternative overnight cruise pick, and the standing upgrade offer from an earlier, lower-rated boat in this same operator family",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/AttractionProductReview-g3737857-d19915585-Dora_Cruise_Luxury_5_Star_in_Halong_Lan_Ha_Bay_2_Days_1_Night-Tuan_Chau_Island_H_.html",
+            "https://www.torntackies.com/dora-cruise-review/",
+            "https://www.halongbaytours.com/cruise/dora-cruise/2-day-1-night.html"
+          ],
+          "tier": 5,
+          "nameHe": "דורה קרוז",
+          "areaHe": "שייט לילה במפרץ הא לונג ולאן הא",
+          "whatHe": "ספינת שייט לילה שמשווקת תחת השם Dora Cruise Luxury 5 Star, עם תאים מרווחים, מרפסות עם נוף לים ותפריט ערב קבוע רב-מנתי.",
+          "whyHe": "בחירת שייט הלילה החלופית, וההצעה הקבועה לשדרוג מספינה קודמת ומדורגת נמוך יותר באותה משפחת מפעילים",
+          "priceUnit": "per_person",
+          "tierOfficial": false,
+          "priceLow": 150.0,
+          "priceHigh": 210.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "whatsapp": "+84905489888",
+          "phone": "+842439291555",
+          "messenger": "https://m.me/100090607041878",
+          "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
+          "locNote": "Overnight on the bay from Tuan Chau harbour - you wake up among the karsts, no town nearby. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "לילה על המפרץ מנמל טואן צ'או - מתעוררים בין הצוקים, בלי עיר בסביבה. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
+          "pros": [
+            "Spacious balcony cabins",
+            "Multi-course set dinner",
+            "Cheaper than Aqua for a similar standard"
+          ],
+          "prosHe": [
+            "תאים מרווחים עם מרפסת",
+            "ארוחת ערב קבועה במנות",
+            "זול מ-Aqua בסטנדרט דומה"
+          ],
+          "cons": [
+            "'5-star' is the product name, not a rating",
+            "Busy Ha Long route"
+          ],
+          "consHe": [
+            "'5 כוכבים' הוא שם המוצר, לא דירוג",
+            "מסלול הא לונג העמוס"
+          ],
+          "weather": "low",
+          "limiter": "wind"
+        },
+        {
+          "name": "Mon Cheri Cruise",
+          "area": "Lan Ha Bay overnight cruise",
+          "what": "A 42-cabin cruise line with two ships, every cabin with a private balcony, sailing Lan Ha and Ha Long Bay with kayaking, night squid fishing and an outdoor jacuzzi.",
+          "why": "Consistently well reviewed on Lan Ha Bay routes and priced below the two 5-star options for a similar cabin standard",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.halongbaycruises.com.vn/tours/mon-cheri-cruise-2-days-1-nights.html",
+            "https://www.bestpricetravel.com/halong-bay-cruises/mon-cheri-cruise.html",
+            "https://monchericruises.com/mon-cheri-cruises-2-days-1-night.html"
+          ],
+          "tier": 4,
+          "nameHe": "מון שרי קרוז",
+          "areaHe": "שייט לילה במפרץ לאן הא",
+          "whatHe": "קו שייט של 42 תאים בשתי ספינות, כל תא עם מרפסת פרטית, שמפליג בלאן הא ובהא לונג עם קיאקים, דיג דיונונים בלילה וג'קוזי חיצוני.",
+          "whyHe": "מקבל ביקורות טובות באופן עקבי במסלולי לאן הא, ומתומחר מתחת לשתי אפשרויות 5 הכוכבים ברמת תא דומה",
+          "priceUnit": "per_person",
+          "tierOfficial": false,
+          "priceLow": 313.0,
+          "priceHigh": 350.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "whatsapp": "+84981678941",
+          "phone": "+84981678914",
+          "email": "info@monchericruises.com",
+          "website": "https://monchericruises.com/reservation.html",
+          "addrVi": "Bến Gót, Cát Hải, Hải Phòng",
+          "locNote": "Boards at Tuan Chau International Terminal (pier 34, about 2.5 hours from Hanoi) and spends the night in Lan Ha Bay, with fewer boats than central Ha Long. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "עולים בנמל טואן צ'או (רציף 34, כ-2.5 שעות מהאנוי) והלילה עובר במפרץ לאן הא, עם פחות סירות ממרכז הא לונג. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
+          "pros": [
+            "Every cabin has a balcony",
+            "Lan Ha Bay - fewer boats",
+            "Kayaking, squid fishing, jacuzzi; entrance fees and 4 meals included"
+          ],
+          "prosHe": [
+            "לכל תא יש מרפסת",
+            "מפרץ לאן הא - פחות סירות",
+            "קיאקים, דיג דיונונים, ג'קוזי; דמי כניסה ו-4 ארוחות כלולים"
+          ],
+          "cons": [
+            "Higher price than the other 4-star boat",
+            "Hanoi transfer costs extra"
+          ],
+          "consHe": [
+            "יקרה מספינת ה-4 כוכבים השנייה",
+            "ההסעה מהאנוי בתוספת תשלום"
+          ],
+          "weather": "low",
+          "limiter": "wind"
+        },
+        {
+          "name": "La Pandora Cruise",
+          "area": "Ha Long Bay overnight cruise",
+          "what": "A 52-metre cruise ship with balcony cabins sailing a standard Ha Long Bay overnight route with cave and viewpoint stops.",
+          "why": "Rated a standard, dependable 4-star by independent cross-checking rather than the inflated star-marketing common on this route",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.tripadvisor.com/Attraction_Review-g293923-d24105240-Reviews-La_Pandora_cruise-H_Long_Bay_Quang_Ninh_Province.html",
+            "https://www.agoda.com/la-pandora-cruise/hotel/halong-vn.html",
+            "https://www.halongbaytours.com/cruise/la-pandora-cruise/2-day-1-night.html"
+          ],
+          "tier": 4,
+          "nameHe": "לה פנדורה קרוז",
+          "areaHe": "שייט לילה במפרץ הא לונג",
+          "whatHe": "ספינה באורך 52 מטר עם תאי מרפסת, שמפליגה במסלול לילה סטנדרטי במפרץ הא לונג עם עצירות במערות ובנקודות תצפית.",
+          "whyHe": "מדורגת 4 כוכבים סטנדרטיים ואמינים לפי הצלבה עצמאית, ולא לפי שיווק הכוכבים המנופח שרווח במסלול הזה",
+          "priceUnit": "per_person",
+          "tierOfficial": true,
+          "priceLow": 145.0,
+          "priceHigh": 175.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "whatsapp": "+84965426588",
+          "phone": "+84965426588",
+          "email": "info@lapandoracruises.com",
+          "website": "https://lapandoracruises.com/",
+          "messenger": "https://m.me/lapandoracruises",
+          "addrVi": "Cảng Tuần Châu, Hạ Long, Quảng Ninh",
+          "locNote": "Standard Ha Long Bay overnight from Tuan Chau - the classic route with cave and viewpoint stops. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "לילה סטנדרטי בהא לונג מטואן צ'או - המסלול הקלאסי עם עצירות במערה ובתצפית. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
+          "pros": [
+            "Dependable 4-star",
+            "Balcony cabins",
+            "Lowest price of the four boats"
+          ],
+          "prosHe": [
+            "4 כוכבים אמין",
+            "תאים עם מרפסת",
+            "המחיר הנמוך מבין ארבע הסירות"
+          ],
+          "cons": [
+            "Busiest part of the bay",
+            "Fewer activities than the newer boats"
+          ],
+          "consHe": [
+            "החלק העמוס ביותר של המפרץ",
+            "פחות פעילויות מהסירות החדשות"
+          ],
+          "weather": "low",
+          "limiter": "wind"
+        },
+        {
+          "name": "Capella Cruise",
+          "area": "Ha Long Bay and Lan Ha Bay overnight cruise, departing Pier 20B, Tuan Chau International Port",
+          "what": "A 30-cabin boutique cruise launched in 2020, every cabin with a private balcony and floor-to-ceiling windows; the overnight route crosses into quieter Lan Ha Bay.",
+          "why": "Covers both Ha Long and the less crowded Lan Ha Bay in one night, with a 4.4/5 traveller score - sent in by the traveller",
+          "lat": null,
+          "lng": null,
+          "approx": false,
+          "sources": [
+            "https://www.capellacruise.com/",
+            "https://www.klook.com/activity/27709-halong-bay-lan-ha-luxury-sightseeing-cruise-tour-hanoi/",
+            "https://theabroadguide.com/capella-halong-bay-6-star-cruise2d1n-ultimate-lan-ha-bay-journey/"
+          ],
+          "tier": 5,
+          "nameHe": "קפלה קרוז",
+          "areaHe": "שייט לילה במפרץ הא לונג ובמפרץ לאן הא, יוצא מרציף 20B בנמל הבינלאומי טואן צ'או",
+          "whatHe": "שייט בוטיק של 30 תאים שהושק ב-2020, לכל תא מרפסת פרטית וחלונות מהרצפה עד התקרה; מסלול הלילה חוצה אל מפרץ לאן הא השקט יותר.",
+          "whyHe": "מכסה בלילה אחד גם את הא לונג וגם את מפרץ לאן הא הפחות עמוס, עם ציון 4.4/5 מנוסעים - הומלץ על ידי המטייל",
+          "priceUnit": "per_person",
+          "tierOfficial": false,
+          "priceLow": 245.0,
+          "priceHigh": 380.0,
+          "priceChecked": "2026-10-25",
+          "avoid": false,
+          "kind": null,
+          "isDish": false,
+          "signal": null,
+          "video": null,
+          "phone": "+842473073886",
+          "email": "info@capellacruise.com",
+          "website": "https://www.capellacruise.com/2-day-1-night-itinerary/",
+          "addrVi": "Bến 20B, Cảng quốc tế Tuần Châu, Hạ Long, Quảng Ninh",
+          "recommendedBy": "capellacruise.com",
+          "locNote": "You sleep on the boat: board at Tuan Chau (about 2.5 hours from Hanoi); the night is spent among the karsts, moving into Lan Ha Bay. Price shown is per person for the 2-day / 1-night package.",
+          "locNoteHe": "ישנים על הסירה: עולים בטואן צ'או (כ-2.5 שעות מהאנוי); הלילה עובר בין הצוקים, עם מעבר למפרץ לאן הא. המחיר המוצג הוא לאדם, לחבילת יומיים-לילה אחד.",
+          "pros": [
+            "Every cabin has a balcony",
+            "Ha Long and quieter Lan Ha Bay in one night",
+            "Kayaking, bamboo boat into Dark & Bright Cave, cooking demo"
+          ],
+          "prosHe": [
+            "לכל תא יש מרפסת",
+            "הא לונג ומפרץ לאן הא השקט בלילה אחד",
+            "קיאקים, סירת במבוק למערה החשוכה והמוארת, הדגמת בישול"
+          ],
+          "cons": [
+            "Official price is per cabin for two (from $490); site does not say what is included",
+            "Transfer from Hanoi not clearly included - ask"
+          ],
+          "consHe": [
+            "המחיר הרשמי לתא לשניים (מ-490$); האתר לא מפרט מה כלול",
+            "ההסעה מהאנוי לא ברור שכלולה - לשאול"
+          ],
+          "weather": "low",
+          "limiter": "wind"
+        }
+      ]
     }
   },
   "ninh-binh": {
@@ -3552,7 +3561,8 @@ const POI_DATA = {
       "spa": 0,
       "diving": 0,
       "logistics": 0,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -4119,7 +4129,8 @@ const POI_DATA = {
       "spa": [],
       "diving": [],
       "logistics": [],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "phong-nha": {
@@ -4142,7 +4153,8 @@ const POI_DATA = {
       "spa": 0,
       "diving": 0,
       "logistics": 2,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -4749,7 +4761,8 @@ const POI_DATA = {
           "limiter": "rain"
         }
       ],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "hue": {
@@ -4772,7 +4785,8 @@ const POI_DATA = {
       "spa": 1,
       "diving": 0,
       "logistics": 1,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -5400,7 +5414,8 @@ const POI_DATA = {
           "limiter": "rain"
         }
       ],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "hoi-an": {
@@ -5423,7 +5438,8 @@ const POI_DATA = {
       "spa": 2,
       "diving": 1,
       "logistics": 2,
-      "contacts": 1
+      "contacts": 1,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -6581,7 +6597,8 @@ const POI_DATA = {
           "weather": "low",
           "limiter": "rain"
         }
-      ]
+      ],
+      "cruises": []
     }
   },
   "buon-ma-thuot": {
@@ -6604,7 +6621,8 @@ const POI_DATA = {
       "spa": 0,
       "diving": 0,
       "logistics": 0,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -7005,7 +7023,8 @@ const POI_DATA = {
       "spa": [],
       "diving": [],
       "logistics": [],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "lak-lake": {
@@ -7028,7 +7047,8 @@ const POI_DATA = {
       "spa": 0,
       "diving": 0,
       "logistics": 1,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -7253,7 +7273,8 @@ const POI_DATA = {
           "limiter": "rain"
         }
       ],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "da-lat": {
@@ -7276,7 +7297,8 @@ const POI_DATA = {
       "spa": 1,
       "diving": 0,
       "logistics": 1,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -8017,7 +8039,8 @@ const POI_DATA = {
           "limiter": "rain"
         }
       ],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "saigon": {
@@ -8040,7 +8063,8 @@ const POI_DATA = {
       "spa": 2,
       "diving": 0,
       "logistics": 3,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -9067,7 +9091,8 @@ const POI_DATA = {
           "limiter": "rain"
         }
       ],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "mekong": {
@@ -9090,7 +9115,8 @@ const POI_DATA = {
       "spa": 0,
       "diving": 0,
       "logistics": 0,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -9570,7 +9596,8 @@ const POI_DATA = {
       "spa": [],
       "diving": [],
       "logistics": [],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   },
   "phu-quoc": {
@@ -9593,7 +9620,8 @@ const POI_DATA = {
       "spa": 2,
       "diving": 8,
       "logistics": 1,
-      "contacts": 0
+      "contacts": 0,
+      "cruises": 0
     },
     "poi": {
       "hotels": [
@@ -10405,7 +10433,8 @@ const POI_DATA = {
           "limiter": "rain"
         }
       ],
-      "contacts": []
+      "contacts": [],
+      "cruises": []
     }
   }
 };

@@ -2487,6 +2487,7 @@ var T={
   photos:{he:"תמונות",en:"Photos"},
   siteHotel:{he:"הזמנה באתר המלון",en:"Book on hotel site"},
   siteOfficial:{he:"האתר הרשמי",en:"Official site"},
+  siteCruise:{he:"הזמנה באתר השייט",en:"Book on cruise site"},
   photoBy:{he:"צילום",en:"Photo"},
   dishHere:{he:"המנה שמגישים כאן",en:"The dish served here"},
   /* מצהיר שזו חיפוש ולא גלריה של המקום עצמו — מי שלוחץ ונוחת בדף
@@ -2631,6 +2632,8 @@ var CATS=[
   {id:"nightlife",  he:"חיי לילה",    en:"Nightlife",    ic:"moon"},
   {id:"spa",        he:"ספא ומסאז'",  en:"Spa & massage",ic:"heart"},
   {id:"diving",     he:"צלילה",       en:"Diving",       ic:"dive"},
+  /* 25/10: שייטי לילה — בנתונים הם לינה, בדף לשונית משלהם (בין המלונות לא מצאו אותם). */
+  {id:"cruises",    he:"שייט לילה",   en:"Overnight cruises", ic:"boat"},
   {id:"hotels",     he:"לינה",        en:"Stay",         ic:"bed"},
   {id:"logistics",  he:"לוגיסטיקה",   en:"Logistics",    ic:"van"},
   {id:"contacts",   he:"אנשי קשר",    en:"Contacts",     ic:"card"}
@@ -3923,7 +3926,7 @@ function openDetail(item){
      https בלבד גם כאן ולא רק בצינור — הגנה מ-javascript: שיגיע מהנתונים. */
   if(r.website && /^https:\/\//i.test(r.website)){
     act(lbtn("act-neutral site-link","globe",
-             t(item.cat==="hotels"?"siteHotel":"siteOfficial"),r.website,r.name));
+             t(item.cat==="hotels"?"siteHotel":item.cat==="cruises"?"siteCruise":"siteOfficial"),r.website,r.name));
   }
 
   act(lbtn("act-video yt-link","play",t("video"),vidUrl(r,st),r.name,
